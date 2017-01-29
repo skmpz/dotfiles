@@ -28,6 +28,9 @@ mkdir -p $HOME/.local/share/fonts
 cp fonts/*.ttf $HOME/.local/share/fonts
 fc-cache -fv
 
+cp .bashrc $HOME/.bashrc
+mkdir $HOME/.bash/
+git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
 
 
 
