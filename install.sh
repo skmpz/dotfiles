@@ -1,5 +1,5 @@
 # package installation
-sudo pacman -S --noconfirm i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit
+sudo pacman -S --noconfirm i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes
 
 # NeoVIM
 #mkdir -p $HOME/.config/nvim/
@@ -9,10 +9,12 @@ sudo pacman -S --noconfirm i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm 
 #MON_1=`xrandr | grep " connected" | awk '{ print $1 }' | head -1`
 #MON_2=`xrandr | grep " connected" | awk '{ print $1 }' | tail -1`
 #echo "xrandr --output $MON_2 --auto --left-of $MON_1" | cat - .xinitrc > .tmptmp && mv .tmptmp ~/.xinitrc
+cp $HOME/dotfiles/.xinitrc $HOME/.xinitrc
 
 # Xresources
 #sudo pacman -S xcursor-themes
 #ln -s $HOME/dotfiles/.Xresources $HOME/.Xresources
+cp $HOME/dotfiles/.Xresources $HOME/.Xresources
 
 # i3 blocks
 #wget https://aur.archlinux.org/cgit/aur.git/snapshot/i3blocks.tar.gz
