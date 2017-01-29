@@ -1,5 +1,5 @@
 # package installation
-sudo pacman -S --noconfirm i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes rxvt-unicode ttf-inconsolata
+sudo pacman -S --noconfirm i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes rxvt-unicode ttf-inconsolata wget
 
 # NeoVIM
 mkdir -p $HOME/.config/nvim/
