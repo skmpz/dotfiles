@@ -21,7 +21,7 @@ cp $HOME/dotfiles/.Xresources $HOME/.Xresources
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/i3blocks.tar.gz
 tar xf i3blocks.tar.gz
 cd i3blocks
-makepkg -Sri --skippgpcheck
+makepkg -sri --skippgpcheck --noconfirm
 cp -r $HOME/dotfiles/i3/ $HOME/.config/i3/
 
 
