@@ -1,9 +1,10 @@
 # package installation
-sudo pacman -S --noconfirm i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes
+sudo pacman -S --noconfirm i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes rxvt-unicode ttf-inconsolata
 
 # NeoVIM
-#mkdir -p $HOME/.config/nvim/
-#ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+mkdir -p $HOME/.config/nvim/
+cp $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+
 
 # xinitrc
 #MON_1=`xrandr | grep " connected" | awk '{ print $1 }' | head -1`
