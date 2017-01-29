@@ -23,6 +23,9 @@ tar xf i3blocks.tar.gz
 cd i3blocks
 makepkg -sri --skippgpcheck --noconfirm
 cp -r $HOME/dotfiles/i3/ $HOME/.config/i3/
+mkdir -p $HOME/.local/share/fonts
+cp fonts/*.ttf $HOME/.local/share/fonts
+fc-cache -fv
 
 
 
