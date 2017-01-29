@@ -1,5 +1,5 @@
 # package installation
-sudo pacman -S --noconfirm git i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils
+sudo pacman -S --noconfirm i3-wm i3lock i3status alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit
 
 # NeoVIM
 #mkdir -p $HOME/.config/nvim/
