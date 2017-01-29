@@ -18,11 +18,11 @@ cp $HOME/dotfiles/.xinitrc $HOME/.xinitrc
 cp $HOME/dotfiles/.Xresources $HOME/.Xresources
 
 # i3 blocks
-#wget https://aur.archlinux.org/cgit/aur.git/snapshot/i3blocks.tar.gz
-#tar xf i3blocks.tar.gz
-#cd i3blocks
-#makepkg -Sri --skippgpcheck
-
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/i3blocks.tar.gz
+tar xf i3blocks.tar.gz
+cd i3blocks
+makepkg -Sri --skippgpcheck
+cp -r $HOME/dotfiles/i3/ $HOME/.config/i3/
 
 
 
