@@ -1,12 +1,14 @@
 # package installation
-sudo pacman -S --noconfirm i3-wm i3lock i3status dmenu alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes rxvt-unicode ttf-inconsolata wget chromium cmake python3 python-pip luarocks clang
+sudo pacman -S --noconfirm i3-wm i3lock i3status dmenu alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes rxvt-unicode wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata
 
+# neovim python
 sudo pip3 install neovim
 
+# vim plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# NeoVIM
+# neovim config
 mkdir -p $HOME/.config/nvim/
 cp $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 
