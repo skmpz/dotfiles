@@ -160,8 +160,8 @@ vno : ;
 vno ; :
 
 " use space for leader key
-nmap <space> <leader>
-vmap <space> <leader>
+nmap <space> /
+vmap <space> /
 nmap <bs> <leader>
 vmap <bs> <leader>
 
@@ -306,10 +306,12 @@ nnoremap Y y$
 
 " custom .todo filetype with syntax highlighting
 autocmd BufRead,BufNewFile *.todo set filetype=todo
-autocmd BufRead,BufNewFile *.todo highlight TODOSRC ctermfg=4 ctermbg=none
-autocmd BufRead,BufNewFile *.todo highlight TODOUTS ctermfg=5 ctermbg=none
+autocmd BufRead,BufNewFile *.todo highlight TODOSRC ctermfg=12 ctermbg=none
+autocmd BufRead,BufNewFile *.todo highlight TODOUTS ctermfg=26 ctermbg=none
+autocmd BufRead,BufNewFile *.todo highlight TODOPTS ctermfg=13 ctermbg=none
 autocmd BufRead,BufNewFile *.todo syntax match TODOSRC /^\[src\].*/
 autocmd BufRead,BufNewFile *.todo syntax match TODOUTS /^\[uts\].*/
+autocmd BufRead,BufNewFile *.todo syntax match TODOPTS /^\[pts\].*/
 
 " visual select last inserted text
 nnoremap gV `[V`]
@@ -325,6 +327,8 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap gs :s//g<Left><Left>
 vnoremap gs :s//g<Left><Left>
 
+nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs reset<CR><CR>
+
 " Disable automatic label dedent.
 " Can also be set in ~/.vim/after/ftplugin/cpp.vim
 autocmd FileType cpp setlocal cinoptions+=L0;w
@@ -334,5 +338,7 @@ nnoremap gl :lvim <cword> % <bar> :lopen<cr>
 nmap gcc <leader>cc
 nmap gcu <leader>cu
 
-nmap <tab> /
-nmap <s-tab> ?
+nmap <tab> ?
+set shortmess+=A
+nnoremap [[ []
+nnoremap ]] ][
