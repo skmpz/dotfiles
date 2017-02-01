@@ -10,11 +10,12 @@ Plug 'vim-scripts/xoria256.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
+Plug 'neomake/neomake'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-clang'
@@ -30,15 +31,52 @@ Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
 Plug 'rhysd/clever-f.vim'
 call plug#end()
+autocmd! BufWritePost * Neomake
 
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gp :Gpush<cr>
 nnoremap <leader>gu :Gpull<cr>
 
-" syntastic - options
-let g:syntastic_always_populate_loc_list = 1
-nnoremap <leader>n :lnext<CR>
-nnoremap <leader>N :lprev<CR>
+"" syntastic - options
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_c_checkers = ['clang_check','clang_tidy']
+"let g:syntastic_aggregate_errors = 1
+"function LLNavOrJustOne(cmd)
+    "redir => output
+    "silent! exec a:cmd
+    "redir END
+    "if match(output, "E553: No more items") >= 0
+        "exec ':ll'
+    "else
+        "echom output
+    "endif
+"endfunction
+
+"nnoremap <leader>N :call LLNavOrJustOne(":lprev")<CR>
+"nnoremap <leader>n :call LLNavOrJustOne(":lnext")<CR>
+
+let g:neomake_error_sign   = { 'text': 'E> ' }
+let g:neomake_warning_sign = { 'text': 'W> ' }
+let g:neomake_info_sign    = { 'text': 'I> ' }
+let g:neomake_message_sign = { 'text': 'M> ' }
+
+augroup my_neomake_signs
+    au!
+    autocmd ColorScheme *
+                \ hi NeomakeErrorSign ctermfg=white ctermbg=red |
+                \ hi NeomakeWarningSign ctermfg=white ctermbg=black |
+                \ hi NeoMakeInfoSign ctermfg=white ctermbg=blue |
+                \ hi NeoMakeMessageSign ctermfg=white ctermbg=blue
+augroup END
+
+" maps to move between warnings/errors
+nnoremap <leader>n :lnext<cr>
+nnoremap <leader>N :lprev<cr>
 
 " clever-f - ignore case
 let g:clever_f_ignore_case = 1
@@ -46,6 +84,7 @@ let g:clever_f_ignore_case = 1
 " deoplete - multiple options
 let g:deoplete#enable_at_startup           = 1
 let g:deoplete#auto_complete_start_length  = 1
+
 "let g:deoplete#disable_auto_complete       = 1
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
@@ -114,7 +153,8 @@ hi Function ctermfg=darkblue
 hi Comment ctermfg=8
 hi Pmenu ctermfg=black ctermbg=blue
 hi PmenuSel ctermfg=blue ctermbg=black
-hi Visual ctermfg=232 ctermbg=96
+"hi Visual ctermfg=232 ctermbg=96
+hi Visual ctermfg=none ctermbg=18
 hi Type ctermbg=none ctermfg=146
 hi SpecialKey ctermbg=none ctermfg=none
 hi String ctermfg=31 ctermbg=none
@@ -176,7 +216,7 @@ vnoremap < <gv
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " ignore files
-set wildignore+=*.o,*.swp,*.pyc,*.class,*.zip
+set wildignore+=*.o,*.swp,*.pyc,*.class,*.zip,*.gcda,*.gcno,*.html
 
 " search improve
 set ignorecase
