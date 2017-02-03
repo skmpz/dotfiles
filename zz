@@ -1,0 +1,50 @@
+#!/bin/bash
+i3-msg 'workspace 2; split h;'
+sleep 0.5
+i3-msg 'workspace 2; exec urxvt -fn xft:Inconsolata:pixelsize=13:antialias=true:hinting=true -e bash -c "cd ~/.config/nvim/ && nvim init.vim && bash"'
+sleep 0.5
+i3-msg 'workspace 2; exec urxvt -e bash -c \ "cd /home/sk/workspace/WI_BE_Client/src/ && nvim client.c && bash"'
+sleep 0.5
+i3-msg 'workspace 2; exec urxvt -fn xft:Inconsolata:pixelsize=13:antialias=true:hinting=true -e bash -c "ikhal && bash"'
+sleep 0.5
+i3-msg 'workspace 2; split v;'
+sleep 0.5
+i3-msg 'workspace 2; exec urxvt -fn xft:Inconsolata:pixelsize=13:antialias=true:hinting=true -e bash -c "nvim ~/tasks.todo && bash"'
+sleep 0.5
+i3-msg 'workspace 2; exec urxvt -fn xft:Inconsolata:pixelsize=9:antialias=true:hinting=true -e bash -c "htop && bash"'
+sleep 0.5
+i3-msg 'workspace 2; focus left;'
+sleep 0.5
+i3-msg 'workspace 2; resize grow width 18 px or 18 ppt;'
+sleep 0.5
+i3-msg 'workspace 2; focus left;'
+sleep 0.5
+i3-msg 'workspace 2; split v;'
+sleep 0.5
+i3-msg 'workspace 2; exec urxvt -fn xft:Inconsolata:pixelsize=13:antialias=true:hinting=true -e bash -c "cd ~/.config/nvim/plugged/vim-snippets/snippets/ && nvim c.snippets && bash"'
+sleep 0.5;
+i3-msg 'workspace 2; exec urxvt -fn xft:Inconsolata:pixelsize=9:antialias=true:hinting=true -e bash -c "dmesg -wH"'
+sleep 0.5;
+i3-msg 'workspace 2; focus right;'
+sleep 0.5
+i3-msg 'workspace 1; exec chromium'
+sleep 20
+i3-msg 'workspace 1; exec urxvt -fn xft:Inconsolata:pixelsize=13:antialias=true:hinting=true;'
+sleep 0.5;
+i3-msg 'workspace 1; resize shrink width 5 px or 5 ppt'
+sleep 0.5
+i3-msg 'workspace 1; split v;'
+sleep 0.5;
+i3-msg 'workspace 1; exec urxvt -fn xft:Inconsolata:pixelsize=13:antialias=true:hinting=true;'
+sleep 0.5;
+i3-msg 'workspace 1; exec urxvt -fn xft:Inconsolata:pixelsize=13:antialias=true:hinting=true;'
+sleep 0.5;
+i3-msg 'workspace 1; resize shrink height 5 px or 5 ppt'
+sleep 0.5;
+i3-msg 'workspace 1; split h;'
+sleep 0.5;
+i3-msg 'workspace 1; exec urxvt -fn xft:Inconsolata:pixelsize=13:antialias=true:hinting=true;'
+sleep 0.5;
+i3-msg 'workspace 3; exec vmrun -T player start ~/dec_devplus_clean/dev_plus.vmx'
+sleep 5;
+i3-msg 'workspace 1'

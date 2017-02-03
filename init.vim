@@ -10,11 +10,11 @@ Plug 'vim-scripts/xoria256.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
-"Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
+Plug 'terryma/vim-expand-region'
 Plug 'neomake/neomake'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -33,50 +33,122 @@ Plug 'rhysd/clever-f.vim'
 call plug#end()
 autocmd! BufWritePost * Neomake
 
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gu :Gpull<cr>
+" enable cursorline
+set cursorline
 
-"" syntastic - options
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_c_checkers = ['clang_check','clang_tidy']
-"let g:syntastic_aggregate_errors = 1
-"function LLNavOrJustOne(cmd)
-    "redir => output
-    "silent! exec a:cmd
-    "redir END
-    "if match(output, "E553: No more items") >= 0
-        "exec ':ll'
-    "else
-        "echom output
-    "endif
-"endfunction
+" disable mouse
+set mouse=
 
-"nnoremap <leader>N :call LLNavOrJustOne(":lprev")<CR>
-"nnoremap <leader>n :call LLNavOrJustOne(":lnext")<CR>
+" ignore stupid warning
+set shortmess+=A
 
-let g:neomake_error_sign   = { 'text': 'E> ' }
-let g:neomake_warning_sign = { 'text': 'W> ' }
-let g:neomake_info_sign    = { 'text': 'I> ' }
-let g:neomake_message_sign = { 'text': 'M> ' }
+" colorscheme & custom colors
+colorscheme xoria256
+set background=dark
+hi Normal ctermbg=233 ctermfg=blue
+hi VertSplit ctermbg=none
+hi Split ctermbg=none
+hi CursorLineNr ctermbg=233 ctermfg=6
+hi LineNr ctermbg=233 ctermfg=7
+hi Function ctermfg=darkblue
+hi Comment ctermfg=8
+hi Pmenu ctermfg=black ctermbg=blue
+hi PmenuSel ctermfg=blue ctermbg=black
+hi Visual ctermfg=white ctermbg=52
+hi Type ctermbg=none ctermfg=146
+hi SpecialKey ctermbg=none ctermfg=none
+hi String ctermfg=31 ctermbg=none
+hi CursorLine cterm=NONE ctermbg=16 ctermfg=none
 
+" search with tab
+nmap <tab> /
+
+" visual using expand
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" easy function move
+nnoremap [[ []
+nnoremap ]] ][
+vnoremap [[ []
+vnoremap ]] ][
+
+" no overwrite when pasting
+xnoremap p pgvy
+
+" reselect visual block after indenting
+vnoremap > >gv
+vnoremap < <gv
+
+" visual select last inserted text
+nnoremap gV `[V`]
+
+" indent right after pasting
+nmap p pgV=
+
+" move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" go substitute because the default map for sleeping is silly
+nnoremap gs :s//g<Left><Left>
+vnoremap gs :s//g<Left><Left>
+
+" use arrow keys to resize windows
+noremap <up>    <C-W>+
+noremap <down>  <C-W>-
+noremap <left>  3<C-W><
+noremap <right> 3<C-W>>
+
+" tab maps
+nnoremap tn :tabnew<Space>
+nnoremap tl :tabnext<CR>
+nnoremap th :tabprev<CR>
+
+" set space as leader key
+let mapleader = "\<Space>"
+
+" leader maps
+nnoremap <Leader>f gf
+nnoremap <Leader>n  :lnext<cr>
+nnoremap <Leader>N  :lprev<cr>
+nnoremap <Leader>o  :CtrlP<CR>
+nnoremap <Leader>r :tabnew ../test/%:r_test.c<cr>
+nnoremap <Leader>s /
+nnoremap <Leader>S ?
+nnoremap <leader>t :Tabularize /
+vnoremap <leader>t :'<,'>Tabularize /
+nnoremap <Leader>w  :w<CR>
+
+" double leader maps
+nnoremap <Leader><Leader>d "_d
+nnoremap <Leader><Leader>D "_D
+nnoremap <Leader><Leader>C "_C
+nnoremap <Leader><Leader>c "_c
+nnoremap <Leader><Leader>x "_x
+vmap     <Leader><Leader>y  "*y
+nmap     <Leader><Leader>p  "*p
+nmap     <Leader><Leader>p  "*p
+vmap     <Leader><Leader>p  "*p
+vmap     <Leader><Leader>p  "*p
+
+" F-key maps
+noremap <F11>     :NERDTreeToggle<cr>
+noremap <F3>  :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<cr> :cs reset<cr><cr>
+
+" neomake - signs and colors
+let g:neomake_error_sign   = { 'text': 'e> ' }
+let g:neomake_warning_sign = { 'text': 'w> ' }
+let g:neomake_info_sign    = { 'text': 'i> ' }
+let g:neomake_message_sign = { 'text': 'm> ' }
 augroup my_neomake_signs
-    au!
-    autocmd ColorScheme *
-                \ hi NeomakeErrorSign ctermfg=white ctermbg=red |
-                \ hi NeomakeWarningSign ctermfg=white ctermbg=black |
-                \ hi NeoMakeInfoSign ctermfg=white ctermbg=blue |
-                \ hi NeoMakeMessageSign ctermfg=white ctermbg=blue
+au!
+autocmd colorscheme *
+    \ hi neomakeerrorsign ctermfg=white ctermbg=red |
+    \ hi neomakewarningsign ctermfg=white ctermbg=black |
+    \ hi neomakeinfosign ctermfg=white ctermbg=blue |
+    \ hi NeoMakeMessageSign ctermfg=white ctermbg=blue
 augroup END
-
-" maps to move between warnings/errors
-nnoremap <leader>n :lnext<cr>
-nnoremap <leader>N :lprev<cr>
 
 " clever-f - ignore case
 let g:clever_f_ignore_case = 1
@@ -84,8 +156,6 @@ let g:clever_f_ignore_case = 1
 " deoplete - multiple options
 let g:deoplete#enable_at_startup           = 1
 let g:deoplete#auto_complete_start_length  = 1
-
-"let g:deoplete#disable_auto_complete       = 1
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
 let g:deoplete#sources#clang#std#cpp       = 'c++11'
@@ -104,8 +174,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:NERDTreeDirArrowExpandable  = '+' "expandable character
 let g:NERDTreeDirArrowCollapsible = '~' "collapsible character
 let NERDTreeIgnore                = ['\.o'] "ignore .o files
-noremap <F11> :NERDTreeToggle<CR>
-nnoremap <leader>r :NERDTreeFind<CR>
 autocmd BufEnter * silent! lcd %:p:h "dir of current file
 
 " lightline - config
@@ -127,44 +195,8 @@ let g:lightline = {
 \ },
 \ }
 
-" new line above/below and back in normal mode
-nnoremap <leader>o o<Esc>
-nnoremap <leader>O O<Esc>
 
-" delete without yanking
-nnoremap <leader>d "_d
-nnoremap <leader>D "_D
-nnoremap <Leader>C "_C
-nnoremap <Leader>c "_c
-nnoremap <Leader>x "_x
 
-" ctrlpfunky - open with leader f
-nnoremap <leader>f :CtrlPFunky<Cr>
-
-" colorscheme & custom colors
-colorscheme xoria256
-set background=dark
-hi Normal ctermbg=233 ctermfg=blue
-hi VertSplit ctermbg=none
-hi Split ctermbg=none
-hi CursorLineNr ctermbg=233 ctermfg=6
-hi LineNr ctermbg=233 ctermfg=7
-hi Function ctermfg=darkblue
-hi Comment ctermfg=8
-hi Pmenu ctermfg=black ctermbg=blue
-hi PmenuSel ctermfg=blue ctermbg=black
-"hi Visual ctermfg=232 ctermbg=96
-hi Visual ctermfg=none ctermbg=18
-hi Type ctermbg=none ctermfg=146
-hi SpecialKey ctermbg=none ctermfg=none
-hi String ctermfg=31 ctermbg=none
-hi CursorLine cterm=NONE ctermbg=16 ctermfg=none
-
-" enable cursorline
-set cursorline
-
-" disable mouse
-set mouse=
 
 " disable arrow keys
 nnoremap <up>    <nop>
@@ -199,18 +231,6 @@ nno , ;
 vno : ;
 vno ; :
 
-" use space for leader key
-nmap <space> /
-vmap <space> /
-nmap <bs> <leader>
-vmap <bs> <leader>
-
-" no overwrite when pasting
-xnoremap p pgvy
-
-" reselect visual block after indenting
-vnoremap > >gv
-vnoremap < <gv
 
 " disable auto commenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -249,6 +269,8 @@ let &t_EI = "\<esc>[2 q"
 " overlength highlight
 highlight OverLength ctermbg=red ctermfg=white
 match OverLength /\%110v.\+/
+
+set lazyredraw
 
 " watch for file changes
 set autoread
@@ -303,37 +325,15 @@ elseif $CSCOPE_DB != ""
     cs add $CSCOPE_DB
 endif
 set cscopeverbose
-nnoremap <leader>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-\>g    :cs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-\>t    :cs find t <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-\>e    :cs find e <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-\>f    :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nnoremap <C-\>i    :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nnoremap <C-\>d    :cs find d <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
 endif
 
 " intuitive splitting
 set splitbelow        " new hoz splits go below
 set splitright        " new vert splits go right
 
-" map ctrl-s to ctrl-b
-nmap <C-s> <C-b>
-
-" tabularize - use with <leader>t
-nnoremap <leader>t :Tabularize /
-vnoremap <leader>t :'<,'>Tabularize /
-
-" use arrow keys to resize windows
-noremap <up>    <C-W>+
-noremap <down>  <C-W>-
-noremap <left>  3<C-W><
-noremap <right> 3<C-W>>
-
-" tab maps
-nnoremap tn :tabnew<Space>
-nnoremap tl :tabnext<CR>
-nnoremap th :tabprev<CR>
 
 " map ctrl-{hjkl} to move in insert mode
 inoremap <C-H> <Left>
@@ -349,23 +349,13 @@ autocmd BufRead,BufNewFile *.todo set filetype=todo
 autocmd BufRead,BufNewFile *.todo highlight TODOSRC ctermfg=12 ctermbg=none
 autocmd BufRead,BufNewFile *.todo highlight TODOUTS ctermfg=26 ctermbg=none
 autocmd BufRead,BufNewFile *.todo highlight TODOPTS ctermfg=13 ctermbg=none
+autocmd BufRead,BufNewFile *.todo highlight TODODONE ctermfg=34 ctermbg=none
 autocmd BufRead,BufNewFile *.todo syntax match TODOSRC /^\[src\].*/
 autocmd BufRead,BufNewFile *.todo syntax match TODOUTS /^\[uts\].*/
 autocmd BufRead,BufNewFile *.todo syntax match TODOPTS /^\[pts\].*/
+autocmd BufRead,BufNewFile *.todo syntax match TODODONE /^\[d\].*/
+autocmd BufRead,BufNewFile *.todo nnoremap <leader>d I[d]<esc>ddGpgg
 
-" visual select last inserted text
-nnoremap gV `[V`]
-
-" indent right after pasting
-nmap p pgV=
-
-" move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-" go substitute because the default map for sleeping is silly
-nnoremap gs :s//g<Left><Left>
-vnoremap gs :s//g<Left><Left>
 
 nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs reset<CR><CR>
 
@@ -377,8 +367,3 @@ autocmd FileType cpp setlocal cinoptions+=L0;w
 nnoremap gl :lvim <cword> % <bar> :lopen<cr>
 nmap gcc <leader>cc
 nmap gcu <leader>cu
-
-nmap <tab> ?
-set shortmess+=A
-nnoremap [[ []
-nnoremap ]] ][
