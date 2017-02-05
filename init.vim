@@ -63,6 +63,8 @@ hi CursorLine cterm=NONE ctermbg=16 ctermfg=none
 " search with tab
 nmap <tab> /
 
+nnoremap <leader>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
+
 " visual using expand
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -115,10 +117,11 @@ nnoremap <Leader>N  :lprev<cr>
 nnoremap <Leader>o  :CtrlP<CR>
 nnoremap <Leader>r :tabnew ../test/%:r_test.c<cr>
 nnoremap <Leader>s /
-nnoremap <Leader>S ?
+nnoremap <Leader>a ?
 nnoremap <leader>t :Tabularize /
 vnoremap <leader>t :'<,'>Tabularize /
 nnoremap <Leader>w  :w<CR>
+nnoremap <Leader>q  :q<CR>
 
 " double leader maps
 nnoremap <Leader><Leader>d "_d
