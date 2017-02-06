@@ -29,7 +29,6 @@ Plug 'justinmk/vim-syntax-extra'
 Plug 'SirVer/ultisnips'
 Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
-Plug 'rhysd/clever-f.vim'
 call plug#end()
 autocmd! BufWritePost * Neomake
 
@@ -60,10 +59,6 @@ hi SpecialKey ctermbg=none ctermfg=none
 hi String ctermfg=31 ctermbg=none
 hi CursorLine cterm=NONE ctermbg=16 ctermfg=none
 
-" search with tab
-nmap <tab> /
-
-nnoremap <leader>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
 
 " visual using expand
 vmap v <Plug>(expand_region_expand)
@@ -87,6 +82,7 @@ nnoremap gV `[V`]
 
 " indent right after pasting
 nmap p pgV=
+nmap P PgV=
 
 " move visual block
 vnoremap J :m '>+1<CR>gv=gv
@@ -116,19 +112,25 @@ nnoremap <Leader>n  :lnext<cr>
 nnoremap <Leader>N  :lprev<cr>
 nnoremap <Leader>o  :CtrlP<CR>
 nnoremap <Leader>r :tabnew ../test/%:r_test.c<cr>
-nnoremap <Leader>s /
+nnoremap s /
+nnoremap <Leader>s ?
+nnoremap <C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>a ?
 nnoremap <leader>t :Tabularize /
 vnoremap <leader>t :'<,'>Tabularize /
 nnoremap <Leader>w  :w<CR>
 nnoremap <Leader>q  :q<CR>
+nnoremap <leader>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
+inoremap <C-a> <Esc>%
 
 " double leader maps
 nnoremap <Leader><Leader>d "_d
 nnoremap <Leader><Leader>D "_D
-nnoremap <Leader><Leader>C "_C
-nnoremap <Leader><Leader>c "_c
-nnoremap <Leader><Leader>x "_x
+nnoremap C "_C
+nnoremap c "_c
+nnoremap x "_x
 vmap     <Leader><Leader>y  "*y
 nmap     <Leader><Leader>p  "*p
 nmap     <Leader><Leader>p  "*p
@@ -315,7 +317,7 @@ nnoremap <C-H> <C-W><C-H>
 " auto end bracket
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
-inoremap {      {
+inoremap {{     {
 inoremap {}     {}
 
 " cscope load & maps
@@ -328,9 +330,6 @@ elseif $CSCOPE_DB != ""
     cs add $CSCOPE_DB
 endif
 set cscopeverbose
-nnoremap <C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
 endif
 
 " intuitive splitting
