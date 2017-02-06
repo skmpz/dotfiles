@@ -54,11 +54,14 @@ hi Comment ctermfg=8
 hi Pmenu ctermfg=black ctermbg=blue
 hi PmenuSel ctermfg=blue ctermbg=black
 hi Visual ctermfg=white ctermbg=52
+hi Search ctermfg=white ctermbg=52
 hi Type ctermbg=none ctermfg=146
 hi SpecialKey ctermbg=none ctermfg=none
 hi String ctermfg=31 ctermbg=none
 hi CursorLine cterm=NONE ctermbg=16 ctermfg=none
 
+" stop highlight after search with backspace
+inoremap <ESC> <ESC>:nohl<CR>
 
 " visual using expand
 vmap v <Plug>(expand_region_expand)
@@ -113,7 +116,7 @@ nnoremap <Leader>N  :lprev<cr>
 nnoremap <Leader>o  :CtrlP<CR>
 nnoremap <Leader>r :tabnew ../test/%:r_test.c<cr>
 nnoremap s /
-nnoremap <Leader>s ?
+nnoremap S ?
 nnoremap <C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
@@ -218,7 +221,7 @@ nnoremap j gj
 nnoremap k gk
 
 " insert mode to normal mode maps
-inoremap jk <esc>
+inoremap jk <esc>:nohl<CR>
 inoremap kj <esc>
 inoremap ;; <esc>
 
@@ -247,7 +250,6 @@ set wildignore+=*.o,*.swp,*.pyc,*.class,*.zip,*.gcda,*.gcno,*.html
 set ignorecase
 set incsearch
 set smartcase
-set nohlsearch
 nnoremap <F10> :set hlsearch!<CR>
 
 " paste mode with F2
