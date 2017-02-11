@@ -31,8 +31,10 @@ Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
 Plug 'cofyc/vim-uncrustify'
 call plug#end()
+
 autocmd! BufWritePost * Neomake
 
+" neomake options
 autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
 autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
@@ -50,12 +52,20 @@ set shortmess+=A
 " colorscheme & custom colors
 colorscheme xoria256
 set background=dark
-hi Normal ctermbg=233 ctermfg=blue
+if has("unix")
+    let s:uname = system("uname -s")
+    if s:uname == ("Darwin\n")
+        hi Normal ctermbg=233 ctermfg=lightblue
+        hi Function ctermfg=blue
+    else
+        hi Normal ctermbg=233 ctermfg=blue
+        hi Function ctermfg=darkblue
+    endif
+endif
 hi VertSplit ctermbg=none
 hi Split ctermbg=none
 hi CursorLineNr ctermbg=233 ctermfg=6
 hi LineNr ctermbg=233 ctermfg=7
-hi Function ctermfg=darkblue
 hi Comment ctermfg=8
 hi Pmenu ctermfg=black ctermbg=blue
 hi PmenuSel ctermfg=blue ctermbg=black
@@ -170,8 +180,16 @@ let g:clever_f_ignore_case = 1
 " deoplete - multiple options
 let g:deoplete#enable_at_startup           = 1
 let g:deoplete#auto_complete_start_length  = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
+if has("unix")
+    let s:uname = system("uname -s")
+    if s:uname == "Linux"
+        let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+        let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
+    elseif s:uname == "Darwin\n"
+        let g:deoplete#sources#clang#libclang_path = '/usr/local/Cellar/llvm/3.9.1/lib/libclang.dylib'
+        let g:deoplete#sources#clang#clang_header  = '/usr/local/Cellar/llvm/3.9.1/include/clang'
+    endif
+endif
 let g:deoplete#sources#clang#std#cpp       = 'c++11'
 let g:deoplete#sources#clang#sort_algo     = 'priority'
 set completeopt-=preview "no scratch window
@@ -208,9 +226,6 @@ let g:lightline = {
 \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
 \ },
 \ }
-
-
-
 
 " disable arrow keys
 nnoremap <up>    <nop>
