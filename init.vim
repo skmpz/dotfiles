@@ -16,6 +16,7 @@ Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-expand-region'
 Plug 'neomake/neomake'
+Plug 'artur-shaik/vim-javacomplete2'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-clang'
@@ -40,6 +41,7 @@ autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
 autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " enable cursorline
 set cursorline
 
@@ -182,7 +184,7 @@ let g:deoplete#enable_at_startup           = 1
 let g:deoplete#auto_complete_start_length  = 1
 if has("unix")
     let s:uname = system("uname -s")
-    if s:uname == "Linux"
+    if s:uname == "Linux\n"
         let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
         let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
     elseif s:uname == "Darwin\n"
@@ -243,8 +245,8 @@ nnoremap k gk
 
 " insert mode to normal mode maps
 inoremap jk <esc>:nohl<CR>
-inoremap kj <esc>
-inoremap ;; <esc>
+inoremap kj <esc>:nohl<CR>
+inoremap ;; <esc>:nohl<CR>
 
 " use number & relativenumber
 set number
@@ -359,7 +361,6 @@ endif
 set splitbelow        " new hoz splits go below
 set splitright        " new vert splits go right
 
-
 " map ctrl-{hjkl} to move in insert mode
 inoremap <C-H> <Left>
 inoremap <C-J> <Down>
@@ -390,5 +391,6 @@ autocmd FileType cpp setlocal cinoptions+=L0;w
 
 " grep word in file and open location list
 nnoremap gl :lvim <cword> % <bar> :lopen<cr>
-nmap gcc <leader>cc
-nmap gcu <leader>cu
+nnoremap <Esc> :nohl<cr>
+inoremap <Esc> <Esc>:nohl<cr>
+hi MatchParen cterm=none ctermbg=none ctermfg=red
