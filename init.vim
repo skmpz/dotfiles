@@ -29,7 +29,7 @@ Plug 'justinmk/vim-syntax-extra'
 Plug 'SirVer/ultisnips'
 Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
-Plug 'cofyc/vim-uncrustify'
+Plug 'skmpz/vim-uncrustify'
 call plug#end()
 
 autocmd! BufWritePost * Neomake
