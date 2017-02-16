@@ -30,6 +30,7 @@ Plug 'justinmk/vim-syntax-extra'
 Plug 'SirVer/ultisnips'
 Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
+Plug 'rhysd/clever-f.vim'
 Plug 'skmpz/vim-uncrustify'
 call plug#end()
 
@@ -400,3 +401,4 @@ nnoremap gl :lvim <cword> % <bar> :lopen<cr>
 nnoremap <Esc> :nohl<cr>
 inoremap <Esc> <Esc>:nohl<cr>
 hi MatchParen cterm=none ctermbg=none ctermfg=red
+inoremap ,, <Esc>A
