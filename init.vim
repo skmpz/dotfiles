@@ -1,11 +1,12 @@
 " File: Neovim config (init.vim)
 " Author: Demetris Procopiou
-" Last Updated: 24/01/2017
+" Last Updated: 16/02/2017
 
 filetype plugin indent on
 
 " vim-plug
 call plug#begin()
+
 Plug 'vim-scripts/xoria256.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
@@ -17,13 +18,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-expand-region'
 Plug 'neomake/neomake'
 Plug 'artur-shaik/vim-javacomplete2'
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'zchee/deoplete-clang'
-    Plug 'zchee/deoplete-jedi'
-else
-    Plug 'Shougo/neocomplete.vim'
-endif
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'justinmk/vim-syntax-extra'
@@ -31,18 +25,28 @@ Plug 'SirVer/ultisnips'
 Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
 Plug 'rhysd/clever-f.vim'
+Plug 'justinmk/vim-sneak'
 Plug 'skmpz/vim-uncrustify'
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-clang'
+    Plug 'zchee/deoplete-jedi'
+else
+    Plug 'Shougo/neocomplete.vim'
+endif
+
 call plug#end()
 
-autocmd! BufWritePost * Neomake
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" vim sneak - move with repeating s/S
+let g:sneak#s_next = 1
 
+" javacomplete options/mappings
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart) "auto add import with <F4>
 imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 
-
-
-" neomake options
+" neomake run on write
+autocmd! BufWritePost * Neomake
 autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
 autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
@@ -83,6 +87,7 @@ hi Type ctermbg=none ctermfg=146
 hi SpecialKey ctermbg=none ctermfg=none
 hi String ctermfg=31 ctermbg=none
 hi CursorLine cterm=NONE ctermbg=16 ctermfg=none
+hi MatchParen cterm=none ctermbg=none ctermfg=red
 
 " stop highlight after search with backspace
 inoremap <ESC> <ESC>:nohl<CR>
@@ -139,8 +144,6 @@ nnoremap <Leader>n  :lnext<cr>
 nnoremap <Leader>N  :lprev<cr>
 nnoremap <Leader>o  :CtrlP<CR>
 nnoremap <Leader>r :tabnew ../test/%:r_test.c<cr>
-nnoremap s /
-nnoremap S ?
 nnoremap <C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
@@ -389,16 +392,19 @@ autocmd BufRead,BufNewFile *.todo syntax match TODOPTS /^\[pts\].*/
 autocmd BufRead,BufNewFile *.todo syntax match TODODONE /^\[d\].*/
 autocmd BufRead,BufNewFile *.todo nnoremap <leader>d I[d]<esc>ddGpgg
 
-
-nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs reset<CR><CR>
-
 " Disable automatic label dedent.
 " Can also be set in ~/.vim/after/ftplugin/cpp.vim
 autocmd FileType cpp setlocal cinoptions+=L0;w
 
 " grep word in file and open location list
 nnoremap gl :lvim <cword> % <bar> :lopen<cr>
+
+" remove search highlights with <Esc>
 nnoremap <Esc> :nohl<cr>
 inoremap <Esc> <Esc>:nohl<cr>
-hi MatchParen cterm=none ctermbg=none ctermfg=red
+
+" move to the end of the line in insert mode
 inoremap ,, <Esc>A
+
+" reload cscope with <F5>
+nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs reset<CR><CR>
