@@ -34,6 +34,12 @@ Plug 'skmpz/vim-uncrustify'
 call plug#end()
 
 autocmd! BufWritePost * Neomake
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+
+imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+
+
 
 " neomake options
 autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
@@ -41,7 +47,6 @@ autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
 autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " enable cursorline
 set cursorline
 
@@ -186,7 +191,8 @@ if has("unix")
     let s:uname = system("uname -s")
     if s:uname == "Linux\n"
         let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-        let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
+        "let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
+        let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
     elseif s:uname == "Darwin\n"
         let g:deoplete#sources#clang#libclang_path = '/usr/local/Cellar/llvm/3.9.1/lib/libclang.dylib'
         let g:deoplete#sources#clang#clang_header  = '/usr/local/Cellar/llvm/3.9.1/include/clang'
