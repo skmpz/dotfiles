@@ -7,6 +7,8 @@ filetype plugin indent on
 " vim-plug
 call plug#begin()
 
+Plug 'vim-scripts/CmdlineComplete'
+Plug 'vim-scripts/SearchComplete'
 Plug 'vim-scripts/xoria256.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
@@ -14,7 +16,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
-Plug 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-expand-region'
 Plug 'neomake/neomake'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -38,7 +41,9 @@ endif
 call plug#end()
 
 " vim sneak - move with repeating s/S
+autocmd ColorScheme * hi! link Sneak Normal
 let g:sneak#s_next = 1
+let g:sneak#use_ic_scs = 1
 
 " javacomplete options/mappings
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -81,7 +86,7 @@ hi LineNr ctermbg=233 ctermfg=7
 hi Comment ctermfg=8
 hi Pmenu ctermfg=black ctermbg=blue
 hi PmenuSel ctermfg=blue ctermbg=black
-hi Visual ctermfg=white ctermbg=52
+hi Visual ctermfg=none ctermbg=52
 hi Search ctermfg=white ctermbg=52
 hi Type ctermbg=none ctermfg=146
 hi SpecialKey ctermbg=none ctermfg=none
@@ -405,6 +410,12 @@ inoremap <Esc> <Esc>:nohl<cr>
 
 " move to the end of the line in insert mode
 inoremap ,, <Esc>A
+inoremap `` <Esc>I
+inoremap '' <Esc>lwi
+nnoremap 0 I<Esc>l
 
 " reload cscope with <F5>
 nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs reset<CR><CR>
+
+nmap <Leader>c gcc
+vmap <Leader>c gc
