@@ -16,7 +16,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
-"Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-expand-region'
 Plug 'neomake/neomake'
@@ -45,6 +44,7 @@ autocmd ColorScheme * hi! link Sneak Normal
 let g:sneak#s_next = 1
 let g:sneak#use_ic_scs = 1
 
+autocmd BufWritePre *.c call Uncrustify('c')
 " javacomplete options/mappings
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 nmap <F4> <Plug>(JavaComplete-Imports-AddSmart) "auto add import with <F4>
@@ -419,3 +419,7 @@ nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs rese
 
 nmap <Leader>c gcc
 vmap <Leader>c gc
+
+nnoremap <C-d> <C-d>zz
+nnoremap <C-a> <C-b>zz
+nnoremap <leader>y : co .<left><left><left><left><left>
