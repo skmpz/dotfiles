@@ -107,9 +107,6 @@ nnoremap ]] ][
 vnoremap [[ []
 vnoremap ]] ][
 
-" no overwrite when pasting
-xnoremap p pgvy
-
 " reselect visual block after indenting
 vnoremap > >gv
 vnoremap < <gv
@@ -417,9 +414,17 @@ nnoremap 0 I<Esc>l
 " reload cscope with <F5>
 nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs reset<CR><CR>
 
+" comment/uncomment lines with <leader>c
 nmap <Leader>c gcc
 vmap <Leader>c gc
 
+" move up/down the file and center
 nnoremap <C-d> <C-d>zz
 nnoremap <C-a> <C-b>zz
 nnoremap <leader>y : co .<left><left><left><left><left>
+
+" go to the end of what you pasted and no overwrite
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+xnoremap p pgvy
