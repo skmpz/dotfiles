@@ -145,6 +145,7 @@ nnoremap <Leader>f gf
 nnoremap <Leader>n  :lnext<cr>
 nnoremap <Leader>N  :lprev<cr>
 nnoremap <Leader>o  :CtrlP<CR>
+nnoremap <Leader>s /
 nnoremap <Leader>r :tabnew ../test/%:r_test.c<cr>
 nnoremap <C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
