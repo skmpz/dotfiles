@@ -29,6 +29,7 @@ Plug 'godlygeek/tabular'
 Plug 'rhysd/clever-f.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'skmpz/vim-uncrustify'
+Plug 'powerman/vim-plugin-AnsiEsc'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-clang'
@@ -56,6 +57,11 @@ autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
 autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
 autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
+
+" overlength highlight
+autocmd FileType c highlight OverLength ctermbg=red ctermfg=white
+autocmd FileType c match OverLength /\%110v.\+/
+
 
 " enable cursorline
 set cursorline
@@ -146,13 +152,14 @@ nnoremap <Leader>n  :lnext<cr>
 nnoremap <Leader>N  :lprev<cr>
 nnoremap <Leader>o  :CtrlP<CR>
 nnoremap <Leader>s /
-nnoremap <Leader>r :tabnew ../test/%:r_test.c<cr>
-nnoremap <C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>S ?
+nnoremap <Leader>r :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>t <C-t>
 nnoremap <Leader>a ?
-nnoremap <leader>t :Tabularize /
-vnoremap <leader>t :'<,'>Tabularize /
+nnoremap <leader>i :Tabularize /
+vnoremap <leader>i :'<,'>Tabularize /
 nnoremap <Leader>w  :w<CR>
 nnoremap <Leader>q  :q<CR>
 nnoremap <leader>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
@@ -309,10 +316,6 @@ let &t_SI = "\<esc>[5 q"
 let &t_SR = "\<esc>[3 q"
 let &t_EI = "\<esc>[2 q"
 
-" overlength highlight
-highlight OverLength ctermbg=red ctermfg=white
-match OverLength /\%110v.\+/
-
 set lazyredraw
 
 " watch for file changes
@@ -421,7 +424,6 @@ vmap <Leader>c gc
 
 " move up/down the file and center
 nnoremap <C-d> <C-d>zz
-nnoremap <C-a> <C-b>zz
 nnoremap <leader>y : co .<left><left><left><left><left>
 
 " go to the end of what you pasted and no overwrite
