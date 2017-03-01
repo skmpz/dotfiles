@@ -431,3 +431,7 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 xnoremap p pgvy
+let g:ctrlp_prompt_mappings = {
+  \ 'AcceptSelection("e")': [],
+  \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
+  \ }
