@@ -27,7 +27,7 @@ Plug 'SirVer/ultisnips'
 Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
 Plug 'rhysd/clever-f.vim'
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 Plug 'skmpz/vim-uncrustify'
 Plug 'powerman/vim-plugin-AnsiEsc'
 if has('nvim')
@@ -107,12 +107,6 @@ inoremap <ESC> <ESC>:nohl<CR>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-" easy function move
-nnoremap [[ []
-nnoremap ]] ][
-vnoremap [[ []
-vnoremap ]] ][
-
 " reselect visual block after indenting
 vnoremap > >gv
 vnoremap < <gv
@@ -151,8 +145,8 @@ nnoremap <Leader>f gf
 nnoremap <Leader>n  :lnext<cr>
 nnoremap <Leader>N  :lprev<cr>
 nnoremap <Leader>o  :CtrlP<CR>
-nnoremap <Leader>s /
-nnoremap <Leader>S ?
+nnoremap s /
+nnoremap <leader>s ?
 nnoremap <Leader>r :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
@@ -435,3 +429,11 @@ let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("e")': [],
   \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
   \ }
+
+" easy function move
+nnoremap [[ ][%0
+nnoremap ]] ][
+vnoremap [[ []
+vnoremap ]] ][
+
+nnoremap <Leader>f :CtrlPFunky<Cr>
