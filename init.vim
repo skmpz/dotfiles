@@ -19,7 +19,6 @@ Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-expand-region'
 Plug 'neomake/neomake'
-Plug 'artur-shaik/vim-javacomplete2'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'justinmk/vim-syntax-extra'
@@ -27,7 +26,6 @@ Plug 'SirVer/ultisnips'
 Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
 Plug 'rhysd/clever-f.vim'
-" Plug 'justinmk/vim-sneak'
 Plug 'skmpz/vim-uncrustify'
 Plug 'powerman/vim-plugin-AnsiEsc'
 if has('nvim')
@@ -45,14 +43,17 @@ autocmd ColorScheme * hi! link Sneak Normal
 let g:sneak#s_next = 1
 let g:sneak#use_ic_scs = 1
 
-autocmd BufWritePre *.c call Uncrustify('c')
 " javacomplete options/mappings
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 nmap <F4> <Plug>(JavaComplete-Imports-AddSmart) "auto add import with <F4>
 imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 
 " neomake run on write
+let g:neomake_java_javac_maker = 0
 autocmd! BufWritePost * Neomake
+
+" uncrustify
+autocmd BufWritePre *.c call Uncrustify('c')
 autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
 autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
@@ -192,23 +193,29 @@ augroup END
 " clever-f - ignore case
 let g:clever_f_ignore_case = 1
 
-" deoplete - multiple options
-let g:deoplete#enable_at_startup           = 1
-let g:deoplete#auto_complete_start_length  = 1
-if has("unix")
-    let s:uname = system("uname -s")
-    if s:uname == "Linux\n"
-        let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-        "let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
-        let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
-    elseif s:uname == "Darwin\n"
-        let g:deoplete#sources#clang#libclang_path = '/usr/local/Cellar/llvm/3.9.1/lib/libclang.dylib'
-        let g:deoplete#sources#clang#clang_header  = '/usr/local/Cellar/llvm/3.9.1/include/clang'
+if has('nvim')
+    " deoplete - multiple options
+    let g:deoplete#enable_at_startup           = 1
+    let g:deoplete#auto_complete_start_length  = 1
+    if has("unix")
+        let s:uname = system("uname -s")
+        if s:uname == "Linux\n"
+            let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+            "let g:deoplete#sources#clang#clang_header  = '/usr/include/clang'
+            let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
+        elseif s:uname == "Darwin\n"
+            let g:deoplete#sources#clang#libclang_path = '/usr/local/Cellar/llvm/3.9.1/lib/libclang.dylib'
+            let g:deoplete#sources#clang#clang_header  = '/usr/local/Cellar/llvm/3.9.1/include/clang'
+        endif
     endif
+    let g:deoplete#sources#clang#std#cpp       = 'c++11'
+    let g:deoplete#sources#clang#sort_algo     = 'priority'
+    set completeopt-=preview "no scratch window
+else
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_auto_complete = 1
 endif
-let g:deoplete#sources#clang#std#cpp       = 'c++11'
-let g:deoplete#sources#clang#sort_algo     = 'priority'
-set completeopt-=preview "no scratch window
 
 " supertab - default completion ctrl-n
 let g:SuperTabDefaultCompletionType = "<C-n>"
@@ -437,3 +444,4 @@ vnoremap [[ []
 vnoremap ]] ][
 
 nnoremap <Leader>f :CtrlPFunky<Cr>
+inoremap \\ <Esc>}O}<Esc>vi{=}
