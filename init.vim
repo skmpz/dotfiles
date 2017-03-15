@@ -150,7 +150,7 @@ nnoremap s /
 nnoremap <leader>s ?
 nnoremap <Leader>r :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>x :cs find c <C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>t <C-t>
 nnoremap <Leader>a ?
 nnoremap <leader>i :Tabularize /
@@ -414,7 +414,7 @@ inoremap <Esc> <Esc>:nohl<cr>
 inoremap ,, <Esc>A
 inoremap `` <Esc>I
 inoremap '' <Esc>lwi
-nnoremap 0 I<Esc>l
+nnoremap 0 ^
 
 " reload cscope with <F5>
 nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs reset<CR><CR>
