@@ -28,6 +28,7 @@ Plug 'godlygeek/tabular'
 Plug 'rhysd/clever-f.vim'
 Plug 'skmpz/vim-uncrustify'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'breuckelen/vim-resize'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-clang'
@@ -53,7 +54,6 @@ let g:neomake_java_javac_maker = 0
 autocmd! BufWritePost * Neomake
 
 " uncrustify
-autocmd BufWritePre *.c call Uncrustify('c')
 autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
 autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
@@ -62,7 +62,6 @@ autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 " overlength highlight
 autocmd FileType c highlight OverLength ctermbg=red ctermfg=white
 autocmd FileType c match OverLength /\%110v.\+/
-
 
 " enable cursorline
 set cursorline
@@ -93,7 +92,7 @@ hi LineNr ctermbg=233 ctermfg=7
 hi Comment ctermfg=8
 hi Pmenu ctermfg=black ctermbg=blue
 hi PmenuSel ctermfg=blue ctermbg=black
-hi Visual ctermfg=none ctermbg=52
+hi Visual ctermfg=white ctermbg=25
 hi Search ctermfg=white ctermbg=52
 hi Type ctermbg=none ctermfg=146
 hi SpecialKey ctermbg=none ctermfg=none
@@ -233,7 +232,7 @@ autocmd BufEnter * silent! lcd %:p:h "dir of current file
 
 " lightline - config
 let g:lightline = {
-\ 'colorscheme': 'PaperColor',
+\ 'colorscheme': 'seoul256',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
 \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -266,7 +265,6 @@ nnoremap k gk
 
 " insert mode to normal mode maps
 inoremap jk <esc>:nohl<CR>
-inoremap kj <esc>:nohl<CR>
 inoremap ;; <esc>:nohl<CR>
 
 " use number & relativenumber
@@ -312,10 +310,16 @@ endfunction
 au BufEnter /* call LoadCscope()
 
 " change cursor in each mode
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-let &t_SI = "\<esc>[5 q"
-let &t_SR = "\<esc>[3 q"
-let &t_EI = "\<esc>[2 q"
+
+if has('nvim')
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+    set guicursor+=a:blinkon0
+    tnoremap <Esc> <C-\><C-n>
+    tnoremap <C-h> <C-\><C-n><C-w>h
+    tnoremap <C-j> <C-\><C-n><C-w>j
+    tnoremap <C-k> <C-\><C-n><C-w>k
+    tnoremap <C-l> <C-\><C-n><C-w>l
+endif
 
 set lazyredraw
 
@@ -432,16 +436,19 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 xnoremap p pgvy
-let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("e")': [],
-  \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
-  \ }
 
 " easy function move
-nnoremap [[ ][%0
+nnoremap [[ []
 nnoremap ]] ][
 vnoremap [[ []
 vnoremap ]] ][
 
 nnoremap <Leader>f :CtrlPFunky<Cr>
 inoremap \\ <Esc>}O}<Esc>vi{=}
+nnoremap <Leader>, :mksess! ~/.sess<CR>
+inoremap // <Esc>bi"<Esc>ea"
+let g:vim_resize_disable_auto_mappings = 1
+nnoremap <silent> <left> :CmdResizeLeft<cr>
+nnoremap <silent> <down> :CmdResizeDown<cr>
+nnoremap <silent> <up> :CmdResizeUp<cr>
+nnoremap <silent> <right> :CmdResizeRight<cr>
