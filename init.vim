@@ -8,6 +8,7 @@ filetype plugin indent on
 call plug#begin()
 
 Plug 'vim-scripts/CmdlineComplete'
+Plug 'vim-syntastic/syntastic'
 Plug 'vim-scripts/SearchComplete'
 Plug 'vim-scripts/xoria256.vim'
 Plug 'kien/ctrlp.vim'
@@ -18,7 +19,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-expand-region'
-Plug 'neomake/neomake'
+" Plug 'neomake/neomake'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'justinmk/vim-syntax-extra'
@@ -51,7 +52,26 @@ imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 
 " neomake run on write
 let g:neomake_java_javac_maker = 0
-autocmd! BufWritePost * Neomake
+let g:neomake_cpp_enabled_makers=['clang']
+let g:neomake_cpp_clang_maker = {'exe' : 'clang' }
+let g:neomake_cpp_clang_args = ["-std=c++14"]
+" autocmd! BufWritePost * Neomake
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" syntastic
+let g_syntastic_c_include_dirs = [ '/usr/lib','/usr/include', '/usr/include/pcap' ]
+let g:syntastic_c_check_header = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_cpp_include_dirs = ['/home/sk/workspace/sproxy/env/include' ]
+let g:syntastic_cpp_compiler_options = '-std=c++14'
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_check_header = 1
 
 " uncrustify
 autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
@@ -60,8 +80,8 @@ autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
 autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 
 " overlength highlight
-autocmd FileType c highlight OverLength ctermbg=red ctermfg=white
-autocmd FileType c match OverLength /\%110v.\+/
+" autocmd FileType c highlight OverLength ctermbg=red ctermfg=white
+" autocmd FileType c match OverLength /\%110v.\+/
 
 " enable cursorline
 set cursorline
@@ -93,12 +113,14 @@ hi Comment ctermfg=8
 hi Pmenu ctermfg=black ctermbg=blue
 hi PmenuSel ctermfg=blue ctermbg=black
 hi Visual ctermfg=white ctermbg=25
-hi Search ctermfg=white ctermbg=52
+hi Search ctermfg=none ctermbg=none
 hi Type ctermbg=none ctermfg=146
 hi SpecialKey ctermbg=none ctermfg=none
 hi String ctermfg=31 ctermbg=none
 hi CursorLine cterm=NONE ctermbg=16 ctermfg=none
 hi MatchParen cterm=none ctermbg=none ctermfg=red
+hi ColorColumn ctermbg=16
+set colorcolumn=110
 
 " stop highlight after search with backspace
 inoremap <ESC> <ESC>:nohl<CR>
@@ -144,9 +166,7 @@ let mapleader = "\<Space>"
 nnoremap <Leader>f gf
 nnoremap <Leader>n  :lnext<cr>
 nnoremap <Leader>N  :lprev<cr>
-nnoremap <Leader>o  :CtrlP<CR>
-nnoremap s /
-nnoremap <leader>s ?
+nnoremap <Leader>o  :CtrlPClearCache<bar>CtrlP<CR>
 nnoremap <Leader>r :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>x :cs find c <C-R>=expand("<cword>")<CR><CR>
@@ -280,7 +300,6 @@ nno : ,
 nno , ;
 vno : ;
 vno ; :
-
 
 " disable auto commenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -443,12 +462,20 @@ nnoremap ]] ][
 vnoremap [[ []
 vnoremap ]] ][
 
+" leader f - show functions
 nnoremap <Leader>f :CtrlPFunky<Cr>
-inoremap \\ <Esc>}O}<Esc>vi{=}
+
+" leader , - save session
 nnoremap <Leader>, :mksess! ~/.sess<CR>
-inoremap // <Esc>bi"<Esc>ea"
 let g:vim_resize_disable_auto_mappings = 1
+
+" resize with arrows
 nnoremap <silent> <left> :CmdResizeLeft<cr>
 nnoremap <silent> <down> :CmdResizeDown<cr>
 nnoremap <silent> <up> :CmdResizeUp<cr>
 nnoremap <silent> <right> :CmdResizeRight<cr>
+
+" search with s/S
+nmap s /
+nmap S ?
+nnoremap <C-a> <C-u>
