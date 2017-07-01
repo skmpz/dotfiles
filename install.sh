@@ -1,16 +1,16 @@
 # package installation
-sudo pacman -S --noconfirm i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes rxvt-unicode wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata
+sudo pacman -S --noconfirm i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg-server xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata
 
 # neovim python
 sudo pip3 install neovim
 
 # vim plug
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+#curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+#    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # neovim config
-mkdir -p $HOME/.config/nvim/
-cp $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+#mkdir -p $HOME/.config/nvim/
+#cp $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 
 # xinitrc
 #MON_1=`xrandr | grep " connected" | awk '{ print $1 }' | head -1`
@@ -24,17 +24,17 @@ cp $HOME/dotfiles/.xinitrc $HOME/.xinitrc
 cp $HOME/dotfiles/.Xresources $HOME/.Xresources
 
 # i3 blocks
-wget https://aur.archlinux.org/cgit/aur.git/snapshot/i3blocks.tar.gz
-tar xf i3blocks.tar.gz
-cd i3blocks
-makepkg -sri --skippgpcheck --noconfirm
+#wget https://aur.archlinux.org/cgit/aur.git/snapshot/i3blocks.tar.gz
+#tar xf i3blocks.tar.gz
+#cd i3blocks
+#makepkg -sri --skippgpcheck --noconfirm
 cp -r $HOME/dotfiles/i3/ $HOME/.config/i3/
 cd ..
-rm -rf i3blocks*
+#rm -rf i3blocks*
 mkdir -p $HOME/.local/share/fonts
 cp fonts/*.ttf $HOME/.local/share/fonts
 fc-cache -fv
 
-cp .bashrc $HOME/.bashrc
-mkdir $HOME/.bash/
-git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
+#cp .bashrc $HOME/.bashrc
+#mkdir $HOME/.bash/
+#git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
