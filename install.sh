@@ -1,5 +1,5 @@
 # package installation
-sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata --noconfirm 
+sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata feh --noconfirm 
 
 # install i3gaps
 git clone https://www.github.com/Airblader/i3 i3-gaps
@@ -41,7 +41,7 @@ ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
 #cd i3blocks
 #makepkg -sri --skippgpcheck --noconfirm
 mkdir -p $HOME/.config/i3/
-cp -r $HOME/dotfiles/i3/* $HOME/.config/i3/
+cp -r $HOME/dotfiles/i3/config $HOME/.config/i3/config
 #cd ..
 #rm -rf i3blocks*
 mkdir -p $HOME/.local/share/fonts
