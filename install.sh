@@ -3,21 +3,14 @@
 #just to enter passwd
 sudo ls > /dev/null
 
-echo -n "Installing reflector.. "
+echo -n "Setting up mirrors.. "
 sudo pacman -S reflector --noconfirm > /dev/null 2>&1
-echo "done"
-
-echo -n "Running reflector.. "
 sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev/null 2>&1
 echo "done"
 
 echo -n "Installing packages.. "
 sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata feh xclip --noconfirm > /dev/null 2>&1
 sudo pip3 install neovim > /dev/null 2>&1
-echo "done"
-
-# install i3gaps
-echo -n "Installing i3gaps.. "
 git clone https://www.github.com/Airblader/i3 i3-gaps > /dev/null 2>&1
 cd i3-gaps
 autoreconf --force --install > /dev/null 2>&1
