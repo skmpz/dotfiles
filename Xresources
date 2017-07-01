@@ -30,6 +30,7 @@ URxvt.shading:            50
 *color14:                 #fcaf3e
 *color15:                 #EEEEEC
 
+rofi.font: Inconsolata 9
 rofi.width: 20
 rofi.lines: 5
 rofi.opacity: 50
