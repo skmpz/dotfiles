@@ -2,6 +2,7 @@ xset r rate 250 80
 setxkbmap -option grp:win_space_toggle us,el
 xrdb -merge ~/.Xresources
 setxkbmap -option caps:escape
+feh --bg-scale ~/dotfiles/bg.jpg
 exec i3
 #exec mate-session
 #exec gnome-session
