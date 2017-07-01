@@ -1,6 +1,16 @@
 # package installation
 sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata --noconfirm 
 
+# install i3gaps
+git clone https://www.github.com/Airblader/i3 i3-gaps
+cd i3-gaps
+autoreconf --force --install
+rm -rf build/
+mkdir -p build && cd build/
+../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+make
+sudo make install
+
 # neovim python
 sudo pip3 install neovim
 
