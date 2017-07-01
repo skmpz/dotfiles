@@ -1,5 +1,5 @@
 # package installation
-sudo pacman -S --noconfirm i3-wm i3lock i3status dmenu alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes rxvt-unicode wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata
+sudo pacman -S --noconfirm i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit xorg-server-utils polkit xcursor-themes rxvt-unicode wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata
 
 # neovim python
 sudo pip3 install neovim
@@ -38,23 +38,3 @@ fc-cache -fv
 cp .bashrc $HOME/.bashrc
 mkdir $HOME/.bash/
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
