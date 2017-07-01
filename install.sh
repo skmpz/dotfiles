@@ -1,5 +1,5 @@
 # package installation
-sudo pacman -S --noconfirm i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg-server xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata
+sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata --noconfirm 
 
 # neovim python
 sudo pip3 install neovim

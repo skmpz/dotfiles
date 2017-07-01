@@ -1,5 +1,5 @@
 URxvt*cursorColor:        orange
-URxvt.font:               xft:Inconsolata-Regular:pixelsize=15:antialias=true:hinting=true
+URxvt.font:               xft:Inconsolata-Regular:pixelsize=13:antialias=true:hinting=true
 Xcursor.theme:            whiteglass
 Xcursor.size:             14
 URxvt*depth:              24
@@ -29,3 +29,12 @@ URxvt.shading:            50
 *color13:                 #AD7FA8
 *color14:                 #fcaf3e
 *color15:                 #EEEEEC
+
+rofi.width: 20
+rofi.lines: 5
+rofi.opacity: 50
+rofi.color-enabled: true
+rofi.color-window: #273238, #273238, #1e2529
+rofi.color-normal: #273238, #c1c1c1, #273238, #394249, #ffffff
+rofi.color-active: #273238, #80cbc4, #273238, #394249, #80cbc4
+rofi.color-urgent: #273238, #ff1844, #273238, #394249, #ff1844
