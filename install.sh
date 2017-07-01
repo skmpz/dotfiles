@@ -1,4 +1,8 @@
 # package installation
+
+#just to enter passwd
+sudo ls > /dev/null
+
 echo -n "Installing reflector.. "
 sudo pacman -S reflector --noconfirm > /dev/null 2>&1
 echo "done"
