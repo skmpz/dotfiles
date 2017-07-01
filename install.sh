@@ -10,7 +10,9 @@ mkdir -p build && cd build/
 ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
 make
 sudo make install
-cd $HOME
+cd ../../
+rm -rf i3-gaps
+
 # neovim python
 #sudo pip3 install neovim
 
