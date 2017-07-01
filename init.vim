@@ -93,7 +93,7 @@ set mouse=
 set shortmess+=A
 
 " colorscheme & custom colors
-colorscheme xoria256
+silent! colorscheme xoria256
 set background=dark
 if has("unix")
     let s:uname = system("uname -s")
