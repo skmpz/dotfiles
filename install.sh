@@ -29,10 +29,14 @@ echo "done"
 #echo "xrandr --output $MON_2 --auto --left-of $MON_1" | cat - .xinitrc > .tmptmp && mv .tmptmp ~/.xinitrc
 
 echo -n "Setting up config files.. "
-rm -rf $HOME/.bashrc
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/nvim/
+rm -rf $HOME/.bashrc
+rm -rf $HOME/.xinitrc
+rm -rf $HOME/.Xresources
+rm -rf $HOME/.config/i3/config
+rm -rf $HOME/.config/nvim/init.vim
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2>&1
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt > /dev/null 2>&1
