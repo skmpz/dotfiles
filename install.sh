@@ -10,7 +10,7 @@ mkdir -p build && cd build/
 ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
 make
 sudo make install
-
+cd $HOME
 # neovim python
 #sudo pip3 install neovim
 
@@ -35,9 +35,10 @@ cp $HOME/dotfiles/.Xresources $HOME/.Xresources
 
 # i3 blocks
 #wget https://aur.archlinux.org/cgit/aur.git/snapshot/i3blocks.tar.gz
-#tar xf i3blocks.tar.gz
+#tar xf i3blocks.tar.g /
 #cd i3blocks
 #makepkg -sri --skippgpcheck --noconfirm
+mkdir -p $HOME/.config/i3/
 cp -r $HOME/dotfiles/i3/ $HOME/.config/i3/
 #cd ..
 #rm -rf i3blocks*
