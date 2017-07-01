@@ -1,4 +1,9 @@
 # package installation
+sudo pacman -Syy --noconfirm
+sudo pacman -S reflector --noconfirm
+sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+sudo pacman -Syu --noconfirm
+
 sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim wget chromium cmake python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata feh --noconfirm 
 
 # install i3gaps
