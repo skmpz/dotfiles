@@ -5,9 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-GEM_HOME=$(ls -t -U | ruby -e 'puts Gem.user_dir')
-GEM_PATH=$GEM_HOME
-export PATH=$PATH:$GEM_HOME/bin
 alias nv='nvim'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -alh'
