@@ -28,12 +28,12 @@ rm -rf i3-gaps
 #MON_1=`xrandr | grep " connected" | awk '{ print $1 }' | head -1`
 #MON_2=`xrandr | grep " connected" | awk '{ print $1 }' | tail -1`
 #echo "xrandr --output $MON_2 --auto --left-of $MON_1" | cat - .xinitrc > .tmptmp && mv .tmptmp ~/.xinitrc
-cp $HOME/dotfiles/.xinitrc $HOME/.xinitrc
+ln -s $HOME/dotfiles/xinitrc $HOME/.xinitrc
 
 # Xresources
 #sudo pacman -S xcursor-themes
 #ln -s $HOME/dotfiles/.Xresources $HOME/.Xresources
-cp $HOME/dotfiles/.Xresources $HOME/.Xresources
+ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
 
 # i3 blocks
 #wget https://aur.archlinux.org/cgit/aur.git/snapshot/i3blocks.tar.gz
@@ -41,7 +41,7 @@ cp $HOME/dotfiles/.Xresources $HOME/.Xresources
 #cd i3blocks
 #makepkg -sri --skippgpcheck --noconfirm
 mkdir -p $HOME/.config/i3/
-cp -r $HOME/dotfiles/i3/ $HOME/.config/i3/
+cp -r $HOME/dotfiles/i3/* $HOME/.config/i3/
 #cd ..
 #rm -rf i3blocks*
 mkdir -p $HOME/.local/share/fonts
