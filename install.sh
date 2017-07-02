@@ -9,7 +9,7 @@ sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev
 echo "done"
 
 echo -n "Installing packages.. "
-sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata feh xclip arc-gtk-theme --noconfirm --needed > /dev/null 2>&1
+sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata feh xclip arc-gtk-theme tmux transmission-gtk ntp --noconfirm --needed > /dev/null 2>&1
 sudo pip3 install neovim > /dev/null 2>&1
 git clone https://www.github.com/Airblader/i3 i3-gaps > /dev/null 2>&1
 cd i3-gaps
@@ -31,6 +31,7 @@ echo "done"
 echo -n "Setting up config files.. "
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
+mkdir -p $HOME/.config/i3status/
 mkdir -p $HOME/.config/nvim/
 mkdir -p $HOME/.config/gtk-3.0/
 rm -rf $HOME/.bashrc
@@ -38,6 +39,7 @@ rm -rf $HOME/.gtkrc-2.0
 rm -rf $HOME/.xinitrc
 rm -rf $HOME/.Xresources
 rm -rf $HOME/.config/i3/config
+rm -rf $HOME/.config/i3status/config
 rm -rf $HOME/.config/gtk-3.0/settings.ini
 rm -rf $HOME/.config/nvim/init.vim
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -48,8 +50,10 @@ ln -s /home/sk/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -s $HOME/dotfiles/xinitrc $HOME/.xinitrc
 ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
 ln -s $HOME/dotfiles/i3/config $HOME/.config/i3/config
+ln -s $HOME/dotfiles/i3/i3status-config $HOME/.config/i3status/config
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
+sudo ntpdate time.nist.gov > /dev/null 2>&1
 echo "done"

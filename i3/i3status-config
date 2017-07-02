@@ -1,0 +1,53 @@
+general {
+	colors = true
+	interval = 1
+	output_format = i3bar
+}
+
+order += "disk /"
+order += "disk /home"
+order += "wireless wlp0s20f0u7"
+order += "ethernet enp3s0"
+order += "cpu_usage"
+#order += "battery 0"
+order += "volume master"
+order += "tztime local"
+
+wireless wlp0s20f0u7 {
+	format_up = " WiFi: %ip %quality %essid %bitrate "
+	format_down = " WiFi: DOWN "
+}
+
+ethernet enp3s0 {
+	format_up = " LAN: %ip [%speed] "
+	format_down = " LAN: DOWN "
+}
+
+battery 0 {
+	format = " Power: %status %percentage %remaining left "
+	path = "/sys/class/power_supply/BAT0/uevent"
+	low_threshold = 20
+}
+
+tztime local {
+	format = " %d %b %Y - %H:%M "
+}
+
+cpu_usage {
+	format = " CPU: %usage "
+}
+
+disk "/" {
+	format = " Root: %used/%total [%percentage_used] "
+}
+
+disk "/home" {
+	format = " Home: %used/%total [%percentage_used] "
+}
+
+volume master {
+	format = " Vol: %volume "
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
