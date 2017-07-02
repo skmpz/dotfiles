@@ -9,7 +9,7 @@ sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev
 echo "done"
 
 echo -n "Installing packages.. "
-sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata feh xclip --noconfirm --needed > /dev/null 2>&1
+sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu ttf-droid ttf-inconsolata feh xclip arc-gtk-theme --noconfirm --needed > /dev/null 2>&1
 sudo pip3 install neovim > /dev/null 2>&1
 git clone https://www.github.com/Airblader/i3 i3-gaps > /dev/null 2>&1
 cd i3-gaps
@@ -33,6 +33,7 @@ mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/nvim/
 rm -rf $HOME/.bashrc
+rm -rf $HOME/.gtkrc-2.0
 rm -rf $HOME/.xinitrc
 rm -rf $HOME/.Xresources
 rm -rf $HOME/.config/i3/config
@@ -41,6 +42,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2>&1
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt > /dev/null 2>&1
 ln -s $HOME/dotfiles/bashrc $HOME/.bashrc
+ln -s /home/sk/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -s $HOME/dotfiles/xinitrc $HOME/.xinitrc
 ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
 ln -s $HOME/dotfiles/i3/config $HOME/.config/i3/config
