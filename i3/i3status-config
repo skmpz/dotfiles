@@ -6,31 +6,32 @@ general {
 
 order += "disk /"
 order += "disk /home"
-order += "wireless wlp0s20f0u7"
-order += "ethernet enp3s0"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery 0"
 order += "cpu_usage"
-#order += "battery 0"
 order += "volume master"
 order += "tztime local"
 
-wireless wlp0s20f0u7 {
+wireless _first_ {
 	format_up = " WiFi: %ip %quality %essid %bitrate "
 	format_down = " WiFi: DOWN "
 }
 
-ethernet enp3s0 {
+ethernet _first_ {
 	format_up = " LAN: %ip [%speed] "
 	format_down = " LAN: DOWN "
 }
 
 battery 0 {
 	format = " Power: %status %percentage %remaining left "
+	format_down = " No battery "
 	path = "/sys/class/power_supply/BAT0/uevent"
 	low_threshold = 20
 }
 
 tztime local {
-	format = " %d %b %Y - %H:%M "
+	format = " %d %b %Y %H:%M "
 }
 
 cpu_usage {
