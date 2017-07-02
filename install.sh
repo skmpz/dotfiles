@@ -32,11 +32,13 @@ echo -n "Setting up config files.. "
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/nvim/
+mkdir -p $HOME/.config/gtk-3.0/
 rm -rf $HOME/.bashrc
 rm -rf $HOME/.gtkrc-2.0
 rm -rf $HOME/.xinitrc
 rm -rf $HOME/.Xresources
 rm -rf $HOME/.config/i3/config
+rm -rf $HOME/.config/gtk-3.0/settings.ini
 rm -rf $HOME/.config/nvim/init.vim
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2>&1
@@ -47,6 +49,7 @@ ln -s $HOME/dotfiles/xinitrc $HOME/.xinitrc
 ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
 ln -s $HOME/dotfiles/i3/config $HOME/.config/i3/config
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
 echo "done"
