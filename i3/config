@@ -14,7 +14,7 @@ bindsym XF86AudioPrev exec playerctl previous
 set $mod Mod1
 
 #font
-font xft:Inconsolata 12
+font pango:Source Code Pro 9
 
 new_window 1pixel
 focus_follows_mouse no
