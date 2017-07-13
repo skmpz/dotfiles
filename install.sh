@@ -9,24 +9,9 @@ sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev
 echo "done"
 
 echo -n "Installing packages.. "
-sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim bc wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu adobe-source-code-pro-fonts ttf-droid ttf-inconsolata feh xclip pulseaudio alsa-utils arc-gtk-theme arc-icon-theme tmux transmission-gtk ntp --noconfirm --needed > /dev/null 2>&1
+sudo pacman -S i3-wm i3lock i3status dmenu rofi alsa-utils alsa-oss xorg xterm virtualbox-host-modules-arch virtualbox-guest-modules-arch caja bash-completion xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim bc wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata feh xclip pulseaudio alsa-utils arc-gtk-theme arc-icon-theme vlc tmux transmission-gtk ntp --noconfirm --needed > /dev/null 2>&1
 sudo pip3 install neovim > /dev/null 2>&1
-git clone https://www.github.com/Airblader/i3 i3-gaps > /dev/null 2>&1
-cd i3-gaps
-autoreconf --force --install > /dev/null 2>&1
-rm -rf build/
-mkdir -p build && cd build/
-../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers > /dev/null 2>&1
-make > /dev/null 2>&1
-sudo make install > /dev/null 2>&1
-cd ../../
-rm -rf i3-gaps
 echo "done"
-
-# xinitrc
-#MON_1=`xrandr | grep " connected" | awk '{ print $1 }' | head -1`
-#MON_2=`xrandr | grep " connected" | awk '{ print $1 }' | tail -1`
-#echo "xrandr --output $MON_2 --auto --left-of $MON_1" | cat - .xinitrc > .tmptmp && mv .tmptmp ~/.xinitrc
 
 echo -n "Setting up config files.. "
 mkdir -p $HOME/.bash/

@@ -1,5 +1,5 @@
 URxvt*cursorColor:        orange
-URxvt.font:               xft:Inconsolata-Regular:pixelsize=13:antialias=true:hinting=true
+URxvt.font:               xft:Inconsolata-Regular:pixelsize=15:antialias=true:hinting=true
 Xcursor.theme:            whiteglass
 Xcursor.size:             14
 URxvt*depth:              24

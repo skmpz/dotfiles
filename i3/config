@@ -1,5 +1,5 @@
 #inner gaps
-gaps inner 10
+#gaps inner 10
 
 #pulse controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
@@ -14,7 +14,7 @@ bindsym XF86AudioPrev exec playerctl previous
 set $mod Mod1
 
 #font
-font pango:Source Code Pro 9
+font pango:xos4 Terminus 9
 
 new_window 1pixel
 focus_follows_mouse no
