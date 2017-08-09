@@ -19,6 +19,7 @@ mkdir -p build && cd build/
 ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers /dev/null 2>&1
 make /dev/null 2>&1
 sudo make install  /dev/null 2>&1
+cd ../../
 echo "done"
 
 echo -n "Setting up config files.. "
