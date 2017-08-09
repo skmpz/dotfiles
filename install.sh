@@ -11,14 +11,14 @@ echo "done"
 echo -n "Installing packages.. "
 sudo pacman -S i3-wm i3lock i3blocks i3status rofi alsa-utils alsa-oss xorg xterm engrampa evince virtualbox-host-modules-arch openssh caja bash-completion xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim bc wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata feh xclip pulseaudio alsa-utils synergy arc-gtk-theme qt4 qt arc-icon-theme vlc tmux transmission-gtk ntp --noconfirm --needed > /dev/null 2>&1
 sudo pip3 install neovim > /dev/null 2>&1
-git clone https://www.github.com/Airblader/i3 i3-gaps /dev/null 2>&1
+git clone https://www.github.com/Airblader/i3 i3-gaps > /dev/null 2>&1
 cd i3-gaps
-autoreconf --force --install /dev/null 2>&1
+autoreconf --force --install > /dev/null 2>&1
 rm -rf build/
 mkdir -p build && cd build/
-../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers /dev/null 2>&1
-make /dev/null 2>&1
-sudo make install  /dev/null 2>&1
+../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers > /dev/null 2>&1
+make > /dev/null 2>&1
+sudo make > install  /dev/null 2>&1
 cd ../../
 echo "done"
 
