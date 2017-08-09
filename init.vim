@@ -79,10 +79,6 @@ autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
 autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 
-" overlength highlight
-" autocmd FileType c highlight OverLength ctermbg=red ctermfg=white
-" autocmd FileType c match OverLength /\%110v.\+/
-
 " enable cursorline
 set cursorline
 
@@ -98,17 +94,17 @@ set background=dark
 if has("unix")
     let s:uname = system("uname -s")
     if s:uname == ("Darwin\n")
-        hi Normal ctermbg=233 ctermfg=lightblue
+        hi Normal ctermbg=none ctermfg=lightblue
         hi Function ctermfg=blue
     else
-        hi Normal ctermbg=233 ctermfg=blue
+        hi Normal ctermbg=none ctermfg=blue
         hi Function ctermfg=darkblue
     endif
 endif
 hi VertSplit ctermbg=none
 hi Split ctermbg=none
-hi CursorLineNr ctermbg=233 ctermfg=6
-hi LineNr ctermbg=233 ctermfg=7
+hi CursorLineNr ctermbg=none ctermfg=6
+hi LineNr ctermbg=none ctermfg=7
 hi Comment ctermfg=8
 hi Pmenu ctermfg=black ctermbg=blue
 hi PmenuSel ctermfg=blue ctermbg=black

@@ -1,5 +1,5 @@
 #inner gaps
-#gaps inner 10
+gaps inner 10
 
 #pulse controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
@@ -89,29 +89,41 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# workspace names
+set $w1  web [1]
+set $w2  cmd [2]
+set $w3  im [3]
+set $w4  win [4]
+set $w5  bsd [5]
+set $w6  xtra [6]
+set $w7  xtra [7]
+set $w8  xtra [8]
+set $w9  xtra [9]
+set $w0  xtra [10]
+
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $w1
+bindsym $mod+2 workspace $w2
+bindsym $mod+3 workspace $w3
+bindsym $mod+4 workspace $w4
+bindsym $mod+5 workspace $w5
+bindsym $mod+6 workspace $w6
+bindsym $mod+7 workspace $w7
+bindsym $mod+8 workspace $w8
+bindsym $mod+9 workspace $w9
+bindsym $mod+0 workspace $w0
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace $w1
+bindsym $mod+Shift+2 move container to workspace $w2
+bindsym $mod+Shift+3 move container to workspace $w3
+bindsym $mod+Shift+4 move container to workspace $w4
+bindsym $mod+Shift+5 move container to workspace $w5
+bindsym $mod+Shift+6 move container to workspace $w6
+bindsym $mod+Shift+7 move container to workspace $w7
+bindsym $mod+Shift+8 move container to workspace $w8
+bindsym $mod+Shift+9 move container to workspace $w9
+bindsym $mod+Shift+0 move container to workspace $w0
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -149,15 +161,28 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	colors {
-		background #000000
-		statusline #00A5FF #that neon blue
-		separator #666666
-		focused_workspace  #4c7899 #285577 #ffffff
-		active_workspace   #333333 #5f676a #ffffff
-		inactive_workspace #333333 #222222 #888888
-		urgent_workspace   #2f343a #900000 #ffffff
-	}
-
-	status_command i3status
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    tray_output primary
+        font pango:Source Code Pro 11
+        mode dock
+        position top
+        height 25
+        colors {
+            background #404d59
+                statusline #eff1f5
+                separator #323232
+                focused_workspace #a3be8c #65737e #eff1f5
+                active_workspace #4f5b66 #5f676a #eff1f5
+                inactive_workspace #4f5b66 #4f5b66 #a7adba
+                urgent_workspace #bf616a #65737e #eff1f5
+        }
 }
+
+client.focused #6c71c4 #6c71c4 #fdf6e3 #6c71c4
+client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+client.unfocused #073642 #073642 #93a1a1 #586e75
+client.urgent #d33682 #d33682 #fdf6e3 #dc322f
+
+assign [instance="^(?i)chromium$" class="^(?)chromium$"] $w1
+for_window [class="(?i)vlc"] floating enable
+for_window [class="(?i)evince"] floating enable
