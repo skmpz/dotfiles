@@ -9,7 +9,7 @@ sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev
 echo "done"
 
 echo -n "Installing packages.. "
-sudo pacman -S i3-wm i3lock i3status rofi alsa-utils alsa-oss xorg xterm engrampa evince virtualbox-host-modules-arch openssh caja bash-completion xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim bc wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata feh xclip pulseaudio alsa-utils synergy arc-gtk-theme qt4 qt arc-icon-theme vlc tmux transmission-gtk ntp --noconfirm --needed > /dev/null 2>&1
+sudo pacman -S i3-wm i3lock i3blocks i3status rofi alsa-utils alsa-oss xorg xterm engrampa evince virtualbox-host-modules-arch openssh caja bash-completion xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim bc wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata feh xclip pulseaudio alsa-utils synergy arc-gtk-theme qt4 qt arc-icon-theme vlc tmux transmission-gtk ntp --noconfirm --needed > /dev/null 2>&1
 sudo pip3 install neovim > /dev/null 2>&1
 echo "done"
 
@@ -40,6 +40,9 @@ cp $HOME/dotfiles/i3/mail.sh $HOME/.config/i3/mail.sh
 cp $HOME/dotfiles/i3/os.sh $HOME/.config/i3/os.sh
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
+mkdir ~/.local/share/fonts
+cp $HOME/dotfiles/fonts/fontawesome-webfont.ttf ~/.local/share/fonts/
+fc-cache -fv
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
 sudo ntpdate time.nist.gov > /dev/null 2>&1
