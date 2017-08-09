@@ -11,6 +11,14 @@ echo "done"
 echo -n "Installing packages.. "
 sudo pacman -S i3-wm i3lock i3blocks i3status rofi alsa-utils alsa-oss xorg xterm engrampa evince virtualbox-host-modules-arch openssh caja bash-completion xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim bc wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata feh xclip pulseaudio alsa-utils synergy arc-gtk-theme qt4 qt arc-icon-theme vlc tmux transmission-gtk ntp --noconfirm --needed > /dev/null 2>&1
 sudo pip3 install neovim > /dev/null 2>&1
+git clone https://www.github.com/Airblader/i3 i3-gaps /dev/null 2>&1
+cd i3-gaps
+autoreconf --force --install /dev/null 2>&1
+rm -rf build/
+mkdir -p build && cd build/
+../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers /dev/null 2>&1
+make /dev/null 2>&1
+sudo make install  /dev/null 2>&1
 echo "done"
 
 echo -n "Setting up config files.. "
@@ -42,7 +50,7 @@ ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
 mkdir ~/.local/share/fonts
 cp $HOME/dotfiles/fonts/fontawesome-webfont.ttf ~/.local/share/fonts/
-fc-cache -fv
+fc-cache -fv > /dev/null 2>&1
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
 sudo ntpdate time.nist.gov > /dev/null 2>&1
