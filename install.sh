@@ -31,7 +31,7 @@ sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode feh arc-icon-the
 check $?
 
 echo -n "Installing applications...... "
-sudo pacman -S engrampa evince virtualbox-host-modules-arch virtualbox-guest-utils caja neovim chromium synergy qt4 qt5-base vlc transmission-gtk --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S engrampa evince virtualbox-host-modules-arch caja neovim chromium synergy qt4 qt5-base vlc transmission-gtk --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up i3-gaps........... "
@@ -50,7 +50,7 @@ echo -n "Setting up neovim............ "
 sudo pip3 install neovim > /dev/null 2>> .install.log
 check $?
 
-echo -n "Setting up config files.. "
+echo -n "Setting up config files...... "
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/nvim/
@@ -83,4 +83,13 @@ fc-cache -fv > /dev/null 2>> .install.log
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
 sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
+check $?
+
+
+echo -n "Setting up vm modules........ "
+if [ "$1" -- "vm" ]; then
+    sudo pacman -S virtualbox-guest-utils --noconfirm --needed > /dev/null 2>> .install.log
+    sudo printf "vboxguest\nvboxsf\n vboxvideo" > /etc/modules-load.d/virtualbox.conf
+    sudo systemctl enable vboxservice.service
+fi
 check $?
