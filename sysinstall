@@ -22,7 +22,7 @@ systemctl enable dhcpcd@enp3s0.service
 passwd -> set root passwd
 useradd -m -g users -G wheel,storage,power -s /bin/bash sk
 passwd sk
-EDITOR=vi visudo
+EDITOR=vi visudo (add Defaults timestamp_timeout=30)
 mkinitcpio -p linux
 pacman -S grub
 grub-install --target i386-pc --recheck /dev/sda
