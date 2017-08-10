@@ -18,7 +18,7 @@ sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev
 check $?
 
 echo -n "Installing system tools...... "
-sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake python2 python3 python-pip luarocks clang pulseaudio alsa-utils ntp --noconfirm --needed > /dev/null 2>&1
+sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake python2 python3 python-pip luarocks clang pulseaudio alsa-utils ntp --noconfirm --needed > /dev/null 2> .install.log
 check $?
 
 echo -n "Install X window manager..... "
