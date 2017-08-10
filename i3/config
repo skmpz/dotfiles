@@ -186,3 +186,4 @@ client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 assign [instance="^(?i)chromium$" class="^(?)chromium$"] $w1
 for_window [class="(?i)vlc"] floating enable
 for_window [class="(?i)evince"] floating enable
+for_window [class="(?i)gimp"] floating enable

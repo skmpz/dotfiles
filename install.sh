@@ -1,16 +1,39 @@
-# package installation
+#!/bin/bash
+
+function check {
+    if [ "$1" == "0" ]; then
+        echo -e "[\e[0;32mOK\e[0m]"
+    else
+        echo -e "[\e[0;31mFAIL\e[0m]"
+        exit 1
+    fi
+}
 
 #just to enter passwd
 sudo ls > /dev/null
 
-echo -n "Setting up mirrors.. "
+echo -n "Setting up mirrors........... "
 sudo pacman -S reflector --noconfirm > /dev/null 2>&1
 sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev/null 2>&1
-echo "done"
+check $?
 
-echo -n "Installing packages.. "
-sudo pacman -S i3-wm i3lock i3blocks i3status rofi alsa-utils alsa-oss xorg xterm engrampa evince virtualbox-host-modules-arch openssh caja bash-completion xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes rxvt-unicode neovim bc wget chromium cmake python2 python3 python-pip luarocks clang ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata feh xclip pulseaudio alsa-utils synergy arc-gtk-theme qt4 qt arc-icon-theme vlc tmux transmission-gtk ntp --noconfirm --needed > /dev/null 2>&1
-sudo pip3 install neovim > /dev/null 2>&1
+echo -n "Installing system tools...... "
+sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake python2 python3 python-pip luarocks clang pulseaudio alsa-utils ntp --noconfirm --needed > /dev/null 2>&1
+check $?
+
+echo -n "Install X window manager..... "
+sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes xclip --noconfirm --needed > /dev/null 2>&1
+check $?
+
+echo -n "Installing i3 and wm tools... "
+sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode feh arc-icon-theme arc-gtk-theme ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>&1
+check $?
+
+echo -n "Installing applications...... "
+sudo pacman -S engrampa evince virtualbox-host-modules-arch caja neovim chromium synergy qt4 qt vlc transmission-gtk --noconfirm --needed > /dev/null 2>&1
+check $?
+
+echo -n "Setting up i3-gaps........... "
 git clone https://www.github.com/Airblader/i3 i3-gaps > /dev/null 2>&1
 cd i3-gaps
 autoreconf --force --install > /dev/null 2>&1
@@ -18,9 +41,13 @@ rm -rf build/
 mkdir -p build && cd build/
 ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers > /dev/null 2>&1
 make > /dev/null 2>&1
-sudo make > install  /dev/null 2>&1
+sudo make install > /dev/null 2>&1
 cd ../../
-echo "done"
+check $?
+
+echo -n "Setting up neovim............ "
+sudo pip3 install neovim > /dev/null 2>&1
+check $?
 
 echo -n "Setting up config files.. "
 mkdir -p $HOME/.bash/
@@ -55,4 +82,4 @@ fc-cache -fv > /dev/null 2>&1
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
 sudo ntpdate time.nist.gov > /dev/null 2>&1
-echo "done"
+check $?
