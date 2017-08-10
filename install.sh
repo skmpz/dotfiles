@@ -87,7 +87,7 @@ check $?
 
 
 echo -n "Setting up vm modules........ "
-if [ "$1" -- "vm" ]; then
+if [ "$1" == "vm" ]; then
     sudo pacman -S virtualbox-guest-utils --noconfirm --needed > /dev/null 2>> .install.log
     sudo printf "vboxguest\nvboxsf\n vboxvideo" > /etc/modules-load.d/virtualbox.conf
     sudo systemctl enable vboxservice.service
