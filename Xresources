@@ -23,7 +23,7 @@ URxvt.shading:            50
 *.color8:       #6dc6e4
 
 ! Darker Blue
-*.color1:       #5fabd9
+*.color1:       #2E3436
 *.color9:       #5fabd9
 
 ! Light Blue
