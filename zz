@@ -2,8 +2,10 @@
 
 i3-msg 'workspace  web [1]; exec urxvt'
 sleep 0.5
-i3-msg 'workspace  web [1]; exec chromium'
+i3-msg 'workspace  web [1]; exec chromium "http://www.gmail.com"'
 sleep 5
+i3-msg 'workspace  web [1]; exec chromium "http://www.youtube.com"'
+sleep 0.5
 i3-msg 'workspace  web [1]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace  web [1]; split v'
