@@ -12,8 +12,6 @@ i3-msg 'workspace  web [1]; split v'
 sleep 0.5
 i3-msg 'workspace  web [1]; exec urxvt'
 sleep 0.5
-i3-msg 'workspace  web [1]; exec urxvt'
-sleep 0.5
 i3-msg 'workspace  web [1]; focus left;'
 sleep 0.5
 i3-msg 'workspace  web [1]; resize grow width 18 px or 18 ppt;'
@@ -24,8 +22,6 @@ i3-msg 'workspace  web [1]; split v'
 sleep 0.5
 i3-msg 'workspace  web [1]; exec urxvt'
 sleep 0.5
-i3-msg 'workspace  web [1]; exec urxvt'
-sleep 0.5
 i3-msg 'workspace  cmd [2]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace  cmd [2]; exec urxvt'
@@ -34,7 +30,7 @@ i3-msg 'workspace  cmd [2]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace  cmd [2]; split v'
 sleep 0.5
-i3-msg 'workspace  cmd [2]; exec urxvt'
+i3-msg 'workspace  cmd [2]; exec urxvt -e bash -c "htop && bash"'
 sleep 0.5
 i3-msg 'workspace  cmd [2]; focus left;'
 sleep 0.5
@@ -44,7 +40,7 @@ i3-msg 'workspace  cmd [2]; focus left;'
 sleep 0.5
 i3-msg 'workspace  cmd [2]; split v'
 sleep 0.5
-i3-msg 'workspace  cmd [2]; exec urxvt'
+i3-msg 'workspace  cmd [2]; exec caja'
 sleep 0.5
 i3-msg 'workspace  win [4]; exec VBoxManage startvm "win10"'
 sleep 5
