@@ -8,10 +8,13 @@ filetype plugin indent on
 call plug#begin()
 
 Plug 'vim-scripts/CmdlineComplete'
+Plug 'Shougo/echodoc.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'vim-scripts/SearchComplete'
 Plug 'vim-scripts/xoria256.vim'
+Plug 'vimwiki/vimwiki'
 Plug 'kien/ctrlp.vim'
+Plug 'ggVGc/vim-fuzzysearch'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
@@ -20,7 +23,6 @@ Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-expand-region'
 " Plug 'neomake/neomake'
-Plug 'tacahiroy/ctrlp-funky'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'SirVer/ultisnips'
@@ -41,14 +43,9 @@ endif
 call plug#end()
 
 " vim sneak - move with repeating s/S
-autocmd ColorScheme * hi! link Sneak Normal
+" autocmd ColorScheme * hi! link Sneak Normal
 let g:sneak#s_next = 1
 let g:sneak#use_ic_scs = 1
-
-" javacomplete options/mappings
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart) "auto add import with <F4>
-imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 
 " neomake run on write
 let g:neomake_java_javac_maker = 0
@@ -78,10 +75,6 @@ autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
 autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
 autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
-
-" overlength highlight
-" autocmd FileType c highlight OverLength ctermbg=red ctermfg=white
-" autocmd FileType c match OverLength /\%110v.\+/
 
 " enable cursorline
 set cursorline
@@ -113,7 +106,7 @@ hi Comment ctermfg=8
 hi Pmenu ctermfg=black ctermbg=blue
 hi PmenuSel ctermfg=blue ctermbg=black
 hi Visual ctermfg=white ctermbg=25
-hi Search ctermfg=none ctermbg=none
+hi Search ctermfg=none ctermbg=52
 hi Type ctermbg=none ctermfg=146
 hi SpecialKey ctermbg=none ctermfg=none
 hi String ctermfg=31 ctermbg=none
@@ -160,39 +153,51 @@ nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
 
 " set space as leader key
-let mapleader = "\<Space>"
+let mapleader = "\<BackSpace>"
 
 " leader maps
-nnoremap <Leader>f gf
-nnoremap <Leader>n  :lnext<cr>
-nnoremap <Leader>N  :lprev<cr>
-nnoremap <Leader>o  :CtrlPClearCache<bar>CtrlP<CR>
-nnoremap <Leader>r :cs find s <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>x :cs find c <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>t <C-t>
-nnoremap <Leader>a ?
-nnoremap <leader>i :Tabularize /
-vnoremap <leader>i :'<,'>Tabularize /
-nnoremap <Leader>w  :w<CR>
-nnoremap <Leader>q  :q<CR>
-nnoremap <leader>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
-inoremap <C-a> <Esc>%
-
+nnoremap <space>n :lnext<cr>
+nnoremap <space>N :lprev<cr>
+nnoremap <space>r :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <space>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <space>x :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <space>i :Tabularize /
+vnoremap <space>i :'<,'>Tabularize /
+nnoremap <space>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
+nnoremap <space>o :CtrlP<CR>
+nnoremap <space>w :w<CR>
+nnoremap <space>q :q<CR>
 " double leader maps
-nnoremap <Leader><Leader>d "_d
-nnoremap <Leader><Leader>D "_D
+nnoremap <space><space>d "_d
+nnoremap <space><space>D "_D
 nnoremap C "_C
+inoremap <C-b> <esc>bi
+inoremap <C-w> <esc>lwi
+inoremap <C-e> <esc>lea
+inoremap <C-a> <esc>A
+inoremap <C-i> <esc>I
+inoremap <C-c><C-w> <esc>lcw
+inoremap <C-c><C-i><C-w> <esc>lciw
+nmap     ciq ci"
+nmap     cip ci(
+nmap     cib ci[
+nmap     cic ci{
+nmap     cia ?[,?]<cr>l
+nmap     cinq f"ciq
+nmap     cinp f(cip
+nmap     cinb f[cib
+nmap     cinc f{cic
+
 nnoremap c "_c
 nnoremap x "_x
-vmap     <Leader><Leader>y  "*y
-nmap     <Leader><Leader>p  "*p
-nmap     <Leader><Leader>p  "*p
-vmap     <Leader><Leader>p  "*p
-vmap     <Leader><Leader>p  "*p
+vmap     <space><space>y  "*y
+nmap     <space><space>p  "*p
+nmap     <space><space>p  "*p
+vmap     <space><space>p  "*p
+vmap     <space><space>p  "*p
 
 " F-key maps
-noremap <F11>     :NERDTreeToggle<cr>
+noremap <F11> :NERDTreeToggle<cr>
 noremap <F3>  :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<cr> :cs reset<cr><cr>
 
 " neomake - signs and colors
@@ -240,9 +245,9 @@ endif
 let g:SuperTabDefaultCompletionType = "<C-n>"
 
 " ultisnips - use tab key
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsExpandTrigger="`"
+let g:UltiSnipsJumpForwardTrigger="`"
+let g:UltiSnipsJumpBackwardTrigger="~"
 
 " nerdtree - toggle with F12
 let g:NERDTreeDirArrowExpandable  = '+' "expandable character
@@ -252,7 +257,7 @@ autocmd BufEnter * silent! lcd %:p:h "dir of current file
 
 " lightline - config
 let g:lightline = {
-\ 'colorscheme': 'seoul256',
+\ 'colorscheme': 'Dracula',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
 \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -314,7 +319,7 @@ set smartcase
 nnoremap <F10> :set hlsearch!<CR>
 
 " paste mode with F2
-set pastetoggle=<F2>
+set pastetoggle=<F5>
 
 let g:bookmark_sign = '→'
 function! LoadCscope()
@@ -331,7 +336,6 @@ au BufEnter /* call LoadCscope()
 " change cursor in each mode
 
 if has('nvim')
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
     set guicursor+=a:blinkon0
     tnoremap <Esc> <C-\><C-n>
     tnoremap <C-h> <C-\><C-n><C-w>h
@@ -359,15 +363,15 @@ set expandtab        " expand tabs to spaces
 
 " motion for "next object". For example, "din(" would
 " go to the next "()" pair and delete its contents.
-onoremap an :<c-u>call <SID>NextTextObject('a')<cr>
-xnoremap an :<c-u>call <SID>NextTextObject('a')<cr>
-onoremap in :<c-u>call <SID>NextTextObject('i')<cr>
-xnoremap in :<c-u>call <SID>NextTextObject('i')<cr>
-function! s:NextTextObject(motion)
-echo
-let c = nr2char(getchar())
-exe "normal! f".c."v".a:motion.c
-endfunction
+" onoremap an :<c-u>call <SID>NextTextObject('a')<cr>
+" xnoremap an :<c-u>call <SID>NextTextObject('a')<cr>
+" onoremap in :<c-u>call <SID>NextTextObject('i')<cr>
+" xnoremap in :<c-u>call <SID>NextTextObject('i')<cr>
+" function! s:NextTextObject(motion)
+" echo
+" let c = nr2char(getchar())
+" exe "normal! f".c."v".a:motion.c
+" endfunction
 
 " print hidden characters
 set list
@@ -435,7 +439,6 @@ inoremap <Esc> <Esc>:nohl<cr>
 
 " move to the end of the line in insert mode
 inoremap ,, <Esc>A
-inoremap `` <Esc>I
 inoremap '' <Esc>lwi
 nnoremap 0 ^
 
@@ -443,12 +446,12 @@ nnoremap 0 ^
 nnoremap <F5> :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<CR>:cs reset<CR><CR>
 
 " comment/uncomment lines with <leader>c
-nmap <Leader>c gcc
-vmap <Leader>c gc
+nmap <space>c gcc
+vmap <space>c gc
 
 " move up/down the file and center
 nnoremap <C-d> <C-d>zz
-nnoremap <leader>y : co .<left><left><left><left><left>
+nnoremap <space>y : co .<left><left><left><left><left>
 
 " go to the end of what you pasted and no overwrite
 vnoremap <silent> y y`]
@@ -462,11 +465,8 @@ nnoremap ]] ][
 vnoremap [[ []
 vnoremap ]] ][
 
-" leader f - show functions
-nnoremap <Leader>f :CtrlPFunky<Cr>
-
 " leader , - save session
-nnoremap <Leader>, :mksess! ~/.sess<CR>
+nnoremap <space>, :mksess! ~/.sess<CR>
 let g:vim_resize_disable_auto_mappings = 1
 
 " resize with arrows
@@ -475,7 +475,32 @@ nnoremap <silent> <down> :CmdResizeDown<cr>
 nnoremap <silent> <up> :CmdResizeUp<cr>
 nnoremap <silent> <right> :CmdResizeRight<cr>
 
-" search with s/S
-nmap s /
-nmap S ?
-nnoremap <C-a> <C-u>
+noremap <space>1 1gt
+noremap <space>2 2gt
+noremap <space>3 3gt
+noremap <space>4 4gt
+noremap <space>5 5gt
+noremap <space>6 6gt
+noremap <space>7 7gt
+noremap <space>8 8gt
+noremap <space>9 9gt
+
+let g:fuzzysearch_prompt = 'fuzzy /'
+let g:fuzzysearch_hlsearch = 1
+let g:fuzzysearch_ignorecase = 1
+let g:fuzzysearch_max_history = 30
+let g:fuzzysearch_match_spaces = 0
+" let g:ctrlp_extensions = ['buffertag', 'tag', 'line', 'dir']
+
+nnoremap <space>l :CtrlPLine<CR>
+nnoremap <space>f :CtrlPBufTag<CR>
+
+noremap <F1> "a
+noremap <F2> "b
+noremap <F3> "c
+noremap <F4> "d
+nnoremap s /
+nnoremap S ?
+
+map m* *#
+set noshowmode
