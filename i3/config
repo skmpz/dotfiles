@@ -103,15 +103,15 @@ set $w9  xtra [9]
 set $w0  xtra [10]
 
 #assign workspaces to outputs
-workspace "$w1" output DP-4
-workspace "$w2" output DP-2
-workspace "$w3" output DP-4
-workspace "$w4" output DP-2
-workspace "$w5" output DP-2
-workspace "$w6" output DP-2
-workspace "$w7" output DP-2
-workspace "$w8" output DP-4
-workspace "$w9" output DP-4
+workspace "$w1" output DP-2
+workspace "$w2" output DP-4
+workspace "$w3" output DP-2
+workspace "$w4" output DP-4
+workspace "$w5" output DP-4
+workspace "$w6" output DP-4
+workspace "$w7" output DP-4
+workspace "$w8" output DP-2
+workspace "$w9" output DP-2
 
 # switch to workspace
 bindsym $mod+1 workspace $w1
@@ -199,3 +199,4 @@ for_window [class="(?i)vlc"] floating enable
 for_window [class="(?i)evince"] floating enable
 for_window [class="(?i)gimp"] floating enable
 for_window [class="(?i)gvim"] floating enable
+for_window [class="(?i)gthumb"] floating enable
