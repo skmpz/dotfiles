@@ -161,6 +161,8 @@ nnoremap <space>N :lprev<cr>
 nnoremap <space>r :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <space>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <space>x :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <space>s :scs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <space>v :vert scs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <space>i :Tabularize /
 vnoremap <space>i :'<,'>Tabularize /
 nnoremap <space>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
