@@ -168,8 +168,8 @@ nnoremap <space>o :CtrlP<CR>
 nnoremap <space>w :w<CR>
 nnoremap <space>q :q<CR>
 " double leader maps
-nnoremap <space><space>d "_d
-nnoremap <space><space>D "_D
+nnoremap <space>d "_d
+nnoremap <space>D "_D
 nnoremap C "_C
 inoremap <C-b> <esc>bi
 inoremap <C-w> <esc>lwi
@@ -494,6 +494,7 @@ let g:fuzzysearch_match_spaces = 0
 
 nnoremap <space>l :CtrlPLine<CR>
 nnoremap <space>f :CtrlPBufTag<CR>
+nnoremap <space>b :CtrlPBuffer<CR>
 
 noremap <F1> "a
 noremap <F2> "b
