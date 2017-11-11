@@ -161,6 +161,8 @@ nnoremap <space>N :lprev<cr>
 nnoremap <space>r :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <space>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <space>x :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <space>s :scs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <space>v :vert scs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <space>i :Tabularize /
 vnoremap <space>i :'<,'>Tabularize /
 nnoremap <space>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
@@ -168,8 +170,8 @@ nnoremap <space>o :CtrlP<CR>
 nnoremap <space>w :w<CR>
 nnoremap <space>q :q<CR>
 " double leader maps
-nnoremap <space><space>d "_d
-nnoremap <space><space>D "_D
+nnoremap <space>d "_d
+nnoremap <space>D "_D
 nnoremap C "_C
 inoremap <C-b> <esc>bi
 inoremap <C-w> <esc>lwi
@@ -494,6 +496,7 @@ let g:fuzzysearch_match_spaces = 0
 
 nnoremap <space>l :CtrlPLine<CR>
 nnoremap <space>f :CtrlPBufTag<CR>
+nnoremap <space>b :CtrlPBuffer<CR>
 
 noremap <F1> "a
 noremap <F2> "b

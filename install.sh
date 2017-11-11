@@ -62,6 +62,7 @@ rm -rf $HOME/.Xresources
 rm -rf $HOME/.config/i3/*
 rm -rf $HOME/.config/gtk-3.0/settings.ini
 rm -rf $HOME/.config/nvim/init.vim
+rm -rf $HOME/.local/share/fonts
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2>> .install.log
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt > /dev/null 2>> .install.log
