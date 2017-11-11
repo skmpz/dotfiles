@@ -27,7 +27,7 @@ sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes 
 check $?
 
 echo -n "Installing i3 and wm tools... "
-sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode feh arc-icon-theme arc-gtk-theme ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode urxvt-perls feh arc-icon-theme arc-gtk-theme ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Installing applications...... "
@@ -52,10 +52,6 @@ sudo pacman -S uncrustify clang-tools-extra cscope ctags --noconfirm --needed > 
 check $?
 
 echo -n "Setting up config files...... "
-mkdir -p $HOME/.bash/
-mkdir -p $HOME/.config/i3/
-mkdir -p $HOME/.config/nvim/
-mkdir -p $HOME/.config/gtk-3.0/
 rm -rf $HOME/.bashrc
 rm -rf $HOME/.gtkrc-2.0
 rm -rf $HOME/.xinitrc
@@ -64,6 +60,12 @@ rm -rf $HOME/.config/i3/*
 rm -rf $HOME/.config/gtk-3.0/settings.ini
 rm -rf $HOME/.config/nvim/init.vim
 rm -rf $HOME/.local/share/fonts
+rm -rf $HOME/.urxvt/
+mkdir -p $HOME/.bash/
+mkdir -p $HOME/.config/i3/
+mkdir -p $HOME/.config/nvim/
+mkdir -p $HOME/.config/gtk-3.0/
+mkdir -p $HOME/.urxvt/ext/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2>> .install.log
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt > /dev/null 2>> .install.log
@@ -77,6 +79,7 @@ cp $HOME/dotfiles/i3/disk.sh $HOME/.config/i3/disk.sh
 cp $HOME/dotfiles/i3/ip.sh $HOME/.config/i3/ip.sh
 cp $HOME/dotfiles/i3/mail.sh $HOME/.config/i3/mail.sh
 cp $HOME/dotfiles/i3/os.sh $HOME/.config/i3/os.sh
+cp $HOME/dotfiles/font-size $HOME/.urxvt/ext/
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
 mkdir ~/.local/share/fonts
