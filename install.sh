@@ -93,6 +93,6 @@ if [ "$1" == "vm" ]; then
     sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed > /dev/null 2>> .install.log
     printf "vboxguest\nvboxsf\nvboxvideo\n" > vboxservice.conf
     sudo cp vboxservice.conf /etc/modules-load.d/
-    sudo systemctl enable vboxservice.service
+    sudo systemctl enable vboxservice.service > /dev/null 2>> .install.log
 fi
 check $?
