@@ -1,5 +1,5 @@
 #inner gaps
-gaps inner 10
+gaps inner 8
 
 #pulse controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
@@ -175,7 +175,7 @@ bindsym $mod+r mode "resize"
 bar {
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     tray_output primary
-        font pango:Source Code Pro 11
+        font pango:Source Code Pro 9
         mode dock
         position top
         height 25
@@ -195,8 +195,8 @@ client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
 client.unfocused #073642 #073642 #93a1a1 #586e75
 client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
-for_window [class="(?i)vlc"] floating enable
-for_window [class="(?i)evince"] floating enable
-for_window [class="(?i)gimp"] floating enable
-for_window [class="(?i)gvim"] floating enable
-for_window [class="(?i)gthumb"] floating enable
+for_window [class="(?i)vlc"] floating enable, border normal 2
+for_window [class="(?i)evince"] floating enable, border normal 2
+for_window [class="(?i)gimp"] floating enable, border normal 2
+for_window [class="(?i)gvim"] floating enable, border normal 2
+for_window [class="(?i)gthumb"] floating enable, border normal 2

@@ -1,54 +1,41 @@
-URxvt*cursorColor:        orange
-URxvt.font:               xft:Inconsolata-Regular:pixelsize=15:antialias=true:hinting=true
-Xcursor.theme:            whiteglass
-Xcursor.size:             14
-URxvt*depth:              24
-URxvt*borderless:         1
-URxvt*scrollBar:          false
-URxvt*saveLines:          2000
-URxvt*background:         #000000
-URxvt*foreground:         #36a9dc
-URxvt*scrollTtyOutput:    false
-URxvt*scrollWithBuffer:   true
-URxvt*scrollTtyKeypress:  true
-URxvt.transparent:        true
-URxvt.shading:            50
-
-*.foreground:   #c5c8c6
-*.background:   #232f39
-*.cursorColor:  #c5c8c6
-
-! Super Dark Grey Blue & Light blue
-*.color0:       #232f39
-*.color8:       #6dc6e4
-
-! Darker Blue
-*.color1:       #2E3436
-*.color9:       #5fabd9
-
-! Light Blue
-*.color2:       #6dc6e4
-*.color10:      #6dc6e4
-
-! Grey
-*.color3:       #9da8ab
-*.color11:      #9da8ab
-
-! Light Green
-*.color4:       #a1d19d
-*.color12:      #a1d19d
-
-! Lighter Grey
-*.color5:       #b3b6c3
-*.color13:      #b3b6c3
-
-! Super Light Blue
-*.color6:       #a1d2e0
-*.color14:      #a1d2e0
-
-! I can't believe it's not white
-*.color7:       #e3e9e8
-*.color15:      #e3e9e8
+Xcursor.theme:              whiteglass
+Xcursor.size:               14
+URxvt*geometry:             115x40
+URxvt*cursorColor:          #36a9dc
+URxvt*font:                 xft:Inconsolata:pixelsize=15:antialias=true:hinting=true
+/* URxvt*font:                 xft:xos4 Terminus:pixelsize=14 */
+URxvt*depth:                24
+URxvt*borderless:           1
+URxvt*scrollBar:            false
+URxvt*saveLines:            2000
+URxvt*background:           #000000
+URxvt*foreground:           #36a9dc
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
+URxvt.transparent:          true
+URxvt.shading:              60
+URxvt.perl-ext-common:      font-size
+URxvt.keysym.C-Up:          perl:font-size:increase
+URxvt.keysym.C-Down:        perl:font-size:decrease
+URxvt.keysym.C-S-Up:        perl:font-size:incglobal
+URxvt.keysym.C-S-Down:      perl:font-size:decglobal
+*color0:                    #2E3436
+*color1:                    #a40000
+*color2:                    #4E9A06
+*color3:                    #C4A000
+*color4:                    #3465A4
+*color5:                    #75507B
+*color6:                    #ce5c00
+*color7:                    #babdb9
+*color8:                    #555753
+*color9:                    #EF2929
+*color10:                   #8AE234
+*color11:                   #EEEEEC
+*color12:                   #729FCF
+*color13:                   #AD7FA8
+*color14:                   #fcaf3e
+*color15:                   #EEEEEC
 
 rofi.font: Inconsolata 9
 rofi.width: 20
