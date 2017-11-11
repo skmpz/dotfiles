@@ -48,6 +48,7 @@ check $?
 
 echo -n "Setting up neovim............ "
 sudo pip3 install neovim > /dev/null 2>> .install.log
+sudo pacman -S uncrustify clang-tools-extra cscope ctags --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up config files...... "
