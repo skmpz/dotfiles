@@ -31,7 +31,7 @@ sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode feh arc-icon-the
 check $?
 
 echo -n "Installing applications...... "
-sudo pacman -S engrampa gvim evince virtualbox-host-modules-arch caja caja-open-terminal neovim chromium synergy qt4 qt5-base vlc transmission-gtk --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S engrampa gvim evince virtualbox-host-modules-arch caja caja-open-terminal gedit neovim chromium synergy qt4 qt5-base vlc transmission-gtk --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up i3-gaps........... "
@@ -86,7 +86,6 @@ nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
 sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
 check $?
-
 
 echo -n "Setting up vm modules........ "
 if [ "$1" == "vm" ]; then
