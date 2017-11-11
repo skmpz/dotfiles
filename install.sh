@@ -52,6 +52,7 @@ sudo pacman -S uncrustify clang-tools-extra cscope ctags --noconfirm --needed > 
 check $?
 
 echo -n "Setting up config files...... "
+rm -rf $HOME/.bash/
 rm -rf $HOME/.bashrc
 rm -rf $HOME/.gtkrc-2.0
 rm -rf $HOME/.xinitrc
@@ -90,8 +91,8 @@ nvim +UpdateRemotePlugins +qall > /dev/null
 sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
 check $?
 
-echo -n "Setting up vm modules........ "
 if [ "$1" == "vm" ]; then
+    echo -n "Setting up vm modules........ "
     sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed > /dev/null 2>> .install.log
     printf "vboxguest\nvboxsf\nvboxvideo\n" > vboxservice.conf
     sudo cp vboxservice.conf /etc/modules-load.d/
