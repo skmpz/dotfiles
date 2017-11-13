@@ -14,8 +14,9 @@ bindsym XF86AudioPrev exec playerctl previous
 set $mod Mod1
 
 #font
-font pango:xos4 Terminus 9
+font pango:Source Code Pro 9
 bindsym $mod+p exec ~/dotfiles/zz
+bindsym $mod+x exec caja
 
 new_window 1pixel
 focus_follows_mouse no
@@ -178,19 +179,19 @@ bar {
         font pango:Source Code Pro 9
         mode dock
         position top
-        height 25
+        height 20
         colors {
-            background #404d59
-                statusline #eff1f5
-                separator #323232
-                focused_workspace #a3be8c #65737e #eff1f5
-                active_workspace #4f5b66 #5f676a #eff1f5
-                inactive_workspace #4f5b66 #4f5b66 #a7adba
-                urgent_workspace #bf616a #65737e #eff1f5
+            background #0B1430
+            statusline #eff1f5
+            separator #323232
+            focused_workspace #213880 #213880 #eff1f5
+            active_workspace #213880 #213880 #eff1f5
+            inactive_workspace #213880 #0B1430 #eff1f5
+            urgent_workspace #CF5F35 #CF5F35 #eff1f5
         }
 }
 
-client.focused #6c71c4 #6c71c4 #fdf6e3 #6c71c4
+client.focused #30579F #30579F #ffffff #6c71c4
 client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
 client.unfocused #073642 #073642 #93a1a1 #586e75
 client.urgent #d33682 #d33682 #fdf6e3 #dc322f
@@ -200,3 +201,4 @@ for_window [class="(?i)evince"] floating enable, border normal 2, move position 
 for_window [class="(?i)gimp"] floating enable, border normal 2, move position center
 for_window [class="(?i)gvim"] floating enable, border normal 2, move position center
 for_window [class="(?i)gthumb"] floating enable, border normal 2, move position center
+for_window [class="(?i)caja"] floating enable, border normal 2, move position center
