@@ -47,7 +47,8 @@ cd ../../
 check $?
 
 echo -n "Setting up neovim............ "
-sudo pip3 install neovim > /dev/null 2>> .install.log
+sudo pip2 install --upgrade neovim > /dev/null 2>> .install.log
+sudo pip3 install --upgrade neovim > /dev/null 2>> .install.log
 sudo pacman -S uncrustify clang-tools-extra cscope ctags --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 

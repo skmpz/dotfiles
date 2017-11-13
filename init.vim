@@ -7,6 +7,7 @@ filetype plugin indent on
 " vim-plug
 call plug#begin()
 
+Plug 'Shougo/echodoc.vim'
 Plug 'vim-scripts/CmdlineComplete'
 Plug 'Shougo/echodoc.vim'
 Plug 'vim-syntastic/syntastic'
@@ -46,6 +47,8 @@ call plug#end()
 " autocmd ColorScheme * hi! link Sneak Normal
 let g:sneak#s_next = 1
 let g:sneak#use_ic_scs = 1
+
+let g:echodoc#enable_at_startup = 1
 
 " neomake run on write
 let g:neomake_java_javac_maker = 0
