@@ -195,8 +195,8 @@ client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
 client.unfocused #073642 #073642 #93a1a1 #586e75
 client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
-for_window [class="(?i)vlc"] floating enable, border normal 2
-for_window [class="(?i)evince"] floating enable, border normal 2
-for_window [class="(?i)gimp"] floating enable, border normal 2
-for_window [class="(?i)gvim"] floating enable, border normal 2
-for_window [class="(?i)gthumb"] floating enable, border normal 2
+for_window [class="(?i)vlc"] floating enable, border normal 2, move position center
+for_window [class="(?i)evince"] floating enable, border normal 2, move position center
+for_window [class="(?i)gimp"] floating enable, border normal 2, move position center
+for_window [class="(?i)gvim"] floating enable, border normal 2, move position center
+for_window [class="(?i)gthumb"] floating enable, border normal 2, move position center
