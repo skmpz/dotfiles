@@ -29,6 +29,7 @@ Plug 'godlygeek/tabular'
 Plug 'rhysd/clever-f.vim'           " plugin_clever_f
 Plug 'skmpz/vim-uncrustify'         " plugin_uncrustify
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'breuckelen/vim-resize'
 if has('nvim')
 	Plug 'Shougo/deoplete.nvim',    " plugin_deoplete
 				\{ 'do': ':UpdateRemotePlugins' }
@@ -56,7 +57,7 @@ set mouse=
 set shortmess+=A
 
 " colorscheme & custom colors [plugin_xoria256]
-colorscheme xoria256
+silent! colorscheme xoria256
 set background=dark
 if has("unix")
     let s:uname = system("uname -s")

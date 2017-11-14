@@ -59,7 +59,7 @@ autoreconf --force --install > /dev/null 2>> .install.log
 rm -rf build/
 mkdir -p build && cd build/
 ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers > /dev/null 2>> ../../.install.log
-make > /dev/null 2>> ../../.install.log
+make -j 4 > /dev/null 2>> ../../.install.log
 sudo make install > /dev/null 2>> ../../.install.log
 cd ../../
 check $?
@@ -115,5 +115,5 @@ if [ "$1" == "vm" ]; then
     printf "vboxguest\nvboxsf\nvboxvideo\n" > vboxservice.conf
     sudo cp vboxservice.conf /etc/modules-load.d/
     sudo systemctl enable vboxservice.service > /dev/null 2>> .install.log
-fi
 check $?
+fi
