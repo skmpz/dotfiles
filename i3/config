@@ -202,3 +202,4 @@ for_window [class="(?i)gimp"] floating enable, border normal 2, move position ce
 for_window [class="(?i)gvim"] floating enable, border normal 2, move position center
 for_window [class="(?i)gthumb"] floating enable, border normal 2, move position center
 for_window [class="(?i)caja"] floating enable, border normal 2, move position center
+for_window [class="(?i)FBReader"] floating enable, border normal 2, move position center
