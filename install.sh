@@ -12,7 +12,7 @@ function check {
 # just to enter pass
 sudo ls > /dev/null
 
-echo -n "Changing sudoers timeout .... "
+echo -n "Changing sudoers file........ "
 val=$(sudo grep "$USER ALL=(ALL) NOPASSWD: ALL" /etc/sudoers | wc -l)
 if [ $val == "0" ]; then
     echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo > /dev/null 2>> .install.log
