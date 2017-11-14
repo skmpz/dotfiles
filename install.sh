@@ -9,17 +9,20 @@ function check {
     fi
 }
 
-#just to enter passwd
-sudo ls > /dev/null
-
-echo -n "Setting up mirrors........... "
+#update packages
 sudo pacman -Syy > /dev/null 2>> .install.log
+
+echo -n "Setting up datetime"
+sudo pacman -S ntp
+sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
+check $?
+echo -n "Setting up mirrors........... "
 sudo pacman -S reflector --noconfirm > /dev/null 2>> .install.log
 sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev/null 2>> .install.log
 check $?
 
 echo -n "Installing system tools...... "
-sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake python2 python3 python-pip luarocks clang pulseaudio alsa-utils ntp --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake python2 python3 python-pip luarocks clang pulseaudio alsa-utils --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Install X window manager..... "
@@ -89,7 +92,6 @@ cp $HOME/dotfiles/fonts/fontawesome-webfont.ttf ~/.local/share/fonts/
 fc-cache -fv > /dev/null 2>> .install.log
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
-sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
 check $?
 
 if [ "$1" == "vm" ]; then

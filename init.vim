@@ -15,7 +15,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'Shougo/echodoc.vim'           " plugin_echodoc
 Plug 'itchyny/lightline.vim'        " plugin_lightline
 Plug 'scrooloose/nerdtree'          " plugin_nerdtree
-Plug 'tpope/vim-fugitive' 
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
@@ -35,7 +35,7 @@ if has('nvim')
 	Plug 'zchee/deoplete-clang'
 	Plug 'zchee/deoplete-jedi'
 else
-	Plug 'Shougo/neocomplete.vim' 	" plugin_neocomplete
+	Plug 'Shougo/neocomplete.vim'   " plugin_neocomplete
 endif
 call plug#end()
 
