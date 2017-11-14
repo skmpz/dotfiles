@@ -10,10 +10,11 @@ function check {
 }
 
 # just to enter pass
-sudo ls > /dev/null
+sudo pacman -S ntp --noconfirm --needed > /dev/null 2>> .install.log
+sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
+val=$(sudo grep "$USER.*timestamp_timeout=10" /etc/sudoers | wc -l)
 
 echo -n "Changing sudoers timeout .... "
-val=$(sudo grep "$USER.*timestamp_timeout=10" /etc/sudoers | wc -l)
 if [ $val == "0" ]; then
     echo "Defaults:$USER timestamp_timeout=10" | sudo EDITOR='tee -a' visudo > /dev/null 2>> .install.log
     echo -e "[\e[0;32mOK\e[0m]"
@@ -24,11 +25,6 @@ fi
 #update packages
 echo -n "Getting pacman up to date.... "
 sudo pacman -Syy --noconfirm --needed > /dev/null 2>> .install.log
-check $?
-
-echo -n "Setting up datetime.......... "
-sudo pacman -S ntp --noconfirm --needed > /dev/null 2>> .install.log
-sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up mirrors........... "
