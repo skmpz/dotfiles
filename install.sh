@@ -10,12 +10,15 @@ function check {
 }
 
 #update packages
+echo -n "Getting pacman up to date.... "
 sudo pacman -Syy > /dev/null 2>> .install.log
+check $?
 
 echo -n "Setting up datetime.......... "
 sudo pacman -S ntp > /dev/null 2>> .install.log
 sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
 check $?
+
 echo -n "Setting up mirrors........... "
 sudo pacman -S reflector --noconfirm > /dev/null 2>> .install.log
 sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev/null 2>> .install.log
