@@ -9,6 +9,15 @@ function check {
     fi
 }
 
+echo -n "Changing sudoers timeout .... "
+val=$(sudo grep "$USER.*timestamp_timeout=10" /etc/sudoers | wc -l)
+if [ $val == "0" ]; then
+    echo "Defaults:$USER timestamp_timeout=10" | sudo EDITOR='tee -a' visudo > /dev/null 2>> .install.log
+    echo -e "[\e[0;32mOK\e[0m]"
+else
+    echo -e "[\e[0;32mEXISTS\e[0m]"
+fi
+
 #update packages
 echo -n "Getting pacman up to date.... "
 sudo pacman -Syy --noconfirm --needed > /dev/null 2>> .install.log
