@@ -12,8 +12,8 @@ function check {
 #update packages
 sudo pacman -Syy > /dev/null 2>> .install.log
 
-echo -n "Setting up datetime"
-sudo pacman -S ntp
+echo -n "Setting up datetime.......... "
+sudo pacman -S ntp > /dev/null 2>> .install.log
 sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
 check $?
 echo -n "Setting up mirrors........... "
