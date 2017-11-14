@@ -9,6 +9,9 @@ function check {
     fi
 }
 
+# just to enter pass
+sudo ls > /dev/null
+
 echo -n "Changing sudoers timeout .... "
 val=$(sudo grep "$USER.*timestamp_timeout=10" /etc/sudoers | wc -l)
 if [ $val == "0" ]; then
