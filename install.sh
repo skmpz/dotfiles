@@ -89,7 +89,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2>> .install.log
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt > /dev/null 2>> .install.log
 ln -s $HOME/dotfiles/bashrc $HOME/.bashrc
-ln -s /home/sk/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
+ln -s $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -s $HOME/dotfiles/xinitrc $HOME/.xinitrc
 ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
 ln -s $HOME/dotfiles/i3/config $HOME/.config/i3/config
@@ -98,6 +98,7 @@ cp $HOME/dotfiles/i3/disk.sh $HOME/.config/i3/disk.sh
 cp $HOME/dotfiles/i3/ip.sh $HOME/.config/i3/ip.sh
 cp $HOME/dotfiles/i3/mail.sh $HOME/.config/i3/mail.sh
 cp $HOME/dotfiles/i3/os.sh $HOME/.config/i3/os.sh
+cp $HOME/dotfiles/i3/mem.sh $HOME/.config/i3/mem.sh
 cp $HOME/dotfiles/font-size $HOME/.urxvt/ext/
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
