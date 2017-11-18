@@ -164,6 +164,7 @@ set pastetoggle=<F8>
 nnoremap s /
 nnoremap S ?
 map m* #*
+nnoremap <space>, :mks! ~/.sess<cr>
 set noshowmode
 
 " print hidden characters
