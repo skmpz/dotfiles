@@ -42,7 +42,7 @@ i3-msg 'workspace  cmd [2]; split v'
 sleep 0.5
 i3-msg 'workspace  cmd [2]; exec urxvt'
 sleep 0.5
-i3-msg 'workspace  win [4]; exec VBoxManage startvm "win10"'
+i3-msg 'workspace  win [4]; exec VBoxManage startvm "win"'
 sleep 5
 i3-msg 'workspace  im [3]; exec Whatsapp'
 sleep 5

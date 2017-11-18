@@ -9,35 +9,37 @@ filetype plugin indent on
 
 " vim-plug
 call plug#begin()
+Plug 'tpope/vim-surround'
+Plug 'Yggdroot/indentLine'          " plugin_indentline
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
 Plug 'kien/ctrlp.vim'               " plugin_ctrlp
-Plug 'vimwiki/vimwiki'
 Plug 'Shougo/echodoc.vim'           " plugin_echodoc
 Plug 'itchyny/lightline.vim'        " plugin_lightline
 Plug 'scrooloose/nerdtree'          " plugin_nerdtree
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'ervandew/supertab'
-Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-expand-region'    " plugin_expand_region
 Plug 'w0rp/ale'                     " plugin_ale
 Plug 'MattesGroeger/vim-bookmarks'  " plugin_vim_bookmarks
+Plug 'rhysd/clever-f.vim'           " plugin_clever_f
+Plug 'skmpz/vim-uncrustify'         " plugin_uncrustify
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim',    " plugin_deoplete
+                \{ 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-clang'
+    Plug 'zchee/deoplete-jedi'
+else
+    Plug 'Shougo/neocomplete.vim'   " plugin_neocomplete
+endif
+Plug 'tpope/vim-fugitive'
+Plug 'vimwiki/vimwiki'
+Plug 'airblade/vim-gitgutter'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-commentary'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'SirVer/ultisnips'
 Plug 'skmpz/vim-snippets'
 Plug 'godlygeek/tabular'
-Plug 'rhysd/clever-f.vim'           " plugin_clever_f
-Plug 'skmpz/vim-uncrustify'         " plugin_uncrustify
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'breuckelen/vim-resize'
-if has('nvim')
-	Plug 'Shougo/deoplete.nvim',    " plugin_deoplete
-				\{ 'do': ':UpdateRemotePlugins' }
-	Plug 'zchee/deoplete-clang'
-	Plug 'zchee/deoplete-jedi'
-else
-	Plug 'Shougo/neocomplete.vim'   " plugin_neocomplete
-endif
 call plug#end()
 
 " use number & relativenumber
@@ -398,3 +400,7 @@ nnoremap <space>b :CtrlPBuffer<CR>
 
 " plugin_echodoc
 let g:echodoc#enable_at_startup = 1
+
+" plugin_indentline
+let g:indentLine_color_dark = 1
+let g:indentLine_color_term = 239
