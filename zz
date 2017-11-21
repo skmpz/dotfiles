@@ -3,7 +3,7 @@
 i3-msg 'workspace  web [1]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace  web [1]; exec chromium "http://www.gmail.com"'
-sleep 5
+sleep 10
 i3-msg 'workspace  web [1]; exec chromium "http://www.youtube.com"'
 sleep 0.5
 i3-msg 'workspace  web [1]; exec urxvt'
@@ -43,7 +43,7 @@ sleep 0.5
 i3-msg 'workspace  cmd [2]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace  win [4]; exec VBoxManage startvm "win"'
-sleep 5
+sleep 10
 i3-msg 'workspace  im [3]; exec Whatsapp'
 sleep 5
 i3-msg 'workspace  im [3]; exec transmission-gtk'
