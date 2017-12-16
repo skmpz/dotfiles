@@ -109,10 +109,7 @@ workspace "$w2" output DP-4
 workspace "$w3" output DP-2
 workspace "$w4" output DP-4
 workspace "$w5" output DP-4
-workspace "$w6" output DP-4
-workspace "$w7" output DP-4
-workspace "$w8" output DP-2
-workspace "$w9" output DP-2
+workspace "$w6" output HDMI-0
 
 # switch to workspace
 bindsym $mod+1 workspace $w1
@@ -200,6 +197,8 @@ for_window [class="(?i)vlc"] floating enable, border normal 2, move position cen
 for_window [class="(?i)evince"] floating enable, border normal 2, move position center
 for_window [class="(?i)gimp"] floating enable, border normal 2, move position center
 for_window [class="(?i)gvim"] floating enable, border normal 2, move position center
+for_window [class="(?i)gedit"] floating enable, border normal 2, move position center
 for_window [class="(?i)gthumb"] floating enable, border normal 2, move position center
 for_window [class="(?i)caja"] floating enable, border normal 2, move position center
 for_window [class="(?i)FBReader"] floating enable, border normal 2, move position center
+for_window [class="(?i)mate-terminal"] floating enable, border normal 2, move position center

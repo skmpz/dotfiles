@@ -46,7 +46,11 @@ i3-msg 'workspace  win [4]; exec VBoxManage startvm "win"'
 sleep 10
 i3-msg 'workspace  im [3]; exec Whatsapp'
 sleep 5
-i3-msg 'workspace  im [3]; exec transmission-gtk'
+i3-msg 'workspace  im [3]; exec viber'
+sleep 5
+i3-msg 'workspace  xtra [6]; exec transmission-gtk'
+sleep 5
+i3-msg 'workspace  xtra [6]; exec calibre'
 sleep 5
 i3-msg 'workspace  web [1]'
 sleep 0.5
