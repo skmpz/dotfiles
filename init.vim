@@ -10,8 +10,9 @@ filetype plugin indent on
 " vim-plug
 call plug#begin()
 Plug 'tpope/vim-surround'
-Plug 'Yggdroot/indentLine'          " plugin_indentline
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
+Plug 'maximbaz/lightline-ale'
 Plug 'kien/ctrlp.vim'               " plugin_ctrlp
 Plug 'Shougo/echodoc.vim'           " plugin_echodoc
 Plug 'itchyny/lightline.vim'        " plugin_lightline
@@ -41,6 +42,27 @@ Plug 'godlygeek/tabular'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'breuckelen/vim-resize'
 call plug#end()
+
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ]
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+nnoremap <F12> :RainbowParenthesesToggle<cr>
 
 " use number & relativenumber
 set number
@@ -135,6 +157,7 @@ nnoremap <space>sr :scs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <space>v :vert scs find g <C-R>=expand("<cword>")<CR><CR>
 nnoremap <space>i :Tabularize /
 vnoremap <space>i :'<,'>Tabularize /
+nnoremap <space>u :GitGutterUndoHunk<cr>
 nnoremap <space>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
 nnoremap <space>o :CtrlP<CR>
 nnoremap <space>w :w<CR>
@@ -358,6 +381,18 @@ let g:lightline = {
 \ },
 \ }
 
+let g:lightline.component_expand = {
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \ }
+
+let g:lightline.active = { 'right': [[ 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+
 " plugin_supertab
 let g:SuperTabDefaultCompletionType = "<C-n>"
 
@@ -370,13 +405,16 @@ let g:UltiSnipsJumpBackwardTrigger="~"
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_c_gcc_options = '-Wall -std=gnu99'
-let g:ale_linters = { 'c': ['gcc', 'clang', 'clangtidy'] }
+let g:ale_c_gcc_options = '-Wall -std=gnu89'
+let g:ale_linters = { 'c': ['gcc', 'clangtidy'] }
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_c_clangtidy_checks = [ '*' , '-google-readability-braces-around-statements',
             \'-readability-braces-around-statements', '-readability-named-parameter',
             \'-readability-else-after-return', '-google-readability-function-size',
-            \'-readability-avoid-const-params-in-decls', '-readability-function-size',
-            \'-llvm-header-guard', '-llvm-include-order', '-cert-env33-c']
+            \'-readability-function-size', '-android-cloexec-open',
+            \'-cert-env33-c', '-android-cloexec-fopen',
+            \'-clang-diagnostic-address-of-packed-member',
+            \'-llvm-header-guard']
 
 " plugin_uncrustify
 autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
