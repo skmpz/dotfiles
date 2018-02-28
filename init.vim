@@ -9,6 +9,8 @@ filetype plugin indent on
 
 " vim-plug
 call plug#begin()
+Plug 'mileszs/ack.vim'
+Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
@@ -42,7 +44,11 @@ Plug 'godlygeek/tabular'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'breuckelen/vim-resize'
 call plug#end()
-
+let g:gitgutter_max_signs = 1000
+let g:sneak#label = 1
+let g:sneak#s_next = 1
+let g:sneak#use_ic_scs = 1
+autocmd ColorScheme * hi Sneak ctermfg=white ctermbg=none
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['Darkblue',    'SeaGreen3'],
@@ -184,8 +190,8 @@ noremap  <F5>  :!cd /home/sk/workspace/WI_BE_Client/ && generate_tags<cr>:cs res
 noremap  <F11> :NERDTreeToggle<cr>
 nnoremap <F10> :set hlsearch!<CR>
 set pastetoggle=<F8>
-nnoremap s /
-nnoremap S ?
+" nnoremap s /
+" nnoremap S ?
 map m* #*
 nnoremap <space>, :mks! ~/.sess<cr>
 set noshowmode
@@ -406,7 +412,8 @@ let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_c_gcc_options = '-Wall -std=gnu89'
-let g:ale_linters = { 'c': ['gcc', 'clangtidy'] }
+" let g:ale_cpp_gcc_options = '-lstdc++'
+let g:ale_linters = { 'c': ['gcc', 'clangtidy'], 'cpp': ['g++', 'cppcheck', 'clangtidy'] }
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_c_clangtidy_checks = [ '*' , '-google-readability-braces-around-statements',
             \'-readability-braces-around-statements', '-readability-named-parameter',
@@ -415,6 +422,7 @@ let g:ale_c_clangtidy_checks = [ '*' , '-google-readability-braces-around-statem
             \'-cert-env33-c', '-android-cloexec-fopen',
             \'-clang-diagnostic-address-of-packed-member',
             \'-llvm-header-guard']
+" let g:ale_cpp_clangtidy_header_suffixes = ['h', 'hpp', 'hxx', 'tcc']
 
 " plugin_uncrustify
 autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
@@ -443,3 +451,4 @@ let g:echodoc#enable_at_startup = 1
 " plugin_indentline
 let g:indentLine_color_dark = 1
 let g:indentLine_color_term = 239
+nnoremap <TAB> /

@@ -16,7 +16,7 @@ check_ok() {
     if [ $1 -eq 0 ]; then
         echo -e "[\e[32mOK\e[0m]"
     else
-        echo -en "[\e[31mFAIL\e[0m]"
+        echo -e "[\e[31mFAIL\e[0m]"
         # exit
     fi
 }
@@ -42,8 +42,14 @@ function si {
 }
 
 function cpusb {
+    DEV=$(lsblk -p | grep "28.9G.*part" | awk '{print $1}' | tr -d "└─")
+    echo -e "\e[94mFound device $DEV\e[0m "
+    echo -en "[-] \e[94mUnmounting USB...............\e[0m "
+    sudo umount $DEV > /dev/null 2>&1
+    check_ok $?
+
     echo -en "[-] \e[94mMounting USB.................\e[0m "
-    sudo mount /dev/sdc1 /mnt > /dev/null 2>&1
+    sudo mount $DEV /mnt > /dev/null 2>&1
     check_ok $?
 
     echo -en "[-] \e[94mClean old client.............\e[0m "
@@ -57,6 +63,26 @@ function cpusb {
     echo -en "[-] \e[94mUnmounting USB...............\e[0m "
     sudo umount /mnt/ > /dev/null 2>&1
     check_ok $?
+}
+
+function bins {
+    echo -en "[-] \e[94mPulling from git.............\e[0m "
+    cd $HOME/src/WIFI_BE/
+    git pull > /dev/null 2>&1
+    check_ok $?
+    echo -en "[-] \e[94mGetting binaries.............\e[0m "
+    cd $HOME/src/
+    ./update_binaries.sh board2 > /dev/null 2>&1
+    check_ok $?
+    cd $HOME/src/WIFI_Client/
+    CLIENT_VERSION=$(cat versions.txt | head -1 | awk '{print $2}')
+    echo -en "[-] \e[94mCommiting changes............\e[0m "
+    git commit -am "update binaries to client version $CLIENT_VERSION" > /dev/null 2>&1
+    check_ok $?
+    echo -en "[-] \e[94mPushing upstream.............\e[0m "
+    git push > /dev/null 2>&1
+    check_ok $?
+    echo -e "[-] \e[32mUpdated to $CLIENT_VERSION\e[0m"
 }
 
 alias nvs='nvim -S ~/.sess'
@@ -87,12 +113,14 @@ alias gclo='git clone'
 alias gch='git checkout'
 alias gdf='git diff'
 alias gst='git status'
+alias grst='git reset --hard'
 alias f='find . -name'
 alias grp='grep -nIr'
 alias glog='git log --pretty=format:"%h|%an|%s"| column -t -s "|" -o "|" | awk '"'"'BEGIN{FS="|";} function green(s) { printf "\033[1;32m" s "\033[0m " } function blue(s) { printf "\033[1;34m" substr(s,1,3) "\033[0m " } {print green($1),blue($2),$3}'"'"' | more -10'
 alias gtg='git describe --tag'
 alias rse='rsync -arv /home/sk/src/WIFI_BE/ vm:/decoder/WIFI_BE/'
 alias rss='rsync -arv /home/sk/src/sproxy/ vm:/root/sproxy'
+alias rsd='rsync -arv /home/sk/src/dpi/ vm:/root/dpi'
 alias rsc2='rsync -arv --exclude="*.o" --exclude="*.out" --exclude=".git/" /home/sk/src/WI_BE_Client/ board2:/root/WI_BE_Client/ --delete'
 alias rsc3='rsync -arv --exclude="*.o" --exclude="*.out" --exclude=".git/" /home/sk/src/WI_BE_Client/ board3:/root/WI_BE_Client/ --delete'
 alias rsc4='rsync -arv --exclude="*.o" --exclude="*.out" --exclude=".git/" /home/sk/src/WI_BE_Client/ board4:/root/WI_BE_Client/ --delete'
