@@ -1,0 +1,7 @@
+install base system
+install nvidia
+pkg install git
+git clone https://github.com/skmpz/dotfiles
+cd dotfiles/freebsd
+./install.sh
+
