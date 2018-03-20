@@ -1,0 +1,57 @@
+#!/bin/bash
+
+i3-msg 'workspace  web [1]; exec urxvt'
+sleep 0.5
+i3-msg 'workspace  web [1]; exec chromium "http://www.gmail.com"'
+sleep 10
+i3-msg 'workspace  web [1]; exec chromium "http://www.youtube.com"'
+sleep 0.5
+i3-msg 'workspace  web [1]; exec urxvt'
+sleep 0.5
+i3-msg 'workspace  web [1]; split v'
+sleep 0.5
+i3-msg 'workspace  web [1]; exec urxvt'
+sleep 0.5
+i3-msg 'workspace  web [1]; focus left;'
+sleep 0.5
+i3-msg 'workspace  web [1]; resize grow width 18 px or 18 ppt;'
+sleep 0.5
+i3-msg 'workspace  web [1]; focus left;'
+sleep 0.5
+i3-msg 'workspace  web [1]; split v'
+sleep 0.5
+i3-msg 'workspace  web [1]; exec urxvt'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; exec urxvt'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; exec urxvt'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; exec urxvt'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; split v'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; exec urxvt -e bash -c "htop && bash"'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; focus left;'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; resize grow width 14 px or 14 ppt;'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; focus left;'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; split v'
+sleep 0.5
+i3-msg 'workspace  cmd [2]; exec urxvt'
+sleep 0.5
+i3-msg 'workspace  win [4]; exec VBoxManage startvm "win"'
+sleep 10
+i3-msg 'workspace  im [3]; exec Whatsapp'
+sleep 5
+i3-msg 'workspace  im [3]; exec viber'
+sleep 5
+i3-msg 'workspace  xtra [6]; exec transmission-gtk'
+sleep 5
+i3-msg 'workspace  xtra [6]; exec calibre'
+sleep 5
+i3-msg 'workspace  web [1]'
+sleep 0.5
+i3-msg 'workspace  cmd [2]'

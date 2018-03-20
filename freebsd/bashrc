@@ -1,0 +1,59 @@
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+function check {
+    if [ $1 == 0 ]; then
+        echo -e "[${GREEN}OK${NC}]"
+    else
+        echo -e "[${RED}FAIL${NC}]"
+    fi
+}
+
+function wh {
+    SEARCH_PORT=$(whereis $1 | tr " " "\n" | grep "/usr/ports")
+    cd $SEARCH_PORT
+}
+
+function up {
+    cd /usr/ports/ && sudo svn up
+    OUTDATED=$(sudo portmaster -L | grep "New version" | grep -v "No packages" | awk 'BEGIN { FS = "available: " } { print $2 }')
+    echo "---------------------------------"
+    if [ -z "$OUTDATED" ]; then
+        echo "Ports up-to-date"
+    else
+        echo "$OUTDATED"
+    fi
+    echo "---------------------------------"
+}
+
+function clsys {
+    echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning trash.............${NC}"
+    sudo rm -rf /data/.Trash-1001/^
+    check $?
+    echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning distfiles.........${NC}"
+    sudo rm -rf /usr/ports/distfiles/^
+    check $?
+    echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning work dirs.........${NC}"
+    sudo find /usr/ports/ -name work -type d -exec rm -rf {} +
+    check $?
+}
+
+alias nv='nvim'
+alias bck='sudo rsync -avzh /data/ /mnt --delete --exclude downloads/ --exclude .Trash-1001/'
+alias pkg='sudo pkg'
+alias upd='sudo portmaster -dya --no-confirm'
+alias d='cd /data/downloads'
+alias reboot='shutdown -r now'
+
+[[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
+	source /usr/local/share/bash-completion/bash_completion.sh
+
+PS1='[\u@\h \W]\$ '
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
+export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+PATH=$PATH:$HOME/bin
+export LD_LIBRARY_PATH=/usr/local/lib/gcc7/
