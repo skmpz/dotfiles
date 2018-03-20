@@ -25,7 +25,8 @@ echo -n "Installing system tools...... "
 sudo pkg install -y bash cmake uncrustify gmake rsync scrot imagemagick e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes fusefs-ntfs >> .install.log 2>> .install.log
 check $?
 
-echo -n "Installing xorg.............. " sudo pkg install -y xorg xclip > .install.log 2>> .install.log check $?  echo -n "Installing window manager.... "
+echo -n "Installing xorg.............. "
+sudo pkg install -y xorg xclip > .install.log 2>> .install.log check $?  echo -n "Installing window manager.... "
 sudo pkg install -y i3 i3status i3lock rofi feh >> .install.log 2>> .install.log
 check $?
 
@@ -55,7 +56,7 @@ rm -rf /home/sk/bin/
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
 rm -rf /home/sk/.rsession/
-rm -rf /home/sk/.rtorrent
+rm -rf /home/sk/.rtorrentrc
 rm -rf /home/sk/.gtkrc-2.0
 rm -rf /home/sk/.xinitrc
 rm -rf /home/sk/.Xresources
