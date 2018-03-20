@@ -8,5 +8,5 @@ check() {
 }
 
 echo -n "Installing system tools...... "
-pkg install -y xorg i3 rofi rxvt-unicode &>> .install.log
+pkg install -y xorg i3 rofi rxvt-unicode >> .install.log 2>> .install.log
 check $?
