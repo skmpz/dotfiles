@@ -18,13 +18,15 @@ function wh {
 }
 
 function up {
-    cd /usr/ports/ && sudo svn up
+    portsnap fetch update > /dev/null 2> /dev/null
     OUTDATED=$(sudo portmaster -L | grep "New version" | grep -v "No packages" | awk 'BEGIN { FS = "available: " } { print $2 }')
     echo "---------------------------------"
     if [ -z "$OUTDATED" ]; then
         echo "Ports up-to-date"
     else
         echo "$OUTDATED"
+        echo "---------------------------------"
+        echo "$(echo "$OUTDATED" | wc -l) outdated packages"
     fi
     echo "---------------------------------"
 }
@@ -47,6 +49,10 @@ alias pkg='sudo pkg'
 alias upd='sudo portmaster -dya --no-confirm'
 alias d='cd /data/downloads'
 alias reboot='shutdown -r now'
+alias gst='git status'
+alias gco='git commit -am'
+alias gdf='git diff'
+alias gpush='git push'
 
 [[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
 	source /usr/local/share/bash-completion/bash_completion.sh
