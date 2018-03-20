@@ -58,6 +58,8 @@ sudo chsh -s /usr/local/bin/bash sk >> .install.log 2>> .install.log
 rm -rf /home/sk/bin/
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
+rm -rf /home/sk/.rsession/
+rm -rf /home/sk/.rtorrent
 rm -rf /home/sk/.gtkrc-2.0
 rm -rf /home/sk/.xinitrc
 rm -rf /home/sk/.Xresources
@@ -66,6 +68,7 @@ rm -rf /home/sk/.config/gtk-3.0/settings.ini
 rm -rf /home/sk/.config/nvim/init.vim
 rm -rf /home/sk/.urxvt/
 mkdir -p /home/sk/.bash/
+mkdir -p /home/sk/.rsession/
 mkdir -p /home/sk/.config/i3/
 mkdir -p /home/sk/.config/nvim/
 mkdir -p /home/sk/.config/gtk-3.0/
@@ -78,6 +81,7 @@ git clone https://github.com/skmpz/git-aware-prompt /home/sk/.bash/git-aware-pro
 check_no_ok $?
 cp font-size /home/sk/.urxvt/ext/
 ln -s /home/sk/dotfiles/freebsd/bashrc /home/sk/.bashrc
+ln -s /home/sk/dotfiles/freebsd/rtorrent.rc /home/sk/.rtorrent.rc
 ln -s /home/sk/dotfiles/freebsd/xresources /home/sk/.Xresources
 ln -s /home/sk/dotfiles/freebsd/xinitrc /home/sk/.xinitrc
 ln -s /home/sk/dotfiles/freebsd/gtkrc-2.0 /home/sk/.gtkrc-2.0
