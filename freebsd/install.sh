@@ -25,11 +25,7 @@ echo -n "Installing system tools...... "
 sudo pkg install -y bash cmake uncrustify gmake scrot imagemagick e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes fusefs-ntfs >> .install.log 2>> .install.log
 check $?
 
-echo -n "Installing xorg.............. "
-sudo pkg install -y xorg xclip > .install.log 2>> .install.log
-check $?
-
-echo -n "Installing window manager.... "
+echo -n "Installing xorg.............. " sudo pkg install -y xorg xclip > .install.log 2>> .install.log check $?  echo -n "Installing window manager.... "
 sudo pkg install -y i3 i3status i3lock rofi feh >> .install.log 2>> .install.log
 check $?
 
@@ -88,7 +84,6 @@ ln -s /home/sk/dotfiles/freebsd/gtkrc-2.0 /home/sk/.gtkrc-2.0
 ln -s /home/sk/dotfiles/freebsd/config /home/sk/.config/i3/config
 ln -s /home/sk/dotfiles/freebsd/init.vim /home/sk/.config/nvim/init.vim
 ln -s /home/sk/dotfiles/freebsd/settings.ini /home/sk/.config/gtk-3.0/settings.ini
-cp -r /home/sk/dotfiles/freebsd/bin/ /home/sk/
 cp -r /usr/local/share/icons/whiteglass ~/.icons/
 fc-cache -fv > /dev/null
 nvim +PlugInstall +qall > /dev/null
