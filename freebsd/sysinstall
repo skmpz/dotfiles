@@ -1,8 +1,8 @@
 install base system
-install sudo and uncomment wheel and change timeout to 20
-install nvidia
+install sudo and uncomment wheel
 pkg install git
 git clone https://github.com/skmpz/dotfiles
 cd dotfiles/freebsd
 ./install.sh
+install nvidia
 

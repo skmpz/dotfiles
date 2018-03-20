@@ -18,7 +18,7 @@ check_no_ok() {
 sudo ls > /dev/null
 
 echo -n "Setting up sudoers........... "
-sudo sh -c 'echo "Defaults timestamp_timeout=-1">>/usr/local/etc/sudoers'
+sudo sh -c 'echo "Defaults timestamp_timeout=-1">>/usr/local/etc/sudoers' >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing system tools...... "
@@ -38,29 +38,22 @@ sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-
 check $?
 
 echo -n "Installing desktop apps...... "
-sudo pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log 2>> .install.log
+sudo pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv calibre >> .install.log 2>> .install.log
 check $?
 
-echo -n "Installing ports............. "
+echo -n "Setting up ports tree........ "
 sudo pkg install -y portmaster >> .install.log 2>> .install.log
 sudo portsnap fetch >> .install.log 2>> .install.log
 sudo portsnap extract >> .install.log 2>> .install.log
 check $?
 
-echo -n "Installing editors........... "
+echo -n "Installing [n]vim and tools.. "
 sudo pkg install -y vim neovim >> .install.log 2>> .install.log
 sudo pip-2.7 install --upgrade neovim >> .install.log 2>> .install.log
 sudo pip-3.6 install --upgrade neovim >> .install.log 2>> .install.log
 check $?
 
-sudo sysrc dbus_enable="YES" >> .install.log 2>> .install.log
-check_no_ok $?
-sudo sysrc hald_enable="YES" >> .install.log 2>> .install.log
-check_no_ok $?
-sudo sysrc linux_enable="YES" >> .install.log 2>> .install.log
-check_no_ok $?
-
-echo -n "Setting up configs........... "
+echo -n "Configuring system files..... "
 sudo chsh -s /usr/local/bin/bash >> .install.log 2>> .install.log
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
@@ -94,4 +87,10 @@ cp -r /usr/local/share/icons/whiteglass ~/.icons/
 fc-cache -fv > /dev/null
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
+sudo sysrc dbus_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
+sudo sysrc hald_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
+sudo sysrc linux_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
 check $?
