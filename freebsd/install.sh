@@ -22,7 +22,7 @@ sudo sh -c 'echo "Defaults timestamp_timeout=-1">>/usr/local/etc/sudoers' >> .in
 check $?
 
 echo -n "Installing system tools...... "
-sudo pkg install -y bash cmake uncrustify gmake e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes >> .install.log 2>> .install.log
+sudo pkg install -y bash cmake uncrustify gmake scrot imagemagick e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing xorg.............. "
@@ -55,6 +55,7 @@ check $?
 
 echo -n "Configuring system files..... "
 sudo chsh -s /usr/local/bin/bash sk >> .install.log 2>> .install.log
+rm -rf /home/sk/bin/
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
 rm -rf /home/sk/.gtkrc-2.0
@@ -83,6 +84,7 @@ ln -s /home/sk/dotfiles/freebsd/gtkrc-2.0 /home/sk/.gtkrc-2.0
 ln -s /home/sk/dotfiles/freebsd/config /home/sk/.config/i3/config
 ln -s /home/sk/dotfiles/freebsd/init.vim /home/sk/.config/nvim/init.vim
 ln -s /home/sk/dotfiles/freebsd/settings.ini /home/sk/.config/gtk-3.0/settings.ini
+cp -r /home/sk/dotfiles/freebsd/bin/ /home/sk/
 cp -r /usr/local/share/icons/whiteglass ~/.icons/
 fc-cache -fv > /dev/null
 nvim +PlugInstall +qall > /dev/null
