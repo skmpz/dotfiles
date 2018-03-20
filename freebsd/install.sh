@@ -69,8 +69,8 @@ ln -s /home/sk/dotfiles/freebsd/settings.ini /home/sk/.config/gtk-3.0/settings.i
 fc-cache -fv > /dev/null
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
-sysrc dbus_enable="YES"
-sysrc hald_enable="YES"
-sysrc linux_enable="YES"
+sysrc dbus_enable="YES" > /dev/null
+sysrc hald_enable="YES" > /dev/null
+sysrc linux_enable="YES" > /dev/null
 
 check $?
