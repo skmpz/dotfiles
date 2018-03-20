@@ -38,6 +38,11 @@ echo -n "Installing editors........... "
 pkg install -y vim neovim >> .install.log
 check $?
 
+sysrc dbus_enable="YES" > /dev/null
+sysrc hald_enable="YES" > /dev/null
+sysrc linux_enable="YES" > /dev/null
+su sk
+
 echo -n "Setting up configs........... "
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
@@ -69,8 +74,4 @@ ln -s /home/sk/dotfiles/freebsd/settings.ini /home/sk/.config/gtk-3.0/settings.i
 fc-cache -fv > /dev/null
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
-sysrc dbus_enable="YES" > /dev/null
-sysrc hald_enable="YES" > /dev/null
-sysrc linux_enable="YES" > /dev/null
-
 check $?
