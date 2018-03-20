@@ -46,7 +46,7 @@ sudo sysrc hald_enable="YES" >> .install.log 2>> .install.log
 sudo sysrc linux_enable="YES" >> .install.log 2>> .install.log
 
 echo -n "Setting up configs........... "
-sudo chsh -s /usr/local/bin/bash
+sudo chsh -s /usr/local/bin/bash >> .install.log 2>> .install.log
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
 rm -rf /home/sk/.gtkrc-2.0
