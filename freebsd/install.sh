@@ -17,8 +17,12 @@ check_no_ok() {
 # prompt for password
 sudo ls > /dev/null
 
+echo -n "Setting up sudoers........... "
+sudo sh -c 'echo "\n wheel ALL=(ALL) ALL">>/usr/local/etc/sudoers\nDefaults timestamp_timeout=-1">>/usr/local/etc/sudoers'
+check $?
+
 echo -n "Installing system tools...... "
-sudo pkg install -y bash cmake gmake e2fsprogs wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes >> .install.log 2>> .install.log
+sudo pkg install -y bash cmake gmake e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing xorg.............. "
@@ -37,13 +41,24 @@ echo -n "Installing desktop apps...... "
 sudo pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log 2>> .install.log
 check $?
 
+echo -n "Installing ports............. "
+sudo pkg install -y portmaster >> .install.log 2>> .install.log
+sudo portsnap fetch >> .install.log 2>> .install.log
+sudo portsnap extract >> .install.log 2>> .install.log
+check $?
+
 echo -n "Installing editors........... "
 sudo pkg install -y vim neovim >> .install.log 2>> .install.log
+sudo pip-2.7 install --upgrade neovim >> .install.log 2>> .install.log
+sudo pip-3.6 install --upgrade neovim >> .install.log 2>> .install.log
 check $?
 
 sudo sysrc dbus_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
 sudo sysrc hald_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
 sudo sysrc linux_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
 
 echo -n "Setting up configs........... "
 sudo chsh -s /usr/local/bin/bash >> .install.log 2>> .install.log
