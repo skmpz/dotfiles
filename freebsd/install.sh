@@ -1,4 +1,4 @@
-function check {
+check() {
     if [ "$1" == "0" ]; then
         echo -e "[\e[0;32mOK\e[0m]"
     else
