@@ -16,7 +16,7 @@ pkg install -y i3 i3status i3lock rofi rxvt-unicode urxvt-perls >> .install.log
 check $?
 
 echo -n "Installing desktop apps...... "
-pkg install -y caja caja-extensions engrampa evince gedit chrome rtorrent mpv >> .install.log
+pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log
 check $?
 
 echo -n "Installing editors........... "
