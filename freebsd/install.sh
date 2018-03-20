@@ -7,8 +7,12 @@ check() {
     fi
 }
 
+echo -n "Installing xorg.............. "
+pkg install -y xorg xclip > .install.log
+check $?
+
 echo -n "Installing system tools...... "
-# pkg install -y xorg > .install.log
+pkg install -y wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils >> .install.log
 check $?
 
 echo -n "Installing window manager.... "
@@ -16,7 +20,7 @@ pkg install -y i3 i3status i3lock rofi rxvt-unicode urxvt-perls >> .install.log
 check $?
 
 echo -n "Installing desktop apps...... "
-pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log
+pkg install -y e2fsprogs caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log
 check $?
 
 echo -n "Installing editors........... "
