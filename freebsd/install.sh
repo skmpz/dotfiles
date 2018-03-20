@@ -54,7 +54,7 @@ sudo pip-3.6 install --upgrade neovim >> .install.log 2>> .install.log
 check $?
 
 echo -n "Configuring system files..... "
-sudo chsh -s /usr/local/bin/bash >> .install.log 2>> .install.log
+sudo chsh -s /usr/local/bin/bash sk >> .install.log 2>> .install.log
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
 rm -rf /home/sk/.gtkrc-2.0
