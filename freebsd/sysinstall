@@ -1,4 +1,5 @@
 install base system
+install sudo and uncomment wheel and change timeout to 20
 install nvidia
 pkg install git
 git clone https://github.com/skmpz/dotfiles

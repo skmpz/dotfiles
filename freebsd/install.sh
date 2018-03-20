@@ -18,32 +18,32 @@ check_no_ok() {
 sudo ls > /dev/null
 
 echo -n "Installing system tools...... "
-sudo pkg install -y bash cmake gmake e2fsprogs wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls >> .install.log
+sudo pkg install -y bash cmake gmake e2fsprogs wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing xorg.............. "
-sudo pkg install -y xorg xclip > .install.log
+sudo pkg install -y xorg xclip > .install.log 2>> .install.log
 check $?
 
 echo -n "Installing window manager.... "
-sudo pkg install -y i3 i3status i3lock rofi >> .install.log
+sudo pkg install -y i3 i3status i3lock rofi >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing fonts............. "
-sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-fonts-ttf >> .install.log
+sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-fonts-ttf >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing desktop apps...... "
-sudo pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log
+sudo pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing editors........... "
-sudo pkg install -y vim neovim >> .install.log
+sudo pkg install -y vim neovim >> .install.log 2>> .install.log
 check $?
 
-sudo sysrc dbus_enable="YES" > /dev/null
-sudo sysrc hald_enable="YES" > /dev/null
-sudo sysrc linux_enable="YES" > /dev/null
+sudo sysrc dbus_enable="YES" >> .install.log 2>> .install.log
+sudo sysrc hald_enable="YES" >> .install.log 2>> .install.log
+sudo sysrc linux_enable="YES" >> .install.log 2>> .install.log
 
 echo -n "Setting up configs........... "
 chsh -s /usr/local/bin/bash
@@ -61,6 +61,7 @@ mkdir -p /home/sk/.config/i3/
 mkdir -p /home/sk/.config/nvim/
 mkdir -p /home/sk/.config/gtk-3.0/
 mkdir -p /home/sk/.urxvt/ext/
+mkdir -p /home/sk/.icons/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2> /dev/null
 check_no_ok $?
@@ -74,6 +75,7 @@ ln -s /home/sk/dotfiles/freebsd/gtkrc-2.0 /home/sk/.gtkrc-2.0
 ln -s /home/sk/dotfiles/freebsd/config /home/sk/.config/i3/config
 ln -s /home/sk/dotfiles/freebsd/init.vim /home/sk/.config/nvim/init.vim
 ln -s /home/sk/dotfiles/freebsd/settings.ini /home/sk/.config/gtk-3.0/settings.ini
+cp -r /usr/local/share/icons/whiteglass ~/.icons/
 fc-cache -fv > /dev/null
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
