@@ -39,33 +39,33 @@ pkg install -y vim neovim >> .install.log
 check $?
 
 echo -n "Setting up configs........... "
-rm -rf $HOME/.bash/
-rm -rf $HOME/.bashrc
-rm -rf $HOME/.gtkrc-2.0
-rm -rf $HOME/.xinitrc
-rm -rf $HOME/.Xresources
-rm -rf $HOME/.config/i3/*
-rm -rf $HOME/.config/gtk-3.0/settings.ini
-rm -rf $HOME/.config/nvim/init.vim
-rm -rf $HOME/.urxvt/
-mkdir -p $HOME/.bash/
-mkdir -p $HOME/.config/i3/
-mkdir -p $HOME/.config/nvim/
-mkdir -p $HOME/.config/gtk-3.0/
-mkdir -p $HOME/.urxvt/ext/
+rm -rf /home/sk/.bash/
+rm -rf /home/sk/.bashrc
+rm -rf /home/sk/.gtkrc-2.0
+rm -rf /home/sk/.xinitrc
+rm -rf /home/sk/.Xresources
+rm -rf /home/sk/.config/i3/*
+rm -rf /home/sk/.config/gtk-3.0/settings.ini
+rm -rf /home/sk/.config/nvim/init.vim
+rm -rf /home/sk/.urxvt/
+mkdir -p /home/sk/.bash/
+mkdir -p /home/sk/.config/i3/
+mkdir -p /home/sk/.config/nvim/
+mkdir -p /home/sk/.config/gtk-3.0/
+mkdir -p /home/sk/.urxvt/ext/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2> /dev/null
 check_no_ok $?
-git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt > /dev/null 2> /dev/null
+git clone https://github.com/skmpz/git-aware-prompt /home/sk/.bash/git-aware-prompt > /dev/null 2> /dev/null
 check_no_ok $?
-cp font-size $HOME/.urxvt/ext/
-ln -s $HOME/dotfiles/freebsd/bashrc $HOME/.bashrc
-ln -s $HOME/dotfiles/freebsd/xresources $HOME/.Xresources
-ln -s $HOME/dotfiles/freebsd/xinitrc $HOME/.xinitrc
-ln -s $HOME/dotfiles/freebsd/gtkrc-2.0 $HOME/.gtkrc-2.0
-ln -s $HOME/dotfiles/freebsd/config $HOME/.config/i3/config
-ln -s $HOME/dotfiles/freebsd/init.vim $HOME/.config/nvim/init.vim
-ln -s $HOME/dotfiles/freebsd/settings.ini $HOME/.config/gtk-3.0/settings.ini
+cp font-size /home/sk/.urxvt/ext/
+ln -s /home/sk/dotfiles/freebsd/bashrc /home/sk/.bashrc
+ln -s /home/sk/dotfiles/freebsd/xresources /home/sk/.Xresources
+ln -s /home/sk/dotfiles/freebsd/xinitrc /home/sk/.xinitrc
+ln -s /home/sk/dotfiles/freebsd/gtkrc-2.0 /home/sk/.gtkrc-2.0
+ln -s /home/sk/dotfiles/freebsd/config /home/sk/.config/i3/config
+ln -s /home/sk/dotfiles/freebsd/init.vim /home/sk/.config/nvim/init.vim
+ln -s /home/sk/dotfiles/freebsd/settings.ini /home/sk/.config/gtk-3.0/settings.ini
 fc-cache -fv > /dev/null
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
