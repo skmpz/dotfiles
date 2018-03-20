@@ -21,7 +21,7 @@ bindsym --release button2 kill
 
 #font
 font pango:Source Code Pro 9
-bindsym $mod+p exec ~/bin/zz
+bindsym $mod+p exec "$HOME/dotfiles/freebsd/bin/startup.sh"
 bindsym $mod+x exec caja
 bindsym $mod+Shift+z exec "$HOME/dotfiles/freebsd/bin/lock.sh"
 exec xautolock -time 15 -locker "$HOME/dotfiles/freebsd/bin/lock.sh" &
@@ -103,7 +103,7 @@ bindsym $mod+a focus parent
 set $w1 main [1]
 set $w2 cmd [2]
 set $w3 apps [3]
-set $w4 vm [4]
+set $w4 books [4]
 set $w5 xtra [5]
 set $w6 xtra [6]
 set $w7 xtra [7]

@@ -3,19 +3,8 @@
 /usr/bin/i3status | while :
 do
     # read line
-    RAM=`free -kh | grep Mem | awk '{print $3}'`
-    TOTR=$(cat /proc/meminfo | grep MemT | sed 's/.*\://g' | sed 's/ *//g' | sed 's/kB//g')
-    TOT=$(octave --eval "$TOTR/1024^2" | sed 's/ans = *//g' | sed 's/$/G/g' )
-
     # Put uptime
     uptime=`uptime | awk '{print $3 " " $4}' | sed 's/,.*//'`
-    hour=$(echo $uptime | sed 's/\:.*//g')
-    min=$(echo $uptime | sed 's/.*\://g')
-    # UP="$hour h $min m"
-
-    # Compile C++ CPU prog and run it
-    g++ -o cpu.o $HOME/.i3/cpu.cpp
-    CPU=$(./cpu.o)
 
     VERSION=$(freebsd-version)
     VOL=$(pactl list sinks | grep "Volume" | head -n1 | awk '{print $9}')
