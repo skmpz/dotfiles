@@ -11,6 +11,14 @@ echo -n "Installing system tools...... "
 # pkg install -y xorg > .install.log
 check $?
 
-echo -n "Installing desktop tools..... "
-pkg install -y i3 rofi rxvt-unicode >> .install.log
+echo -n "Installing window manager.... "
+pkg install -y i3 i3status i3lock rofi rxvt-unicode urxvt-perls >> .install.log
+check $?
+
+echo -n "Installing desktop apps...... "
+pkg install -y caja caja-extensions engrampa evince gedit chrome rtorrent mpv >> .install.log
+check $?
+
+echo -n "Installing editors........... "
+pkg install -y vim neovim >> .install.log
 check $?
