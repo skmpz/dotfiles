@@ -12,15 +12,19 @@ pkg install -y xorg xclip > .install.log
 check $?
 
 echo -n "Installing system tools...... "
-pkg install -y wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils >> .install.log
+pkg install -y cmake gmake e2fsprogs wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls >> .install.log
 check $?
 
 echo -n "Installing window manager.... "
-pkg install -y i3 i3status i3lock rofi rxvt-unicode urxvt-perls >> .install.log
+pkg install -y i3 i3status i3lock rofi >> .install.log
+check $?
+
+echo -n "Installing fonts............. "
+pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-fonts-ttf >> .install.log
 check $?
 
 echo -n "Installing desktop apps...... "
-pkg install -y e2fsprogs caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log
+pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log
 check $?
 
 echo -n "Installing editors........... "
