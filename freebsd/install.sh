@@ -56,7 +56,7 @@ mkdir -p $HOME/.urxvt/ext/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null
 check_no_ok $?
-git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt > /dev/null
+git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt > /dev/null 2> /dev/null
 check_no_ok $?
 cp font-size $HOME/.urxvt/ext/
 ln -s $HOME/dotfiles/freebsd/bashrc $HOME/.bashrc
