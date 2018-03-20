@@ -22,7 +22,7 @@ sudo sh -c 'echo "Defaults timestamp_timeout=-1">>/usr/local/etc/sudoers' >> .in
 check $?
 
 echo -n "Installing system tools...... "
-sudo pkg install -y bash cmake gmake e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes >> .install.log 2>> .install.log
+sudo pkg install -y bash cmake uncrustify gmake e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing xorg.............. "
@@ -30,7 +30,7 @@ sudo pkg install -y xorg xclip > .install.log 2>> .install.log
 check $?
 
 echo -n "Installing window manager.... "
-sudo pkg install -y i3 i3status i3lock rofi >> .install.log 2>> .install.log
+sudo pkg install -y i3 i3status i3lock rofi feh >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing fonts............. "
