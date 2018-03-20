@@ -18,7 +18,7 @@ check_no_ok() {
 sudo ls > /dev/null
 
 echo -n "Setting up sudoers........... "
-sudo sh -c 'echo "\nDefaults timestamp_timeout=-1">>/usr/local/etc/sudoers'
+sudo sh -c 'echo "Defaults timestamp_timeout=-1">>/usr/local/etc/sudoers'
 check $?
 
 echo -n "Installing system tools...... "
