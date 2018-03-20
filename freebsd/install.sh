@@ -7,4 +7,6 @@ check() {
     fi
 }
 
+echo -n "Installing system tools...... "
 pkg install -y xorg i3 rofi rxvt-unicode > .install.log
+check $?
