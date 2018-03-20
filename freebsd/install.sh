@@ -14,36 +14,39 @@ check_no_ok() {
     fi
 }
 
-echo -n "Installing xorg.............. "
-pkg install -y xorg xclip > .install.log
-check $?
+# prompt for password
+sudo ls > /dev/null
 
 echo -n "Installing system tools...... "
-pkg install -y cmake gmake e2fsprogs wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls >> .install.log
+sudo pkg install -y bash cmake gmake e2fsprogs wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls >> .install.log
+check $?
+
+echo -n "Installing xorg.............. "
+sudo pkg install -y xorg xclip > .install.log
 check $?
 
 echo -n "Installing window manager.... "
-pkg install -y i3 i3status i3lock rofi >> .install.log
+sudo pkg install -y i3 i3status i3lock rofi >> .install.log
 check $?
 
 echo -n "Installing fonts............. "
-pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-fonts-ttf >> .install.log
+sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-fonts-ttf >> .install.log
 check $?
 
 echo -n "Installing desktop apps...... "
-pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log
+sudo pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv >> .install.log
 check $?
 
 echo -n "Installing editors........... "
-pkg install -y vim neovim >> .install.log
+sudo pkg install -y vim neovim >> .install.log
 check $?
 
-sysrc dbus_enable="YES" > /dev/null
-sysrc hald_enable="YES" > /dev/null
-sysrc linux_enable="YES" > /dev/null
-su sk
+sudo sysrc dbus_enable="YES" > /dev/null
+sudo sysrc hald_enable="YES" > /dev/null
+sudo sysrc linux_enable="YES" > /dev/null
 
 echo -n "Setting up configs........... "
+chsh -s /usr/local/bin/bash
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
 rm -rf /home/sk/.gtkrc-2.0
