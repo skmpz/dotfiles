@@ -32,6 +32,7 @@ function up {
 }
 
 function clsys {
+    sudo ls > /dev/null
     echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning trash.............${NC}"
     sudo rm -rf /data/.Trash-1001/*
     check $?
