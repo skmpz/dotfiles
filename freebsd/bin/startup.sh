@@ -48,7 +48,7 @@ i3-msg 'workspace apps [3]; exec urxvt -e bash -c "rtorrent"'
 sleep 0.5
 i3-msg 'workspace apps [3]; split v'
 sleep 0.5
-i3-msg 'workspace apps [3]; exec urxvt'
+i3-msg 'workspace apps [3]; exec urxvt -e bash -c "synergy-core --server -f -c ~/dotfiles/freebsd/bin/synergy.conf"'
 sleep 0.5
 i3-msg 'workspace apps [3]; focus left'
 sleep 0.5

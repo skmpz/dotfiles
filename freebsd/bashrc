@@ -2,6 +2,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
+GRAY='\033[0;37m'
 NC='\033[0m'
 
 function check {
@@ -18,17 +19,46 @@ function wh {
 }
 
 function up {
-    portsnap fetch update > /dev/null 2> /dev/null
-    OUTDATED=$(sudo portmaster -L | grep "New version" | grep -v "No packages" | awk 'BEGIN { FS = "available: " } { print $2 }')
-    echo "---------------------------------"
-    if [ -z "$OUTDATED" ]; then
-        echo "Ports up-to-date"
+    sudo ls > /dev/null
+    echo -en "[${BLUE}-${NC}] ${BLUE}Portsnap fetch.............${NC}"
+    sudo portsnap fetch > /dev/null 2> /dev/null
+    check $?
+    echo -en "[${BLUE}-${NC}] ${BLUE}Portsnap update............${NC}"
+    sudo portsnap update > /dev/null 2> /dev/null
+    check $?
+    PKGS=$(sudo portmaster -L)
+    # OUTDATED=$(sudo portmaster -L | grep "New version" | grep -v "No packages" | awk 'BEGIN { FS = "available: " } { print $2 }')
+    # OUTDATED=$(echo "$PKGS" | grep "New version" | grep -v "No packages" | awk 'BEGIN { FS = "available: " } { print $2 }')
+    # OLD_VER=$(echo "$PKGS" | awk '{print $2}')
+    # echo $OLD_VER
+    OUTDATED=$(echo "$PKGS" | grep "New version" | wc -l | awk '{print $1}')
+    # echo $OUTDATED
+    if [ $OUTDATED != "0" ]; then
+        echo -e "${BLUE}----------------------------------------------------${NC}"
+        while read -r line
+        do
+            if [[ $line =~ "New version" ]]; then
+                OLD=$(echo "$prev" | awk '{print $2}')
+                NEW=$(echo "$line" | awk '{print $5}')
+                echo -e "${GRAY}$OLD ${BLUE}-> ${GRAY}$NEW${NC}"
+            fi
+            prev=$line
+        done <<< "$PKGS"
+        echo -e "${BLUE}----------------------------------------------------${NC}"
+        echo -e "             ${YELLOW}$OUTDATED outdated packets found${NC}"
+        echo -e "${BLUE}----------------------------------------------------${NC}"
     else
-        echo "$OUTDATED"
-        echo "---------------------------------"
-        echo "$(echo "$OUTDATED" | wc -l) outdated packages"
+        echo -e "[${BLUE}-${NC}] ${BLUE}Packages up-to-date........${NC}[${GREEN}OK${NC}]"
     fi
-    echo "---------------------------------"
+    # echo "-----------------------------------"
+    # if [ -z "$OUTDATED" ]; then
+    #     echo "Ports up-to-date"
+    # else
+    #     echo "$OUTDATED"
+    #     echo "-----------------------------------"
+    #     echo "$(echo "$OUTDATED" | wc -l) outdated packages"
+    # fi
+    # echo "-----------------------------------"
 }
 
 function clsys {
