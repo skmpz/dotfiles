@@ -2,7 +2,7 @@
 
 i3-msg 'workspace main [1]; exec urxvt -e bash -c "nvim /data/other/TODO"'
 sleep 0.5
-i3-msg 'workspace main [1]; exec chrome "http://www.gmail.com"'
+i3-msg 'workspace main [1]; exec chrome "http://www.gmail.com" "https://web.whatsapp.com/" "http://localhost:32400/web/index.html" "https://www.youtube.com/"'
 sleep 10
 i3-msg 'workspace main [1]; exec urxvt'
 sleep 0.5
@@ -42,7 +42,7 @@ i3-msg 'workspace cmd [2]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace apps [3]; exec urxvt'
 sleep 0.5
-i3-msg 'workspace apps [3]; exec urxvt'
+i3-msg 'workspace apps [3]; exec urxvt -e bash -c "tail -f /var/log/messages'
 sleep 0.5
 i3-msg 'workspace apps [3]; exec urxvt -e bash -c "rtorrent"'
 sleep 0.5
