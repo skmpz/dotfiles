@@ -73,9 +73,9 @@ port_random = yes
 encryption = allow_incoming,try_outgoing ,enable_retry
  
 # Sort the main view by ratio
-view.sort_current = main,greater=d.get_ratio=
-view.sort_new = main,less=d.get_ratio=
-view.sort = main
+view.sort_current = main,greater=d.creation_date=
+view.sort_new = main,greater=d.creation_date=
+#view.sort = main
  
 # Sort the seeding view by the upload rate and only show torrents with peers
 view.sort_current = seeding,greater=d.get_up_rate=
