@@ -28,7 +28,7 @@ i3-msg 'workspace cmd [2]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace cmd [2]; split v'
 sleep 0.5
-i3-msg 'workspace cmd [2]; exec urxvt -e bash -c "top && bash"'
+i3-msg 'workspace cmd [2]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace cmd [2]; focus left;'
 sleep 0.5
@@ -40,9 +40,9 @@ i3-msg 'workspace cmd [2]; split v'
 sleep 0.5
 i3-msg 'workspace cmd [2]; exec urxvt'
 sleep 0.5
-i3-msg 'workspace apps [3]; exec urxvt'
+i3-msg 'workspace apps [3]; exec urxvt -e bash -c "top && bash"'
 sleep 0.5
-i3-msg 'workspace apps [3]; exec urxvt -e bash -c "tail -f /var/log/messages'
+i3-msg 'workspace apps [3]; exec urxvt'
 sleep 0.5
 i3-msg 'workspace apps [3]; exec urxvt -e bash -c "rtorrent"'
 sleep 0.5

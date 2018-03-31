@@ -35,7 +35,7 @@ sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-
 check $?
 
 echo -n "Installing desktop apps...... "
-sudo pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv calibre >> .install.log 2>> .install.log
+sudo pkg install -y caja caja-extensions engrampa evince gedit chromium rtorrent mpv calibre virtualbox-ose >> .install.log 2>> .install.log
 check $?
 
 echo -n "Setting up ports tree........ "
@@ -94,5 +94,13 @@ check_no_ok $?
 sudo sysrc hald_enable="YES" >> .install.log 2>> .install.log
 check_no_ok $?
 sudo sysrc linux_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
+sudo sysrc fsck_y_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
+sudo sysrc background_fsck="NO" >> .install.log 2>> .install.log
+check_no_ok $?
+sudo sysrc vboxnet_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
+sudo sysrc vboxnetflt_enable="YES" >> .install.log 2>> .install.log
 check_no_ok $?
 check $?
