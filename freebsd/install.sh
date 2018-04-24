@@ -26,7 +26,10 @@ sudo pkg install -y bash cmake uncrustify gmake rsync scrot imagemagick e2fsprog
 check $?
 
 echo -n "Installing xorg.............. "
-sudo pkg install -y xorg xclip > .install.log 2>> .install.log check $?  echo -n "Installing window manager.... "
+sudo pkg install -y xorg xclip > .install.log 2>> .install.log
+check $?
+
+echo -n "Installing window manager.... "
 sudo pkg install -y i3 i3status i3lock rofi feh >> .install.log 2>> .install.log
 check $?
 
