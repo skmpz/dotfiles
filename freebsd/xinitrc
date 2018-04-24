@@ -1,6 +1,8 @@
 xset r rate 250 80
 setxkbmap -option grp:win_space_toggle us,el
 setxkbmap -option caps:escape
+autocutsel -selection CLIPBOARD -fork
+autocutsel -selection PRIMARY -fork
 feh --bg-scale --no-xinerama ~/dotfiles/freebsd/bg.jpg
 xrandr --output DP-2 --primary
 xrandr --output DP-4 --right-of DP-2

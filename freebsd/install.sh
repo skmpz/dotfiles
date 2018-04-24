@@ -22,7 +22,7 @@ sudo sh -c 'echo "Defaults timestamp_timeout=-1">>/usr/local/etc/sudoers' >> .in
 check $?
 
 echo -n "Installing system tools...... "
-sudo pkg install -y bash cmake uncrustify gmake rsync scrot imagemagick e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes fusefs-ntfs >> .install.log 2>> .install.log
+sudo pkg install -y bash cmake synergy freecolor autocutsel plexmediaserver uncrustify gmake rsync scrot imagemagick e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes fusefs-ntfs >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing xorg.............. "
@@ -38,7 +38,7 @@ sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-
 check $?
 
 echo -n "Installing desktop apps...... "
-sudo pkg install -y caja nomacs synergy freecolor plexmediaserver caja-extensions engrampa evince gedit chromium rtorrent mpv calibre virtualbox-ose >> .install.log 2>> .install.log
+sudo pkg install -y caja nomacs zim caja-extensions engrampa evince gedit chromium rtorrent mpv calibre virtualbox-ose >> .install.log 2>> .install.log
 check $?
 
 echo -n "Setting up ports tree........ "
