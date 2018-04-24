@@ -23,6 +23,7 @@ bindsym --release button2 kill
 font pango:Source Code Pro 9
 bindsym $mod+p exec "$HOME/dotfiles/freebsd/bin/startup.sh"
 bindsym $mod+x exec caja
+bindsym --release Print exec "$HOME/dotfiles/freebsd/bin/scrot.sh"
 bindsym $mod+Shift+z exec "$HOME/dotfiles/freebsd/bin/lock.sh"
 exec xautolock -time 15 -locker "$HOME/dotfiles/freebsd/bin/lock.sh" &
 

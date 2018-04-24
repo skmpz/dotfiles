@@ -35,7 +35,7 @@ sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-
 check $?
 
 echo -n "Installing desktop apps...... "
-sudo pkg install -y caja freecolor plexmediaserver caja-extensions engrampa evince gedit chromium rtorrent mpv calibre virtualbox-ose >> .install.log 2>> .install.log
+sudo pkg install -y caja nomacs freecolor plexmediaserver caja-extensions engrampa evince gedit chromium rtorrent mpv calibre virtualbox-ose >> .install.log 2>> .install.log
 check $?
 
 echo -n "Setting up ports tree........ "
