@@ -422,6 +422,7 @@ hi MatchParen cterm=none ctermbg=none ctermfg=127
 " hi ColorColumn ctermbg=16
 " set colorcolumn=110
 hi StatusLine ctermbg=237
+hi CursorLine ctermbg=235
 
 let g:taboo_tab_format = " %N:[%f]%m "
 let g:taboo_modified_tab_flag = "[+]"
@@ -459,3 +460,7 @@ nnoremap 0 ^
 au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> <Tab> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <Tab> :exe "tabn ".g:lasttab<cr>
+inoremap <C-a> <Esc>A
+inoremap <C-i> <Esc>I
+highlight ALEWarningSign ctermbg=none ctermfg=94
+highlight ALEWarning ctermbg=none ctermfg=94

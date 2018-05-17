@@ -23,6 +23,7 @@ check_ok() {
 
 function si {
     FILE=$(ls -lt /data/downloads/deco* | head -1 | awk '{print $9}')
+    echo -e "[-] \e[94mInstaller $FILE\e[0m "
     echo -en "[-] \e[94mClearing old installers..........\e[0m "
     ssh vm 'rm -rf /root/Downloads/dec*' > /dev/null 2>&1
     check $?
@@ -123,13 +124,14 @@ alias glog='git log --pretty=format:"%h|%an|%s"| column -t -s "|" -o "|" | awk '
 alias gtg='git describe --tag'
 alias rse='rsync -arv /home/sk/src/WIFI_BE/ vm:/decoder/WIFI_BE/'
 alias rss='rsync -arv /home/sk/src/sproxy/ vm:/root/sproxy'
+alias rsp='rsync -arv /home/sk/src/phishing-sites/ vm:/decoder/phishing_sites/ --delete'
 alias rsd='rsync -arv /home/sk/src/dpi/ vm:/root/dpi'
 alias rsr='rsync -arv --exclude="*.o" --exclude="rcm-client" --exclude="*.out" --exclude=".git/" /home/sk/src/rcm-client/ mboard:/root/rcm-client/ --delete'
 alias rsc2='rsync -arv --exclude="*.o" --exclude="*.out" --exclude=".git/" /home/sk/src/WI_BE_Client/ board2:/root/WI_BE_Client/ --delete'
 alias rsc3='rsync -arv --exclude="*.o" --exclude="*.out" --exclude=".git/" /home/sk/src/WI_BE_Client/ board3:/root/WI_BE_Client/ --delete'
 alias rsc4='rsync -arv --exclude="*.o" --exclude="*.out" --exclude=".git/" /home/sk/src/WI_BE_Client/ board4:/root/WI_BE_Client/ --delete'
 alias rsc5='rsync -arv --exclude="*.o" --exclude="*.out" --exclude=".git/" /home/sk/src/WI_BE_Client/ board5:/root/WI_BE_Client/ --delete'
-alias rsc2h='rsync -arv /home/sk/WI_BE_Client/ board2:/root/WI_BE_Client/'
+alias rsc2h='rsync -arv /home/sk/WI_BE_Client/ board2:/root/WI_BE_Client/ --delete'
 alias rscb='rsync -arv /home/sk/src/WI_BE_Client/ vm:/root/WI_BE_Client/'
 alias rse='rsync -arv /home/sk/src/WIFI_BE/ vm:/decoder/WIFI_BE/'
 alias rseh='rsync -arv /home/sk/WIFI_BE/ vm:/decoder/WIFI_BE/'
