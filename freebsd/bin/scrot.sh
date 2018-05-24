@@ -1,3 +1,5 @@
-#!/bin/sh
+#!/usr/local/bin/bash
 
-scrot -s /data/screenshots/%d-%m-%Y-%H-%M-%S.jpg -q 100
+TARGET=$(ssh kali cat TARGET)
+mkdir /data/shared/notes/$TARGET/screenshots/
+scrot -s /data/shared/notes/$TARGET/screenshots/%d-%m-%Y-%H-%M-%S.png -q 100
