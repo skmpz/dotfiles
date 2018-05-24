@@ -13,7 +13,7 @@ URxvt*scrollTtyOutput:      false
 URxvt*scrollWithBuffer:     true
 URxvt*scrollTtyKeypress:    true
 URxvt.transparent:          true
-URxvt.shading:              30
+URxvt.shading:              50
 URxvt.perl-ext-common:      font-size
 URxvt.keysym.C-Up:          perl:font-size:increase
 URxvt.keysym.C-Down:        perl:font-size:decrease
