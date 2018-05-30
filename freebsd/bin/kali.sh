@@ -31,7 +31,7 @@ i3-msg "exec xdotool key colon"
 sleep 1
 i3-msg "exec xdotool key BackSpace"
 sleep 1
-i3-msg "exec xdotool type \"//$TARGET -w /root/mine/dir.txt -f -l | tee /mnt/notes/$TARGET/gobuster.txt\" && xdotool key Return"
+i3-msg "exec xdotool type \"//$TARGET -w /root/mine/dir.txt -f -l -t 20 | tee /mnt/notes/$TARGET/gobuster.txt\" && xdotool key Return"
 sleep 1
 i3-msg 'split v'
 sleep 1

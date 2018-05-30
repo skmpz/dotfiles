@@ -25,7 +25,7 @@ bindsym $mod+p exec "$HOME/dotfiles/freebsd/bin/startup.sh"
 bindsym $mod+x exec caja
 bindsym --release Print exec "$HOME/dotfiles/freebsd/bin/scrot.sh"
 bindsym $mod+Shift+z exec "$HOME/dotfiles/freebsd/bin/lock.sh"
-bindsym $mod+t exec "$HOME/dotfiles/freebsd/bin/kali.sh"
+bindsym $mod+t exec "$HOME/dotfiles/freebsd/bin/oscp.sh"
 exec xautolock -time 15 -locker "$HOME/dotfiles/freebsd/bin/lock.sh" &
 
 new_window 1pixel
