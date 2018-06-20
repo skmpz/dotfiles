@@ -24,6 +24,7 @@ font pango:Source Code Pro 9
 bindsym $mod+p exec "$HOME/dotfiles/freebsd/bin/startup.sh"
 bindsym $mod+x exec caja
 bindsym --release Print exec "$HOME/dotfiles/freebsd/bin/scrot.sh"
+bindsym --release Pause exec "$HOME/dotfiles/freebsd/bin/scrot_report.sh"
 bindsym $mod+Shift+z exec "$HOME/dotfiles/freebsd/bin/lock.sh"
 bindsym $mod+t exec "$HOME/dotfiles/freebsd/bin/oscp.sh"
 exec xautolock -time 15 -locker "$HOME/dotfiles/freebsd/bin/lock.sh" &
@@ -211,4 +212,4 @@ for_window [class="(?i)caja"] floating enable, border normal 2, move position ce
 for_window [class="(?i)FBReader"] floating enable, border normal 2, move position center
 for_window [class="(?i)mate-terminal"] floating enable, border normal 2, move position center
 for_window [class="(?i)mpv"] floating enable, border normal 2, move position center
-for_window [class="(?i)nomacs"] floating enable, border normal 2, move position center
+for_window [class="(?i)Image Lounge"] floating enable, border normal 2, move position center
