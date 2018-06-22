@@ -64,8 +64,8 @@ function up {
 function clsys {
     sudo ls > /dev/null
     echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning trash.............${NC}"
-    sudo rm -rf /usr/home/sk/.local/share/Trash/files/*
-    sudo rm -rf /data/.Trash-1001/files/*
+    sudo rm -rf /usr/home/sk/.local/share/Trash*
+    sudo rm -rf /data/.Trash*
     check $?
     echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning distfiles.........${NC}"
     sudo rm -rf /usr/ports/distfiles/*
