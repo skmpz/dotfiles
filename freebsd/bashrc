@@ -64,7 +64,8 @@ function up {
 function clsys {
     sudo ls > /dev/null
     echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning trash.............${NC}"
-    sudo rm -rf /data/.Trash-1001/*
+    sudo rm -rf /usr/home/sk/.local/share/Trash*
+    sudo rm -rf /data/.Trash*
     check $?
     echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning distfiles.........${NC}"
     sudo rm -rf /usr/ports/distfiles/*
@@ -74,8 +75,15 @@ function clsys {
     check $?
 }
 
+function bak {
+	date=$(date +"%d-%m-%y-%H-%M-%S")
+	filename=$(echo "backup-$date")
+	echo $filename
+	tar czvf /data/$filename /data/reports/ /data/screenshots/ /data/notes /data/books
+}
+
 alias nv='nvim'
-alias bck='sudo rsync -avzh /data/ /mnt --delete --exclude downloads/ --exclude .Trash-1001/'
+alias bck='sudo rsync -avzh /data/ /mnt --delete --exclude movies/ --exclude shows/ --exclude downloads/ --exclude .Trash*'
 alias pkg='sudo pkg'
 alias upd='sudo portmaster -dya --no-confirm'
 alias d='cd /data/downloads'

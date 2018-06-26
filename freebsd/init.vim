@@ -366,7 +366,7 @@ endif
 
 " plugin_lightline
 let g:lightline = {
-\ 'colorscheme': 'Dracula',
+\ 'colorscheme': 'powerline',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
 \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
