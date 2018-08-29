@@ -12,27 +12,8 @@ function check {
 # just to enter pass
 sudo ls > /dev/null
 
-echo -n "Changing sudoers file........ "
-val=$(sudo grep "$USER ALL=(ALL) NOPASSWD: ALL" /etc/sudoers | wc -l)
-if [ $val == "0" ]; then
-    echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo > /dev/null 2>> .install.log
-    echo -e "[\e[0;32mOK\e[0m]"
-else
-    echo -e "[\e[0;32mEXISTS\e[0m]"
-fi
-
-echo -n "Setting datetime............. "
-sudo pacman -S ntp --noconfirm --needed > /dev/null 2>> .install.log
-sudo ntpdate time.nist.gov > /dev/null 2>> .install.log
-check $?
-
 echo -n "Getting pacman up to date.... "
 sudo pacman -Syy --noconfirm --needed > /dev/null 2>> .install.log
-check $?
-
-echo -n "Setting up mirrors........... "
-sudo pacman -S reflector --noconfirm --needed > /dev/null 2>> .install.log
-sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist > /dev/null 2>> .install.log
 check $?
 
 echo -n "Installing system tools...... "
@@ -48,7 +29,7 @@ sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode rxvt-perls mate-
 check $?
 
 echo -n "Installing applications...... "
-sudo pacman -S engrampa gvim evince fbreader caja caja-open-terminal gedit neovim chromium synergy qt4 qt5-base vlc transmission-gtk --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S engrampa gvim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up i3-gaps........... "

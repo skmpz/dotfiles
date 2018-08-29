@@ -9,7 +9,7 @@ i3-msg 'exec urxvt -e bash -c "ssh oscp && bash"'
 sleep 1
 i3-msg "exec xdotool type \"mkdir /mnt/notes/$TARGET\" && xdotool key Return"
 sleep 1
-i3-msg "exec xdotool type \"nmap $TARGET -Pn -sV -T4 -O -A -p- | tee /mnt/notes/$TARGET/nmap.txt\" && xdotool key Return"
+i3-msg "exec xdotool type \"nmap -Pn -sV --top-ports 1000 $TARGET | tee /mnt/notes/$TARGET/nmap-fast.txt\" && xdotool key Return"
 sleep 1
 i3-msg "split h"
 sleep 1
@@ -31,7 +31,7 @@ i3-msg "exec xdotool key colon"
 sleep 1
 i3-msg "exec xdotool key BackSpace"
 sleep 1
-i3-msg "exec xdotool type \"//$TARGET -w /root/mine/lists/dir.txt -f -l -t 20 | tee /mnt/notes/$TARGET/gobuster.txt\" && xdotool key Return"
+i3-msg "exec xdotool type \"//$TARGET -w /mnt/mine/lists/SecLists/Discovery/Web-Content/common.txt -f -l -t 20 | tee /mnt/notes/$TARGET/gobuster.txt\" && xdotool key Return"
 sleep 1
 i3-msg 'split v'
 sleep 1
@@ -53,4 +53,8 @@ i3-msg 'split v'
 sleep 1
 i3-msg 'exec urxvt -e bash -c "ssh oscp && bash"'
 sleep 1
-i3-msg "exec xdotool type \"nmap -F $TARGET -sV | tee /mnt/notes/$TARGET/nmap-fast.txt\" && xdotool key Return"
+i3-msg "exec xdotool type \"nmap $TARGET -Pn -sVC -v -T4 -O -p- | tee /mnt/notes/$TARGET/nmap.txt\" && xdotool key Return"
+sleep 1
+i3-msg 'exec urxvt -e bash -c "ssh oscp && bash"'
+sleep 1
+i3-msg "exec xdotool type \"nmap -Pn --top-ports 1000 -sU --stats-every 3m --max-retries 1 -T3 $TARGET | tee /mnt/notes/$TARGET/nmap-udp.txt\" && xdotool key Return"

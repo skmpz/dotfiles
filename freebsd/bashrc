@@ -83,7 +83,7 @@ function bak {
 }
 
 alias nv='nvim'
-alias bck='sudo rsync -avzh /data/ /mnt --delete --exclude movies/ --exclude shows/ --exclude downloads/ --exclude .Trash*'
+alias bck='rsync -e ssh -avzh /data/ backup:/root/data --delete --exclude .Trash* --exclude downloads/ --exclude lost+found/ --progress'
 alias pkg='sudo pkg'
 alias upd='sudo portmaster -dya --no-confirm'
 alias d='cd /data/downloads'
