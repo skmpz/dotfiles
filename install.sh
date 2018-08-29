@@ -25,7 +25,7 @@ sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes 
 check $?
 
 echo -n "Installing i3 and wm tools... "
-sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode rxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Installing applications...... "
