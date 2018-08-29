@@ -120,8 +120,6 @@ noremap <right> 3<C-W>>
 nnoremap tn :tabnew<Space>
 nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
-nnoremap bh :bprev<CR>
-nnoremap bl :bnext<CR>
 
 " set backspace as leader key
 let mapleader = "<BackSpace>"
@@ -139,7 +137,7 @@ nnoremap <space>i :Tabularize /
 vnoremap <space>i :'<,'>Tabularize /
 nnoremap <space>u :GitGutterUndoHunk<cr>
 nnoremap <space>e :%s/\(<c-r>=expand("<cword>")<cr>\)//g<Left><Left>
-nnoremap <space>o :CtrlP<CR>
+nnoremap <space>o :CtrlPClearCache<CR>:CtrlP<CR>
 nnoremap <space>w :w<CR>
 nnoremap <space>q :q<CR>
 nnoremap <space>d "_d
@@ -345,11 +343,6 @@ endif
 " plugin_supertab
 let g:SuperTabDefaultCompletionType = "<C-n>"
 
-" plugin_ultisnips
-let g:UltiSnipsExpandTrigger="`"
-let g:UltiSnipsJumpForwardTrigger="`"
-let g:UltiSnipsJumpBackwardTrigger="~"
-
 " plugin_ale
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
@@ -464,3 +457,9 @@ inoremap <C-a> <Esc>A
 inoremap <C-i> <Esc>I
 highlight ALEWarningSign ctermbg=none ctermfg=94
 highlight ALEWarning ctermbg=none ctermfg=94
+
+
+" plugin_ultisnips
+let g:UltiSnipsExpandTrigger="`"
+let g:UltiSnipsJumpForwardTrigger="`"
+let g:UltiSnipsJumpBackwardTrigger="~"
