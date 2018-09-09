@@ -38,7 +38,7 @@ sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-
 check $?
 
 echo -n "Installing desktop apps...... "
-sudo pkg install -y caja libreoffice en-hunspell nomacs zim caja-extensions engrampa evince gedit chromium rtorrent mpv calibre virtualbox-ose >> .install.log 2>> .install.log
+sudo pkg install -y caja libreoffice en-hunspell nomacs zim caja-extensions engrampa evince gedit chromium mpv calibre >> .install.log 2>> .install.log
 check $?
 
 echo -n "Setting up ports tree........ "
@@ -81,7 +81,6 @@ git clone https://github.com/skmpz/git-aware-prompt /home/sk/.bash/git-aware-pro
 check_no_ok $?
 cp font-size /home/sk/.urxvt/ext/
 ln -s /home/sk/dotfiles/freebsd/bashrc /home/sk/.bashrc
-ln -s /home/sk/dotfiles/freebsd/rtorrent.rc /home/sk/.rtorrent.rc
 ln -s /home/sk/dotfiles/freebsd/xresources /home/sk/.Xresources
 ln -s /home/sk/dotfiles/freebsd/xinitrc /home/sk/.xinitrc
 ln -s /home/sk/dotfiles/freebsd/gtkrc-2.0 /home/sk/.gtkrc-2.0
@@ -101,9 +100,5 @@ check_no_ok $?
 sudo sysrc fsck_y_enable="YES" >> .install.log 2>> .install.log
 check_no_ok $?
 sudo sysrc background_fsck="NO" >> .install.log 2>> .install.log
-check_no_ok $?
-sudo sysrc vboxnet_enable="YES" >> .install.log 2>> .install.log
-check_no_ok $?
-sudo sysrc vboxnetflt_enable="YES" >> .install.log 2>> .install.log
 check_no_ok $?
 check $?
