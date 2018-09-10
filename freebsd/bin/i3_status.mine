@@ -20,6 +20,6 @@ do
     MEM_USED=$(freecolor -m -o | grep "Mem" | awk '{$3=int($3/1024); print $3"G"}')
     MEM_TOTAL=$(freecolor -m -o | grep "Mem" | awk '{$2=int($2/1024); print $2"G"}')
     IP=$(ifconfig re0 | grep inet | grep -v inet6 | awk -F ' ' '{ print $2 }')
-    printf "%s\n" "FreeBSD $VERSION | h: $H_USED/$H_TOTAL [$H_PERC] | d: $D_USED/$D_TOTAL [$D_PERC] | m: $MEM_USED/$MEM_TOTAL | ip: $IP | up: $uptime | l: $LOAD | v: $VOL | $DATE | $TIME"
+    printf "%s\n" " FreeBSD $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $D_USED/$D_TOTAL [$D_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD |  $VOL |  $DATE |  $TIME";
     sleep 1
 done

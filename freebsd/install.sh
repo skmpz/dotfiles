@@ -34,7 +34,7 @@ sudo pkg install -y i3 i3status i3lock rofi feh >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing fonts............. "
-sudo pkg install -y dejavu Inconsolata-LGC terminus-ttf sourcecodepro-ttf droid-fonts-ttf >> .install.log 2>> .install.log
+sudo pkg install -y dejavu Inconsolata-LGC font-awesome terminus-ttf sourcecodepro-ttf droid-fonts-ttf >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing desktop apps...... "
