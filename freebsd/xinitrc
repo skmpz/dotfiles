@@ -1,5 +1,6 @@
 xset r rate 250 80
-setxkbmap -option grp:alt_shift_toggle us,el
+#setxkbmap -option grp:alt_space_toggle us,el
+setxkbmap -option grp:win_space_toggle us,el
 setxkbmap -option caps:escape
 #feh --bg-scale --no-xinerama ~/dotfiles/freebsd/bg.jpg
 feh --bg-scale ~/dotfiles/bg.png
