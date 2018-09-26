@@ -76,18 +76,19 @@ function clsys {
 }
 
 function bak {
-	date=$(date +"%d-%m-%y-%H-%M-%S")
-	filename=$(echo "backup-$date")
-	echo $filename
-	tar czvf /data/$filename /data/reports/ /data/screenshots/ /data/notes /data/books
+    date=$(date +"%d-%m-%y-%H-%M-%S")
+    filename=$(echo "backup-$date")
+    echo $filename
+    tar czvf /data/$filename /data/reports/ /data/screenshots/ /data/notes /data/books
 }
 
 alias nv='nvim'
-alias bck='rsync -e ssh -avzh /data/ backup:/root/data --delete --exclude .Trash* --exclude downloads/ --exclude lost+found/ --progress'
+alias bck='rsync -e ssh -avzh /data/ contabo:/root/data --delete --exclude .Trash* --exclude downloads/ --exclude lost+found/ --exclude movies/ --exclude series/ --exclude series_cur/ --exclude shows/ --progress'
+alias bck_media='rsync -e ssh -avzh /data/series/ contabo:/root/series/ --delete; rsync -e ssh -avzh /data/movies/ contabo:/root/movies/ --delete'
 alias pkg='sudo pkg'
 alias upd='sudo portmaster -dya --no-confirm'
 alias d='cd /data/downloads'
-alias reboot='shutdown -r now'
+alias reboot='sudo shutdown -r now'
 alias gch='git checkout'
 alias gst='git status'
 alias gco='git commit -am'
@@ -95,7 +96,7 @@ alias gdf='git diff'
 alias gpush='git push'
 
 [[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
-	source /usr/local/share/bash-completion/bash_completion.sh
+    source /usr/local/share/bash-completion/bash_completion.sh
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt

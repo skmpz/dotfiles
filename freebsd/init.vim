@@ -445,3 +445,5 @@ let g:echodoc#enable_at_startup = 1
 " plugin_indentline
 let g:indentLine_color_dark = 1
 let g:indentLine_color_term = 239
+
+autocmd VimResized * wincmd =

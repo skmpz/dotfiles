@@ -62,8 +62,16 @@ i3-msg 'workspace "&#xf1de; conf"; focus left;'
 sleep 0.5
 i3-msg 'workspace "&#xf1de; conf"; split v'
 sleep 0.5
-i3-msg 'workspace "&#xf1de; conf"; exec urxvt'
+i3-msg 'workspace "&#xf1de; conf"; exec urxvt -e bash -c "nvim ~/dotfiles/freebsd/bin/startup.sh && bash"'
 sleep 0.5
+i3-msg 'workspace "&#xf0ae; todo"; exec urxvt -e bash -c "nvim -O scp://contabo//root/TODO scp://contabo//root/TODO2 && bash"'
+sleep 5
+i3-msg 'workspace "&#xf0ae; todo"; exec transmission-gtk'
+sleep 5
+i3-msg 'workspace "&#xf0ae; todo"; resize shrink width 15 px or 15 ppt;'
+sleep 0.5
+i3-msg 'workspace "&#xf268; web"'
+
 # i3-msg 'workspace "&#xf1de; conf"; exec calibre'
 # sleep 0.5
 # i3-msg 'workspace "&#xf1de; conf"; focus left;'

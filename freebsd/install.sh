@@ -22,7 +22,7 @@ sudo sh -c 'echo "Defaults timestamp_timeout=-1">>/usr/local/etc/sudoers' >> .in
 check $?
 
 echo -n "Installing system tools...... "
-sudo pkg install -y bash cmake gcc synergy freecolor autocutsel plexmediaserver uncrustify gmake rsync scrot imagemagick e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes fusefs-ntfs >> .install.log 2>> .install.log
+sudo pkg install -y bash cmake gcc synergy freecolor autocutsel uhidd plexmediaserver uncrustify gmake rsync scrot imagemagick e2fsprogs pkgconf wget unrar python2 python3 py27-pip py36-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls gtk-arc-themes fusefs-ntfs >> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing xorg.............. "
@@ -62,6 +62,7 @@ rm -rf /home/sk/.rsession/
 rm -rf /home/sk/.rtorrentrc
 rm -rf /home/sk/.gtkrc-2.0
 rm -rf /home/sk/.xinitrc
+rm -rf /home/sk/.Xmodmap
 rm -rf /home/sk/.Xresources
 rm -rf /home/sk/.config/i3/*
 rm -rf /home/sk/.config/gtk-3.0/settings.ini
@@ -82,6 +83,7 @@ check_no_ok $?
 cp font-size /home/sk/.urxvt/ext/
 ln -s /home/sk/dotfiles/freebsd/bashrc /home/sk/.bashrc
 ln -s /home/sk/dotfiles/freebsd/xresources /home/sk/.Xresources
+ln -s /home/sk/dotfiles/freebsd/xmodmap /home/sk/.Xmodmap
 ln -s /home/sk/dotfiles/freebsd/xinitrc /home/sk/.xinitrc
 ln -s /home/sk/dotfiles/freebsd/gtkrc-2.0 /home/sk/.gtkrc-2.0
 ln -s /home/sk/dotfiles/freebsd/config /home/sk/.config/i3/config
@@ -101,4 +103,7 @@ sudo sysrc fsck_y_enable="YES" >> .install.log 2>> .install.log
 check_no_ok $?
 sudo sysrc background_fsck="NO" >> .install.log 2>> .install.log
 check_no_ok $?
+sudo sysrc uhidd_enable="YES" >> .install.log 2>> .install.log
+check_no_ok $?
+sudo sysrc uhidd_flags="-kmohsu" >> .install.log 2>> .install.log
 check $?
