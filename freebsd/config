@@ -1,4 +1,6 @@
 #inner gaps
+new_window 1pixel
+focus_follows_mouse no
 gaps inner 8
 
 #pulse controls
@@ -14,13 +16,18 @@ gaps inner 8
 
 #alt-key
 set $mod Mod1
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
 bindsym $mod+plus exec pactl set-sink-volume 0 +5%
 bindsym $mod+minus exec pactl set-sink-volume 0 -5%
 
 bindsym --release button2 kill
+bindsym --whole-window button8 exec "caja"
+bindsym --whole-window button9 exec "caja /data/downloads"
 
 #font
-font pango:Source Code Pro 9
+font pango:Source Code Pro 9, Awesome 8
 bindsym $mod+p exec "$HOME/dotfiles/freebsd/bin/startup.sh"
 bindsym $mod+x exec caja
 bindsym --release Print exec "$HOME/dotfiles/freebsd/bin/scrot.sh"
@@ -29,8 +36,6 @@ bindsym $mod+Shift+z exec "$HOME/dotfiles/freebsd/bin/lock.sh"
 bindsym $mod+t exec "$HOME/dotfiles/freebsd/bin/oscp.sh"
 exec xautolock -time 15 -locker "$HOME/dotfiles/freebsd/bin/lock.sh" &
 
-new_window 1pixel
-focus_follows_mouse no
 bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
 bindsym $mod+Ctrl+Up resize grow height 1 px or 1 ppt
 bindsym $mod+Ctrl+Down resize shrink height 1 px or 1 ppt
@@ -94,7 +99,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -103,22 +108,23 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # workspace names
-set $w1 main [1]
-set $w2 cmd [2]
-set $w3 apps [3]
-set $w4 books [4]
-set $w5 xtra [5]
-set $w6 xtra [6]
-set $w7 xtra [7]
-set $w8 xtra [8]
-set $w9 xtra [9]
-set $w0 xtra [10]
+set $w1 "&#xf120; main"
+set $w2 "&#xf268; web"
+set $w3 "&#xf02d; books"
+set $w4 "&#xf1de; conf"
+set $w5 "&#xf0ae; todo"
+set $w6 6
+set $w7 7
+set $w8 8
+set $w9 9
+set $w0 10
 
 #assign workspaces to outputs
-workspace "$w1" output DP-2
-workspace "$w2" output DP-4
-workspace "$w3" output HDMI-0
-workspace "$w4" output DP-4
+workspace $w1 output DP-2
+workspace $w2 output HDMI-0
+workspace $w3 output HDMI-0
+workspace $w4 output DP-4
+workspace $w5 output HDMI-0
 
 # switch to workspace
 bindsym $mod+1 workspace $w1
@@ -180,13 +186,13 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    #status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    # status_command i3status -c ~/i3status.conf
     status_command $HOME/dotfiles/freebsd/bin/i3_status.mine
     tray_output primary
         font pango:Source Code Pro 9
         mode dock
         position top
-        #height 50
+        height 21
         colors {
             background #0B1430
             statusline #eff1f5
@@ -213,3 +219,4 @@ for_window [class="(?i)FBReader"] floating enable, border normal 2, move positio
 for_window [class="(?i)mate-terminal"] floating enable, border normal 2, move position center
 for_window [class="(?i)mpv"] floating enable, border normal 2, move position center
 for_window [class="(?i)Image Lounge"] floating enable, border normal 2, move position center
+for_window [class="(?i)worker"] floating enable, border normal 2, move position center
