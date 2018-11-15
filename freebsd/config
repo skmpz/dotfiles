@@ -1,7 +1,7 @@
 #inner gaps
 new_window 1pixel
 focus_follows_mouse no
-gaps inner 8
+gaps inner 4
 
 #pulse controls
 # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -192,9 +192,9 @@ bar {
         font pango:Source Code Pro 9
         mode dock
         position top
-        height 21
+        height 26
         colors {
-            background #0B1430
+            background #1C3749
             statusline #eff1f5
             separator #323232
             focused_workspace #213880 #213880 #eff1f5
