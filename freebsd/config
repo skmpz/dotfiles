@@ -1,7 +1,7 @@
 #inner gaps
 new_window 1pixel
 focus_follows_mouse no
-gaps inner 4
+gaps inner 6
 
 #pulse controls
 # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -27,7 +27,7 @@ bindsym --whole-window button8 exec "caja"
 bindsym --whole-window button9 exec "caja /data/downloads"
 
 #font
-font pango:Source Code Pro 9, Awesome 8
+font pango:Ubuntu 8
 bindsym $mod+p exec "$HOME/dotfiles/freebsd/bin/startup.sh"
 bindsym $mod+x exec caja
 bindsym --release Print exec "$HOME/dotfiles/freebsd/bin/scrot.sh"
@@ -189,32 +189,40 @@ bar {
     # status_command i3status -c ~/i3status.conf
     status_command $HOME/dotfiles/freebsd/bin/i3_status.mine
     tray_output primary
-        font pango:Source Code Pro 9
+        font xft: Source Code Pro 9
         mode dock
         position top
-        height 26
+        height 24
         colors {
             background #1C3749
-            statusline #eff1f5
-            separator #323232
-            focused_workspace #213880 #213880 #eff1f5
-            active_workspace #213880 #213880 #eff1f5
-            inactive_workspace #213880 #0B1430 #eff1f5
+            statusline #fff
+            separator #000
+            focused_workspace #316181 #316181 #eff1f5
+            active_workspace #316181 #316181 #eff1f5
+            inactive_workspace #316181 #1C3749 #eff1f5
             urgent_workspace #CF5F35 #CF5F35 #eff1f5
         }
 }
 
-client.focused #30579F #30579F #ffffff #6c71c4
-client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
-client.unfocused #073642 #073642 #93a1a1 #586e75
-client.urgent #d33682 #d33682 #fdf6e3 #dc322f
+#client.focused #30579F #30579F #2cc #fff
+#client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+#client.unfocused #073642 #073642 #93a1a1 #586e75
+#client.urgent #d33682 #d33682 #fdf6e3 #dc322f
+
+client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
 
 for_window [class="(?i)evince"] floating enable, border normal 2, move position center
 for_window [class="(?i)gimp"] floating enable, border normal 2, move position center
 for_window [class="(?i)gvim"] floating enable, border normal 2, move position center
 for_window [class="(?i)gedit"] floating enable, border normal 2, move position center
 for_window [class="(?i)gthumb"] floating enable, border normal 2, move position center
-for_window [class="(?i)caja"] floating enable, border normal 2, move position center
+for_window [class="(?i)caja"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [class="(?i)FBReader"] floating enable, border normal 2, move position center
 for_window [class="(?i)mate-terminal"] floating enable, border normal 2, move position center
 for_window [class="(?i)mpv"] floating enable, border normal 2, move position center

@@ -84,7 +84,7 @@ function bak {
 
 alias nv='nvim'
 alias bck='rsync -e ssh -avzh /data/ contabo:/root/data --delete --exclude .Trash* --exclude downloads/ --exclude lost+found/ --exclude movies/ --exclude series/ --exclude series_cur/ --exclude shows/ --progress'
-alias bck_media='rsync -e ssh -avzh /data/series/ contabo:/root/series/ --delete; rsync -e ssh -avzh /data/movies/ contabo:/root/movies/ --delete'
+alias bck_media='rsync -e ssh -avzh /data/series/ contabo:/root/series/ --delete --progress'
 alias pkg='sudo pkg'
 alias upd='sudo portmaster -dya --no-confirm'
 alias d='cd /data/downloads'
