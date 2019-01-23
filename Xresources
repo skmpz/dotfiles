@@ -2,18 +2,22 @@ Xcursor.theme:              whiteglass
 Xcursor.size:               14
 URxvt*geometry:             115x40
 URxvt*cursorColor:          #36a9dc
-URxvt*font:                 xft:Inconsolata:pixelsize=15:antialias=true:hinting=true
+URxvt*font:                 xft:Inconsolata LGC:style=Medium:size=10:antialias=true:hinting=true
 URxvt*depth:                24
 URxvt*borderless:           1
 URxvt*scrollBar:            false
 URxvt*saveLines:            2000
-URxvt*background:           #000000
+URxvt*background:           #1C3749
 URxvt*foreground:           #36a9dc
 URxvt*scrollTtyOutput:      false
 URxvt*scrollWithBuffer:     true
 URxvt*scrollTtyKeypress:    true
+URxvt.iso14755: False
 URxvt.transparent:          true
-URxvt.shading:              50
+!URxvt.fading:               20 (fades non focused)
+!URxvt.fadeColor:               #000000
+URxvt.shading:              90
+URxvt*tintColor:            #1C3749
 URxvt.perl-ext-common:      font-size
 URxvt.keysym.C-Up:          perl:font-size:increase
 URxvt.keysym.C-Down:        perl:font-size:decrease
@@ -36,7 +40,14 @@ URxvt.keysym.C-S-Down:      perl:font-size:decglobal
 *color14:                   #fcaf3e
 *color15:                   #EEEEEC
 
-rofi.font: Inconsolata 9
+!rofi.color-enabled: true
+!rofi.color-window: argb:B0435e75, argb:D0435e75, argb:D0435e75
+!rofi.hide-scrollbar: true
+!
+!rofi.color-normal: argb:00435e75, argb:FF9dbeda, argb:00486883, argb:A02C3E4F, argb:D09dbeda
+!rofi.color-active: argb:00435e75, argb:D0734375, argb:00486883, argb:A02C3E4F, argb:D0734375
+!rofi.color-urgent: argb:00435e75, argb:D0b9524e, argb:00486883, argb:A02C3E4F, argb:D0b9524e
+rofi.font: Ubuntu 8
 rofi.width: 20
 rofi.lines: 5
 rofi.opacity: 50
