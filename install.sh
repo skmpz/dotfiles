@@ -25,11 +25,11 @@ sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes 
 check $?
 
 echo -n "Installing i3 and wm tools... "
-sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu ttf-ubuntu-font-family terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Installing applications...... "
-sudo pacman -S engrampa evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S engrampa vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up i3-gaps........... "
