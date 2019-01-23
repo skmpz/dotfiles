@@ -25,11 +25,11 @@ sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes 
 check $?
 
 echo -n "Installing i3 and wm tools... "
-sudo pacman -S i3-wm i3lock i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu ttf-ubuntu-font-family terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S i3-wm i3lock i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu ttf-ubuntu-font-family terminus-font adobe-source-code-pro-fonts ttf-droid otf-font-awesome ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Installing applications...... "
-sudo pacman -S engrampa vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S engrampa nomacs aircrack-ng rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up i3-gaps........... "
@@ -75,9 +75,6 @@ ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
 ln -s $HOME/dotfiles/config $HOME/.config/i3/config
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
-mkdir ~/.local/share/fonts
-cp $HOME/dotfiles/fonts/fontawesome-webfont.ttf ~/.local/share/fonts/
-fc-cache -fv > /dev/null 2>> .install.log
 nvim +PlugInstall +qall > /dev/null
 nvim +UpdateRemotePlugins +qall > /dev/null
 check $?

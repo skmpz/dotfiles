@@ -4,7 +4,7 @@ focus_follows_mouse no
 gaps inner 6
 
 #pulse controls
-# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 # bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
 # bindsym XF86AudioPlay exec playerctl play
@@ -16,11 +16,9 @@ gaps inner 6
 
 #alt-key
 set $mod Mod1
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
-bindsym $mod+plus exec pactl set-sink-volume 0 +5%
-bindsym $mod+minus exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
+bindsym XF86AudioMute exec pactl set-sink-mute 1 toggle # mute sound
 
 bindsym --release button2 kill
 bindsym --whole-window button8 exec "caja"
@@ -108,7 +106,7 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # workspace names
-set $w1 "&#xf120; main"
+set $w1 "  &#xf120;  "
 set $w2 "&#xf268; web"
 set $w3 "&#xf02d; books"
 set $w4 "&#xf1de; conf"
@@ -189,7 +187,7 @@ bar {
     # status_command i3status -c ~/i3status.conf
     status_command $HOME/dotfiles/freebsd/bin/i3_status.mine
     tray_output primary
-        font xft: Source Code Pro 9
+        font xft: Source Code Pro 10
         mode dock
         position top
         height 24
