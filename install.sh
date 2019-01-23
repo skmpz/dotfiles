@@ -25,7 +25,7 @@ sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes 
 check $?
 
 echo -n "Installing i3 and wm tools... "
-sudo pacman -S i3-wm i3lock i3blocks i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu ttf-ubuntu-font-family terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S i3-wm i3lock i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu ttf-ubuntu-font-family terminus-font adobe-source-code-pro-fonts ttf-droid ttf-inconsolata --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Installing applications...... "
@@ -73,14 +73,7 @@ ln -s $HOME/dotfiles/bashrc $HOME/.bashrc
 ln -s $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -s $HOME/dotfiles/xinitrc $HOME/.xinitrc
 ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
-ln -s $HOME/dotfiles/i3/config $HOME/.config/i3/config
-ln -s $HOME/dotfiles/i3/i3blocks.conf $HOME/.config/i3/i3blocks.conf
-cp $HOME/dotfiles/i3/disk.sh $HOME/.config/i3/disk.sh
-cp $HOME/dotfiles/i3/ip.sh $HOME/.config/i3/ip.sh
-cp $HOME/dotfiles/i3/mail.sh $HOME/.config/i3/mail.sh
-cp $HOME/dotfiles/i3/os.sh $HOME/.config/i3/os.sh
-cp $HOME/dotfiles/i3/mem.sh $HOME/.config/i3/mem.sh
-cp $HOME/dotfiles/font-size $HOME/.urxvt/ext/
+ln -s $HOME/dotfiles/config $HOME/.config/i3/config
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
 mkdir ~/.local/share/fonts
