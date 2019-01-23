@@ -5,11 +5,15 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+function up {
+    sudo pacman -Syu --noconfirm
+    sudo pacman -Sc --noconfirm
+    sudo pacman -Qdtq | sudo pacman -Rs - --noconfirm
+}
+
 alias nv='nvim'
-alias bck='rsync -e ssh -avzh /data/ contabo:/root/data --delete --exclude .Trash* --exclude downloads/ --exclude lost+found/ --exclude movies/ --exclude series/ --exclude series_cur/ --exclude shows/ --progress'
-alias bck_media='rsync -e ssh -avzh /data/series/ contabo:/root/series/ --delete --progress'
-alias pkg='sudo pkg'
-alias upd='sudo portmaster -dya --no-confirm'
+alias bck='rsync -e ssh -avzh /data/ vmi:/root/data --delete --exclude .Trash* --exclude downloads/ --exclude lost+found/ --exclude movies/ --exclude series/ --exclude series_cur/ --exclude shows/ --progress'
+alias bck_media='rsync -e ssh -avzh /data/series/ vmi:/root/series/ --delete --progress'
 alias d='cd /data/downloads'
 alias reboot='sudo shutdown -r now'
 alias gch='git checkout'

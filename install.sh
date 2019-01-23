@@ -29,7 +29,7 @@ sudo pacman -S i3-wm i3lock i3status rofi rxvt-unicode urxvt-perls mate-terminal
 check $?
 
 echo -n "Installing applications...... "
-sudo pacman -S engrampa nomacs aircrack-ng rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S engrampa nomacs mpv aircrack-ng rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up i3-gaps........... "
