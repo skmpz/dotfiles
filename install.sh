@@ -37,7 +37,7 @@ sudo pacman -S i3-gaps i3lock i3status rofi rxvt-unicode urxvt-perls mate-termin
 check $?
 
 echo -n "Installing applications...... "
-sudo pacman -S engrampa nomacs calibre transmission-gtk mpv aircrack-ng rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S engrampa nomacs calibre transmission-gtk cherrytree mpv aircrack-ng rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Setting up neovim............ "
