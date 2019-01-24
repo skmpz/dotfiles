@@ -26,7 +26,7 @@ bindsym --whole-window button9 exec "caja /data/downloads"
 
 #font
 font pango:Ubuntu 8
-bindsym $mod+p exec "$HOME/dotfiles/freebsd/bin/startup.sh"
+bindsym $mod+p exec "$HOME/dotfiles/bin/startup.sh"
 bindsym $mod+x exec caja
 bindsym --release Print exec "$HOME/dotfiles/freebsd/bin/scrot.sh"
 bindsym --release Pause exec "$HOME/dotfiles/freebsd/bin/scrot_report.sh"
@@ -107,10 +107,10 @@ bindsym $mod+a focus parent
 
 # workspace names
 set $w1 "  &#xf120;  "
-set $w2 "&#xf268; web"
-set $w3 "&#xf02d; books"
-set $w4 "&#xf1de; conf"
-set $w5 "&#xf0ae; todo"
+set $w2 "  &#xf268;  "
+set $w3 "  &#xf02d;  "
+set $w4 "  &#xf1de;  "
+set $w5 "  &#xf0ae;  "
 set $w6 6
 set $w7 7
 set $w8 8
