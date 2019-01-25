@@ -108,7 +108,7 @@ bindsym $mod+a focus parent
 # workspace names
 set $w1 "  &#xf120;  "
 set $w2 "  &#xf268;  "
-set $w3 "  &#xf02d;  "
+set $w3 "  &#xf0ae;  "
 set $w4 "  &#xf1de;  "
 set $w5 "  &#xf0ae;  "
 set $w6 6

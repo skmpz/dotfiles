@@ -21,27 +21,27 @@ sleep 0.5
 i3-msg 'workspace "  &#xf268;  "; exec urxvt'
 sleep 0.5
 
-i3-msg 'workspace "  &#xf02d;  "; exec urxvt'
+i3-msg 'workspace "  &#xf0ae;  "; exec urxvt'
 sleep 0.5
-i3-msg 'workspace "  &#xf02d;  "; exec transmission-gtk'
+i3-msg 'workspace "  &#xf0ae;  "; exec transmission-gtk'
 sleep 5
-i3-msg 'workspace "  &#xf02d;  "; exec calibre'
+i3-msg 'workspace "  &#xf0ae;  "; exec calibre'
 sleep 5
-i3-msg 'workspace "  &#xf02d;  "; resize grow width 14 px or 14 ppt;'
+i3-msg 'workspace "  &#xf0ae;  "; resize grow width 14 px or 14 ppt;'
 sleep 0.5
-i3-msg 'workspace "  &#xf02d;  "; focus left;'
+i3-msg 'workspace "  &#xf0ae;  "; focus left;'
 sleep 0.5
-i3-msg 'workspace "  &#xf02d;  "; resize grow width 4 px or 4 ppt;'
+i3-msg 'workspace "  &#xf0ae;  "; resize grow width 4 px or 4 ppt;'
 sleep 0.5
-i3-msg 'workspace "  &#xf02d;  "; split v'
+i3-msg 'workspace "  &#xf0ae;  "; split v'
 sleep 0.5
-i3-msg 'workspace "  &#xf02d;  "; exec urxvt'
+i3-msg 'workspace "  &#xf0ae;  "; exec urxvt'
 sleep 0.5
-i3-msg 'workspace "  &#xf02d;  "; focus left;'
+i3-msg 'workspace "  &#xf0ae;  "; focus left;'
 sleep 0.5
-i3-msg 'workspace "  &#xf02d;  "; split v'
+i3-msg 'workspace "  &#xf0ae;  "; split v'
 sleep 0.5
-i3-msg 'workspace "  &#xf02d;  "; exec urxvt'
+i3-msg 'workspace "  &#xf0ae;  "; exec urxvt'
 sleep 0.5
 
 i3-msg 'workspace "  &#xf120;  "; exec urxvt'
