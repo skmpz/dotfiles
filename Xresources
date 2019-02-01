@@ -1,8 +1,8 @@
 Xcursor.theme:              whiteglass
-Xcursor.size:               14
+Xcursor.size:               12
 URxvt*geometry:             115x40
 URxvt*cursorColor:          #36a9dc
-URxvt*font:                 xft:Inconsolata:style=Medium:size=12:antialias=true:hinting=true
+URxvt*font:                 xft:Inconsolata:style=Medium:size=10:antialias=true:hinting=true
 /* URxvt*font:                 xft:Source Code Pro:style=Light:size=10:antialias=true:hinting=true */
 URxvt*depth:                24
 URxvt*borderless:           1
