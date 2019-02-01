@@ -120,7 +120,7 @@ if [ "$1" != "laptop" ] && [ "$1" != "vm" ]; then
 fi
 
 if [ "$1" == "vm" ]; then
-    echo -n "Setting up vm modules"
+    _start "Setting up vm modules"
     sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed >> .install.log 2>&1
     _check_no_ok $?
     printf "vboxguest\nvboxsf\nvboxvideo\n" > vboxservice.conf
@@ -160,7 +160,7 @@ ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
 nvim +PlugInstall +qall >> .install.log 2>&1
 nvim +UpdateRemotePlugins +qall >> .install.log 2>&1
-printf "[Icon Theme]\nInherits=whiteglass\n" | tee /usr/share/icons/default/index.theme >> .install.log 2>&1
+printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme >> .install.log 2>&1
 _check_ok $?
 
 # clean up
