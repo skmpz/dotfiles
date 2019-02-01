@@ -1,75 +1,137 @@
 #!/bin/bash
 
-function check {
-    if [ "$1" == "0" ]; then
-        echo -e "[\e[0;32mOK\e[0m]"
+# ------------------------- settings ---------------------------
+s_log_cols=50           # log length
+s_line_cols=80          # hr line length
+s_sudo_perm="YES"        # sudo perm needed
+s_line_color="BLUE"     # hr line color
+s_main_color="YELLOW"   # main action color
+s_plus_color="WHITE"    # sign color
+s_ok_color="GREEN"      # ok color
+s_info_color="PURPLE"   # info color
+s_fail_color="RED"      # fail color
+# ------------------------- settings ---------------------------
+
+# ----------------------- helper funcs -------------------------
+# colors
+NC="\033[0m"        RED="\033[0;31m"   GREEN="\033[0;32m" 
+YELLOW="\033[0;33m" WHITE="\033[0;97m" BLUE="\033[0;34m" 
+PURPLE="\033[0;35m" CYAN="\033[0;36m"  GREY="\033[0;90m"
+
+# check function (with ok output)
+function _check_ok {
+    if [ $1 == 0 ]; then
+        echo -en "[${!s_ok_color}OK${NC}]"
+        if [ ! -z "$2" ]; then echo -e "[${!s_info_color}${2}${NC}]"; else echo ""; fi
     else
-        echo -e "[\e[0;31mFAIL\e[0m]"
-        exit 1
+        echo -e "[${!s_fail_color}FAIL${NC}]"; exit 1
     fi
 }
 
-function check_no_ok {
-    if [ "$1" != "0" ]; then
-        echo -e "[\e[0;31mFAIL\e[0m]"
-        exit 1
-    fi
+# check function (without ok output)
+function _check_no_ok {
+    if [ $1 == 0 ]; then return; else echo -e "[${!s_fail_color}FAIL${NC}]"; exit 1; fi
 }
 
-# just to enter pass
-sudo ls > /dev/null
+# section start
+function _start {
+    str_len=${#1}
+    str_len=$((s_log_cols-str_len))
+    echo -en "${!s_main_color}[${!s_plus_color}+${!s_main_color}] $1 "
+    v=$(printf "%-${str_len}s" ".")
+    echo -en "${v// /.} ${NC}"
+    echo "------- $1" >> $LOGFILE
+}
 
-# nopasswd wheel
+# no check ok
+function _ok {
+    echo -en "[${!s_ok_color}OK${NC}]"
+    if [ ! -z "$1" ]; then echo -e "[${PURPLE}${1}${NC}]"; else echo ""; fi
+}
+
+# no check fail
+function _fail {
+    echo -en "[${!s_fail_color}FAIL${NC}]"
+    if [ ! -z "$1" ]; then echo -e "[${PURPLE}${1}${NC}]"; else echo ""; fi
+    exit 1
+}
+
+# hr line
+function _line {
+    v=$(printf "%-${s_line_cols}s" "-")
+    echo -e "${!s_line_color}${v// /-} ${NC}"
+}
+
+# sudo perm
+function _sudo {
+    sudo ls > /dev/null
+}
+# ----------------------- helper funcs -------------------------
+
+# ------------------------ initialize --------------------------
+CWD=$PWD
+LOGFILE="$CWD/.${0//.\/}.log"   # set logfile
+echo "" > $LOGFILE              # empty logfile
+start_time=`date +%s`           # start timer
+if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
+_line
+# ------------------------ initialize --------------------------
+
+_start "Setting passwordless sudo"
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers >> .install.log 2>&1
+_check_ok $?
 
-echo -n "Getting pacman up to date.... "
+_start "Getting pacman up to date"
 sudo pacman -Syy --noconfirm --needed >> .install.log 2>&1
-check $?
+_check_ok $?
 
-echo -n "Installing system tools...... "
+_start "Installing system tools"
 sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake unrar python2 python3 python-neovim python2-neovim luarocks clang pulseaudio alsa-utils --noconfirm --needed >> .install.log 2>&1
-check $?
+_check_ok $?
 
-echo -n "Install X window manager..... "
+_start "Install X window manager"
 sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes xclip --noconfirm --needed >> .install.log 2>&1
-check $?
+_check_ok $?
 
-echo -n "Installing i3 and wm tools... "
+_start "Installing i3 and wm tools"
 sudo pacman -S i3-gaps i3lock i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu ttf-ubuntu-font-family adobe-source-code-pro-fonts ttf-droid otf-font-awesome ttf-inconsolata --noconfirm --needed >> .install.log 2>&1
-check $?
+_check_ok $?
 
-echo -n "Installing applications...... "
-sudo pacman -S engrampa nomacs calibre transmission-gtk cherrytree mpv aircrack-ng rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy --noconfirm --needed >> .install.log 2>&1
-check $?
+_start "Installing applications"
+sudo pacman -S engrampa nomacs calibre transmission-gtk cherrytree mpv rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy aircrack-ng --noconfirm --needed >> .install.log 2>&1
+_check_ok $?
 
-echo -n "Setting up yay............... "
+_start "Setting up yay"
 git clone https://aur.archlinux.org/yay.git > /dev/null >> .install.log 2>&1
-check_no_ok $?
+_check_no_ok $?
 cd yay >> .install.log 2>&1
 makepkg -si --noconfirm >> .install.log 2>&1
-check_no_ok $?
+_check_no_ok $?
 yay -S otf-inconsolata-lgc-git --noconfirm --needed >> .install.log 2>&1
 cd ..
-check $?
+_check_ok $?
 
-if [ "$1" != "laptop" ] && [ "$1" != "vm"]; then
-    echo -n "Installing Plex.............. "
+if [ "$1" != "laptop" ] && [ "$1" != "vm" ]; then
+    _start "Installing Plex"
     yay -S plex-media-server --noconfirm >> .install.log 2>&1
-    check_no_ok $?
+    _check_no_ok $?
     sudo systemctl enable plexmediaserver >> .install.log 2>&1
-    check $?
+    _check_ok $?
 fi
 
 if [ "$1" == "vm" ]; then
-    echo -n "Setting up vm modules........ "
+    echo -n "Setting up vm modules"
     sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed >> .install.log 2>&1
+    _check_no_ok $?
     printf "vboxguest\nvboxsf\nvboxvideo\n" > vboxservice.conf
+    _check_no_ok $?
     sudo cp vboxservice.conf /etc/modules-load.d/ >> .install.log 2>&1
+    _check_no_ok $?
     sudo systemctl enable vboxservice.service > /dev/null 2>> .install.log
-check $?
+    _check_ok $?
 fi
 
-echo -n "Setting up config files...... "
+_start "Setting up config files"
 rm -rf $HOME/.bash/
 rm -rf $HOME/.bashrc
 rm -rf $HOME/.gtkrc-2.0
@@ -96,7 +158,17 @@ ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
 ln -s $HOME/dotfiles/config $HOME/.config/i3/config
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
-nvim +PlugInstall +qall > /dev/null
-nvim +UpdateRemotePlugins +qall > /dev/null
-printf "[Icon Theme]\nInherits=whiteglass\n" > /usr/share/icons/default/index.theme
-check $?
+nvim +PlugInstall +qall >> .install.log 2>&1
+nvim +UpdateRemotePlugins +qall >> .install.log 2>&1
+printf "[Icon Theme]\nInherits=whiteglass\n" | tee /usr/share/icons/default/index.theme >> .install.log 2>&1
+_check_ok $?
+
+# clean up
+rm -rf .install.log
+
+# print run time
+_line
+end_time=`date +%s`
+echo -en "${YELLOW}Runtime: " #$((end_time-start_time)) sec${NC}"
+date -d@$((end_time-start_time)) -u +%H:%M:%S
+_line
