@@ -24,7 +24,7 @@ sudo pacman -Syy --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Installing system tools...... "
-sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake unrar python2 python3 python-neovim python3-neovim luarocks clang pulseaudio alsa-utils --noconfirm --needed > /dev/null 2>> .install.log
+sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake unrar python2 python3 python-neovim python2-neovim luarocks clang pulseaudio alsa-utils --noconfirm --needed > /dev/null 2>> .install.log
 check $?
 
 echo -n "Install X window manager..... "
