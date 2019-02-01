@@ -14,8 +14,8 @@ s_fail_color="RED"      # fail color
 
 # ----------------------- helper funcs -------------------------
 # colors
-NC="\033[0m"        RED="\033[0;31m"   GREEN="\033[0;32m" 
-YELLOW="\033[0;33m" WHITE="\033[0;97m" BLUE="\033[0;34m" 
+NC="\033[0m"        RED="\033[0;31m"   GREEN="\033[0;32m"
+YELLOW="\033[0;33m" WHITE="\033[0;97m" BLUE="\033[0;34m"
 PURPLE="\033[0;35m" CYAN="\033[0;36m"  GREY="\033[0;90m"
 
 # check function (with ok output)
@@ -77,6 +77,36 @@ if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
 _line
 # ------------------------ initialize --------------------------
 
+# ------------------------- arguments --------------------------
+# print usage and exit
+function show_usage {
+    echo -e "[${RED}usage${NC}] ${!s_main_color}./$(basename $0) [opts]${NC}"
+    _line
+    echo -en "[${WHITE}opts${NC}] "
+    echo -e "${BLUE}--vm/--work/--laptop/--home    mode    [required]${NC}"
+    _line
+    exit 1
+}
+
+# arg count
+if [ $# -lt 1 ]; then show_usage ;fi
+
+# parse arguments
+for i in "$@"
+do
+    case $i in
+        --vm) mode="VM"; shift 1 ;;
+        --home) mode="HOME"; shift 1 ;;
+        --laptop) mode="LAPTOP"; shift 1 ;;
+        --work) mode="WORK"; shift 1 ;;
+        *) ;;
+    esac
+done
+
+# check arguments
+if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "LAPTOP" ] && [ "$mode" != "WORK" ]; then show_usage; fi
+# ------------------------- arguments --------------------------
+
 _start "Setting passwordless sudo"
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers >> .install.log 2>&1
 _check_ok $?
@@ -111,7 +141,7 @@ yay -S otf-inconsolata-lgc-git --noconfirm --needed >> .install.log 2>&1
 cd ..
 _check_ok $?
 
-if [ "$1" != "laptop" ] && [ "$1" != "vm" ]; then
+if [ "$mode" == "HOME" ]; then
     _start "Installing Plex"
     yay -S plex-media-server --noconfirm >> .install.log 2>&1
     _check_no_ok $?
@@ -119,7 +149,7 @@ if [ "$1" != "laptop" ] && [ "$1" != "vm" ]; then
     _check_ok $?
 fi
 
-if [ "$1" == "vm" ]; then
+if [ "$mode" == "VM" ]; then
     _start "Setting up vm modules"
     sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed >> .install.log 2>&1
     _check_no_ok $?
