@@ -10,8 +10,7 @@ function check {
 }
 
 function check_no_ok {
-    if [ "$1" == "0" ]; then
-    else
+    if [ "$1" != "0" ]; then
         echo -e "[\e[0;31mFAIL\e[0m]"
         exit 1
     fi
