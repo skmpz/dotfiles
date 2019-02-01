@@ -20,7 +20,7 @@ function check_no_ok {
 sudo ls > /dev/null
 
 # nopasswd wheel
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers >> .install.log 2>&1
 
 echo -n "Getting pacman up to date.... "
 sudo pacman -Syy --noconfirm --needed >> .install.log 2>&1
