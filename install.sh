@@ -116,11 +116,11 @@ sudo pacman -Syy --noconfirm --needed >> .install.log 2>&1
 _check_ok $?
 
 _start "Installing system tools"
-sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake unrar python2 python3 python-neovim python2-neovim luarocks clang pulseaudio alsa-utils --noconfirm --needed >> .install.log 2>&1
+sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake unrar python2 python3 jdk8-openjdk nodejs python-neovim python2-neovim luarocks clang pulseaudio alsa-utils --noconfirm --needed >> .install.log 2>&1
 _check_ok $?
 
 _start "Install X window manager"
-sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit polkit xcursor-themes xclip --noconfirm --needed >> .install.log 2>&1
+sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit xautolock polkit xcursor-themes xclip --noconfirm --needed >> .install.log 2>&1
 _check_ok $?
 
 _start "Installing i3 and wm tools"
@@ -128,7 +128,7 @@ sudo pacman -S i3-gaps i3lock i3status rofi rxvt-unicode urxvt-perls mate-termin
 _check_ok $?
 
 _start "Installing applications"
-sudo pacman -S engrampa nomacs calibre transmission-gtk cherrytree mpv rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy aircrack-ng --noconfirm --needed >> .install.log 2>&1
+sudo pacman -S engrampa nomacs calibre transmission-gtk cherrytree imagemagick scrot mpv rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy aircrack-ng --noconfirm --needed >> .install.log 2>&1
 _check_ok $?
 
 _start "Setting up yay"
