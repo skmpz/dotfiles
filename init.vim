@@ -1,11 +1,8 @@
 " File: Neovim config (init.vim)
 " Author: Demetris Procopiou
-" Last Updated: 31/10/2018
+" Last Updated: 02/02/2019
 
 filetype plugin indent on
-" Plug 'vim-scripts/CmdlineComplete'
-" Plug 'vim-scripts/SearchComplete'
-" Plug 'ggVGc/vim-fuzzysearch'
 
 " vim-plug
 call plug#begin()
@@ -246,3 +243,7 @@ nnoremap <F12> :NERDTreeToggle<CR>
 " show trailing
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
+
+hi GitGutterAdd ctermbg=none ctermfg=green
+hi GitGutterChange ctermbg=none ctermfg=gray
+hi GitGutterDelete ctermbg=none ctermfg=red
