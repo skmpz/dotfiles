@@ -177,6 +177,7 @@ mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/nvim/
 mkdir -p $HOME/.config/gtk-3.0/
 mkdir -p $HOME/.urxvt/ext/
+mkdir -p $HOME/screen/
 sudo mkdir -p /usr/share/fonts/truetype/
 sudo cp fonts/Inconsolata.otf /usr/share/fonts/truetype/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \

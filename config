@@ -21,18 +21,16 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 1 toggle # mute sound
 
 bindsym --release button2 kill
+# open caja with alt+x or side mouse button
+bindsym $mod+x exec caja
 bindsym --whole-window button8 exec "caja"
 bindsym --whole-window button9 exec "caja /data/downloads"
 
 #font
 font pango:Ubuntu 9
 bindsym $mod+p exec "$HOME/dotfiles/bin/startup.sh"
-bindsym $mod+x exec caja
-bindsym --release Print exec "$HOME/dotfiles/freebsd/bin/scrot.sh"
-bindsym --release Pause exec "$HOME/dotfiles/freebsd/bin/scrot_report.sh"
-bindsym $mod+Shift+z exec "$HOME/dotfiles/freebsd/bin/lock.sh"
-bindsym $mod+t exec "$HOME/dotfiles/freebsd/bin/oscp.sh"
-exec xautolock -time 15 -locker "$HOME/dotfiles/freebsd/bin/lock.sh" &
+bindsym --release Print exec "scrot -s $HOME/screenshots/%d-%m-%Y-%H-%M-%S.png -q 100"
+bindsym $mod+Shift+z exec "$HOME/dotfiles/bin/lock.sh"
 
 bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
 bindsym $mod+Ctrl+Up resize grow height 1 px or 1 ppt
