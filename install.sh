@@ -116,7 +116,7 @@ sudo pacman -Syy --noconfirm --needed >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing system"
-sudo pacman -S adobe-source-code-pro-fonts aircrack-ng alsa-oss alsa-utils alsa-utils arc-gtk-theme arc-icon-theme bash-completion bc caja caja-open-terminal calibre cherrytree chromium clang cmake engrampa evince fbreader feh gedit gparted i3-gaps i3lock i3status imagemagick jdk8-openjdk luarocks mate-terminal mpv neovim nodejs nomacs openssh otf-font-awesome polkit pulseaudio python-neovim python2 python2-neovim python3 rofi rsync rxvt-unicode sbt scala scrot synergy tmux transmission-gtk ttf-dejavu ttf-droid ttf-inconsolata ttf-ubuntu-font-family unrar urxvt-perls vim wget xautolock xclip xcursor-themes xorg xorg-twm xorg-xclock xorg-xinit xterm --noconfirm --needed >> $LOGFILE 2>&1
+sudo pacman -S adobe-source-code-pro-fonts aircrack-ng alsa-oss alsa-utils alsa-utils arc-gtk-theme arc-icon-theme bash-completion bc caja caja-open-terminal calibre cherrytree chromium clang cmake engrampa evince fbreader feh gedit gparted i3-gaps i3lock i3status imagemagick jdk8-openjdk luarocks mate-terminal mpv neovim nodejs nomacs openssh otf-font-awesome polkit pulseaudio python-neovim python2 python2-neovim python3 rofi rsync rxvt-unicode sbt scala scrot synergy tmux transmission-gtk ttf-dejavu ttf-droid ttf-inconsolata ttf-ubuntu-font-family unrar urxvt-perls vim wget xclip xcursor-themes xorg xorg-twm xorg-xclock xorg-xinit xterm --noconfirm --needed >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Setting up yay"
