@@ -1,6 +1,6 @@
 #include "/home/osboxes/.Xresources.local"
-Xcursor*theme:              whiteglass
-Xcursor*size:               12
+Xcursor.theme:              whiteglass
+Xcursor.size:               12
 URxvt*geometry:             115x40
 URxvt*cursorColor:          #36a9dc
 URxvt*depth:                24
