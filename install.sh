@@ -116,7 +116,7 @@ sudo pacman -Syy --noconfirm --needed >> .install.log 2>&1
 _check_ok $?
 
 _start "Installing system tools"
-sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake unrar python2 python3 jdk8-openjdk nodejs python-neovim python2-neovim luarocks clang pulseaudio alsa-utils --noconfirm --needed >> .install.log 2>&1
+sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake unrar python2 python3 sbt scala jdk8-openjdk nodejs python-neovim python2-neovim luarocks clang pulseaudio alsa-utils --noconfirm --needed >> .install.log 2>&1
 _check_ok $?
 
 _start "Install X window manager"
@@ -137,7 +137,6 @@ _check_no_ok $?
 cd yay >> .install.log 2>&1
 makepkg -si --noconfirm >> .install.log 2>&1
 _check_no_ok $?
-yay -S otf-inconsolata-lgc-git --noconfirm --needed >> .install.log 2>&1
 cd ..
 _check_ok $?
 
@@ -177,6 +176,8 @@ mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/nvim/
 mkdir -p $HOME/.config/gtk-3.0/
 mkdir -p $HOME/.urxvt/ext/
+sudo mkdir -p /usr/share/fonts/truetype/
+sudo cp fonts/Inconsolata.otf /usr/share/fonts/truetype/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> .install.log 2>&1
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt >> .install.log 2>&1
