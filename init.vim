@@ -247,3 +247,23 @@ set listchars=tab:>-,trail:~,extends:>,precedes:<
 hi GitGutterAdd ctermbg=none ctermfg=green
 hi GitGutterChange ctermbg=none ctermfg=gray
 hi GitGutterDelete ctermbg=none ctermfg=red
+
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_left_alt_sep = '»'
+let g:airline_right_alt_sep = '«'
+let g:airline_symbols.paste = 'PASTE'
+let g:airline_symbols.linenr = 'Ξ'
+let g:airline_symbols.branch = '»'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.space = ' '
+let g:airline_symbols.modified = '+'
+let g:airline_symbols.readonly = 'READONLY'
+let g:airline_symbols.maxlinenr = ''
