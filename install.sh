@@ -115,20 +115,8 @@ _start "Getting pacman up to date"
 sudo pacman -Syy --noconfirm --needed >> $LOGFILE 2>&1
 _check_ok $?
 
-_start "Installing system tools"
-sudo pacman -S alsa-utils alsa-oss openssh bash-completion bc wget tmux cmake unrar python2 python3 sbt scala jdk8-openjdk nodejs python-neovim python2-neovim luarocks clang pulseaudio alsa-utils --noconfirm --needed >> $LOGFILE 2>&1
-_check_ok $?
-
-_start "Install X window manager"
-sudo pacman -S xorg xterm xorg-xclock xorg-twm xorg-xinit xautolock polkit xcursor-themes xclip --noconfirm --needed >> $LOGFILE 2>&1
-_check_ok $?
-
-_start "Installing i3 and wm tools"
-sudo pacman -S i3-gaps i3lock i3status rofi rxvt-unicode urxvt-perls mate-terminal feh arc-icon-theme arc-gtk-theme ttf-dejavu ttf-ubuntu-font-family adobe-source-code-pro-fonts ttf-droid otf-font-awesome ttf-inconsolata --noconfirm --needed >> $LOGFILE 2>&1
-_check_ok $?
-
-_start "Installing applications"
-sudo pacman -S engrampa nomacs calibre transmission-gtk cherrytree imagemagick scrot mpv rsync vim evince fbreader caja caja-open-terminal gedit neovim chromium synergy aircrack-ng --noconfirm --needed >> $LOGFILE 2>&1
+_start "Installing system"
+sudo pacman -S adobe-source-code-pro-fonts aircrack-ng alsa-oss alsa-utils alsa-utils arc-gtk-theme arc-icon-theme bash-completion bc caja caja-open-terminal calibre cherrytree chromium clang cmake engrampa evince fbreader feh gedit gparted i3-gaps i3lock i3status imagemagick jdk8-openjdk luarocks mate-terminal mpv neovim nodejs nomacs openssh otf-font-awesome polkit pulseaudio python-neovim python2 python2-neovim python3 rofi rsync rxvt-unicode sbt scala scrot synergy tmux transmission-gtk ttf-dejavu ttf-droid ttf-inconsolata ttf-ubuntu-font-family unrar urxvt-perls vim wget xautolock xclip xcursor-themes xorg xorg-twm xorg-xclock xorg-xinit xterm --noconfirm --needed >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Setting up yay"
@@ -186,10 +174,23 @@ git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
 cp $HOME/dotfiles/font-size $HOME/.urxvt/ext/
 ln -s $HOME/dotfiles/bashrc $HOME/.bashrc
 ln -s $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
-ln -s $HOME/dotfiles/xinitrc $HOME/.xinitrc
-ln -s $HOME/dotfiles/config $HOME/.config/i3/config
-ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
+ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
+if [ "$mode" == "HOME" ]; then
+    ln -s $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
+    ln -s $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
+elif [ "$mode" == "LAPTOP" ]; then
+    ln -s $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
+    ln -s $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
+elif [ "$mode" == "WORK" ]; then
+    ln -s $HOME/dotfiles/work/xinitrc $HOME/.xinitrc
+    ln -s $HOME/dotfiles/work/Xresources.local $HOME/.Xresources.local
+elif [ "$mode" == "VM" ]; then
+    ln -s $HOME/dotfiles/vm/xinitrc $HOME/.xinitrc
+    ln -s $HOME/dotfiles/vm/Xresources.local $HOME/.Xresources.local
+fi
+ln -s $HOME/dotfiles/config $HOME/.config/i3/config
 nvim +PlugInstall +qall >> $LOGFILE 2>&1
 nvim +UpdateRemotePlugins +qall >> $LOGFILE 2>&1
 printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme >> $LOGFILE 2>&1
