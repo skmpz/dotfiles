@@ -1,4 +1,4 @@
-#include "/home/osboxes/.Xresources.local"
+#include "/home/sk/.Xresources.local"
 Xcursor.theme:              whiteglass
 Xcursor.size:               12
 URxvt*geometry:             115x40
