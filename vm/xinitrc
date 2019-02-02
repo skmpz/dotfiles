@@ -4,6 +4,7 @@ xrdb -merge ~/.Xresources
 setxkbmap -option caps:escape
 feh --bg-scale ~/dotfiles/bg.jpg
 xrandr --output VGA-1 --primary
+cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
 exec i3
 #exec mate-session
 #exec gnome-session

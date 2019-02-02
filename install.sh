@@ -177,20 +177,24 @@ ln -s $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
 ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
 ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
+ln -s $HOME/dotfiles/config.base $HOME/.config/i3/config.base
 if [ "$mode" == "HOME" ]; then
     ln -s $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
     ln -s $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
+    ln -s $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
 elif [ "$mode" == "LAPTOP" ]; then
     ln -s $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
     ln -s $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
+    ln -s $HOME/dotfiles/laptop/config.local $HOME/.config/i3/config.local
 elif [ "$mode" == "WORK" ]; then
     ln -s $HOME/dotfiles/work/xinitrc $HOME/.xinitrc
     ln -s $HOME/dotfiles/work/Xresources.local $HOME/.Xresources.local
+    ln -s $HOME/dotfiles/work/config.local $HOME/.config/i3/config.local
 elif [ "$mode" == "VM" ]; then
     ln -s $HOME/dotfiles/vm/xinitrc $HOME/.xinitrc
     ln -s $HOME/dotfiles/vm/Xresources.local $HOME/.Xresources.local
+    ln -s $HOME/dotfiles/vm/config.local $HOME/.config/i3/config.local
 fi
-ln -s $HOME/dotfiles/config $HOME/.config/i3/config
 nvim +PlugInstall +qall >> $LOGFILE 2>&1
 nvim +UpdateRemotePlugins +qall >> $LOGFILE 2>&1
 printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme >> $LOGFILE 2>&1
