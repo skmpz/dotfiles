@@ -1,5 +1,5 @@
 # alt-p -> startup script
-bindsym $mod+p exec "$HOME/dotfiles/bin/startup.sh"
+bindsym $mod+p exec "$HOME/dotfiles/work/startup.sh"
 
 # xf86 sound controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 +5%
@@ -7,7 +7,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 1 toggle
 
 bar {
-    status_command $HOME/dotfiles/freebsd/bin/i3_status.mine
+    status_command $HOME/dotfiles/work/status_bar.sh
     tray_output primary
         font xft: Source Code Pro 9
         mode dock
