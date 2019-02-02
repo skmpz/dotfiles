@@ -20,7 +20,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rhysd/clever-f.vim'           " plugin_clever_f
-Plug 'justinmk/vim-sneak'
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
@@ -32,6 +31,7 @@ Plug 'godlygeek/tabular'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
+Plug 'Chiel92/vim-autoformat'
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
 vmap v <Plug>(expand_region_expand)
@@ -155,17 +155,13 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>t :call fzf#vim#tags("'".expand('<cword>'))<cr>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>, :mks! ~/.sess<cr>
-nnoremap gs /
-nnoremap gS ?
+nnoremap s /
+nnoremap S ?
 noremap  <F1> "a
 noremap  <F2> "b
 noremap  <F3> "c
 noremap  <F4> "d
 set pastetoggle=<F8>
-
-let g:sneak#label = 1
-let g:sneak#s_next = 1
-let g:sneak#use_ic_scs =1
 
 " search improve
 set ignorecase
@@ -184,16 +180,6 @@ let g:neomake_error_sign = {
             \ 'text': 'E',
             \ 'texthl': 'ErrorMsg',
             \ }
-
-" vim-sneak mappings
-"let g:sneak#label = 1
-"let g:sneak#use_ic_scs = 1
-"let g:sneak#absolute_dir = 1
-"let g:sneak#s_next = 1
-"map f <Plug>Sneak_f
-"map F <Plug>Sneak_F
-"map t <Plug>Sneak_t
-"map T <Plug>Sneak_T
 
 " revert command-findnext mappings
 nno ; :
@@ -227,9 +213,9 @@ if has("unix")
 endif
 let g:deoplete#sources#clang#std#cpp       = 'c++11'
 let g:deoplete#sources#clang#sort_algo     = 'priority'
-let g:deoplete#sources={} 
-let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips'] 
-let g:deoplete#omni#input_patterns={} 
+let g:deoplete#sources={}
+let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
+let g:deoplete#omni#input_patterns={}
 let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
 set completeopt-=preview "no scratch window
 
@@ -260,7 +246,3 @@ nnoremap <F12> :NERDTreeToggle<CR>
 " show trailing
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
-
-hi Sneak ctermfg=black ctermbg=red
-hi SneakScope ctermfg=red ctermbg=yellow
-hi SneakLabel ctermfg=white ctermbg=brown
