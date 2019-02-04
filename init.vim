@@ -267,3 +267,6 @@ let g:airline_symbols.space = ' '
 let g:airline_symbols.modified = '+'
 let g:airline_symbols.readonly = 'READONLY'
 let g:airline_symbols.maxlinenr = ''
+
+nnoremap <leader>y "*y
+vnoremap <leader>y "*y
