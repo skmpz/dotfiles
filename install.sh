@@ -83,7 +83,7 @@ function show_usage {
     echo -e "[${RED}usage${NC}] ${!s_main_color}./$(basename $0) [opts]${NC}"
     _line
     echo -en "[${WHITE}opts${NC}] "
-    echo -e "${BLUE}--vm/--work/--laptop/--home    mode    [required]${NC}"
+    echo -e "${BLUE}--vm/--work/--laptop/--home    install mode    [required]${NC}"
     _line
     exit 1
 }
