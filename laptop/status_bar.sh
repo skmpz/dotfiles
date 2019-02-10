@@ -13,7 +13,7 @@ do
         VOL_PERC=$(pactl list sinks | grep Volume | grep -v Base | tail -1 | awk '{print $5}')
         VOL_NUM=$(echo $VOL_PERC | tr -d '%')
         if [ "$VOL_NUM" -ge 0 ] && [ "$VOL_NUM" -lt 10 ]; then
-            VOL=" $VOL_PERC"
+            VOL=" $VOL_PERC"
         elif [ "$VOL_NUM" -ge 5 ] && [ "$VOL_NUM" -lt 55 ]; then
             VOL=" $VOL_PERC"
         else
