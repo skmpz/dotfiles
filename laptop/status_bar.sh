@@ -28,8 +28,16 @@ do
     H_PERC=$(df -h /home/ | tail -1 | awk '{print $5}')
     MEM_USED=$(free -mh | grep Mem | awk '{print $3}')
     MEM_TOTAL=$(free -mh | grep Mem | awk '{print $2}')
-    IP=$(ip a | grep -A3 wlo1 | grep -w inet | awk '{print $2}' | cut -f1 -d'/')
+    IP_GET=$(ip a | grep -A3 wlo1 | grep -w inet | awk '{print $2}' | cut -f1 -d'/')
+    if [ "$IP_GET" == "" ]; then
+        IP="N/A"
+    else
+        SSID=$(iwgetid -r)
+        IP="$IP_GET [$SSID]"
+    fi
+
     BATTERY_PERC=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep perc | awk '{print $2}')
+    BATTERY_STATE=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep state | awk '{print $2}')
     BATTERY_NUM=$(echo $BATTERY_PERC | tr -d '%')
     if [ "$BATTERY_NUM" -ge 0 ] && [ "$BATTERY_NUM" -lt 5 ]; then
         BATTERY=" $BATTERY_PERC"
@@ -41,6 +49,9 @@ do
         BATTERY=" $BATTERY_PERC"
     else
         BATTERY=" $BATTERY_PERC"
+    fi
+    if [ "$BATTERY_STATE" == "charging" ]; then
+        BATTERY="$BATTERY []"
     fi
     full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD | $VOL | $BATTERY |  $DATE |  $TIME ";
     echo "$full"
