@@ -1,0 +1,8 @@
+root -> install base system
+root -> pkg install git sudo
+root -> visudo and uncomment wheel
+user -> cd && git clone https://github.com/skmpz/dotfiles
+user -> cd dotfiles/freebsd
+user -> ./install.sh
+install nvidia
+add user to operator and vboxusers

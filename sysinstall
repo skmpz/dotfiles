@@ -1,0 +1,37 @@
+cfdisk /dev/sda -> make root, swap and home
+mkfs.ext4 /dev/sda1
+mkswap /dev/sda2
+swapon /dev/sda2
+mkfs.ext4 /dev/sda3
+mount /dev/sda1 /mnt
+mkdir /mnt/home
+mount /dev/sda3 /mnt/home
+pacman -Sy
+pacman -S reflector
+reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+pacstrap -i /mnt base base-devel
+genfstab -U -p /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+vim /etc/locale.gen -> uncomment en_US and el_GR
+locale-gen
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+export LANG=en_US.UTF-8
+ln -s /usr/share/zoneinfo/Europe/Nicosia /etc/localtime
+vi /etc/pacman.conf > uncomment multilib
+pacman -Sy
+echo beast > /etc/hostname
+systemctl enable dhcpcd@enp3s0.service
+passwd -> set root passwd
+useradd -m -g users -G wheel,storage,power -s /bin/bash sk
+passwd sk
+EDITOR=vi visudo (add Defaults timestamp_timeout=30)
+mkinitcpio -p linux
+pacman -S grub
+grub-install --target i386-pc --recheck /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+exit
+umount -R /mnt
+reboot
+pacman -S nvidia
+install.sh
+sudo nvidia-xconfig

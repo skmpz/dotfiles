@@ -1,0 +1,48 @@
+#include "/home/sk/.Xresources.local"
+Xcursor.theme:              whiteglass
+Xcursor.size:               12
+URxvt*geometry:             115x40
+URxvt*cursorColor:          #36a9dc
+URxvt*depth:                24
+URxvt*borderless:           1
+URxvt*scrollBar:            false
+URxvt*saveLines:            20000
+URxvt*background:           #1C3749
+URxvt*foreground:           #36a9dc
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
+URxvt*iso14755:             False
+URxvt*transparent:          true
+URxvt*shading:              90
+URxvt*tintColor:            #1C3749
+URxvt*perl-ext-common:      font-size
+URxvt*keysym.C-Up:          perl:font-size:increase
+URxvt*keysym.C-Down:        perl:font-size:decrease
+URxvt*keysym.C-S-Up:        perl:font-size:incglobal
+URxvt*keysym.C-S-Down:      perl:font-size:decglobal
+*color0:                    #2E3436
+*color1:                    #a40000
+*color2:                    #4E9A06
+*color3:                    #C4A000
+*color4:                    #3465A4
+*color5:                    #75507B
+*color6:                    #ce5c00
+*color7:                    #babdb9
+*color8:                    #555753
+*color9:                    #EF2929
+*color10:                   #8AE234
+*color11:                   #EEEEEC
+*color12:                   #729FCF
+*color13:                   #AD7FA8
+*color14:                   #fcaf3e
+*color15:                   #EEEEEC
+rofi.font:                  Ubuntu 8
+rofi.width:                 20
+rofi.lines:                 5
+rofi.opacity:               50
+rofi.color-enabled:         true
+rofi.color-window:          #273238, #273238, #1e2529
+rofi.color-normal:          #273238, #c1c1c1, #273238, #394249, #ffffff
+rofi.color-active:          #273238, #80cbc4, #273238, #394249, #80cbc4
+rofi.color-urgent:          #273238, #ff1844, #273238, #394249, #ff1844

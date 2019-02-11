@@ -1,0 +1,3 @@
+keycode 92 = XF86AudioRaiseVolume
+keycode 170 = XF86AudioLowerVolume
+keycode 207 = XF86AudioMute
