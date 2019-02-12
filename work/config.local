@@ -6,6 +6,13 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 1 toggle
 
+#assign workspaces to outputs
+workspace $w1 output DP-2
+workspace $w2 output HDMI-0
+workspace $w3 output HDMI-0
+workspace $w4 output DP-4
+workspace $w5 output HDMI-0
+
 bar {
     status_command $HOME/dotfiles/work/status_bar.sh
     tray_output primary

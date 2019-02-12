@@ -6,9 +6,12 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 
-# xf86 brightness [chmod o+w /sys/class/backlight/intel_backlight/brightness]
-bindsym XF86MonBrightnessDown exec "echo 600 > /sys/class/backlight/intel_backlight/brightness"
-bindsym XF86MonBrightnessUp exec "echo 1000 > /sys/class/backlight/intel_backlight/brightness"
+#assign workspaces to outputs
+workspace $w1 output DP-2
+workspace $w2 output HDMI-0
+workspace $w3 output HDMI-0
+workspace $w4 output DP-4
+workspace $w5 output HDMI-0
 
 bar {
     status_command $HOME/dotfiles/laptop/status_bar.sh

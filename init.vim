@@ -15,9 +15,9 @@ Plug 'derekwyatt/vim-scala'
 Plug 'terryma/vim-expand-region'
 " Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-Plug 'cloudhead/neovim-fuzzy'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+" Plug 'cloudhead/neovim-fuzzy'
 Plug 'rhysd/clever-f.vim'           " plugin_clever_f
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
@@ -146,7 +146,7 @@ nnoremap <leader>f :lvim <cword> * <bar> :lopen<cr>
 nnoremap <leader>j <C-]>
 nnoremap <leader>n :cnext<CR>
 nnoremap <leader>N :cprev<CR>
-nnoremap <leader>o :FuzzyOpen<CR>
+nnoremap <leader>o :FZF<CR>
 nnoremap <leader>g :LSClientGoToDefinition<CR>
 nnoremap <leader>x :LSClientGoToDefinitionSplit<CR>
 nnoremap <leader>q :q<CR>
@@ -273,3 +273,5 @@ nnoremap <leader>y "*y
 vnoremap <leader>y "*y
 
 " let g:lsc_auto_map = { 'GoToDefinition': 'gd' }
+
+let g:fuzzy_bindkeys = 1

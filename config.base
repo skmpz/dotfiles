@@ -108,13 +108,6 @@ set $w8 "  &#xf2d5;₈ "
 set $w9 "  &#xf2d5;₉ "
 set $w0 "  &#xf2d5;₀ "
 
-#assign workspaces to outputs
-workspace $w1 output DP-2
-workspace $w2 output HDMI-0
-workspace $w3 output HDMI-0
-workspace $w4 output DP-4
-workspace $w5 output HDMI-0
-
 # switch to workspace
 bindsym $mod+1 workspace $w1
 bindsym $mod+2 workspace $w2
