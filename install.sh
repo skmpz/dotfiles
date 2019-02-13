@@ -126,6 +126,8 @@ cd yay >> $LOGFILE 2>&1
 makepkg -si --noconfirm >> $LOGFILE 2>&1
 _check_no_ok $?
 cd ..
+yay -S hopper --noconfirm >> $LOGFILE 2>&1
+_check_no_ok $?
 gem install zsteg >> $LOGFILE 2>&1
 _check_ok $?
 

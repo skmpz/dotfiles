@@ -174,4 +174,5 @@ for_window [class="(?i)Image Lounge"] floating enable, border normal 2, move pos
 for_window [class="(?i)worker"] floating enable, border normal 2, move position center
 for_window [class="(?i)engrampa"] floating enable, border normal 2, move position center
 for_window [class="(?i)gparted"] floating enable, border normal 2, move position center
+for_window [class="(?i)Hopper"] floating enable, border normal 2, move position center
 for_window [class="(?i)wireshark-gtk"] floating enable, border normal 2, move position center
