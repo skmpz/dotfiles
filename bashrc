@@ -5,12 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-function up {
-    sudo pacman -Syu --noconfirm
-    sudo pacman -Sc --noconfirm
-    sudo pacman -Qdtq | sudo pacman -Rs - --noconfirm
-}
-
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias nv='nvim'
@@ -23,6 +17,7 @@ alias gco='git commit -am'
 alias gdf='git diff'
 alias gpush='git push'
 alias gpull='git pull'
+alias up='/home/sk/dotfiles/scripts/up.sh'
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
