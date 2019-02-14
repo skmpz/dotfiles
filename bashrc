@@ -17,7 +17,6 @@ alias gco='git commit -am'
 alias gdf='git diff'
 alias gpush='git push'
 alias gpull='git pull'
-alias up='/home/sk/dotfiles/scripts/up.sh'
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
