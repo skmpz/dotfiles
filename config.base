@@ -10,14 +10,13 @@ focus_follows_mouse no
 # set alt-key
 set $mod Mod1
 
-
 # kill on middle click
 bindsym --release button2 kill
 
 # open caja with alt+x or side mouse button
 bindsym $mod+x exec "caja"
-bindsym --whole-window button8 exec "caja"
-bindsym --whole-window button9 exec "caja /data/downloads"
+bindsym --whole-window button8 exec "mate-terminal"
+bindsym --whole-window button9 exec "caja"
 
 #font
 font pango:Ubuntu 9
