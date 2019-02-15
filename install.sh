@@ -175,28 +175,29 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt >> $LOGFILE 2>&1
 cp $HOME/dotfiles/font-size $HOME/.urxvt/ext/
-ln -s $HOME/dotfiles/bashrc $HOME/.bashrc
-ln -s $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
-ln -s $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
-ln -s $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
-ln -s $HOME/dotfiles/Xresources $HOME/.Xresources
-ln -s $HOME/dotfiles/config.base $HOME/.config/i3/config.base
+ln -sf $HOME/dotfiles/bashrc $HOME/.bashrc
+ln -sf $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
+ln -sf $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
+ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+ln -sf $HOME/dotfiles/Xresources $HOME/.Xresources
+ln -sf $HOME/dotfiles/config.base $HOME/.config/i3/config.base
+ln -sf $HOME/dotfiles/inputrc $HOME/.inputrc
 if [ "$mode" == "HOME" ]; then
-    ln -s $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
-    ln -s $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
-    ln -s $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
+    ln -sf $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
+    ln -sf $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
+    ln -sf $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
 elif [ "$mode" == "LAPTOP" ]; then
-    ln -s $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
-    ln -s $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
-    ln -s $HOME/dotfiles/laptop/config.local $HOME/.config/i3/config.local
+    ln -sf $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
+    ln -sf $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
+    ln -sf $HOME/dotfiles/laptop/config.local $HOME/.config/i3/config.local
 elif [ "$mode" == "WORK" ]; then
-    ln -s $HOME/dotfiles/work/xinitrc $HOME/.xinitrc
-    ln -s $HOME/dotfiles/work/Xresources.local $HOME/.Xresources.local
-    ln -s $HOME/dotfiles/work/config.local $HOME/.config/i3/config.local
+    ln -sf $HOME/dotfiles/work/xinitrc $HOME/.xinitrc
+    ln -sf $HOME/dotfiles/work/Xresources.local $HOME/.Xresources.local
+    ln -sf $HOME/dotfiles/work/config.local $HOME/.config/i3/config.local
 elif [ "$mode" == "VM" ]; then
-    ln -s $HOME/dotfiles/vm/xinitrc $HOME/.xinitrc
-    ln -s $HOME/dotfiles/vm/Xresources.local $HOME/.Xresources.local
-    ln -s $HOME/dotfiles/vm/config.local $HOME/.config/i3/config.local
+    ln -sf $HOME/dotfiles/vm/xinitrc $HOME/.xinitrc
+    ln -sf $HOME/dotfiles/vm/Xresources.local $HOME/.Xresources.local
+    ln -sf $HOME/dotfiles/vm/config.local $HOME/.config/i3/config.local
 fi
 nvim +PlugInstall +qall >> $LOGFILE 2>&1
 nvim +UpdateRemotePlugins +qall >> $LOGFILE 2>&1
