@@ -187,6 +187,8 @@ if [ "$mode" == "HOME" ]; then
     ln -sf $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
     ln -sf $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
 elif [ "$mode" == "LAPTOP" ]; then
+    sudo pacman -S tlp
+    sudo systemctl enable tlp
     ln -sf $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
     ln -sf $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
     ln -sf $HOME/dotfiles/laptop/config.local $HOME/.config/i3/config.local
