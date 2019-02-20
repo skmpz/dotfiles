@@ -4,7 +4,7 @@ xrdb -merge ~/.Xresources
 setxkbmap -option caps:escape
 xrandr --setprovideroutputsource modsetting NVIDIA-0
 xrandr --auto
-xrandr --dpi 92
+xrandr --dpi 86
 feh --bg-scale ~/dotfiles/bg.jpg
 cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
 exec i3
