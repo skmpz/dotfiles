@@ -17,6 +17,7 @@ alias gco='git commit -am'
 alias gdf='git diff'
 alias gpush='git push'
 alias gpull='git pull'
+alias up='yay -Syu'
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt

@@ -9,7 +9,7 @@ call plug#begin()
 Plug 'ervandew/supertab'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
 Plug 'natebosch/vim-lsc'
-Plug 'HerringtonDarkholme/vim-worksheet'
+" Plug 'HerringtonDarkholme/vim-worksheet'
 Plug 'janko-m/vim-test'
 Plug 'derekwyatt/vim-scala'
 Plug 'terryma/vim-expand-region'
