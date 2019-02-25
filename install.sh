@@ -116,7 +116,7 @@ sudo pacman -Syy --noconfirm --needed >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing system"
-sudo pacman -S adobe-source-code-pro-fonts aircrack-ng alsa-oss alsa-utils alsa-utils arc-gtk-theme arc-icon-theme bash-completion bc binwalk caja caja-open-terminal calibre cherrytree chromium clang cmake engrampa evince fbreader feh fzf foremost gdb gedit gparted i3-gaps i3lock i3status imagemagick jdk8-openjdk luarocks mate-terminal mpv neovim nodejs nomacs openssh otf-font-awesome perl-image-exiftool polkit pulseaudio python-neovim python2 python3 rofi rsync ruby rxvt-unicode sbt scala scrot synergy tmux transmission-gtk ttf-dejavu ttf-droid ttf-inconsolata ttf-ubuntu-font-family unrar upower urxvt-perls vim wget wireshark-gtk xclip xcursor-themes xorg xorg-twm xorg-xclock xorg-xinit xterm --noconfirm --needed >> $LOGFILE 2>&1
+sudo pacman -S adobe-source-code-pro-fonts aircrack-ng alsa-oss alsa-utils alsa-utils arc-gtk-theme arc-icon-theme bash-completion bc binwalk caja caja-open-terminal calibre checksec cherrytree chromium clang cmake engrampa evince fbreader feh fzf foremost gdb gedit gparted i3-gaps i3lock i3status imagemagick jdk8-openjdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs openssh otf-font-awesome perl-image-exiftool polkit pulseaudio python-neovim python2 python3 rofi rsync ruby rxvt-unicode sbt scala scrot strace synergy tmux transmission-gtk ttf-dejavu ttf-droid ttf-inconsolata ttf-ubuntu-font-family unrar upower urxvt-perls vim wget wireshark-gtk xclip xcursor-themes xorg xorg-twm xorg-xclock xorg-xinit xterm --noconfirm --needed >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing extra tools"
