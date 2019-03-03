@@ -126,7 +126,7 @@ cd yay >> $LOGFILE 2>&1
 makepkg -si --noconfirm >> $LOGFILE 2>&1
 _check_no_ok $?
 cd ..
-yay -S hopper python2-pwntools --noconfirm >> $LOGFILE 2>&1
+yay -S hopper netdiscover python2-pwntools --noconfirm >> $LOGFILE 2>&1
 _check_no_ok $?
 gem install zsteg >> $LOGFILE 2>&1
 _check_ok $?
