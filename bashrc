@@ -19,6 +19,7 @@ alias gpush='git push'
 alias gpull='git pull'
 alias up='yay -Syu'
 alias sbt='sbt -mem 4096'
+alias f='caja .'
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
