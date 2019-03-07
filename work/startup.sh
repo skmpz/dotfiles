@@ -27,5 +27,3 @@ i3-msg 'workspace "  &#xf0ae;₃ "; exec urxvt'
 sleep 0.5
 
 i3-msg 'workspace "  &#xf1de;₄ "; exec cherrytree /home/sk/work/notes/notes_work.ctx'
-sleep 6
-i3-msg 'workspace "  &#xf121;₁ "'
