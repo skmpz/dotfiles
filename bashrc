@@ -18,6 +18,7 @@ alias grep='grep --color=auto'
 alias nv='nvim'
 alias bck='rsync -e ssh -avzh /data/ vmi:/root/data --delete --exclude .Trash* --exclude downloads/ --exclude lost+found/ --exclude movies/ --exclude series/ --exclude series_cur/ --exclude shows/ --progress'
 alias bck_media='rsync -e ssh -avzh /data/series/ vmi:/root/series/ --delete --progress'
+alias bck_work='rsync -e ssh -avzh /home/sk/work/ vmi:/root/work/ --delete --progress'
 alias d='cd /data/downloads'
 alias gch='git checkout'
 alias gst='git status'
@@ -29,6 +30,7 @@ alias up='yay -Syu'
 alias sbt='sbt -mem 4096'
 alias f='caja .'
 alias mnt='sudo mount -t ecryptfs $HOME/work $HOME/work'
+
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
