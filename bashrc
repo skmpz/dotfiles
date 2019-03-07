@@ -28,6 +28,7 @@ alias gpull='git pull'
 alias up='yay -Syu'
 alias sbt='sbt -mem 4096'
 alias f='caja .'
+alias mnt='sudo mount -t ecryptfs $HOME/work $HOME/work'
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt

@@ -8,15 +8,14 @@ bindsym XF86AudioMute exec pactl set-sink-mute 1 toggle
 
 #assign workspaces to outputs
 workspace $w1 output DP-2
-workspace $w2 output HDMI-0
+workspace $w2 output DP-0
 workspace $w3 output HDMI-0
-workspace $w4 output DP-4
-workspace $w5 output HDMI-0
+workspace $w4 output DP-2
 
 bar {
     status_command $HOME/dotfiles/work/status_bar.sh
     tray_output primary
-        font xft: Source Code Pro 9
+        font xft: Source Code Pro 8
         mode dock
         position top
         height 24
