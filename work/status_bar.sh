@@ -22,7 +22,7 @@ do
     H_PERC=$(df -h /home/ | tail -1 | awk '{print $5}')
     MEM_USED=$(free -mh | grep Mem | awk '{print $3}')
     MEM_TOTAL=$(free -mh | grep Mem | awk '{print $2}')
-    IP=$(ip a | grep -A3 enp6s0 | grep -w inet | awk '{print $2}' | cut -f1 -d'/')
+    IP=$(ip a | grep -A3 wlp3s0 | grep -w inet | awk '{print $2}' | cut -f1 -d'/')
     full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD |  $VOL |  $DATE |  $TIME ";
     echo "$full"
     sleep 1
