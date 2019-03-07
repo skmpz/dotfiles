@@ -173,38 +173,41 @@ sudo mkdir -p /usr/share/fonts/truetype/
 sudo cp fonts/Inconsolata.otf /usr/share/fonts/truetype/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1
-git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt >> $LOGFILE 2>&1
-cp $HOME/dotfiles/font-size $HOME/.urxvt/ext/
-ln -sf $HOME/dotfiles/bashrc $HOME/.bashrc
-ln -sf $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
-ln -sf $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
-ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
-ln -sf $HOME/dotfiles/Xresources $HOME/.Xresources
-ln -sf $HOME/dotfiles/config.base $HOME/.config/i3/config.base
-ln -sf $HOME/dotfiles/inputrc $HOME/.inputrc
-if [ "$mode" == "HOME" ]; then
-    ln -sf $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
-    ln -sf $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
-    ln -sf $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
-elif [ "$mode" == "LAPTOP" ]; then
-    sudo pacman -S tlp
-    sudo systemctl enable tlp
-    ln -sf $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
-    ln -sf $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
-    ln -sf $HOME/dotfiles/laptop/config.local $HOME/.config/i3/config.local
-elif [ "$mode" == "WORK" ]; then
-    ln -sf $HOME/dotfiles/work/xinitrc $HOME/.xinitrc
-    ln -sf $HOME/dotfiles/work/Xresources.local $HOME/.Xresources.local
-    ln -sf $HOME/dotfiles/work/config.local $HOME/.config/i3/config.local
-elif [ "$mode" == "VM" ]; then
-    ln -sf $HOME/dotfiles/vm/xinitrc $HOME/.xinitrc
-    ln -sf $HOME/dotfiles/vm/Xresources.local $HOME/.Xresources.local
-    ln -sf $HOME/dotfiles/vm/config.local $HOME/.config/i3/config.local
-fi
-nvim +PlugInstall +qall >> $LOGFILE 2>&1
-nvim +UpdateRemotePlugins +qall >> $LOGFILE 2>&1
-printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme >> $LOGFILE 2>&1
-_check_ok $?
+    git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt >> $LOGFILE 2>&1
+    cp $HOME/dotfiles/font-size $HOME/.urxvt/ext/
+    ln -sf $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
+    ln -sf $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
+    ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+    ln -sf $HOME/dotfiles/Xresources $HOME/.Xresources
+    ln -sf $HOME/dotfiles/config.base $HOME/.config/i3/config.base
+    ln -sf $HOME/dotfiles/inputrc $HOME/.inputrc
+    if [ "$mode" == "HOME" ]; then
+        ln -sf $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
+        ln -sf $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
+        ln -sf $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
+        ln -sf $HOME/dotfiles/home/bashrc $HOME/.bashrc
+    elif [ "$mode" == "LAPTOP" ]; then
+        sudo pacman -S tlp
+        sudo systemctl enable tlp
+        ln -sf $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
+        ln -sf $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
+        ln -sf $HOME/dotfiles/laptop/config.local $HOME/.config/i3/config.local
+        ln -sf $HOME/dotfiles/laptop/bashrc $HOME/.bashrc
+    elif [ "$mode" == "WORK" ]; then
+        ln -sf $HOME/dotfiles/work/xinitrc $HOME/.xinitrc
+        ln -sf $HOME/dotfiles/work/Xresources.local $HOME/.Xresources.local
+        ln -sf $HOME/dotfiles/work/config.local $HOME/.config/i3/config.local
+        ln -sf $HOME/dotfiles/work/bashrc $HOME/.bashrc
+    elif [ "$mode" == "VM" ]; then
+        ln -sf $HOME/dotfiles/vm/xinitrc $HOME/.xinitrc
+        ln -sf $HOME/dotfiles/vm/Xresources.local $HOME/.Xresources.local
+        ln -sf $HOME/dotfiles/vm/config.local $HOME/.config/i3/config.local
+        ln -sf $HOME/dotfiles/vm/bashrc $HOME/.bashrc
+    fi
+    nvim +PlugInstall +qall >> $LOGFILE 2>&1
+    nvim +UpdateRemotePlugins +qall >> $LOGFILE 2>&1
+    printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme >> $LOGFILE 2>&1
+    _check_ok $?
 
 # clean up
 rm -rf $LOGFILE vboxservice.conf yay
