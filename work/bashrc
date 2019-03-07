@@ -28,7 +28,9 @@ alias up='yay -Syu'
 alias sbt='sbt -mem 4096'
 alias f='caja .'
 alias b='cd /home/sk/build/radiantfleet/parent'
-alias mnt='sudo mount -t ecryptfs $HOME/work $HOME/work'
+alias r='cd /home/sk/work/resources/'
+alias s='cd /home/sk/work/resources/scripts/'
+alias b='cd /home/sk/build/radiantfleet/parent'
 
 
 PS1='[\u@\h \W]\$ '
