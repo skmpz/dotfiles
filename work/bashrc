@@ -32,6 +32,7 @@ alias r='cd /home/sk/work/resources/'
 alias s='cd /home/sk/work/resources/scripts/'
 alias b='cd /home/sk/build/radiantfleet/parent'
 alias m='git checkout master && git pull'
+alias x='pkill caja; feh --bg-scale ~/dotfiles/bg.jpg'
 
 
 PS1='[\u@\h \W]\$ '
