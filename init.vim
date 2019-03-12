@@ -11,6 +11,7 @@ Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
 Plug 'natebosch/vim-lsc'
 " Plug 'HerringtonDarkholme/vim-worksheet'
 Plug 'janko-m/vim-test'
+Plug 'aserebryakov/vim-todo-lists'
 Plug 'derekwyatt/vim-scala'
 Plug 'terryma/vim-expand-region'
 " Plug 'neomake/neomake'
@@ -32,6 +33,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'Chiel92/vim-autoformat'
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:VimTodoListsDatesEnabled = 1
+let g:VimTodoListsDatesFormat = "%a %b, %Y"
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
