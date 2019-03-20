@@ -176,3 +176,4 @@ for_window [class="(?i)gparted"] floating enable, border normal 2, move position
 for_window [class="(?i)Hopper"] floating enable, border normal 2, move position center
 for_window [class="(?i)wireshark-gtk"] floating enable, border normal 2, move position center
 for_window [class="(?i)libreoffice-calc"] floating enable, border normal 2, move position center
+for_window [class="(?i)StegSolve"] floating enable, border normal 2, move position center
