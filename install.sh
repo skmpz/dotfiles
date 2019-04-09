@@ -130,7 +130,9 @@ rm -rf build >> $LOGFILE 2>&1
 mkdir build >> $LOGFILE 2>&1
 cd build >> $LOGFILE 2>&1
 ../configure --prefix=/usr --sysconfdir=/etc >> $LOGFILE 2>&1
-make -j4 && sudo make install >> $LOGFILE 2>&1
+make -j4 >> $LOGFILE 2>&1
+sudo make install >> $LOGFILE 2>&1
+cd ../..
 
 # yay -S hopper burpsuite python2-pwntools --noconfirm >> $LOGFILE 2>&1
 # _check_no_ok $?
@@ -193,7 +195,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         ln -sf $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
         ln -sf $HOME/dotfiles/home/bashrc $HOME/.bashrc
     elif [ "$mode" == "LAPTOP" ]; then
-        sudo pacman -S tlp
+        sudo apt install tlp
         sudo systemctl enable tlp
         ln -sf $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
         ln -sf $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
