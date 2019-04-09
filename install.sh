@@ -159,7 +159,6 @@ if [ "$mode" == "VM" ]; then
     _check_ok $?
 fi
 
-test
 _start "Setting up config files"
 rm -rf $HOME/.bash/
 rm -rf $HOME/.bashrc
