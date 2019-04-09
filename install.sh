@@ -117,19 +117,24 @@ sudo apt update -y >> $LOGFILE 2>&1 && sudo apt upgrade -y >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing system"
-sudo DEBIAN_FRONTEND=noninteractive apt install -yq aircrack-ng alsa-oss alsa-utils alsa-utils arc-theme bash-completion bc binwalk caja caja-open-terminal calibre chromium-browser cherrytree clang cmake engrampa evince fbreader feh foremost gdb gedit gparted i3lock i3status imagemagick libimage-exiftool-perl openjdk-8-jdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs fonts-font-awesome p7zip pulseaudio python-neovim python python3 rofi rsync ruby rxvt-unicode scala scrot strace synergy tmux transmission-gtk ttf-dejavu fonts-inconsolata ttf-ubuntu-font-family unrar upower vim wget wireshark-gtk xclip xcursor-themes xorg xterm >> $LOGFILE 2>&1
+sudo DEBIAN_FRONTEND=noninteractive apt install -yq aircrack-ng alsa-oss netdiscover alsa-utils alsa-utils libxcb-xrm-dev arc-theme pngcheck bash-completion bc binwalk caja caja-open-terminal calibre chromium-browser cherrytree clang cmake engrampa evince fbreader feh foremost gdb gedit gparted libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool automake i3lock i3status imagemagick libimage-exiftool-perl openjdk-8-jdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs fonts-font-awesome p7zip pulseaudio python-neovim python python3 rofi rsync ruby rxvt-unicode scala scrot strace synergy tmux transmission-gtk ttf-dejavu fonts-inconsolata ttf-ubuntu-font-family unrar upower vim wget wireshark-gtk xclip xcursor-themes xorg xterm >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing extra tools"
-git clone https://aur.archlinux.org/yay.git > /dev/null >> $LOGFILE 2>&1
-_check_no_ok $?
-cd yay >> $LOGFILE 2>&1
-makepkg -si --noconfirm >> $LOGFILE 2>&1
-_check_no_ok $?
-cd ..
-yay -S hopper burpsuite netdiscover python2-pwntools pngcheck --noconfirm >> $LOGFILE 2>&1
-_check_no_ok $?
-gem install zsteg >> $LOGFILE 2>&1
+git clone https://www.github.com/Airblader/i3 i3-gaps >> $LOGFILE 2>&1
+cd i3-gaps >> $LOGFILE 2>&1
+git checkout gaps  >> $LOGFILE 2>&1
+git pull >> $LOGFILE 2>&1
+autoreconf --force --install >> $LOGFILE 2>&1
+rm -rf build >> $LOGFILE 2>&1
+mkdir build >> $LOGFILE 2>&1
+cd build >> $LOGFILE 2>&1
+../configure --prefix=/usr --sysconfdir=/etc >> $LOGFILE 2>&1
+make -j4 && sudo make install >> $LOGFILE 2>&1
+
+# yay -S hopper burpsuite python2-pwntools --noconfirm >> $LOGFILE 2>&1
+# _check_no_ok $?
+# gem install zsteg >> $LOGFILE 2>&1
 _check_ok $?
 
 if [ "$mode" == "HOME" ]; then
