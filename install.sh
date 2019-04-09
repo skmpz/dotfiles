@@ -118,7 +118,7 @@ _check_ok $?
 
 exit 0
 _start "Installing system"
-sudo apt install -y adobe-source-code-pro-fonts aircrack-ng alsa-oss alsa-utils alsa-utils arc-theme bash-completion bc binwalk caja caja-open-terminal calibre chromium-browser cherrytree chromium clang cmake engrampa evince fbreader feh foremost gdb gedit gparted i3lock i3status imagemagick libimage-exiftool-perl openjdk-8-jdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs fonts-font-awesome p7zip pulseaudio python-neovim python python3 rofi rsync ruby rxvt-unicode scala scrot strace synergy tmux transmission-gtk ttf-dejavu fonts-inconsolata ttf-ubuntu-font-family unrar upower vim wget wireshark-gtk xclip xcursor-themes xorg xterm >> $LOGFILE 2>&1
+sudo apt install -y adobe-source-code-pro-fonts aircrack-ng alsa-oss alsa-utils alsa-utils arc-theme bash-completion bc binwalk caja caja-open-terminal calibre chromium-browser cherrytree clang cmake engrampa evince fbreader feh foremost gdb gedit gparted i3lock i3status imagemagick libimage-exiftool-perl openjdk-8-jdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs fonts-font-awesome p7zip pulseaudio python-neovim python python3 rofi rsync ruby rxvt-unicode scala scrot strace synergy tmux transmission-gtk ttf-dejavu fonts-inconsolata ttf-ubuntu-font-family unrar upower vim wget wireshark-gtk xclip xcursor-themes xorg xterm >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing extra tools"
