@@ -36,10 +36,20 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}
 let g:VimTodoListsDatesEnabled = 1
 let g:VimTodoListsDatesFormat = "%a %b, %Y"
 
+let g:UltiSnipsExpandTrigger="`"
+let g:UltiSnipsJumpForwardTrigger="`"
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = {
+            \ 'cpp': ['g++'],
+            \ 'c': ['gcc']
+            \ }
+let g:ale_c_gcc_options='-Wall -Wextra'
+
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 call plug#end()
 
 let g:airline#extensions#tabline#enabled = 0
