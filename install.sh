@@ -194,8 +194,8 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         ln -sf $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
         ln -sf $HOME/dotfiles/home/bashrc $HOME/.bashrc
     elif [ "$mode" == "LAPTOP" ]; then
-        sudo apt install tlp
-        sudo systemctl enable tlp
+        sudo apt install tlp >> $LOGFILE 2>&1
+        sudo systemctl enable tlp >> $LOGFILE 2>&1
         ln -sf $HOME/dotfiles/laptop/xinitrc $HOME/.xinitrc
         ln -sf $HOME/dotfiles/laptop/Xresources.local $HOME/.Xresources.local
         ln -sf $HOME/dotfiles/laptop/config.local $HOME/.config/i3/config.local
