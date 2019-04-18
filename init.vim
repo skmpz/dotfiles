@@ -8,7 +8,9 @@ filetype plugin indent on
 call plug#begin()
 Plug 'ervandew/supertab'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
-Plug 'natebosch/vim-lsc'
+" Plug 'natebosch/vim-lsc'
+" Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'HerringtonDarkholme/vim-worksheet'
 Plug 'janko-m/vim-test'
 Plug 'aserebryakov/vim-todo-lists'
@@ -36,10 +38,20 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}
 let g:VimTodoListsDatesEnabled = 1
 let g:VimTodoListsDatesFormat = "%a %b, %Y"
 
+let g:UltiSnipsExpandTrigger="`"
+let g:UltiSnipsJumpForwardTrigger="`"
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = {
+            \ 'cpp': ['g++'],
+            \ 'c': ['gcc']
+            \ }
+let g:ale_c_gcc_options='-Wall -Wextra'
+
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 call plug#end()
 
 let g:airline#extensions#tabline#enabled = 0
@@ -48,13 +60,13 @@ let g:airline#extensions#tabline#enabled = 0
 au BufRead,BufNewFile *.sbt set filetype=scala
 
 " Configuration for vim-lsc
-let g:lsc_enable_autocomplete = v:false
-let g:lsc_server_commands = {
-             \  'scala': {
-             \    'command': 'metals-vim',
-             \    'log_level': 'Log'
-             \  }
-             \}
+" let g:lsc_enable_autocomplete = v:false
+" let g:lsc_server_commands = {
+"              \  'scala': {
+"              \    'command': 'metals-vim',
+"              \    'log_level': 'Log'
+"              \  }
+"              \}
 
 " configure tabwidth and insert spaces instead of tabs
 set tabstop=4        " tab width is 4 spaces
@@ -150,8 +162,8 @@ nnoremap <leader>j <C-]>
 nnoremap <leader>n :cnext<CR>
 nnoremap <leader>N :cprev<CR>
 nnoremap <leader>o :FZF<CR>
-nnoremap <leader>g :LSClientGoToDefinition<CR>
-nnoremap <leader>x :LSClientGoToDefinitionSplit<CR>
+" nnoremap <leader>g :LSClientGoToDefinition<CR>
+" nnoremap <leader>x :LSClientGoToDefinitionSplit<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>t :call fzf#vim#tags("'".expand('<cword>'))<cr>
 nnoremap <leader>w :w<CR>
@@ -278,3 +290,74 @@ vnoremap <leader>y "*y
 " let g:lsc_auto_map = { 'GoToDefinition': 'gd' }
 
 let g:fuzzy_bindkeys = 1
+
+
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Some server have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Remap for do codeAction of current line
+nmap <leader>ac <Plug>(coc-codeaction)
+
+" Remap for do action format
+nnoremap <silent> F :call CocAction('format')<CR>
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Find symbol of current document
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR><Paste>
