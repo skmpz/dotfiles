@@ -34,6 +34,7 @@ alias s='cd /home/sk/work/resources/scripts/'
 alias b='cd /home/sk/build/radiantfleet/parent'
 alias m='git checkout master && git pull'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/bg.jpg'
+alias v='cat maritime/app/com/papasofokli/maritime/controllers/datasync/SyncVersionHelper.scala | grep uuidlink'
 alias raget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="papasofokli12" pg_dump --file "/mnt/db/ra_live_$(echo $EXP_DATE).db" --host "localhost" --port "5432" --username "postgres" --no-password --format=c --blobs "riveradvice@radiantfleet" --verbose | ssh prod bash -s && scp prod:/mnt/db/ra_live_$(echo $EXP_DATE).db $HOME/Downloads/'
 alias ratestget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="papasofokli12" pg_dump --file "/mnt/db/ra_test_$(echo $EXP_DATE).db" --host "localhost" --port "5432" --username "postgres" --no-password --format=c --blobs "riveradvice@radiantfleet" --verbose | ssh ratest bash -s && scp ratest:/mnt/db/ra_test_$(echo $EXP_DATE).db $HOME/Downloads/'
 alias cwget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="skjdh5ho3SS2DFa2234@#" pg_dump -h starterdb.cjjdjqckexfe.eu-west-1.rds.amazonaws.com -d "clearwater@radiantfleet" -U "clearwater@owner" --format=custom --file /home/ubuntu/cw_prod_$(echo $EXP_DATE).db --verbose | ssh cwbuild bash -s && scp cwbuild:/home/ubuntu/cw_prod_$(echo $EXP_DATE).db $HOME/Downloads/ && echo rm -rf /home/ubuntu/cw_prod_$(echo $EXP_DATE).db | ssh cwbuild bash -s'
@@ -42,3 +43,5 @@ PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
 export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
