@@ -20,7 +20,7 @@ do
             VOL=" $VOL_PERC"
         fi
     else
-        VOL=" MUTE"
+        VOL=" MUTE"
     fi
     DATE=$(date +'%A %d/%m/%Y')
     TIME=$(date +'%H:%M')
