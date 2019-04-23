@@ -55,7 +55,7 @@ do
     if [ "$BATTERY_STATE" == "charging" ]; then
         BATTERY="$BATTERY []"
     fi
-    full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD | $VOL | $BATTERY |  $DATE |  $TIME ";
+    full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD | $VOL | $BATTERY |  $DATE |  $TIME ";
     echo "$full"
     sleep 1
 done
