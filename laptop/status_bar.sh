@@ -9,7 +9,7 @@ do
     VERSION=$(uname -r)
 
     MUTE=$(pactl list sinks | grep -A8 'Sink #0' | grep Mute | awk '{print $2}')
-    if [ "$MUTE" == "no" ]; then
+    if [ "$MUTE" != "yes" ]; then
         VOL_PERC=$(pactl list sinks | grep Volume | grep -v Base | tail -1 | awk '{print $5}')
         VOL_NUM=$(echo $VOL_PERC | tr -d '%')
         if [ "$VOL_NUM" -ge 0 ] && [ "$VOL_NUM" -lt 10 ]; then
@@ -55,7 +55,7 @@ do
     if [ "$BATTERY_STATE" == "charging" ]; then
         BATTERY="$BATTERY []"
     fi
-    full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD | $VOL | $BATTERY |  $DATE |  $TIME ";
+    full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD | $VOL | $BATTERY |  $DATE |  $TIME ";
     echo "$full"
     sleep 1
 done
