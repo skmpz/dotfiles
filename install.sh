@@ -113,11 +113,12 @@ _check_ok $?
 
 _start "Updating"
 # sudo pacman -Syy --noconfirm --needed >> $LOGFILE 2>&1
+sudo add-apt-repository -y ppa:noobslab/icons >> $LOGFILE 2>&1
 sudo apt update -y >> $LOGFILE 2>&1 && sudo apt upgrade -y >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing system"
-sudo DEBIAN_FRONTEND=noninteractive apt install -yq aircrack-ng alsa-oss curl netdiscover alsa-utils alsa-utils libxcb-xrm-dev arc-theme pngcheck bash-completion bc binwalk caja caja-open-terminal calibre chromium-browser cherrytree clang cmake engrampa evince fbreader feh foremost gdb gedit gparted libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool automake i3lock i3status imagemagick libimage-exiftool-perl openjdk-8-jdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs fonts-font-awesome p7zip pulseaudio python-neovim python python3 rofi rsync ruby rxvt-unicode scala scrot strace synergy tmux transmission-gtk ttf-dejavu fonts-inconsolata ttf-ubuntu-font-family unrar upower vim wget wireshark-gtk xclip xcursor-themes xorg xterm >> $LOGFILE 2>&1
+sudo DEBIAN_FRONTEND=noninteractive apt install -yq aircrack-ng arc-icons alsa-oss curl netdiscover alsa-utils alsa-utils libxcb-xrm-dev arc-theme pngcheck bash-completion bc binwalk caja caja-open-terminal calibre chromium-browser cherrytree clang cmake engrampa evince fbreader feh foremost gdb gedit gparted libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool automake i3lock i3status imagemagick libimage-exiftool-perl openjdk-8-jdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs fonts-font-awesome p7zip pulseaudio python-neovim python python3 rofi rsync ruby rxvt-unicode scala scrot strace synergy tmux transmission-gtk ttf-dejavu fonts-inconsolata ttf-ubuntu-font-family unrar upower vim wget wireshark-gtk xclip xcursor-themes xorg xterm >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing extra tools"
