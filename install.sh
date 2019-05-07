@@ -140,7 +140,7 @@ cd ../..
 # gem install zsteg >> $LOGFILE 2>&1
 _check_ok $?
 
-if [ "$mode" == "HOME" ]; then
+if [ "$mode" == "HOMEA" ]; then
     _start "Installing Plex"
     yay -S plex-media-server --noconfirm >> $LOGFILE 2>&1
     _check_no_ok $?
@@ -180,7 +180,7 @@ mkdir -p $HOME/.config/gtk-3.0/
 mkdir -p $HOME/.urxvt/ext/
 mkdir -p $HOME/screen/
 sudo mkdir -p /usr/share/fonts/truetype/
-sudo cp fonts/Inconsolata.otf /usr/share/fonts/truetype/
+sudo cp $HOME/dotfiles/fonts/Inconsolata.otf /usr/share/fonts/truetype/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1
     git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt >> $LOGFILE 2>&1
@@ -217,6 +217,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     nvim +PlugInstall +qall >> $LOGFILE 2>&1
     nvim +UpdateRemotePlugins +qall >> $LOGFILE 2>&1
     printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme >> $LOGFILE 2>&1
+    sudo chown sk:sk -R $HOME > /dev/null 2>> $LOGFILE
     _check_ok $?
 
 # clean up
