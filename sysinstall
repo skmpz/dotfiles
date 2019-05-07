@@ -1,1 +1,2 @@
 sudo systemctl set-default multi-user.targe
+/dev/sdb1					/data		ext4		defaults	0 2
