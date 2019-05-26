@@ -52,7 +52,7 @@ do
     else
         BATTERY=" $BATTERY_PERC"
     fi
-    if [ "$BATTERY_STATE" == "charging" ]; then
+    if [ "$BATTERY_STATE" != "discharging" ]; then
         BATTERY="$BATTERY []"
     fi
     full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD | $VOL | $BATTERY |  $DATE |  $TIME ";

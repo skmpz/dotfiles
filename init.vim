@@ -10,7 +10,7 @@ Plug 'ervandew/supertab'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
 " Plug 'natebosch/vim-lsc'
 " Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'HerringtonDarkholme/vim-worksheet'
 Plug 'janko-m/vim-test'
 Plug 'aserebryakov/vim-todo-lists'
@@ -330,21 +330,21 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader>ac <Plug>(coc-codeaction)
 
 " Remap for do action format
-nnoremap <silent> F :call CocAction('format')<CR>
+" nnoremap <silent> F :call CocAction('format')<CR>
 
 " Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" function! s:show_documentation()
+"   if &filetype == 'vim'
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
