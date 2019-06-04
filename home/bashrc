@@ -26,12 +26,12 @@ alias gco='git commit -am'
 alias gdf='git diff'
 alias gpush='git push'
 alias gpull='git pull'
-alias up='yay -Syu'
 alias sbt='sbt -mem 4096'
 alias f='caja .'
 alias mnt='sudo mount -t ecryptfs $HOME/work $HOME/work'
 alias workget='rsync -e ssh -avh vmi:/root/work/ /data/work/ --exclude images/ --delete --progress'
 alias workput='rsync -e ssh -avh /data/work/ vmi:/root/work/ --exclude images/ --delete --progress'
+alias up='sudo apt update && sudo apt upgrade && sudo apt autoremove'
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt

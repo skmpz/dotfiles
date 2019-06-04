@@ -4,7 +4,7 @@ i3-msg 'workspace "  &#xf268;₂ "; exec urxvt'
 sleep 0.5
 i3-msg 'workspace "  &#xf268;₂ "; exec urxvt'
 sleep 0.5
-i3-msg 'workspace "  &#xf268;₂ "; exec chromium "https://mail.google.com/mail/u/0/#inbox" "https://mail.google.com/mail/u/1/#inbox" "https://vault.bitwarden.com/#/" "https://web.whatsapp.com/" "http://localhost:32400/web/index.html" "https://www.youtube.com/"'
+i3-msg 'workspace "  &#xf268;₂ "; exec chromium-browser "https://mail.google.com/mail/u/0/#inbox" "https://mail.google.com/mail/u/1/#inbox" "https://vault.bitwarden.com/#/" "https://web.whatsapp.com/" "http://localhost:32400/web/index.html" "https://www.youtube.com/"'
 sleep 10
 i3-msg 'workspace "  &#xf268;₂ "; resize grow width 20 px or 20 ppt;'
 sleep 0.5
