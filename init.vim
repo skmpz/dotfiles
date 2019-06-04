@@ -8,6 +8,7 @@ filetype plugin indent on
 call plug#begin()
 Plug 'ervandew/supertab'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
+Plug 'aserebryakov/vim-todo-lists.git'
 " Plug 'natebosch/vim-lsc'
 " Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -50,6 +51,9 @@ let g:ale_c_gcc_options='-Wall -Wextra'
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
+let g:VimTodoListsDatesEnabled = 1
+let g:VimTodoListsDatesFormat = "%d|%m|%Y"
 
 Plug 'w0rp/ale'
 call plug#end()
