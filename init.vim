@@ -8,19 +8,18 @@ filetype plugin indent on
 call plug#begin()
 Plug 'ervandew/supertab'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
-" Plug 'natebosch/vim-lsc'
-" Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'HerringtonDarkholme/vim-worksheet'
+Plug 'aserebryakov/vim-todo-lists.git'
+Plug 'Shougo/echodoc.vim'
 Plug 'janko-m/vim-test'
 Plug 'aserebryakov/vim-todo-lists'
 Plug 'derekwyatt/vim-scala'
 Plug 'terryma/vim-expand-region'
+Plug 'rust-lang/rust.vim'
 " Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-" Plug 'cloudhead/neovim-fuzzy'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'rhysd/clever-f.vim'           " plugin_clever_f
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
@@ -33,7 +32,15 @@ Plug 'godlygeek/tabular'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
-Plug 'Chiel92/vim-autoformat'
+
+Plug 'w0rp/ale'
+call plug#end()
+
+" enable echodoc
+let g:echodoc_enable_at_startup = 1
+
+autocmd FileType c setlocal omnifunc=LanguageClient#complete
+
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:VimTodoListsDatesEnabled = 1
 let g:VimTodoListsDatesFormat = "%a %b, %Y"
@@ -41,32 +48,68 @@ let g:VimTodoListsDatesFormat = "%a %b, %Y"
 let g:UltiSnipsExpandTrigger="`"
 let g:UltiSnipsJumpForwardTrigger="`"
 
-let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-            \ 'cpp': ['g++'],
-            \ 'c': ['gcc']
+            \ 'cpp': ['clangtidy', 'cppcheck','cpplint','g++'],
+            \ 'c': ['clangtidy', 'gcc']
             \ }
-let g:ale_c_gcc_options='-Wall -Wextra'
+
+let g:ale_fixers = {
+            \ 'cpp': ['uncrustify'],
+            \ 'c': ['uncrustify']
+            \ }
+" let g:ale_c_gcc_options='-Wall -Wextra'
+" let g:ale_cpp_cquery_executable = "/home/sk/cquery/build/release/bin/cquery"
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-whitespace/line_length"
+let g:ale_c_gcc_options= "-std=gnu99"
+let g:ale_c_clangtidy_checks = ['*']
+let g:ale_cpp_clangtidy_checks = ['*']
+let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
+" let g:ale_c_clangtidy_options= "--checks=*"
+let g:ale_c_cppcheck_options = '--enable=style'
+let g:ale_c_uncrustify_options = '-c /home/sk/dotfiles/default.cfg'
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-Plug 'w0rp/ale'
-call plug#end()
+let g:VimTodoListsDatesEnabled = 1
+let g:VimTodoListsDatesFormat = "%d|%m|%Y"
+
+" LanguageClient config
+let g:LanguageClient_useVirtualText = 0 " do not show error in line
+let g:LanguageClient_useFloatingHover = 1 "opens documentation in a floating window instead of preview
+let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+" let g:LanguageClient_settingsPath = '/home/sk/.config/nvim/settings.json'
+let g:LanguageClient_serverCommands = {
+    \ 'cpp': ['/home/sk/cquery/build/release/bin/cquery',
+        \'--log-file=/tmp/cq-cpp.log', 
+        \'--init={"cacheDirectory":"/tmp/cq-cpp.cache/"}'],
+    \ 'c': ['/home/sk/cquery/build/release/bin/cquery', 
+        \'--log-file=/tmp/cq-c.log',
+        \'--init={"cacheDirectory":"/tmp/cq-c.cache/"}'],
+    \ 'python': ['/home/sk/.local/bin/pyls', '--log-file=/tmp/py.log'],
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ }
+" set completefunc=LanguageClient#complete
+set formatexpr=LanguageClient_textDocument_rangeFormatting()
+
+" preview function on completion
+set cot-=preview
+
+" language server bindings
+nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> gm :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> gf :call LanguageClient#textDocument_formatting()<CR>
 
 let g:airline#extensions#tabline#enabled = 0
 
 " Configuration for vim-scala
 au BufRead,BufNewFile *.sbt set filetype=scala
-
-" Configuration for vim-lsc
-" let g:lsc_enable_autocomplete = v:false
-" let g:lsc_server_commands = {
-"              \  'scala': {
-"              \    'command': 'metals-vim',
-"              \    'log_level': 'Log'
-"              \  }
-"              \}
 
 " configure tabwidth and insert spaces instead of tabs
 set tabstop=4        " tab width is 4 spaces
@@ -162,8 +205,6 @@ nnoremap <leader>j <C-]>
 nnoremap <leader>n :cnext<CR>
 nnoremap <leader>N :cprev<CR>
 nnoremap <leader>o :FZF<CR>
-" nnoremap <leader>g :LSClientGoToDefinition<CR>
-" nnoremap <leader>x :LSClientGoToDefinitionSplit<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>t :call fzf#vim#tags("'".expand('<cword>'))<cr>
 nnoremap <leader>w :w<CR>
@@ -181,19 +222,6 @@ set ignorecase
 set incsearch
 set smartcase
 
-" call neomake#configure#automake('w')
-" au BufWritePost *.scala Neomake! sbt
-"let g:neomake_open_list = 2
-
-let g:neomake_warning_sign = {
-            \ 'text': 'W',
-            \ 'texthl': 'WarningMsg',
-            \ }
-let g:neomake_error_sign = {
-            \ 'text': 'E',
-            \ 'texthl': 'ErrorMsg',
-            \ }
-
 " revert command-findnext mappings
 nno ; :
 nno : ,
@@ -205,32 +233,32 @@ vno ; :
 let g:deoplete#auto_complete_delay         = 0
 let g:deoplete#enable_at_startup           = 1
 let g:deoplete#auto_complete_start_length  = 3
-let g:deoplete#sources={}
-let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
-let g:deoplete#omni#input_patterns={}
-let g:deoplete#omni#input_patterns.scala=['[^. *\t0-9]\.\w*',': [A-Z]\w', '[\[\t\( ][A-Za-z]\w*']
-if has("unix")
-    let s:uname = system("uname -s")
-    if s:uname == "Linux\n"
-        let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-        let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
-    elseif s:uname == "FreeBSD\n"
-        let g:deoplete#sources#clang#libclang_path = '/usr/local/llvm50/lib/libclang.so'
-        let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
-    elseif s:uname == "Darwin\n"
-        let g:deoplete#sources#clang#libclang_path = '/usr/local/Cellar/llvm/3.
-        9.1/lib/libclang.dylib'
-        let g:deoplete#sources#clang#clang_header  = '/usr/local/Cellar/llvm/3.
-        9.1/include/clang'
-    endif
-endif
-let g:deoplete#sources#clang#std#cpp       = 'c++11'
-let g:deoplete#sources#clang#sort_algo     = 'priority'
-let g:deoplete#sources={}
-let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
-let g:deoplete#omni#input_patterns={}
-let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*\|: [A-Z]\w*'
-set completeopt-=preview "no scratch window
+" let g:deoplete#sources={}
+" let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
+" let g:deoplete#omni#input_patterns={}
+" let g:deoplete#omni#input_patterns.scala=['[^. *\t0-9]\.\w*',': [A-Z]\w', '[\[\t\( ][A-Za-z]\w*']
+" if has("unix")
+"     let s:uname = system("uname -s")
+"     if s:uname == "Linux\n"
+"         let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+"         let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
+"     elseif s:uname == "FreeBSD\n"
+"         let g:deoplete#sources#clang#libclang_path = '/usr/local/llvm50/lib/libclang.so'
+"         let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
+"     elseif s:uname == "Darwin\n"
+"         let g:deoplete#sources#clang#libclang_path = '/usr/local/Cellar/llvm/3.
+"         9.1/lib/libclang.dylib'
+"         let g:deoplete#sources#clang#clang_header  = '/usr/local/Cellar/llvm/3.
+"         9.1/include/clang'
+"     endif
+" endif
+" let g:deoplete#sources#clang#std#cpp       = 'c++11'
+" let g:deoplete#sources#clang#sort_algo     = 'priority'
+" let g:deoplete#sources={}
+" let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
+" let g:deoplete#omni#input_patterns={}
+" let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*\|: [A-Z]\w*'
+" set completeopt-=preview "no scratch window
 
 " supertab
 let g:SuperTabDefaultCompletionType = "<C-n>"
@@ -287,11 +315,7 @@ let g:airline_symbols.maxlinenr = ''
 nnoremap <leader>y "*y
 vnoremap <leader>y "*y
 
-" let g:lsc_auto_map = { 'GoToDefinition': 'gd' }
-
 let g:fuzzy_bindkeys = 1
-
-
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
@@ -308,56 +332,3 @@ set nowritebackup
 
 " Better display for messages
 set cmdheight=2
-
-" Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Remap for do codeAction of current line
-nmap <leader>ac <Plug>(coc-codeaction)
-
-" Remap for do action format
-" nnoremap <silent> F :call CocAction('format')<CR>
-
-" Use K for show documentation in preview window
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" function! s:show_documentation()
-"   if &filetype == 'vim'
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
-
-" Highlight symbol under cursor on CursorHold
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Find symbol of current document
-" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR><Paste>

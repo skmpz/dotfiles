@@ -35,10 +35,12 @@ alias b='cd /home/sk/build/radiantfleet/parent'
 alias m='git checkout master && git pull'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/bg.jpg'
 alias v='cat maritime/app/com/papasofokli/maritime/controllers/datasync/SyncVersionHelper.scala | grep uuidlink'
+alias up='sudo apt update && sudo apt upgrade && sudo apt autoremove'
+alias cwget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="skjdh5ho3SS2DFa2234@#" pg_dump -h starterdb.cjjdjqckexfe.eu-west-1.rds.amazonaws.com -d "clearwater@radiantfleet" -U "clearwater@owner" --format=custom --file /home/ubuntu/cw_prod_$(echo $EXP_DATE).db --verbose | ssh cwbuild bash -s && scp cwbuild:/home/ubuntu/cw_prod_$(echo $EXP_DATE).db $HOME/Downloads/ && echo rm -rf /home/ubuntu/cw_prod_$(echo $EXP_DATE).db | ssh cwbuild bash -s'
 alias raget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="papasofokli12" pg_dump --file "/mnt/db/ra_live_$(echo $EXP_DATE).db" --host "localhost" --port "5432" --username "postgres" --no-password --format=c --blobs "riveradvice@radiantfleet" --verbose | ssh prod bash -s && scp prod:/mnt/db/ra_live_$(echo $EXP_DATE).db $HOME/Downloads/'
 alias ratestget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="papasofokli12" pg_dump --file "/mnt/db/ra_test_$(echo $EXP_DATE).db" --host "localhost" --port "5432" --username "postgres" --no-password --format=c --blobs "riveradvice@radiantfleet" --verbose | ssh ratest bash -s && scp ratest:/mnt/db/ra_test_$(echo $EXP_DATE).db $HOME/Downloads/'
-alias cwget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="skjdh5ho3SS2DFa2234@#" pg_dump -h starterdb.cjjdjqckexfe.eu-west-1.rds.amazonaws.com -d "clearwater@radiantfleet" -U "clearwater@owner" --format=custom --file /home/ubuntu/cw_prod_$(echo $EXP_DATE).db --verbose | ssh cwbuild bash -s && scp cwbuild:/home/ubuntu/cw_prod_$(echo $EXP_DATE).db $HOME/Downloads/ && echo rm -rf /home/ubuntu/cw_prod_$(echo $EXP_DATE).db | ssh cwbuild bash -s'
-
+alias smtget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="papasofokli12" /opt/PostgreSQL/10/bin/pg_dump --file "/home/ubuntu/db/smt_test_$(echo $EXP_DATE).db" --host "localhost" --port "5432" --username "postgres" --no-password --format=c --blobs "smt@radiantfleet" --verbose | ssh smttest bash -s && scp smttest:/home/ubuntu/db/smt_test_$(echo $EXP_DATE).db $HOME/Downloads/'
+alias hnget='EXP_DATE=$(date +"%Y%m%d_%H%M") && echo PGPASSWORD="papasofokli12" pg_dump --file "/mnt/db/hn_live_$(echo $EXP_DATE).db" --host "localhost" --port "5432" --username "postgres" --no-password --format=c --blobs "heinemann@radiantfleet" --verbose | ssh heinemann bash -s && scp heinemann:/mnt/db/hn_live_$(echo $EXP_DATE).db $HOME/Downloads/'
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
