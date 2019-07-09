@@ -14,14 +14,12 @@ Plug 'janko-m/vim-test'
 Plug 'aserebryakov/vim-todo-lists'
 Plug 'derekwyatt/vim-scala'
 Plug 'terryma/vim-expand-region'
+Plug 'rust-lang/rust.vim'
 " Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'rhysd/clever-f.vim'           " plugin_clever_f
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
@@ -35,7 +33,7 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 call plug#end()
 
 " enable echodoc
@@ -50,12 +48,28 @@ let g:VimTodoListsDatesFormat = "%a %b, %Y"
 let g:UltiSnipsExpandTrigger="`"
 let g:UltiSnipsJumpForwardTrigger="`"
 
-let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-            \ 'cpp': ['g++'],
-            \ 'c': ['gcc']
+            \ 'cpp': ['clangtidy', 'cppcheck','cpplint','g++'],
+            \ 'c': ['clangtidy', 'gcc']
             \ }
-let g:ale_c_gcc_options='-Wall -Wextra'
+
+let g:ale_fixers = {
+            \ 'cpp': ['uncrustify'],
+            \ 'c': ['uncrustify']
+            \ }
+" let g:ale_c_gcc_options='-Wall -Wextra'
+" let g:ale_cpp_cquery_executable = "/home/sk/cquery/build/release/bin/cquery"
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-whitespace/line_length"
+let g:ale_c_gcc_options= "-std=gnu99"
+let g:ale_c_clangtidy_checks = ['*']
+let g:ale_cpp_clangtidy_checks = ['*']
+let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
+" let g:ale_c_clangtidy_options= "--checks=*"
+let g:ale_c_cppcheck_options = '--enable=style'
+let g:ale_c_uncrustify_options = '-c /home/sk/dotfiles/default.cfg'
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -67,23 +81,30 @@ let g:VimTodoListsDatesFormat = "%d|%m|%Y"
 let g:LanguageClient_useVirtualText = 0 " do not show error in line
 let g:LanguageClient_useFloatingHover = 1 "opens documentation in a floating window instead of preview
 let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-let g:LanguageClient_settingsPath = '/home/sk/.config/nvim/settings.json'
+" let g:LanguageClient_settingsPath = '/home/sk/.config/nvim/settings.json'
 let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['/home/sk/cquery/build/release/bin/cquery', '--log-file=/tmp/cq.log'],
-    \ 'c': ['/home/sk/cquery/build/release/bin/cquery', '--log-file=/tmp/cq.log'],
+    \ 'cpp': ['/home/sk/cquery/build/release/bin/cquery',
+        \'--log-file=/tmp/cq-cpp.log', 
+        \'--init={"cacheDirectory":"/tmp/cq-cpp.cache/"}'],
+    \ 'c': ['/home/sk/cquery/build/release/bin/cquery', 
+        \'--log-file=/tmp/cq-c.log',
+        \'--init={"cacheDirectory":"/tmp/cq-c.cache/"}'],
+    \ 'python': ['/home/sk/.local/bin/pyls', '--log-file=/tmp/py.log'],
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ }
 " set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
 
 " preview function on completion
-set cot+=preview
+set cot-=preview
 
 " language server bindings
 nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> gm :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> gf :call LanguageClient#textDocument_formatting()<CR>
 
 let g:airline#extensions#tabline#enabled = 0
 
