@@ -63,9 +63,10 @@ let g:ale_fixers = {
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-whitespace/line_length"
+let g:ale_c_clangtidy_options="-android-cloexec-accept"
 let g:ale_c_gcc_options= "-std=gnu99"
-let g:ale_c_clangtidy_checks = ['*']
-let g:ale_cpp_clangtidy_checks = ['*']
+let g:ale_c_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen']
+let g:ale_cp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
 " let g:ale_c_clangtidy_options= "--checks=*"
 let g:ale_c_cppcheck_options = '--enable=style'
