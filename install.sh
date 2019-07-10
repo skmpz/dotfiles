@@ -100,29 +100,34 @@ do
         --laptop) mode="LAPTOP"; shift 1 ;;
         --nuc) mode="NUC"; shift 1 ;;
         --work) mode="WORK"; shift 1 ;;
+        --user) usr="$2"; shift 2 ;;
         *) ;;
     esac
 done
 
 # check arguments
 if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "NUC" ] && [ "$mode" != "LAPTOP" ] && [ "$mode" != "WORK" ]; then show_usage; fi
+if [ -z "$usr" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
-_start "Setting passwordless sudo"
-echo "sk ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers >> $LOGFILE 2>&1
-_check_ok $?
+check=$(sudo cat /etc/sudoers | grep "$usr ALL")
+if [ -z "$check" ]; then
+    _start "Setting passwordless sudo"
+    echo "sk ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers >> $LOGFILE 2>&1
+    _check_ok $?
+fi
 
 _start "Updating"
-# sudo pacman -Syy --noconfirm --needed >> $LOGFILE 2>&1
 sudo add-apt-repository -y ppa:noobslab/icons >> $LOGFILE 2>&1
 sudo apt update -y >> $LOGFILE 2>&1 && sudo apt upgrade -y >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing system"
-sudo DEBIAN_FRONTEND=noninteractive apt install -yq aircrack-ng blueman nmap arc-icons alsa-oss curl netdiscover alsa-utils alsa-utils libxcb-xrm-dev arc-theme pngcheck bash-completion bc binwalk caja caja-open-terminal calibre chromium-browser cherrytree clang cmake engrampa evince fbreader feh foremost gdb gedit gparted libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool automake i3lock i3status imagemagick libimage-exiftool-perl openjdk-8-jdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs fonts-font-awesome p7zip pulseaudio python-neovim python python3 rofi rsync ruby rxvt-unicode scala scrot strace synergy tmux transmission-gtk ttf-dejavu fonts-inconsolata ttf-ubuntu-font-family unrar upower vim wget wireshark-gtk xclip xcursor-themes xorg xterm >> $LOGFILE 2>&1
+sudo DEBIAN_FRONTEND=noninteractive apt install -yq aircrack-ng blueman nmap arc-icons alsa-oss curl netdiscover alsa-utils alsa-utils libxcb-xrm-dev arc-theme pngcheck bash-completion bc binwalk caja caja-open-terminal calibre chromium-browser cherrytree clang cmake engrampa evince fbreader feh foremost gdb gedit gparted libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool automake i3lock i3status imagemagick libimage-exiftool-perl openjdk-8-jdk ltrace luarocks mate-terminal mpv neovim nodejs nomacs fonts-font-awesome p7zip pulseaudio python-neovim python python3 rofi rsync ruby rxvt-unicode scala scrot strace synergy tmux deluge ttf-dejavu fonts-inconsolata ttf-ubuntu-font-family unrar upower vim wget wireshark-gtk xclip xcursor-themes xorg xterm >> $LOGFILE 2>&1
 _check_ok $?
 
 _start "Installing extra tools"
+rm -rf i3-gaps cquery
 git clone https://www.github.com/Airblader/i3 i3-gaps >> $LOGFILE 2>&1
 cd i3-gaps >> $LOGFILE 2>&1
 git checkout gaps  >> $LOGFILE 2>&1
@@ -135,19 +140,26 @@ cd build >> $LOGFILE 2>&1
 make -j4 >> $LOGFILE 2>&1
 sudo make install >> $LOGFILE 2>&1
 cd ../..
+git clone --recursive https://github.com/cquery-project/cquery.git >> $LOGFILE 2>&1
+cd cquery
+git submodule update --init >> $LOGFILE 2>&1
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=release -DCMAKE_EXPORT_COMPILE_COMMANDS=YES >> $LOGFILE 2>&1
+cmake --build . >> $LOGFILE 2>&1
+cmake --build . --target install >> $LOGFILE 2>&1
+_check_ok $?
 
 # yay -S hopper burpsuite python2-pwntools --noconfirm >> $LOGFILE 2>&1
 # _check_no_ok $?
 # gem install zsteg >> $LOGFILE 2>&1
-_check_ok $?
 
-if [ "$mode" == "HOMEA" ]; then
-    _start "Installing Plex"
-    yay -S plex-media-server --noconfirm >> $LOGFILE 2>&1
-    _check_no_ok $?
-    sudo systemctl enable plexmediaserver >> $LOGFILE 2>&1
-    _check_ok $?
-fi
+# if [ "$mode" == "HOMEA" ]; then
+#     _start "Installing Plex"
+#     yay -S plex-media-server --noconfirm >> $LOGFILE 2>&1
+#     _check_no_ok $?
+#     sudo systemctl enable plexmediaserver >> $LOGFILE 2>&1
+#     _check_ok $?
+# fi
 
 if [ "$mode" == "VM" ]; then
     _start "Setting up vm modules"
@@ -169,11 +181,13 @@ rm -rf $HOME/.bashrc
 rm -rf $HOME/.gtkrc-2.0
 rm -rf $HOME/.xinitrc
 rm -rf $HOME/.Xresources
-rm -rf $HOME/.config/i3/*
-rm -rf $HOME/.config/gtk-3.0/settings.ini
-rm -rf $HOME/.config/nvim/init.vim
+rm -rf $HOME/.Xresources.local
+rm -rf $HOME/.config/i3/
+rm -rf $HOME/.config/gtk-3.0/
+rm -rf $HOME/.config/nvim/
 rm -rf $HOME/.local/share/fonts
 rm -rf $HOME/.urxvt/
+rm -rf $HOME/screen/
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/nvim/

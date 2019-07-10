@@ -84,10 +84,10 @@ let g:LanguageClient_useFloatingHover = 1 "opens documentation in a floating win
 let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
 " let g:LanguageClient_settingsPath = '/home/sk/.config/nvim/settings.json'
 let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['/home/sk/cquery/build/release/bin/cquery',
+    \ 'cpp': ['/home/sk/dotfiles/cquery/build/release/bin/cquery',
         \'--log-file=/tmp/cq-cpp.log', 
         \'--init={"cacheDirectory":"/tmp/cq-cpp.cache/"}'],
-    \ 'c': ['/home/sk/cquery/build/release/bin/cquery', 
+    \ 'c': ['/home/sk/dotfiles/cquery/build/release/bin/cquery', 
         \'--log-file=/tmp/cq-c.log',
         \'--init={"cacheDirectory":"/tmp/cq-c.cache/"}'],
     \ 'python': ['/home/sk/.local/bin/pyls', '--log-file=/tmp/py.log'],
