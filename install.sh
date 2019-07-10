@@ -182,6 +182,8 @@ mkdir -p $HOME/.urxvt/ext/
 mkdir -p $HOME/screen/
 sudo mkdir -p /usr/share/fonts/truetype/
 sudo cp $HOME/dotfiles/fonts/Inconsolata.otf /usr/share/fonts/truetype/
+sudo cp $HOME/dotfiles/fonts/source-code-pro/* /usr/share/fonts/truetype/
+sudo cp $HOME/dotfiles/locale /etc/default/locale
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1
     git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt >> $LOGFILE 2>&1
