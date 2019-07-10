@@ -98,13 +98,14 @@ do
         --vm) mode="VM"; shift 1 ;;
         --home) mode="HOME"; shift 1 ;;
         --laptop) mode="LAPTOP"; shift 1 ;;
+        --nuc) mode="NUC"; shift 1 ;;
         --work) mode="WORK"; shift 1 ;;
         *) ;;
     esac
 done
 
 # check arguments
-if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "LAPTOP" ] && [ "$mode" != "WORK" ]; then show_usage; fi
+if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "NUC" ] && [ "$mode" != "LAPTOP" ] && [ "$mode" != "WORK" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
 _start "Setting passwordless sudo"
@@ -196,6 +197,11 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         ln -sf $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
         ln -sf $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
         ln -sf $HOME/dotfiles/home/bashrc $HOME/.bashrc
+    elif [ "$mode" == "NUC" ]; then
+        ln -sf $HOME/dotfiles/nuc/xinitrc $HOME/.xinitrc
+        ln -sf $HOME/dotfiles/nuc/Xresources.local $HOME/.Xresources.local
+        ln -sf $HOME/dotfiles/nuc/config.local $HOME/.config/i3/config.local
+        ln -sf $HOME/dotfiles/nuc/bashrc $HOME/.bashrc
     elif [ "$mode" == "LAPTOP" ]; then
         sudo apt install -y tlp >> $LOGFILE 2>&1
         sudo systemctl enable tlp >> $LOGFILE 2>&1
