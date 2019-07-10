@@ -31,8 +31,13 @@ do
     MEM_USED=$(free -mh | grep Mem | awk '{print $3}')
     MEM_TOTAL=$(free -mh | grep Mem | awk '{print $2}')
     IP_GET=$(ip a | grep -A3 wlo1 | grep -w inet | awk '{print $2}' | cut -f1 -d'/')
-    if [ "$IP_GET" == "" ]; then
-        IP="N/A"
+    if [ -z "$IP_GET"]; then
+        IP_GET=$(ip a | grep -A3 enx | grep -w inet | awk '{print $2}' | cut -f1 -d'/')
+        if [ -z "$IP_GET"]; then
+            IP="N/A"
+        else
+            IP="$IP_GET [eth]"
+        fi
     else
         SSID=$(iwgetid -r)
         IP="$IP_GET [$SSID]"
