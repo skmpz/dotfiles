@@ -1,0 +1,9 @@
+xset r rate 250 80
+setxkbmap -option grp:win_space_toggle us,el
+xrdb -merge ~/.Xresources
+setxkbmap -option caps:escape
+feh --bg-scale ~/dotfiles/bg.jpg
+#xrandr --output DP-3 --auto
+xrandr --output DP-3 --mode 2880x1620
+cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
+exec i3
