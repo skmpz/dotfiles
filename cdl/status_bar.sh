@@ -8,9 +8,9 @@ do
 
     VERSION=$(uname -r)
 
-    MUTE=$(pactl list sinks | grep -A8 'Sink #1' | grep Mute | awk '{print $2}')
+    MUTE=$(pactl list sinks | grep -A8 'Sink #0' | grep Mute | awk '{print $2}')
     if [ "$MUTE" != "yes" ]; then
-        VOL=$(pactl list sinks | grep Volume | grep -v Base | tail -1 | awk '{print $5}')
+        VOL=$(pactl list sinks | grep Volume | grep -v Base | head -1 | awk '{print $5}')
     else
         VOL="MUTE"
     fi
