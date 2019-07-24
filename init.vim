@@ -95,6 +95,11 @@ let g:LanguageClient_serverCommands = {
     \ }
 " set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
+let g:LanguageClient_rootMarkers = {
+\ 'cpp': ['compile_commands.json', 'build'],
+\ }
+
+"call LanguageClient#textDocument_definition({'gotoCmd': 'split'})
 
 " preview function on completion
 set cot-=preview
