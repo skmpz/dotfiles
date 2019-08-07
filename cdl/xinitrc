@@ -6,4 +6,4 @@ feh --bg-scale ~/dotfiles/bg.jpg
 #xrandr --output DP-3 --auto
 xrandr --output DP-3 --mode 2880x1620 --primary
 cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
-exec i3
+dbus-launch --exit-with-session i3
