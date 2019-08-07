@@ -83,7 +83,7 @@ function show_usage {
     echo -e "[${RED}usage${NC}] ${!s_main_color}./$(basename $0) [opts]${NC}"
     _line
     echo -en "[${WHITE}opts${NC}] "
-    echo -e "${BLUE}--vm/--work/--laptop/--home    install mode    [required]${NC}"
+    echo -e "${BLUE}--vm/--work/--laptop/--home/--cdl    install mode    [required]${NC}"
     _line
     exit 1
 }
@@ -97,6 +97,7 @@ do
     case $i in
         --vm) mode="VM"; shift 1 ;;
         --home) mode="HOME"; shift 1 ;;
+        --cdl) mode="CONF"; shift 1 ;;
         --laptop) mode="LAPTOP"; shift 1 ;;
         --nuc) mode="NUC"; shift 1 ;;
         --work) mode="WORK"; shift 1 ;;
@@ -106,7 +107,8 @@ do
 done
 
 # check arguments
-if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "NUC" ] && [ "$mode" != "LAPTOP" ] && [ "$mode" != "WORK" ]; then show_usage; fi
+echo "MODE $mode"
+if [ "$mode" != "HOME" ] && [ "$mode" != "CONF" ] && [ "$mode" != "VM" ] && [ "$mode" != "NUC" ] && [ "$mode" != "LAPTOP" ] && [ "$mode" != "WORK" ]; then show_usage; fi
 if [ -z "$usr" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
@@ -230,6 +232,11 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         ln -sf $HOME/dotfiles/work/Xresources.local $HOME/.Xresources.local
         ln -sf $HOME/dotfiles/work/config.local $HOME/.config/i3/config.local
         ln -sf $HOME/dotfiles/work/bashrc $HOME/.bashrc
+    elif [ "$mode" == "CONF" ]; then
+        ln -sf $HOME/dotfiles/cdl/xinitrc $HOME/.xinitrc
+        ln -sf $HOME/dotfiles/cdl/Xresources.local $HOME/.Xresources.local
+        ln -sf $HOME/dotfiles/cdl/config.local $HOME/.config/i3/config.local
+        ln -sf $HOME/dotfiles/cdl/bashrc $HOME/.bashrc
     elif [ "$mode" == "VM" ]; then
         ln -sf $HOME/dotfiles/vm/xinitrc $HOME/.xinitrc
         ln -sf $HOME/dotfiles/vm/Xresources.local $HOME/.Xresources.local

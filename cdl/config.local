@@ -1,0 +1,31 @@
+# alt-p -> startup script
+bindsym $mod+p exec "$HOME/dotfiles/cdl/startup.sh"
+
+# xf86 sound controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+
+#assign workspaces to outputs
+workspace $w1 output DP-2
+workspace $w2 output DP-0
+workspace $w3 output HDMI-0
+workspace $w4 output DP-2
+
+bar {
+    status_command $HOME/dotfiles/cdl/status_bar.sh
+    tray_output primary
+        font xft: Source Code Pro 10
+        mode dock
+        position top
+        height 30
+        colors {
+            background #1C3749
+            # statusline #fff
+            separator #000
+            focused_workspace #316181 #316181 #eff1f5
+            active_workspace #316181 #316181 #eff1f5
+            inactive_workspace #316181 #1C3749 #eff1f5
+            urgent_workspace #CF5F35 #CF5F35 #eff1f5
+        }
+}
