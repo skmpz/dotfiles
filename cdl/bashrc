@@ -13,10 +13,39 @@ fi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+function n {
+cat << EOF > $1.h
+class $1
+{
+public:
+    $1();
+    virtual ~$1();
+
+private:
+
+};
+EOF
+
+cat << EOF > $1.cc
+#include "$1.h"
+
+$1::$1() {
+
+}
+
+$1::~$1() {
+
+}
+EOF
+
+
+
+}
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias nv='nvim'
 alias bck='rsync -e ssh -avzh /home/sk/work/ vmi:/root/work/ --delete --progress'
+alias bck_get='rsync -e ssh -avzh vmi:/root/data/ /data/ --delete --progress'
 alias d='cd $HOME/Downloads'
 alias gch='git checkout'
 alias gst='git status'
@@ -27,9 +56,13 @@ alias gpull='git pull'
 alias glog='git log --oneline'
 alias f='caja .'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/bg.jpg'
+alias nvs='nv -S ~/.sess'
 alias up='sudo apt update && sudo apt upgrade && sudo apt autoremove'
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
 export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
 export ARTIFACTORY_USER="dimitris.prokopiou"
 export ARTIFACTORY_PASSWORD="HhUQvEvM3C8B"
+export PATH=$PATH:/home/sk/.local/bin/
+alias c='cd ~/code'
+
