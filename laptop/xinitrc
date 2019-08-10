@@ -4,8 +4,8 @@ xrdb -merge ~/.Xresources
 setxkbmap -option caps:escape
 #xrandr --setprovideroutputsource modsetting NVIDIA-0
 # xrandr --auto
-xrandr --dpi 92
 xrandr --output eDP-1
+xrandr --output DP-1 --above eDP-1
 feh --bg-scale ~/dotfiles/bg.jpg
 cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
 dbus-launch --exit-with-session i3

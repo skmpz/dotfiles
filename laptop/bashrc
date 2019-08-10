@@ -31,6 +31,7 @@ alias f='caja .'
 alias mnt='sudo mount -t ecryptfs $HOME/work $HOME/work'
 alias workget='rsync -e ssh -avh vmi:/root/work/ /home/sk/work/ --exclude images/ --delete --progress'
 alias workput='rsync -e ssh -avh /home/sk/work/ vmi:/root/work/ --exclude images/ --delete --progress'
+alias nvs='nv -S ~/.sess'
 alias up='sudo apt update && sudo apt upgrade && sudo apt autoremove'
 
 PS1='[\u@\h \W]\$ '
