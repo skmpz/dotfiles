@@ -33,6 +33,7 @@ alias workget='rsync -e ssh -avh vmi:/root/work/ /home/sk/work/ --exclude images
 alias workput='rsync -e ssh -avh /home/sk/work/ vmi:/root/work/ --exclude images/ --delete --progress'
 alias nvs='nv -S ~/.sess'
 alias up='sudo apt update && sudo apt upgrade && sudo apt autoremove'
+alias x='pkill caja; feh --bg-scale ~/dotfiles/bg.jpg'
 
 PS1='[\u@\h \W]\$ '
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
