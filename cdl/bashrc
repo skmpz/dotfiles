@@ -65,5 +65,3 @@ export ARTIFACTORY_USER="dimitris.prokopiou"
 export ARTIFACTORY_PASSWORD="HhUQvEvM3C8B"
 export PATH=$PATH:/home/sk/.local/bin/
 alias c='cd ~/code'
-alias c='cd ~/code/localmanager/'
-
