@@ -44,7 +44,7 @@ EOF
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias nv='nvim'
-alias bck='rsync -e ssh -avzh /home/sk/work/ vmi:/root/work/ --delete --progress'
+alias bck='rsync -e ssh -azh /data/ vmi:/root/data/ --delete --progress'
 alias bck_get='rsync -e ssh -avzh vmi:/root/data/ /data/ --delete --progress'
 alias d='cd $HOME/Downloads'
 alias gch='git checkout'
@@ -65,4 +65,3 @@ export ARTIFACTORY_USER="dimitris.prokopiou"
 export ARTIFACTORY_PASSWORD="HhUQvEvM3C8B"
 export PATH=$PATH:/home/sk/.local/bin/
 alias c='cd ~/code'
-
