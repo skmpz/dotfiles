@@ -1,2 +1,9 @@
 sudo systemctl set-default multi-user.target
 /dev/sdb1					/data		ext4		defaults	0 2
+
+for gtest:
+cd gtest-1.7.0
+mkdir build
+cd build
+cmake -DBUILD_SHARED_LIBS=ON ..
+make 
