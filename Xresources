@@ -37,7 +37,6 @@ URxvt*keysym.C-S-Down:      perl:font-size:decglobal
 *color13:                   #AD7FA8
 *color14:                   #fcaf3e
 *color15:                   #EEEEEC
-rofi.font:                  Ubuntu 8
 rofi.width:                 20
 rofi.lines:                 5
 rofi.opacity:               50

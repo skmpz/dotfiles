@@ -1,1 +1,2 @@
 URxvt*font: xft:Inconsolata:style=Medium:size=10:antialias=true:hinting=true
+rofi.font:                  Ubuntu 8
