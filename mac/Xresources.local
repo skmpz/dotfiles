@@ -1,0 +1,3 @@
+URxvt*font: xft:Inconsolata:style=Medium:size=13:antialias=true:hinting=true
+Xft.dpi:                    70
+rofi.font:                  Ubuntu 8

@@ -1,0 +1,11 @@
+xset r rate 250 80
+setxkbmap -option grp:win_space_toggle us,el
+xrdb -merge ~/.Xresources
+setxkbmap -option caps:escape
+#xrandr --addmode Virtual1 1920x1080
+xrandr --output Virtual1 --mode 1920x1080
+prlcc &
+sleep 2
+feh --bg-scale ~/dotfiles/bg.jpg
+cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
+dbus-launch --exit-with-session i3
