@@ -7,6 +7,7 @@ filetype plugin indent on
 " vim-plug
 call plug#begin()
 Plug 'ervandew/supertab'
+Plug 'MattesGroeger/vim-bookmarks'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
 Plug 'aserebryakov/vim-todo-lists.git'
 Plug 'Shougo/echodoc.vim'
@@ -19,11 +20,11 @@ Plug 'rust-lang/rust.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'rhysd/clever-f.vim'           " plugin_clever_f
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
+Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
@@ -32,9 +33,16 @@ Plug 'godlygeek/tabular'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-scripts/DoxygenToolkit.vim'
 
 Plug 'w0rp/ale'
 call plug#end()
+
+highlight BookmarkSign ctermbg=NONE ctermfg=160
+highlight BookmarkLine ctermbg=194 ctermfg=NONE
+let g:bookmark_sign = 'M'
+let g:bookmark_highlight_lines = 1
 
 " enable echodoc
 let g:echodoc_enable_at_startup = 1
@@ -50,27 +58,32 @@ let g:UltiSnipsJumpForwardTrigger="`"
 
 " let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-            \ 'cpp': ['clangtidy', 'cppcheck','cpplint','g++'],
+            \ 'cpp': ['clangtidy', 'cppcheck', 'cpplint'],
             \ 'c': ['clangtidy', 'gcc']
             \ }
 
 let g:ale_fixers = {
             \ 'cpp': ['uncrustify'],
-            \ 'c': ['uncrustify']
+            \ 'c': ['uncrustify'],
+            \ 'rust': ['rustfmt']
             \ }
 " let g:ale_c_gcc_options='-Wall -Wextra'
-" let g:ale_cpp_cquery_executable = "/home/sk/cquery/build/release/bin/cquery"
 let g:ale_lint_on_save = 1
-" let g:ale_fix_on_save = 1
-let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-whitespace/line_length"
-let g:ale_c_clangtidy_options="-android-cloexec-accept"
-let g:ale_c_gcc_options= "-std=gnu99"
-let g:ale_c_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen']
-let g:ale_cp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen']
+
+let g:ale_cpp_cquery_executable = "/home/sk/cquery/build/release/bin/cquery"
+let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,build/include_order --linelength=110"
+let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
-" let g:ale_c_clangtidy_options= "--checks=*"
-let g:ale_c_cppcheck_options = '--enable=style'
+
+let g:ale_c_parse_compile_commands = 1
+let g:ale_c_cquery_executable = "/home/sk/cquery/build/release/bin/cquery"
+let g:ale_c_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen', '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign']
+let g:ale_c_cppcheck_options = '--enable=all'
+let g:ale_c_gcc_options= "-std=gnu99 -Wall"
 let g:ale_c_uncrustify_options = '-c /home/sk/dotfiles/default.cfg'
+
+" let g:ale_fix_on_save = 1
+let g:ale_max_signs = 20
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -79,20 +92,27 @@ let g:VimTodoListsDatesEnabled = 1
 let g:VimTodoListsDatesFormat = "%d|%m|%Y"
 
 " LanguageClient config
-let g:LanguageClient_useVirtualText = 0 " do not show error in line
-let g:LanguageClient_useFloatingHover = 1 "opens documentation in a floating window instead of preview
-let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-" let g:LanguageClient_settingsPath = '/home/sk/.config/nvim/settings.json'
-let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['/home/sk/dotfiles/cquery/build/release/bin/cquery',
-        \'--log-file=/tmp/cq-cpp.log', 
-        \'--init={"cacheDirectory":"/tmp/cq-cpp.cache/"}'],
-    \ 'c': ['/home/sk/dotfiles/cquery/build/release/bin/cquery', 
-        \'--log-file=/tmp/cq-c.log',
-        \'--init={"cacheDirectory":"/tmp/cq-c.cache/"}'],
-    \ 'python': ['/home/sk/.local/bin/pyls', '--log-file=/tmp/py.log'],
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ }
+" let g:LanguageClient_useVirtualText = 0 " do not show error in line
+" let g:LanguageClient_useFloatingHover = 1 "opens documentation in a floating window instead of preview
+" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+" " let g:LanguageClient_settingsPath = '/home/sk/.config/nvim/settings.json'
+" let g:LanguageClient_serverCommands = {
+"     \ 'cpp': ['/home/sk/dotfiles/cquery/build/release/bin/cquery',
+"         \'--log-file=/tmp/cq-cpp.log', 
+"         \'--init={"cacheDirectory":"/tmp/cq-cpp.cache/"}'],
+"     \ 'c': ['/home/sk/dotfiles/cquery/build/release/bin/cquery', 
+"         \'--log-file=/tmp/cq-c.log',
+"         \'--init={"cacheDirectory":"/tmp/cq-c.cache/"}'],
+"     \ 'python': ['/home/sk/.local/bin/pyls', '--log-file=/tmp/py.log'],
+"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+"     \ }
+
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
 let g:LanguageClient_rootMarkers = {
@@ -105,12 +125,12 @@ let g:LanguageClient_rootMarkers = {
 set cot-=preview
 
 " language server bindings
-nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> gm :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> gf :call LanguageClient#textDocument_formatting()<CR>
+" nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+" nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+" nnoremap <silent> gm :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <silent> gf :call LanguageClient#textDocument_formatting()<CR>
 
 let g:airline#extensions#tabline#enabled = 0
 
@@ -204,20 +224,26 @@ nnoremap Y y$
 nmap <leader>c gcc
 vmap <leader>c gc
 
+let g:sneak#s_next = 1
+let g:sneak#use_ic_scs = 1
+
 " grep word in file and open location list
 nnoremap <leader>d "_d
 nnoremap <leader>D "_D
-nnoremap <leader>f :lvim <cword> * <bar> :lopen<cr>
-nnoremap <leader>j <C-]>
+nnoremap c "_c
+nnoremap C "_C
+nnoremap <leader>j :A<CR>
+nnoremap <leader>f :IH<CR>
+nnoremap <leader>g :lvim <cword> * <bar> :lopen<cr>
 nnoremap <leader>n :cnext<CR>
 nnoremap <leader>N :cprev<CR>
 nnoremap <leader>o :FZF<CR>
 nnoremap <leader>q :q<CR>
+" nnoremap s /
+" nnoremap S ?
 nnoremap <leader>t :call fzf#vim#tags("'".expand('<cword>'))<cr>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>, :mks! ~/.sess<cr>
-nnoremap s /
-nnoremap S ?
 noremap  <F1> "a
 noremap  <F2> "b
 noremap  <F3> "c
@@ -385,3 +411,115 @@ if exists("+showtabline")
     set showtabline=1
     " highlight link TabNum Special
 endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if !exists('g:tmp_file_uncrustify')
+  let g:tmp_file_uncrustify = fnameescape(tempname())
+endif
+
+" Specify path to your Uncrustify configuration file.
+let g:uncrustify_cfg_file_path =
+    \ shellescape(fnamemodify('~/dotfiles/default.cfg', ':p'))
+
+" http://stackoverflow.com/a/15513829/288089
+" Restore cursor position, window position, and last search after running a
+" command.
+func! s:Preserve(command)
+  " Save the last search.
+  let search = @/
+
+  " Save the current cursor position.
+  let cursor_position = getpos('.')
+
+  " Save the current window position.
+  normal! H
+  let window_position = getpos('.')
+  call setpos('.', cursor_position)
+
+  " Execute the command.
+  execute a:command
+
+  " Restore the last search.
+  let @/ = search
+
+  " Restore the previous window position.
+  call setpos('.', window_position)
+  normal! zt
+
+  " Restore the previous cursor position.
+  call setpos('.', cursor_position)
+endfunc
+
+" Don't forget to add Uncrustify executable to $PATH (on Unix) or 
+" %PATH% (on Windows) for this command to work.
+func! Uncrustify(language)
+  call s:Preserve(':silent %!uncrustify'
+      \ . ' -q '
+      \ . ' -l ' . a:language
+      \ . ' -c ' . g:uncrustify_cfg_file_path)
+endfunc
+
+" Quoting string
+" @param {String} str Any string
+" @return {String} The quoted string
+func! s:quote(str)
+  return '"'.escape(a:str,'"').'"'
+endfun
+
+func! Uncrustify2(...)
+  let l:lang = get(a:000, 0, 'c')
+  let l:line1 = get(a:000, 1, '1')
+  let l:line2 = get(a:000, 2, '$')
+
+  " Get content from the files
+  let content = getline(l:line1, l:line2)
+
+  " Length of lines before beautify
+  let lines_length = len(getline(l:line1, l:line2))
+
+  " Write content to temporary file
+  call writefile(content, g:tmp_file_uncrustify)
+  let l:tmp_file_uncrustify_arg = s:quote(g:tmp_file_uncrustify)
+
+  let cmd = "uncrustify -q -l " . l:lang . " --frag -c " . g:uncrustify_cfg_file_path . " -f " . l:tmp_file_uncrustify_arg
+  let result = system(cmd)
+  let lines_uncrustify = split(result, "\n")
+
+  if !len(lines_uncrustify)
+      return result
+  endif
+
+  silent exec line1.",".line2."j"
+  call setline(line1, lines_uncrustify[0])
+  call append(line1, lines_uncrustify[1:])
+  return result
+endfunc
+
+func! RangeUncrustify(language) range
+  return call('Uncrustify2', extend([a:language], [a:firstline, a:lastline]))
+endfunc
+
+autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
+autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
+autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
+autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
+
+hi Sneak ctermfg=160 ctermbg=none
+
+set splitright
