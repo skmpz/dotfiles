@@ -71,8 +71,8 @@ let g:ale_fixers = {
 let g:ale_lint_on_save = 1
 
 let g:ale_cpp_cquery_executable = "/home/sk/cquery/build/release/bin/cquery"
-let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,build/include_order --linelength=110"
-let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay']
+let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order --linelength=110"
+let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
 
 let g:ale_c_parse_compile_commands = 1
@@ -83,7 +83,7 @@ let g:ale_c_gcc_options= "-std=gnu99 -Wall"
 let g:ale_c_uncrustify_options = '-c /home/sk/dotfiles/default.cfg'
 
 " let g:ale_fix_on_save = 1
-let g:ale_max_signs = 20
+" let g:ale_max_signs = 20
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -523,3 +523,4 @@ autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 hi Sneak ctermfg=160 ctermbg=none
 
 set splitright
+set splitbelow
