@@ -524,3 +524,6 @@ hi Sneak ctermfg=160 ctermbg=none
 
 set splitright
 set splitbelow
+set noswapfile
+
+nnoremap qf :vimgrep '' **/*.cc **/*.hh <bar> copen 10<c-b><right><right><right><right><right><right><right><right><right>
