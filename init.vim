@@ -524,6 +524,3 @@ hi Sneak ctermfg=160 ctermbg=none
 
 set splitright
 set splitbelow
-
-set guicursor=i:ver25-iCursor
-set guicursor=n:ver25-iCursor
