@@ -524,3 +524,5 @@ hi Sneak ctermfg=160 ctermbg=none
 
 set splitright
 set splitbelow
+
+autocmd VimLeave * set guicursor=n:ver25-iCursor
