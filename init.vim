@@ -70,17 +70,17 @@ let g:ale_fixers = {
 " let g:ale_c_gcc_options='-Wall -Wextra'
 let g:ale_lint_on_save = 1
 
-let g:ale_cpp_cquery_executable = "/home/sk/cquery/build/release/bin/cquery"
+let g:ale_cpp_cquery_executable = "/Users/sk/dotfiles/cquery/build/release/bin/cquery"
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order --linelength=110"
 let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
 
 let g:ale_c_parse_compile_commands = 1
-let g:ale_c_cquery_executable = "/home/sk/cquery/build/release/bin/cquery"
+let g:ale_c_cquery_executable = "/Users/sk/dotfiles/cquery/build/release/bin/cquery"
 let g:ale_c_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen', '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign']
 let g:ale_c_cppcheck_options = '--enable=all'
 let g:ale_c_gcc_options= "-std=gnu99 -Wall"
-let g:ale_c_uncrustify_options = '-c /home/sk/dotfiles/default.cfg'
+let g:ale_c_uncrustify_options = '-c /Users/sk/dotfiles/default.cfg'
 
 " let g:ale_fix_on_save = 1
 " let g:ale_max_signs = 20
@@ -524,3 +524,6 @@ hi Sneak ctermfg=160 ctermbg=none
 
 set splitright
 set splitbelow
+
+set guicursor=i:ver25-iCursor
+set guicursor=n:ver25-iCursor
