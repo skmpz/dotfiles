@@ -58,7 +58,7 @@ let g:UltiSnipsJumpForwardTrigger="`"
 
 " let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-            \ 'cpp': ['clangtidy', 'cppcheck', 'cpplint'],
+            \ 'cpp': ['cppcheck', 'clangtidy', 'cpplint'],
             \ 'c': ['clangtidy', 'gcc']
             \ }
 
@@ -70,17 +70,20 @@ let g:ale_fixers = {
 " let g:ale_c_gcc_options='-Wall -Wextra'
 let g:ale_lint_on_save = 1
 
-let g:ale_cpp_cquery_executable = "/Users/sk/dotfiles/cquery/build/release/bin/cquery"
+let g:ale_cpp_cquery_executable = "/usr/local/bin/cquery"
+let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/9.0.0_1/bin/clang-tidy"
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order --linelength=110"
-let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic']
+let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
+let g:ale_cpp_cppcheck_executable = '/usr/local/bin/cppcheck'
+let g:ale_cpp_cppcheck_options = '--enable=all'
 
 let g:ale_c_parse_compile_commands = 1
-let g:ale_c_cquery_executable = "/Users/sk/dotfiles/cquery/build/release/bin/cquery"
+let g:ale_c_cquery_executable = "/usr/local/bin/cquery"
 let g:ale_c_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen', '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign']
 let g:ale_c_cppcheck_options = '--enable=all'
 let g:ale_c_gcc_options= "-std=gnu99 -Wall"
-let g:ale_c_uncrustify_options = '-c /Users/sk/dotfiles/default.cfg'
+let g:ale_c_uncrustify_options = '-c /Users/dimitris.prokopiou/dotfiles/default.cfg'
 
 " let g:ale_fix_on_save = 1
 " let g:ale_max_signs = 20
@@ -171,7 +174,7 @@ hi Normal ctermbg=none
 hi Search ctermfg=160 ctermbg=none
 hi LineNr ctermbg=none
 hi NonText ctermbg=none
-hi CursorLine ctermbg=0
+hi CursorLine ctermbg=17
 hi MatchParen cterm=none ctermbg=green ctermfg=blue
 
 " stop highlight after search
@@ -366,51 +369,6 @@ set nowritebackup
 " Better display for messages
 set cmdheight=2
 
-" Rename tabs to show tab number.
-" (Based on http://stackoverflow.com/questions/5927952/whats-implementation-of-vims-default-tabline-function)
-if exists("+showtabline")
-    function! MyTabLine()
-        let s = ''
-        let wn = ''
-        let t = tabpagenr()
-        let i = 1
-        while i <= tabpagenr('$')
-            let buflist = tabpagebuflist(i)
-            let winnr = tabpagewinnr(i)
-            let s .= '%' . i . 'T'
-            let s .= (i == t ? '%1*' : '%2*')
-            let s .= ' '
-            let wn = tabpagewinnr(i,'$')
-
-            let s .= '%#TabNum#'
-            let s .= i
-            " let s .= '%*'
-            let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
-            let bufnr = buflist[winnr - 1]
-            let file = bufname(bufnr)
-            let buftype = getbufvar(bufnr, 'buftype')
-            if buftype == 'nofile'
-                if file =~ '\/.'
-                    let file = substitute(file, '.*\/\ze.', '', '')
-                endif
-            else
-                let file = fnamemodify(file, ':p:t')
-            endif
-            if file == ''
-                let file = '[No Name]'
-            endif
-            let s .= ' ' . file . ' '
-            let i = i + 1
-        endwhile
-        let s .= '%T%#TabLineFill#%='
-        let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
-        return s
-    endfunction
-    set stal=2
-    set tabline=%!MyTabLine()
-    set showtabline=1
-    " highlight link TabNum Special
-endif
 
 
 
@@ -524,5 +482,59 @@ hi Sneak ctermfg=160 ctermbg=none
 
 set splitright
 set splitbelow
+set noswapfile
 
 autocmd VimLeave * set guicursor=n:ver25-iCursor
+
+hi VertSplit ctermbg=none ctermfg=8
+hi TabLineFill ctermbg=none ctermfg=1
+hi TabLine ctermfg=8 ctermbg=7
+" set fillchars+=vert:|
+"
+
+" tab numbers
+function! Tabline()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    let tab = i + 1
+    let winnr = tabpagewinnr(tab)
+    let buflist = tabpagebuflist(tab)
+    let bufnr = buflist[winnr - 1]
+    let bufname = bufname(bufnr)
+    let bufmodified = getbufvar(bufnr, "&mod")
+
+    let s .= '%' . tab . 'T'
+    let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+    let s .= ' ' . tab .' '
+    let s .= (bufname != '' ? fnamemodify(bufname, ':t') . ' ' : '[No Name] ')
+
+    if bufmodified
+      let s .= '[+] '
+    endif
+  endfor
+
+  let s .= '%#TabLineFill#'
+  if (exists("g:tablineclosebutton"))
+    let s .= '%=%999XX'
+  endif
+  return s
+endfunction
+set tabline=%!Tabline()
+
+
+" Go to tab by number
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" Go to last active tab
+au TabLeave * let g:lasttab = tabpagenr()
+nnoremap <silent> tt :exe "tabn ".g:lasttab<cr>
+vnoremap <silent> tt :exe "tabn ".g:lasttab<cr>
