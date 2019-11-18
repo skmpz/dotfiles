@@ -9,20 +9,13 @@ call plug#begin()
 Plug 'ervandew/supertab'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
-Plug 'aserebryakov/vim-todo-lists.git'
 Plug 'Shougo/echodoc.vim'
 Plug 'janko-m/vim-test'
-Plug 'aserebryakov/vim-todo-lists'
-Plug 'derekwyatt/vim-scala'
 Plug 'terryma/vim-expand-region'
-Plug 'rust-lang/rust.vim'
-" Plug 'neomake/neomake'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'rhysd/clever-f.vim'           " plugin_clever_f
 Plug 'airblade/vim-gitgutter'
-Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-fugitive'
@@ -538,3 +531,23 @@ noremap <leader>0 :tablast<cr>
 au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> tt :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> tt :exe "tabn ".g:lasttab<cr>
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+hi CocErrorSign ctermbg=1 ctermfg=16
+hi CocErrorHighlight ctermbg=1 ctermfg=16
