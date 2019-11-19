@@ -28,6 +28,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'w0rp/ale'
 call plug#end()
@@ -514,7 +515,6 @@ function! Tabline()
 endfunction
 set tabline=%!Tabline()
 
-
 " Go to tab by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -540,7 +540,6 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -549,5 +548,11 @@ function! s:show_documentation()
     endif
 endfunction
 
+" coc colors
 hi CocErrorSign ctermbg=1 ctermfg=16
 hi CocErrorHighlight ctermbg=1 ctermfg=16
+hi CocFloating ctermbg=16
+
+" cpp highlight extras
+let g:cpp_member_variable_highlight = 1
+let g:cpp_posix_standard = 1
