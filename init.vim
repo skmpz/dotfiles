@@ -478,19 +478,17 @@ autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
 autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 
-hi Sneak ctermfg=160 ctermbg=none
-
 set splitright
 set splitbelow
 set noswapfile
 
 autocmd VimLeave * set guicursor=n:ver25-iCursor
 
+hi Sneak ctermfg=160 ctermbg=none
 hi VertSplit ctermbg=none ctermfg=8
 hi TabLineFill ctermbg=none ctermfg=1
 hi TabLine ctermfg=8 ctermbg=7
-" set fillchars+=vert:|
-"
+hi TabLineSel ctermfg=6 ctermbg=17
 
 " tab numbers
 function! Tabline()
@@ -521,7 +519,6 @@ function! Tabline()
 endfunction
 set tabline=%!Tabline()
 
-
 " Go to tab by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -538,3 +535,7 @@ noremap <leader>0 :tablast<cr>
 au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> tt :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> tt :exe "tabn ".g:lasttab<cr>
+
+let g:sneak#label = 1
+nnoremap <leader>s /
+nnoremap <leader>S ?
