@@ -17,7 +17,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'rhysd/clever-f.vim'           " plugin_clever_f
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-commentary'
-Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
@@ -28,9 +27,26 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+
 Plug 'w0rp/ale'
 call plug#end()
+
+function! s:incsearch_config(...) abort
+  return incsearch#util#deepextend(deepcopy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {
+  \     "\<CR>": '<Over>(easymotion)'
+  \   },
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> s  incsearch#go(<SID>incsearch_config())
+noremap <silent><expr> S  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
 
 highlight BookmarkSign ctermbg=NONE ctermfg=160
 highlight BookmarkLine ctermbg=194 ctermfg=NONE
@@ -65,8 +81,8 @@ let g:ale_lint_on_save = 1
 
 let g:ale_cpp_cquery_executable = "/usr/local/bin/cquery"
 let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/9.0.0_1/bin/clang-tidy"
-let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order --linelength=110"
-let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls']
+let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line --linelength=110"
+let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
 let g:ale_cpp_cppcheck_executable = '/usr/local/bin/cppcheck'
 let g:ale_cpp_cppcheck_options = '--enable=all'
@@ -167,7 +183,7 @@ hi Normal ctermbg=none
 hi Search ctermfg=160 ctermbg=none
 hi LineNr ctermbg=none
 hi NonText ctermbg=none
-hi CursorLine ctermbg=17
+hi CursorLine ctermbg=235
 hi MatchParen cterm=none ctermbg=green ctermfg=blue
 
 " stop highlight after search
@@ -220,9 +236,6 @@ nnoremap Y y$
 nmap <leader>c gcc
 vmap <leader>c gc
 
-let g:sneak#s_next = 1
-let g:sneak#use_ic_scs = 1
-
 " grep word in file and open location list
 nnoremap <leader>d "_d
 nnoremap <leader>D "_D
@@ -235,8 +248,6 @@ nnoremap <leader>n :cnext<CR>
 nnoremap <leader>N :cprev<CR>
 nnoremap <leader>o :FZF<CR>
 nnoremap <leader>q :q<CR>
-" nnoremap s /
-" nnoremap S ?
 nnoremap <leader>t :call fzf#vim#tags("'".expand('<cword>'))<cr>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>, :mks! ~/.sess<cr>
@@ -553,3 +564,7 @@ hi CocFloating ctermbg=16
 " cpp highlight extras
 let g:cpp_member_variable_highlight = 1
 let g:cpp_posix_standard = 1
+
+set wildignore+=build/**
+nnoremap <leader>j :vimgrep <cword> **/*.cc **/*.hh \| copen 20<cr>
+nnoremap <leader>k :vimgrep '' **/*.cc **/*.hh \| copen 20<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
