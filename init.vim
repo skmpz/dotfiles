@@ -82,7 +82,7 @@ let g:ale_lint_on_save = 1
 let g:ale_cpp_cquery_executable = "/usr/local/bin/cquery"
 let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/9.0.0_1/bin/clang-tidy"
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line --linelength=110"
-let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr']
+let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr', '-cert-env33-c', '-hicpp-no-array-decay', '-readability-magic-numbers']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
 let g:ale_cpp_cppcheck_executable = '/usr/local/bin/cppcheck'
 let g:ale_cpp_cppcheck_options = '--enable=all'
