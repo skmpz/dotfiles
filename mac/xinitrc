@@ -3,7 +3,7 @@ setxkbmap -option grp:win_space_toggle us,el
 xrdb -merge ~/.Xresources
 setxkbmap -option caps:escape
 #xrandr --addmode Virtual1 1920x1080
-xrandr --output Virtual1 --mode 1920x1080
+xrandr --output Virtual1 --mode 3628x2041
 prlcc &
 sleep 2
 feh --bg-scale ~/dotfiles/bg.jpg
