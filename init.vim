@@ -27,9 +27,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
 
 Plug 'w0rp/ale'
 call plug#end()
@@ -244,8 +241,10 @@ nnoremap C "_C
 nnoremap <leader>j :A<CR>
 nnoremap <leader>f :IH<CR>
 nnoremap <leader>g :lvim <cword> * <bar> :lopen<cr>
-nnoremap <leader>n :cnext<CR>
-nnoremap <leader>N :cprev<CR>
+nnoremap <leader>n :call CocAction('diagnosticNext')<CR>
+nnoremap <leader>N :call CocAction('diagnosticPrevious')<CR>
+nnoremap s /
+nnoremap S ?
 nnoremap <leader>o :FZF<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>t :call fzf#vim#tags("'".expand('<cword>'))<cr>
