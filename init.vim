@@ -69,7 +69,7 @@ let g:ale_linters = {
             \ }
 
 let g:ale_fixers = {
-            \ 'cpp': ['uncrustify'],
+            \ 'cpp': ['clang-format'],
             \ 'c': ['uncrustify'],
             \ 'rust': ['rustfmt']
             \ }
@@ -78,11 +78,13 @@ let g:ale_lint_on_save = 1
 
 let g:ale_cpp_cquery_executable = "/usr/local/bin/cquery"
 let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/9.0.0_1/bin/clang-tidy"
-let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line --linelength=110"
+let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line,-runtime/references,-whitespace/indent --linelength=110"
 let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr', '-cert-env33-c', '-hicpp-no-array-decay', '-readability-magic-numbers']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
 let g:ale_cpp_cppcheck_executable = '/usr/local/bin/cppcheck'
 let g:ale_cpp_cppcheck_options = '--enable=all'
+
+let g:ale_cpp_clangformat_options = '-style=file'
 
 let g:ale_c_parse_compile_commands = 1
 let g:ale_c_cquery_executable = "/usr/local/bin/cquery"
@@ -476,9 +478,9 @@ func! RangeUncrustify(language) range
   return call('Uncrustify2', extend([a:language], [a:firstline, a:lastline]))
 endfunc
 
-autocmd FileType c noremap <buffer> <c-f> :call Uncrustify('c')<CR>
+autocmd FileType c noremap <buffer> <c-f> :ALEFix<CR>
 autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
-autocmd FileType cpp noremap <buffer> <c-f> :call Uncrustify('cpp')<CR>
+autocmd FileType cpp noremap <buffer> <c-f> :ALEFix<CR>
 autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 
 set splitright
@@ -490,8 +492,8 @@ autocmd VimLeave * set guicursor=n:ver25-iCursor
 hi Sneak ctermfg=160 ctermbg=none
 hi VertSplit ctermbg=none ctermfg=8
 hi TabLineFill ctermbg=none ctermfg=1
-hi TabLine ctermfg=8 ctermbg=7
-hi TabLineSel ctermfg=6 ctermbg=17
+hi TabLine ctermfg=0 ctermbg=7
+hi TabLineSel ctermfg=1 ctermbg=0
 
 " tab numbers
 function! Tabline()
@@ -567,3 +569,14 @@ let g:cpp_posix_standard = 1
 set wildignore+=build/**
 nnoremap <leader>j :vimgrep <cword> **/*.cc **/*.hh \| copen 20<cr>
 nnoremap <leader>k :vimgrep '' **/*.cc **/*.hh \| copen 20<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+
+nnoremap <leader>ss :e **/%:t:r.cc<CR>
+nnoremap <leader>sh :e **/%:t:r.hh<CR>
+nnoremap <leader>st :e **/%:t:r_test.cc<CR>
+nnoremap <leader>svs :vsp **/%:t:r.cc<CR>
+nnoremap <leader>svh :vsp **/%:t:r.hh<CR>
+nnoremap <leader>svt :vsp **/%:t:r_test.cc<CR>
+nnoremap <leader>sxs :sp **/%:t:r.cc<CR>
+nnoremap <leader>sxh :sp **/%:t:r.hh<CR>
+nnoremap <leader>sxt :sp **/%:t:r_test.cc<CR>
+imap jj <esc>
