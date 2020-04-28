@@ -181,7 +181,7 @@ hi Search ctermfg=160 ctermbg=none
 hi LineNr ctermbg=none
 hi NonText ctermbg=none
 hi CursorLine ctermbg=235
-hi MatchParen cterm=none ctermbg=green ctermfg=blue
+hi MatchParen cterm=none ctermbg=none ctermfg=magenta
 
 " stop highlight after search
 noremap <ESC> <ESC>:nohl<CR>
