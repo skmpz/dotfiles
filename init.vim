@@ -27,26 +27,14 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'w0rp/ale'
 call plug#end()
 
-function! s:incsearch_config(...) abort
-  return incsearch#util#deepextend(deepcopy({
-  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-  \   'keymap': {
-  \     "\<CR>": '<Over>(easymotion)'
-  \   },
-  \   'is_expr': 0
-  \ }), get(a:, 1, {}))
-endfunction
-
-noremap <silent><expr> s  incsearch#go(<SID>incsearch_config())
-noremap <silent><expr> S  incsearch#go(<SID>incsearch_config({'command': '?'}))
-noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
-
 highlight BookmarkSign ctermbg=NONE ctermfg=160
 highlight BookmarkLine ctermbg=194 ctermfg=NONE
+
 let g:bookmark_sign = 'M'
 let g:bookmark_highlight_lines = 1
 
@@ -64,7 +52,7 @@ let g:UltiSnipsJumpForwardTrigger="`"
 
 " let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-            \ 'cpp': ['cppcheck', 'clangtidy', 'cpplint'],
+            \ 'cpp': ['clangtidy', 'cpplint'],
             \ 'c': ['clangtidy', 'gcc']
             \ }
 
@@ -76,7 +64,7 @@ let g:ale_fixers = {
 " let g:ale_c_gcc_options='-Wall -Wextra'
 let g:ale_lint_on_save = 1
 
-let g:ale_cpp_cquery_executable = "/usr/local/bin/cquery"
+let g:ale_cpp_clangd_executable = "/usr/local/Cellar/llvm/10.0.0_3/bin/clangd"
 let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/9.0.0_1/bin/clang-tidy"
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line,-runtime/references,-whitespace/indent --linelength=110"
 let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr', '-cert-env33-c', '-hicpp-no-array-decay', '-readability-magic-numbers']
@@ -580,3 +568,10 @@ nnoremap <leader>sxs :sp **/%:t:r.cc<CR>
 nnoremap <leader>sxh :sp **/%:t:r.hh<CR>
 nnoremap <leader>sxt :sp **/%:t:r_test.cc<CR>
 imap jj <esc>
+"
+" Set the filetype based on the file's extension, overriding any
+" 'filetype' that has already been set
+au BufRead,BufNewFile *.icc set filetype=cpp
+
+nnoremap <C-u> {
+nnoremap <C-d> }
