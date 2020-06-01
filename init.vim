@@ -32,11 +32,10 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'w0rp/ale'
 call plug#end()
 
-highlight BookmarkSign ctermbg=NONE ctermfg=160
-highlight BookmarkLine ctermbg=194 ctermfg=NONE
 
 let g:bookmark_sign = 'M'
-let g:bookmark_highlight_lines = 1
+let g:bookmark_highlight_lines = 0
+highlight BookmarkSign ctermbg=8 ctermfg=160
 
 " enable echodoc
 let g:echodoc_enable_at_startup = 1
@@ -229,7 +228,7 @@ nnoremap <leader>D "_D
 nnoremap c "_c
 nnoremap C "_C
 nnoremap <leader>j :A<CR>
-nnoremap <leader>f :IH<CR>
+nnoremap <leader>f :CocList outline<CR>
 nnoremap <leader>g :lvim <cword> * <bar> :lopen<cr>
 nnoremap <leader>n :call CocAction('diagnosticNext')<CR>
 nnoremap <leader>N :call CocAction('diagnosticPrevious')<CR>
@@ -547,8 +546,9 @@ endfunction
 
 " coc colors
 hi CocErrorSign ctermbg=1 ctermfg=16
-hi CocErrorHighlight ctermbg=1 ctermfg=16
 hi CocFloating ctermbg=16
+hi CocErrorHighlight ctermbg=none ctermfg=1
+hi CocErrorFloat ctermbg=none
 
 " cpp highlight extras
 let g:cpp_member_variable_highlight = 1
@@ -573,5 +573,4 @@ imap jj <esc>
 " 'filetype' that has already been set
 au BufRead,BufNewFile *.icc set filetype=cpp
 
-nnoremap <C-u> {
-nnoremap <C-d> }
+highlight SignColumn ctermbg=NONE
