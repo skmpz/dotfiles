@@ -87,17 +87,16 @@ check $?
 
 echo -n "Installing [n]vim and tools.. "
 sudo pkg install -y vim neovim >> .install.log 2>> .install.log
+check_no_ok $?
 sudo pip-2.7 install --upgrade neovim >> .install.log 2>> .install.log
-sudo pip-3.6 install --upgrade neovim >> .install.log 2>> .install.log
+check_no_ok $?
+sudo pip-3.7 install --upgrade neovim >> .install.log 2>> .install.log
 check $?
 
 echo -n "Configuring system files..... "
-sudo chsh -s /usr/local/bin/bash sk >> .install.log 2>> .install.log
 rm -rf /home/sk/bin/
 rm -rf /home/sk/.bash/
 rm -rf /home/sk/.bashrc
-rm -rf /home/sk/.rsession/
-rm -rf /home/sk/.rtorrentrc
 rm -rf /home/sk/.gtkrc-2.0
 rm -rf /home/sk/.xinitrc
 rm -rf /home/sk/.Xresources
