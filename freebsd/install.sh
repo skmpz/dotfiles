@@ -22,7 +22,32 @@ sudo sh -c 'echo "Defaults timestamp_timeout=-1">>/usr/local/etc/sudoers' >> .in
 check $?
 
 echo -n "Installing system tools...... "
-sudo pkg install -y bash cmake gcc synergy freecolor autocutsel gmake rsync scrot ImageMagick7 e2fsprogs pkgconf wget unrar python2 python3 py27-pip py37-pip pulseaudio alsa-utils mate-terminal rxvt-unicode urxvt-perls fusefs-ntfs >> .install.log 2>> .install.log
+sudo pkg install -y \
+bash \
+cmake \
+gcc \
+synergy \
+freecolor \
+autocutsel \
+gmake \
+rsync \
+scrot \
+ImageMagick7 \
+e2fsprogs \
+pkgconf \
+wget \
+unrar \
+python2 \
+python3 \
+py27-pip \
+py37-pip \
+pulseaudio \
+alsa-utils \
+mate-terminal \
+rxvt-unicode \
+urxvt-perls \
+fusefs-ntfs \
+>> .install.log 2>> .install.log
 check $?
 
 echo -n "Installing xorg.............. "
