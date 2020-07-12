@@ -23,54 +23,68 @@ check $?
 
 echo -n "Installing system tools...... "
 sudo pkg install -y \
-bash \
-cmake \
-gcc \
-synergy \
-freecolor \
-autocutsel \
-gmake \
-rsync \
-scrot \
 ImageMagick7 \
+alsa-utils \
+autocutsel \
+bash \
+caja \
+caja-extensions \
+calibre \
+chromium \
+cmake \
 e2fsprogs \
+en-hunspell \
+engrampa \
+evince \
+feh \
+freecolor \
+fusefs-ntfs \
+gcc \
+gedit \
+gmake \
+i3gaps \
+i3lock \
+i3status \
+libreoffice \
+mate-terminal \
+mpv \
+nomacs \
 pkgconf \
-wget \
-unrar \
-python2 \
-python3 \
+pulseaudio \
 py27-pip \
 py37-pip \
-pulseaudio \
-alsa-utils \
-mate-terminal \
+python2 \
+python3 \
+rofi \
+rsync \
 rxvt-unicode \
+scrot \
+synergy \
+unrar \
 urxvt-perls \
-fusefs-ntfs \
+wget \
+xclip \
+xorg \
+zim \
 >> .install.log 2>> .install.log
 check $?
 
-echo -n "Installing xorg.............. "
-sudo pkg install -y xorg xclip > .install.log 2>> .install.log
-check $?
-
-echo -n "Installing window manager.... "
-sudo pkg install -y i3gaps i3status i3lock rofi feh >> .install.log 2>> .install.log
-check $?
-
 echo -n "Installing fonts............. "
-sudo pkg install -y dejavu Inconsolata-LGC font-awesome sourcecodepro-ttf ubuntu-font droid-fonts-ttf >> .install.log 2>> .install.log
+sudo pkg install -y \
+Inconsolata-LGC \
+dejavu \
+droid-fonts-ttf \
+font-awesome \
+sourcecodepro-ttf \
+ubuntu-font \
+>> .install.log 2>> .install.log
 check $?
 
-echo -n "Installing desktop apps...... "
-sudo pkg install -y caja libreoffice en-hunspell nomacs zim caja-extensions engrampa evince gedit chromium mpv calibre >> .install.log 2>> .install.log
-check $?
-
-echo -n "Setting up ports tree........ "
-sudo pkg install -y portmaster >> .install.log 2>> .install.log
-sudo portsnap fetch >> .install.log 2>> .install.log
-sudo portsnap extract >> .install.log 2>> .install.log
-check $?
+# echo -n "Setting up ports tree........ "
+# sudo pkg install -y portmaster >> .install.log 2>> .install.log
+# sudo portsnap fetch >> .install.log 2>> .install.log
+# sudo portsnap extract >> .install.log 2>> .install.log
+# check $?
 
 echo -n "Installing [n]vim and tools.. "
 sudo pkg install -y vim neovim >> .install.log 2>> .install.log
