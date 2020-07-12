@@ -65,7 +65,6 @@ urxvt-perls \
 wget \
 xclip \
 xorg \
-zim \
 >> .install.log 2>> .install.log
 check $?
 
