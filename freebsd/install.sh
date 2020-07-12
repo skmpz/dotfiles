@@ -42,7 +42,7 @@ fusefs-ntfs \
 gcc \
 gedit \
 gmake \
-i3gaps \
+i3-gaps \
 i3lock \
 i3status \
 libreoffice \
