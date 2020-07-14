@@ -26,7 +26,7 @@ done
 
 # check arguments
 echo "MODE $mode"
-if [ "$mode" != "laptop" ] && [ "$mode" != "home" ]; then show_usage; fi
+if [ "$mode" != "laptop" ] && [ "$mode" != "home" ]; then echo "wrong args"; exit 1; fi
 
 echo -n "Installing system tools...... "
 sudo pkg install -y \
