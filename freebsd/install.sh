@@ -18,8 +18,8 @@ check_no_ok() {
 for i in "$@"
 do
     case $i in
-        --laptop) mode="laptop"; shift 1 ;;
-        --home) mode="home"; shift 1 ;;
+        laptop) mode="laptop"; shift 1 ;;
+        home) mode="home"; shift 1 ;;
         *) ;;
     esac
 done
