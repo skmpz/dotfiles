@@ -9,7 +9,6 @@ URxvt*scrollBar:            false
 URxvt*saveLines:            20000
 URxvt*background:           #1C3749
 URxvt*foreground:           #36a9dc
-#URxvt*imLocale:             en_US.UTF-8
 URxvt*scrollTtyOutput:      false
 URxvt*scrollWithBuffer:     true
 URxvt*scrollTtyKeypress:    true
