@@ -14,7 +14,7 @@ workspace $w4 output DP-4
 workspace $w5 output HDMI-0
 
 bar {
-    status_command $HOME/dotfiles/laptop/status_bar.sh
+    status_command $HOME/dotfiles/freebsd/laptop/status_bar.sh
     tray_output primary
         font xft: Source Code Pro 9
         mode dock
