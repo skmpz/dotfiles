@@ -106,3 +106,4 @@ PATH=$PATH:$HOME/bin
 export LD_LIBRARY_PATH=/usr/local/lib/gcc7/
 # export LANG=en_US.UTF-8
 # export LC_COLLATE=C
+printf '\033[6 q\r'

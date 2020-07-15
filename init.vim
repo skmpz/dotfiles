@@ -478,6 +478,7 @@ set splitright
 set splitbelow
 set noswapfile
 
+" restore cursor on exit
 autocmd VimLeave * set guicursor=n:ver25-iCursor
 
 hi VertSplit ctermbg=none ctermfg=8
