@@ -1,0 +1,3 @@
+-> install
+-> sudo xbps-install -Syu
+-> sudo xpbs-install -y git
