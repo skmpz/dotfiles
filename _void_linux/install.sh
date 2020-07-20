@@ -137,7 +137,7 @@ elif [ "$mode" == "LAPTOP" ]; then
     ln -sf $HOME/dotfiles/_void_linux/laptop/config.local $HOME/.config/i3/config.local
     ln -sf $HOME/dotfiles/_void_linux/laptop/bashrc $HOME/.bashrc
 fi
-nvim +PlugInstall +qall >> $LOGFILE 2>&1
-nvim +UpdateRemotePlugins +qall >> $LOGFILE 2>&1
+nvim +PlugInstall +qall
+nvim +UpdateRemotePlugins +qall
 printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme
 sudo chown sk:sk -R $HOME
