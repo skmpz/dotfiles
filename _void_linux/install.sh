@@ -74,6 +74,7 @@ pulseaudio \
 python \
 python-neovim \
 python3 \
+python3-neovim \
 rofi \
 rsync \
 rxvt-unicode \
