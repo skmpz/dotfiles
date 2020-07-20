@@ -111,7 +111,7 @@ sudo xbps-install -Sy \
 alsa-oss \
 alsa-utils \
 alsa-utils \
-arc-icons \
+arc-icon-theme \
 arc-theme \
 autoconf \
 automake \
