@@ -137,7 +137,7 @@ gedit \
 gparted \
 i3lock \
 i3status \
-imagemagick \
+ImageMagick \
 mate-terminal \
 mpv \
 neovim \
