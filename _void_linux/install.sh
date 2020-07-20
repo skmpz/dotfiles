@@ -30,6 +30,7 @@ if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "LAPTOP" ]; then
 
 echo "Installing system.."
 sudo xbps-install -Sy \
+NetworkManager \
 alsa-oss \
 alsa-utils \
 arc-icon-theme \
@@ -45,7 +46,9 @@ caja \
 caja-open-terminal \
 calibre \
 chromium \
+chrony \
 clang \
+clang-tools-extra \
 cmake \
 cppcheck \
 curl \
@@ -64,9 +67,8 @@ i3lock \
 i3status \
 mate-terminal \
 mpv \
-NetworkManager \
-network-manager-applet \
 neovim \
+network-manager-applet \
 nmap \
 nodejs \
 nomacs \
@@ -145,6 +147,7 @@ sudo rm -rf /var/service/dhcpcd/
 sudo ln -sf /etc/sv/dbus/ /var/service/
 sudo ln -sf /etc/sv/bluetoothd/ /var/service/
 sudo ln -sf /etc/sv/NetworkManager/ /var/service/
+sudo ln -sf /etc/sv/chronyd/ /var/service/
 
 sudo usermod -a -G bluetooth sk
 sudo usermod -a -G network sk
