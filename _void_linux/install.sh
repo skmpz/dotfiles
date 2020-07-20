@@ -106,11 +106,6 @@ done
 if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "LAPTOP" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
-_start "Updating"
-sudo add-apt-repository -y ppa:noobslab/icons >> $LOGFILE 2>&1
-sudo apt update -y >> $LOGFILE 2>&1 && sudo apt upgrade -y >> $LOGFILE 2>&1
-_check_ok $?
-
 _start "Installing system"
 sudo xbps-install -Sy \
 alsa-oss \
