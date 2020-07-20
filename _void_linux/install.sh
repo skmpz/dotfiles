@@ -30,6 +30,7 @@ if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "LAPTOP" ]; then
 
 echo "Installing system.."
 sudo xbps-install -Sy \
+ImageMagick \
 NetworkManager \
 alsa-oss \
 alsa-utils \
