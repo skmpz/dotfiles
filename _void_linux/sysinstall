@@ -2,3 +2,6 @@
 -> wpa_passphrase >> /etc/wpa_supplicant/wpa_supplicant.conf [wifi]
 -> sudo xbps-install -Syu
 -> sudo xpbs-install -y git
+-> git clone https://github.com/skmpz/dotfiles
+-> cd ~/dotfiles/_void_linux/
+-> ./install.sh
