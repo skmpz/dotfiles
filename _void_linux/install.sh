@@ -58,6 +58,7 @@ dropbox \
 engrampa \
 evince \
 feh \
+firefox \
 font-adobe-source-code-pro \
 font-awesome \
 font-inconsolata-otf \
