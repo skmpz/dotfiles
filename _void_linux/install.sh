@@ -52,7 +52,7 @@ engrampa \
 feh \
 font-adobe-source-code-pro \
 font-awesome \
-font-inconsolata-otf
+font-inconsolata-otf \
 void-repo-nonfree \
 foremost \
 gdb \
@@ -115,8 +115,8 @@ mkdir -p $HOME/screen/
 # sudo cp $HOME/dotfiles/fonts/source-code-pro/* /usr/share/fonts/truetype/
 # sudo cp $HOME/dotfiles/locale /etc/default/locale
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOGFILE 2>&1
-git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt >> $LOGFILE 2>&1
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
 cp $HOME/dotfiles/font-size $HOME/.urxvt/ext/
 ln -sf $HOME/dotfiles/gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -sf $HOME/dotfiles/settings.ini $HOME/.config/gtk-3.0/settings.ini
@@ -139,5 +139,5 @@ elif [ "$mode" == "LAPTOP" ]; then
 fi
 nvim +PlugInstall +qall >> $LOGFILE 2>&1
 nvim +UpdateRemotePlugins +qall >> $LOGFILE 2>&1
-printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme >> $LOGFILE 2>&1
-# sudo chown sk:sk -R $HOME > /dev/null 2>> $LOGFILE
+printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme
+sudo chown sk:sk -R $HOME
