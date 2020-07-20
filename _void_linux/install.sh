@@ -130,7 +130,6 @@ curl \
 engrampa \
 feh \
 font-awesome \
-font-awesome5 \
 foremost \
 gdb \
 gedit \
