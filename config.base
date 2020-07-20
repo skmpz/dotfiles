@@ -162,20 +162,12 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 for_window [class="(?i)evince"] floating enable, border normal 2, move position center
-for_window [class="(?i)gimp"] floating enable, border normal 2, move position center
-for_window [class="(?i)gvim"] floating enable, border normal 2, move position center
 for_window [class="(?i)gedit"] floating enable, border normal 2, move position center
 for_window [class="(?i)caja"] floating enable, border normal 2, move position center,title_format " %title"
-for_window [class="(?i)FBReader"] floating enable, border normal 2, move position center
 for_window [class="(?i)mate-terminal"] floating enable, border normal 2, move position center
 for_window [class="(?i)mpv"] floating enable, border normal 2, move position center
 for_window [class="(?i)Image Lounge"] floating enable, border normal 2, move position center
-for_window [class="(?i)worker"] floating enable, border normal 2, move position center
 for_window [class="(?i)engrampa"] floating enable, border normal 2, move position center
 for_window [class="(?i)gparted"] floating enable, border normal 2, move position center
-for_window [class="(?i)Hopper"] floating enable, border normal 2, move position center
-for_window [class="(?i)wireshark-gtk"] floating enable, border normal 2, move position center
 for_window [class="(?i)wireshark"] floating enable, border normal 2, move position center
-for_window [class="(?i)libreoffice-calc"] floating enable, border normal 2, move position center
-for_window [class="(?i)StegSolve"] floating enable, border normal 2, move position center
 for_window [class="(?i)blueman-manager"] floating enable, border normal 2, move position center

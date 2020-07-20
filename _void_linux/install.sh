@@ -54,6 +54,7 @@ cppcheck \
 curl \
 dejavu-fonts-ttf \
 engrampa \
+evince \
 feh \
 font-adobe-source-code-pro \
 font-awesome \
@@ -88,7 +89,7 @@ upower \
 vim \
 void-repo-nonfree \
 wget \
-wireshark-gtk \
+wireshark-qt \
 xclip \
 xcursor-themes \
 xorg \
