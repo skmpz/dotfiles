@@ -164,7 +164,6 @@ xclip \
 xcursor-themes \
 xorg \
 xterm \
-xutils-dev \
 >> $LOGFILE 2>&1
 _check_ok $?
 
