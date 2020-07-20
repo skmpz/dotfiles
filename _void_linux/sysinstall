@@ -1,3 +1,4 @@
 -> install
+-> wpa_passphrase >> /etc/wpa_supplicant/wpa_supplicant.conf [wifi]
 -> sudo xbps-install -Syu
 -> sudo xpbs-install -y git
