@@ -156,7 +156,6 @@ rxvt-unicode \
 scrot \
 dejavu-fonts-ttf \
 ttf-ubuntu-font-family \
-unrar \
 upower \
 vim \
 wget \
