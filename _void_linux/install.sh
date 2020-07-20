@@ -134,6 +134,7 @@ foremost \
 gdb \
 gedit \
 gparted \
+i3-gaps \
 i3lock \
 i3status \
 ImageMagick \
