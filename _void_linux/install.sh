@@ -134,8 +134,6 @@ font-awesome5 \
 foremost \
 gdb \
 gedit \
-google-mock \
-googletest \
 gparted \
 i3lock \
 i3status \
