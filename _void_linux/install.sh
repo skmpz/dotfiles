@@ -144,7 +144,7 @@ neovim \
 nmap \
 nodejs \
 nomacs \
-openjdk-8-jdk \
+openjdk8 \
 p7zip \
 pulseaudio \
 python \
