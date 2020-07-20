@@ -124,7 +124,6 @@ caja-open-terminal \
 calibre \
 chromium \
 clang \
-clang-tidy \
 cmake \
 cppcheck \
 curl \
