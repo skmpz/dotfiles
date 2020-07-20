@@ -54,6 +54,7 @@ cmake \
 cppcheck \
 curl \
 dejavu-fonts-ttf \
+dropbox \
 engrampa \
 evince \
 feh \
