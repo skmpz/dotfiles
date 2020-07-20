@@ -154,7 +154,7 @@ rofi \
 rsync \
 rxvt-unicode \
 scrot \
-ttf-dejavu \
+dejavu-fonts-ttf \
 ttf-ubuntu-font-family \
 unrar \
 upower \
