@@ -122,7 +122,7 @@ blueman \
 caja \
 caja-open-terminal \
 calibre \
-chromium-browser \
+chromium \
 clang \
 clang-tidy \
 cmake \
