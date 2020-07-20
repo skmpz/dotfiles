@@ -48,12 +48,12 @@ clang \
 cmake \
 cppcheck \
 curl \
+dejavu-fonts-ttf \
 engrampa \
 feh \
 font-adobe-source-code-pro \
 font-awesome \
 font-inconsolata-otf \
-void-repo-nonfree \
 foremost \
 gdb \
 gedit \
@@ -61,7 +61,6 @@ gparted \
 i3-gaps \
 i3lock \
 i3status \
-ImageMagick \
 mate-terminal \
 mpv \
 neovim \
@@ -79,16 +78,16 @@ rofi \
 rsync \
 rxvt-unicode \
 scrot \
-dejavu-fonts-ttf \
 ttf-ubuntu-font-family \
 upower \
 vim \
+void-repo-nonfree \
 wget \
 wireshark-gtk \
 xclip \
 xcursor-themes \
 xorg \
-xterm \
+xterm
 
 echo "Setting up config files.."
 cd $HOME
@@ -111,10 +110,6 @@ mkdir -p $HOME/.config/nvim/
 mkdir -p $HOME/.config/gtk-3.0/
 mkdir -p $HOME/.urxvt/ext/
 mkdir -p $HOME/screen/
-# sudo mkdir -p /usr/share/fonts/truetype/
-# sudo cp $HOME/dotfiles/fonts/Inconsolata.otf /usr/share/fonts/truetype/
-# sudo cp $HOME/dotfiles/fonts/source-code-pro/* /usr/share/fonts/truetype/
-# sudo cp $HOME/dotfiles/locale /etc/default/locale
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
