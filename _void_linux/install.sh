@@ -129,8 +129,8 @@ cppcheck \
 curl \
 engrampa \
 feh \
-fonts-font-awesome \
-fonts-inconsolata \
+font-awesome \
+font-awesome5 \
 foremost \
 gdb \
 gedit \
