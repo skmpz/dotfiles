@@ -32,7 +32,6 @@ echo "Installing system.."
 sudo xbps-install -Sy \
 alsa-oss \
 alsa-utils \
-alsa-utils \
 arc-icon-theme \
 arc-theme \
 autoconf \
@@ -54,6 +53,7 @@ feh \
 font-adobe-source-code-pro \
 font-awesome \
 font-inconsolata-otf
+void-repo-nonfree \
 foremost \
 gdb \
 gedit \
