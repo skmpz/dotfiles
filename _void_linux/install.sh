@@ -141,7 +141,6 @@ ImageMagick \
 mate-terminal \
 mpv \
 neovim \
-netdiscover \
 nmap \
 nodejs \
 nomacs \
