@@ -39,7 +39,7 @@ do
             IP="$IP_GET [eth]"
         fi
     else
-        SSID=$(iwgetid -r)
+        SSID=$(iw wlo1 info | grep ssid | awk '{print $2}')
         IP="$IP_GET [$SSID]"
     fi
 
@@ -60,7 +60,7 @@ do
     if [ "$BATTERY_STATE" != "discharging" ]; then
         BATTERY="$BATTERY []"
     fi
-    full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD | $VOL | $BATTERY |  $DATE |  $TIME ";
+    full=" $VERSION |  $H_USED/$H_TOTAL [$H_PERC] |  $MEM_USED/$MEM_TOTAL |  $IP |  $uptime |  $LOAD | $VOL | $BATTERY |  $DATE |  $TIME ";
     echo "$full"
     sleep 1
 done

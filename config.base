@@ -178,3 +178,4 @@ for_window [class="(?i)wireshark-gtk"] floating enable, border normal 2, move po
 for_window [class="(?i)wireshark"] floating enable, border normal 2, move position center
 for_window [class="(?i)libreoffice-calc"] floating enable, border normal 2, move position center
 for_window [class="(?i)StegSolve"] floating enable, border normal 2, move position center
+for_window [class="(?i)blueman-manager"] floating enable, border normal 2, move position center

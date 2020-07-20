@@ -40,6 +40,7 @@ bash-completion \
 bc \
 binwalk \
 blueman \
+bluez-alsa \
 caja \
 caja-open-terminal \
 calibre \
@@ -63,6 +64,8 @@ i3lock \
 i3status \
 mate-terminal \
 mpv \
+NetworkManager \
+network-manager-applet \
 neovim \
 nmap \
 nodejs \
@@ -137,3 +140,11 @@ nvim +PlugInstall +qall
 nvim +UpdateRemotePlugins +qall
 printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme
 sudo chown sk:sk -R $HOME
+
+sudo rm -rf /var/service/dhcpcd/
+sudo ln -sf /etc/sv/dbus/ /var/service/
+sudo ln -sf /etc/sv/bluetoothd/ /var/service/
+sudo ln -sf /etc/sv/NetworkManager/ /var/service/
+
+sudo usermod -a -G bluetooth sk
+sudo usermod -a -G network sk

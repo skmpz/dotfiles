@@ -1,5 +1,5 @@
 # alt-p -> startup script
-bindsym $mod+p exec "$HOME/dotfiles/laptop/startup.sh"
+bindsym $mod+p exec "$HOME/dotfiles/_void_linux/laptop/startup.sh"
 
 # xf86 sound controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
@@ -14,7 +14,7 @@ workspace $w4 output DP-4
 workspace $w5 output HDMI-0
 
 bar {
-    status_command $HOME/dotfiles/laptop/status_bar.sh
+    status_command $HOME/dotfiles/_void_linux/laptop/status_bar.sh
     tray_output primary
         font xft: Source Code Pro 9
         mode dock

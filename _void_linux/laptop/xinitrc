@@ -4,4 +4,6 @@ xrdb -merge ~/.Xresources
 setxkbmap -option caps:escape
 feh --bg-scale ~/dotfiles/bg.jpg
 cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
+blueman-applet &
+nm-applet &
 exec i3
