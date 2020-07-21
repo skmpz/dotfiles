@@ -29,6 +29,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'justinmk/vim-sneak'
+Plug 'airblade/vim-rooter'
 Plug 'w0rp/ale'
 call plug#end()
 
