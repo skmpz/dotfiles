@@ -70,6 +70,7 @@ i3-gaps \
 i3lock \
 i3status \
 mate-terminal \
+make \
 mpv \
 neovim \
 network-manager-applet \
@@ -83,6 +84,7 @@ python \
 python-neovim \
 python3 \
 python3-neovim \
+python3-pip \
 rofi \
 rsync \
 rxvt-unicode \
@@ -97,6 +99,9 @@ xclip \
 xcursor-themes \
 xorg \
 xterm
+
+echo "Installing additional software"
+pip install --upgrade conan
 
 echo "Setting up config files.."
 cd $HOME
