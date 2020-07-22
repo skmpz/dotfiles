@@ -91,6 +91,7 @@ rxvt-unicode \
 scrot \
 ttf-ubuntu-font-family \
 upower \
+unzip \
 vim \
 void-repo-nonfree \
 wget \
