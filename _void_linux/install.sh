@@ -63,6 +63,7 @@ font-adobe-source-code-pro \
 font-awesome \
 font-inconsolata-otf \
 foremost \
+gcc \
 gdb \
 gedit \
 gparted \
