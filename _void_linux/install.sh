@@ -70,14 +70,16 @@ gparted \
 i3-gaps \
 i3lock \
 i3status \
-mate-terminal \
 make \
+mate-terminal \
 mpv \
 neovim \
 network-manager-applet \
 nmap \
 nodejs \
 nomacs \
+noto-fonts-emoji \
+noto-fonts-ttf \
 openjdk8 \
 p7zip \
 pulseaudio \
@@ -91,8 +93,8 @@ rsync \
 rxvt-unicode \
 scrot \
 ttf-ubuntu-font-family \
-upower \
 unzip \
+upower \
 vim \
 void-repo-nonfree \
 wget \
