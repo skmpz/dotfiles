@@ -13,20 +13,4 @@ workspace $w3 output HDMI-0
 workspace $w4 output DP-4
 workspace $w5 output HDMI-0
 
-bar {
-    status_command $HOME/dotfiles/_void_linux/laptop/status_bar.sh
-    tray_output primary
-        font xft: Source Code Pro 9
-        mode dock
-        position top
-        height 24
-        colors {
-            background #1C3749
-            # statusline #fff
-            separator #000
-            focused_workspace #316181 #316181 #eff1f5
-            active_workspace #316181 #316181 #eff1f5
-            inactive_workspace #316181 #1C3749 #eff1f5
-            urgent_workspace #CF5F35 #CF5F35 #eff1f5
-        }
-}
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
