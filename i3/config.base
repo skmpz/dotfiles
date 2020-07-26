@@ -96,16 +96,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # workspace names
-set $w1 "  &#xf121;₁ "
-set $w2 "  &#xf268;₂ "
-set $w3 "  &#xf0ae;₃ "
-set $w4 "  &#xf1de;₄ "
-set $w5 "  &#xf0ae;₅ "
-set $w6 "  &#xf2d5;₆ "
-set $w7 "  &#xf2d5;₇ "
-set $w8 "  &#xf2d5;₈ "
-set $w9 "  &#xf2d5;₉ "
-set $w0 "  &#xf2d5;₀ "
+set $w1 "1"
+set $w2 "2"
+set $w3 "3"
+set $w4 "4"
+set $w5 "5"
+set $w6 "6"
+set $w7 "7"
+set $w8 "8"
+set $w9 "9"
+set $w0 "0"
 
 # switch to workspace
 bindsym $mod+1 workspace $w1

@@ -143,7 +143,7 @@ ln -sf $HOME/dotfiles/x/Xresources $HOME/.Xresources
 ln -sf $HOME/dotfiles/i3/config.base $HOME/.config/i3/config.base
 ln -sf $HOME/dotfiles/bash/inputrc $HOME/.inputrc
 ln -sf $HOME/dotfiles/polybar/launch.sh $HOME/.config/polybar/
-ln -sf $HOME/dotfiles/polybar/modules $HOME/.config/polybar/
+ln -sf $HOME/dotfiles/polybar/modules.ini $HOME/.config/polybar/
 if [ "$mode" == "HOME" ]; then
     ln -sf $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
     ln -sf $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
@@ -154,7 +154,7 @@ elif [ "$mode" == "LAPTOP" ]; then
     ln -sf $HOME/dotfiles/_void_linux/laptop/x/Xresources.local $HOME/.Xresources.local
     ln -sf $HOME/dotfiles/_void_linux/laptop/i3/config.local $HOME/.config/i3/config.local
     ln -sf $HOME/dotfiles/_void_linux/laptop/bash/bashrc $HOME/.bashrc
-    ln -sf $HOME/dotfiles/_void_linux/laptop/polybar/config $HOME/.config/polybar/
+    ln -sf $HOME/dotfiles/_void_linux/laptop/polybar/config.ini $HOME/.config/polybar/
 fi
 nvim +PlugInstall +qall
 nvim +UpdateRemotePlugins +qall
