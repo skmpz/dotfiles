@@ -159,7 +159,6 @@ fi
 nvim +PlugInstall +qall
 nvim +UpdateRemotePlugins +qall
 nvim +"CocInstall coc-clangd" +qall
-printf "[Icon Theme]\nInherits=whiteglass\n" | sudo tee /usr/share/icons/default/index.theme
 sudo chown sk:sk -R $HOME
 
 sudo rm -rf /var/service/dhcpcd/

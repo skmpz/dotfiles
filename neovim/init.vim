@@ -230,6 +230,8 @@ nnoremap <leader>d "_d
 nnoremap <leader>D "_D
 nnoremap c "_c
 nnoremap C "_C
+vnoremap c "_c
+vnoremap C "_C
 nnoremap <leader>j :A<CR>
 nnoremap <leader>f :CocList outline<CR>
 nnoremap <leader>g :lvim <cword> * <bar> :lopen<cr>
