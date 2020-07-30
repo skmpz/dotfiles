@@ -17,15 +17,15 @@ if [ $# -lt 1 ]; then show_usage ;fi
 for i in "$@"
 do
     case $i in
-        vm) mode="VM"; shift 1 ;;
         home) mode="HOME"; shift 1 ;;
         laptop) mode="LAPTOP"; shift 1 ;;
+        nuc) mode="NUC"; shift 1 ;;
         *) ;;
     esac
 done
 
 # check arguments
-if [ "$mode" != "HOME" ] && [ "$mode" != "VM" ] && [ "$mode" != "LAPTOP" ]; then show_usage; fi
+if [ "$mode" != "HOME" ] && [ "$mode" != "NUC" ] && [ "$mode" != "LAPTOP" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
 echo "Installing system.."
@@ -156,6 +156,12 @@ elif [ "$mode" == "LAPTOP" ]; then
     ln -sf $HOME/dotfiles/_void_linux/laptop/i3/config.local $HOME/.config/i3/config.local
     ln -sf $HOME/dotfiles/_void_linux/laptop/bash/bashrc $HOME/.bashrc
     ln -sf $HOME/dotfiles/_void_linux/laptop/polybar/config.ini $HOME/.config/polybar/
+elif [ "$mode" == "NUC" ]; then
+    ln -sf $HOME/dotfiles/_void_linux/nuc/x/xinitrc $HOME/.xinitrc
+    ln -sf $HOME/dotfiles/_void_linux/nuc/x/Xresources.local $HOME/.Xresources.local
+    ln -sf $HOME/dotfiles/_void_linux/nuc/i3/config.local $HOME/.config/i3/config.local
+    ln -sf $HOME/dotfiles/_void_linux/nuc/bash/bashrc $HOME/.bashrc
+    ln -sf $HOME/dotfiles/_void_linux/nuc/polybar/config.ini $HOME/.config/polybar/
 fi
 nvim +PlugInstall +qall
 nvim +UpdateRemotePlugins +qall
