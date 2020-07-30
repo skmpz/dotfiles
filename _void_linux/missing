@@ -1,5 +1,4 @@
 clang-tidy
-google-mock \
-googletest \
-netdiscover \
-unrar \
+netdiscover
+boostnote
+synergy
