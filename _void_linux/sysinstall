@@ -6,3 +6,12 @@
 -> git clone https://github.com/skmpz/dotfiles
 -> cd ~/dotfiles/_void_linux/
 -> ./install.sh
+
+[dos]
+-> one root part /
+-> swap
+
+[efi]
+-> 512M [EFI]
+-> root part /
+-> swap
