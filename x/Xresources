@@ -16,11 +16,13 @@ URxvt*iso14755:             False
 URxvt*transparent:          true
 URxvt*shading:              90
 URxvt*tintColor:            #1C3749
-URxvt*perl-ext-common:      font-size
+URxvt*perl-ext-common:      default, font-size
 URxvt*keysym.C-Up:          perl:font-size:increase
 URxvt*keysym.C-Down:        perl:font-size:decrease
 URxvt*keysym.C-S-Up:        perl:font-size:incglobal
 URxvt*keysym.C-S-Down:      perl:font-size:decglobal
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 *color0:                    #2E3436
 *color1:                    #a40000
 *color2:                    #4E9A06
