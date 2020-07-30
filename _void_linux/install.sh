@@ -104,7 +104,8 @@ wireshark-qt \
 xclip \
 xcursor-themes \
 xorg \
-xterm
+xterm \
+xtools
 
 echo "Installing additional software"
 pip install --upgrade conan

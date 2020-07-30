@@ -29,7 +29,7 @@ alias f='caja .'
 alias nvs='nv -S ~/.sess'
 alias up='sudo xbps-install -Su'
 alias clean='sudo rm -rf /var/cache/xbps/*'
-alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
+alias x='pkill caja; xset r rate 250 80; setxkbmap -option grp:win_space_toggle us,el; xrdb -merge ~/.Xresources; setxkbmap -option caps:escape; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
 
 # git aware prompt
 PS1='[\u@\h \W]\$ '
