@@ -176,6 +176,7 @@ sudo ln -sf /etc/sv/dbus/ /var/service/
 sudo ln -sf /etc/sv/bluetoothd/ /var/service/
 sudo ln -sf /etc/sv/NetworkManager/ /var/service/
 sudo ln -sf /etc/sv/chronyd/ /var/service/
+sudo ln -sf /usr/share/zoneinfo/Asia/Dubai /etc/localtime
 
 sudo usermod -a -G bluetooth sk
 sudo usermod -a -G network sk

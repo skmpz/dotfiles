@@ -33,10 +33,6 @@ function _check_no_ok {
     if [ $1 == 0 ]; then return; else echo -e "[${!s_fail_color}FAIL${NC}]"; exit 1; fi
 }
 
-function _check_no_ok_no_exit {
-    if [ $1 == 0 ]; then return; else echo -e "[${!s_fail_color}FAIL${NC}]"; fi
-}
-
 # section start
 function _start {
     str_len=${#1}
@@ -89,7 +85,7 @@ function _cmd {
 
 function _cmd_no_exit {
     eval "$@" >> $LOGFILE 2>&1
-    _check_no_ok_no_exit $?
+    if [ $? == 0 ]; then echo -e "[${!s_ok_color}OK${NC}]"; else echo -e "[${!s_fail_color}FAIL${NC}]"; fi
 }
 
 # cmd with return wrapper
@@ -166,7 +162,7 @@ for PKG in $PKGS; do
     VERSION=$(cat srcpkgs/$PKG/template | grep ^version= | tail -1 | cut -f2 -d'=')
     REVISION=$(cat srcpkgs/$PKG/template | grep ^revision= | tail -1 | cut -f2 -d'=')
     MAINTAINER=$(cat srcpkgs/$PKG/template | grep ^maintainer= | cut -f2 -d'"')
-    ARCHS=$(cat srcpkgs/$PKG/template | grep ^archs= | cut -f2 -d'=')
+    ARCHS=$(cat srcpkgs/$PKG/template | grep ^archs= | cut -f2 -d'=' | cut -f2 -d'"')
     NOCROSS=$(cat srcpkgs/$PKG/template | grep ^nocross= | cut -f2 -d'"')
 
     _print "Starting checks for $PKG"
@@ -199,6 +195,7 @@ for PKG in $PKGS; do
             ARCH_AARCH64_MUSL="NO"
 
             for ARCH in $ARCHS; do
+
                 if [ "$ARCH" == "x86_64" ]; then
                     ARCH_X86_64="YES"
                 elif [ "$ARCH" == "x86_64*" ]; then
@@ -247,6 +244,19 @@ for PKG in $PKGS; do
     if [ "$BUILD" == "YES" ]; then
         _line
         _start "Initializing"
+
+        # first run, create bootstrap directories
+        if [ ! -d "masterdir" ]; then
+            _cmd "./xbps-src binary-bootstrap"
+        fi
+        if [ ! -d "masterdir-x86" ]; then
+            _cmd "./xbps-src -m masterdir-x86 binary-bootstrap i686"
+        fi
+        if [ ! -d "masterdir-x86_64-musl" ]; then
+            _cmd "./xbps-src -m masterdir-x86_64-musl binary-bootstrap x86_64-musl"
+        fi
+
+        # clean and update
         _cmd "./xbps-src clean"
         _cmd "./xbps-src bootstrap-update"
         _cmd "./xbps-src -m masterdir-x86 bootstrap-update i686"
@@ -256,43 +266,36 @@ for PKG in $PKGS; do
         if [ "$ARCH_X86_64" == "YES" ]; then
             _start "Compiling for x86_64 (native)"
             _cmd_no_exit "./xbps-src pkg -f $PKG"
-            _done
         fi
 
         if [ "$ARCH_I686" == "YES" ]; then
             _start "Compiling for i686 (native)"
             _cmd_no_exit "./xbps-src pkg -m masterdir-x86 -f $PKG"
-            _done
         fi
 
         if [ "$ARCH_AARCH64" == "YES" ]; then
             _start "Compiling for aarch64 (cross-x86_86)"
             _cmd_no_exit "./xbps-src pkg -a aarch64 -f $PKG"
-            _done
         fi
 
         if [ "$ARCH_ARMV7L" == "YES" ]; then
             _start "Compiling for armv7l (cross-x86_86)"
             _cmd_no_exit "./xbps-src pkg -a armv7l -f $PKG"
-            _done
         fi
 
         if [ "$ARCH_X86_64_MUSL" == "YES" ]; then
             _start "Compiling for x86_64-musl (native)"
             _cmd_no_exit "./xbps-src -m masterdir-x86_64-musl pkg -f $PKG"
-            _done
         fi
 
         if [ "$ARCH_AARCH64_MUSL" == "YES" ]; then
             _start "Compiling for aarch64-musl (cross-x86_86-musl)"
             _cmd_no_exit "./xbps-src -m masterdir-x86_64-musl -a aarch64-musl pkg -f $PKG"
-            _done
         fi
 
         if [ "$ARCH_ARMV6L_MUSL" == "YES" ]; then
             _start "Compiling for armv6l-musl (cross-x86_86-musl)"
             _cmd_no_exit "./xbps-src -m masterdir-x86_64-musl -a armv6l-musl pkg -f $PKG"
-            _done
         fi
     fi
 done
