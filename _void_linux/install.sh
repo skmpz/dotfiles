@@ -83,6 +83,7 @@ noto-fonts-ttf \
 openjdk8 \
 p7zip \
 pkg-config \
+polybar \
 pulseaudio \
 python \
 python-neovim \
