@@ -147,7 +147,7 @@ ln -sf $HOME/dotfiles/i3/config.base $HOME/.config/i3/config.base
 ln -sf $HOME/dotfiles/bash/inputrc $HOME/.inputrc
 ln -sf $HOME/dotfiles/polybar/launch.sh $HOME/.config/polybar/
 ln -sf $HOME/dotfiles/polybar/modules.ini $HOME/.config/polybar/
-ln -sf $HOME/dotfiles/_void_linux/v_build_pkg.sh $HOME/
+ln -sf $HOME/dotfiles/_void_linux/v_pkg_build.sh $HOME/
 ln -sf $HOME/dotfiles/_void_linux/v_check_pkgs.sh $HOME/
 if [ "$mode" == "HOME" ]; then
     ln -sf $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
