@@ -1,0 +1,2 @@
+URxvt*font: xft:Inconsolata:style=Medium:size=15:antialias=true:hinting=true
+rofi.font:                  Ubuntu 10
