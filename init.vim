@@ -28,14 +28,14 @@ Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 Plug 'airblade/vim-rooter'
 Plug 'w0rp/ale'
 call plug#end()
 
-let g:sneak#label = 1
-let g:sneak#s_next = 1
-let g:sneak#use_ic_scs = 1
+" let g:sneak#label = 1
+" let g:sneak#s_next = 1
+" let g:sneak#use_ic_scs = 1
 let g:bookmark_sign = 'M'
 let g:bookmark_highlight_lines = 0
 highlight BookmarkSign ctermbg=8 ctermfg=160
@@ -69,7 +69,7 @@ let g:ale_lint_on_save = 1
 let g:ale_cpp_clangd_executable = "/usr/local/Cellar/llvm/10.0.0_3/bin/clangd"
 let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/10.0.0_3/bin/clang-tidy"
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line,-runtime/references,-whitespace/indent --linelength=110"
-let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr', '-cert-env33-c', '-hicpp-no-array-decay', '-readability-magic-numbers', '-google-runtime-references', '-fuchsia-trailing-return', '-readability-convert-member-functions-to-static','-fuchsia-overloaded-operator', '-modernize-pass-by-value','-cppcoreguidelines-avoid-magic-numbers']
+let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr', '-cert-env33-c', '-hicpp-no-array-decay', '-readability-magic-numbers', '-google-runtime-references', '-fuchsia-trailing-return', '-readability-convert-member-functions-to-static','-fuchsia-overloaded-operator', '-modernize-pass-by-value','-cppcoreguidelines-avoid-magic-numbers','-j8']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
 let g:ale_cpp_cppcheck_executable = '/usr/local/bin/cppcheck'
 let g:ale_cpp_cppcheck_options = '--enable=all'
@@ -235,8 +235,8 @@ nnoremap <leader>f :CocList outline<CR>
 nnoremap <leader>g :lvim <cword> * <bar> :lopen<cr>
 nnoremap <leader>n :call CocAction('diagnosticNext')<CR>
 nnoremap <leader>N :call CocAction('diagnosticPrevious')<CR>
-" nnoremap s /
-" nnoremap S ?
+nnoremap s /
+nnoremap S ?
 nnoremap <leader>o :FZF<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>t :call fzf#vim#tags("'".expand('<cword>'))<cr>
@@ -480,7 +480,7 @@ set splitbelow
 set noswapfile
 
 " restore cursor on exit
-autocmd VimLeave * set guicursor=n:ver25-iCursor
+" autocmd VimLeave * set guicursor=n:ver25-iCursor
 
 hi VertSplit ctermbg=none ctermfg=8
 hi TabLineFill ctermbg=none ctermfg=1
@@ -586,7 +586,8 @@ highlight SignColumn ctermbg=NONE
 " onoremap ip :<c-u>normal! f(vi(<cr>
 
 " Sneak highlight
-hi Sneak ctermfg=3 ctermbg=0
+" hi Sneak ctermfg=3 ctermbg=0
 
 " disable <leader>swp for AnsiEsc
 let g:no_plugin_maps = 1
+set guicursor=
