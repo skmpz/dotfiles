@@ -32,7 +32,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'airblade/vim-rooter'
 Plug 'w0rp/ale'
 call plug#end()
-
+"
 " let g:sneak#label = 1
 " let g:sneak#s_next = 1
 " let g:sneak#use_ic_scs = 1
@@ -173,7 +173,7 @@ hi Search ctermfg=160 ctermbg=none
 hi LineNr ctermbg=none
 hi NonText ctermbg=none
 hi CursorLine ctermbg=235
-hi MatchParen cterm=none ctermbg=none ctermfg=magenta
+hi MatchParen cterm=none ctermbg=magenta ctermfg=black
 
 " stop highlight after search
 noremap <ESC> <ESC>:nohl<CR>
@@ -592,4 +592,5 @@ highlight SignColumn ctermbg=NONE
 
 " disable <leader>swp for AnsiEsc
 let g:no_plugin_maps = 1
-set guicursor=
+
+" set guicursor=
