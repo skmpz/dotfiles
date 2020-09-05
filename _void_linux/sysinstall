@@ -17,3 +17,6 @@
 -> 512M [EFI]
 -> root part /
 -> swap
+
+[bluetooth audio switch to default]
+Add load-module module-switch-on-connect to /etc/pulse/default.pa
