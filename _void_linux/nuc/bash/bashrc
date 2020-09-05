@@ -39,6 +39,3 @@ export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]
 
 # add conan to path
 PATH=$PATH:$HOME/.local/bin/
-
-# urxvt ibeam
-printf '\033[6 q\r'
