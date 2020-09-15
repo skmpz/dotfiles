@@ -60,14 +60,14 @@ let g:ale_linters = {
 
 let g:ale_fixers = {
             \ 'cpp': ['clang-format'],
-            \ 'c': ['uncrustify'],
+            \ 'c': ['clang-format'],
             \ 'rust': ['rustfmt']
             \ }
 " let g:ale_c_gcc_options='-Wall -Wextra'
 let g:ale_lint_on_save = 1
 
-let g:ale_cpp_clangd_executable = "/usr/local/Cellar/llvm/10.0.0_3/bin/clangd"
-let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/10.0.0_3/bin/clang-tidy"
+let g:ale_cpp_clangd_executable = "/usr/local/Cellar/llvm/10.0.1_1/bin/clangd"
+let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/10.0.1_1/bin/clang-tidy"
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line,-runtime/references,-whitespace/indent --linelength=110"
 let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr', '-cert-env33-c', '-hicpp-no-array-decay', '-readability-magic-numbers', '-google-runtime-references', '-fuchsia-trailing-return', '-readability-convert-member-functions-to-static','-fuchsia-overloaded-operator', '-modernize-pass-by-value','-cppcoreguidelines-avoid-magic-numbers','-j8']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
@@ -81,7 +81,6 @@ let g:ale_c_cquery_executable = "/usr/local/bin/cquery"
 let g:ale_c_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen', '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign']
 let g:ale_c_cppcheck_options = '--enable=all'
 let g:ale_c_gcc_options= "-std=gnu99 -Wall"
-let g:ale_c_uncrustify_options = '-c /Users/dimitris.prokopiou/dotfiles/default.cfg'
 
 " let g:ale_fix_on_save = 1
 " let g:ale_max_signs = 20
@@ -369,113 +368,10 @@ set nowritebackup
 set cmdheight=2
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if !exists('g:tmp_file_uncrustify')
-  let g:tmp_file_uncrustify = fnameescape(tempname())
-endif
-
-" Specify path to your Uncrustify configuration file.
-let g:uncrustify_cfg_file_path =
-    \ shellescape(fnamemodify('~/dotfiles/default.cfg', ':p'))
-
-" http://stackoverflow.com/a/15513829/288089
-" Restore cursor position, window position, and last search after running a
-" command.
-func! s:Preserve(command)
-  " Save the last search.
-  let search = @/
-
-  " Save the current cursor position.
-  let cursor_position = getpos('.')
-
-  " Save the current window position.
-  normal! H
-  let window_position = getpos('.')
-  call setpos('.', cursor_position)
-
-  " Execute the command.
-  execute a:command
-
-  " Restore the last search.
-  let @/ = search
-
-  " Restore the previous window position.
-  call setpos('.', window_position)
-  normal! zt
-
-  " Restore the previous cursor position.
-  call setpos('.', cursor_position)
-endfunc
-
-" Don't forget to add Uncrustify executable to $PATH (on Unix) or 
-" %PATH% (on Windows) for this command to work.
-func! Uncrustify(language)
-  call s:Preserve(':silent %!uncrustify'
-      \ . ' -q '
-      \ . ' -l ' . a:language
-      \ . ' -c ' . g:uncrustify_cfg_file_path)
-endfunc
-
-" Quoting string
-" @param {String} str Any string
-" @return {String} The quoted string
-func! s:quote(str)
-  return '"'.escape(a:str,'"').'"'
-endfun
-
-func! Uncrustify2(...)
-  let l:lang = get(a:000, 0, 'c')
-  let l:line1 = get(a:000, 1, '1')
-  let l:line2 = get(a:000, 2, '$')
-
-  " Get content from the files
-  let content = getline(l:line1, l:line2)
-
-  " Length of lines before beautify
-  let lines_length = len(getline(l:line1, l:line2))
-
-  " Write content to temporary file
-  call writefile(content, g:tmp_file_uncrustify)
-  let l:tmp_file_uncrustify_arg = s:quote(g:tmp_file_uncrustify)
-
-  let cmd = "uncrustify -q -l " . l:lang . " --frag -c " . g:uncrustify_cfg_file_path . " -f " . l:tmp_file_uncrustify_arg
-  let result = system(cmd)
-  let lines_uncrustify = split(result, "\n")
-
-  if !len(lines_uncrustify)
-      return result
-  endif
-
-  silent exec line1.",".line2."j"
-  call setline(line1, lines_uncrustify[0])
-  call append(line1, lines_uncrustify[1:])
-  return result
-endfunc
-
-func! RangeUncrustify(language) range
-  return call('Uncrustify2', extend([a:language], [a:firstline, a:lastline]))
-endfunc
-
 autocmd FileType c noremap <buffer> <c-f> :ALEFix<CR>
-autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
+" autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :ALEFix<CR>
-autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
+" autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 
 set splitright
 set splitbelow
