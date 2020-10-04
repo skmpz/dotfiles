@@ -40,7 +40,8 @@ function _check_update {
     if [ "$ret" == "" ]; then
         echo -e "[${!s_ok_color}OK${NC}]"
     else
-        echo -e "[${PURPLE}UPDATE${NC}]"
+        version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
+        echo -e "[${PURPLE}UPDATE${NC}][${PURPLE}${version}${NC}]"
     fi
 }
 

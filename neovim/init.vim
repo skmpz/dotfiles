@@ -1,4 +1,4 @@
-" File: Neovim config (init.vim)
+:" File Neovim config (init.vim
 " Author: Demetris Procopiou
 " Last Updated: 02/02/2019
 
@@ -6,36 +6,38 @@ filetype plugin indent on
 
 " vim-plug
 call plug#begin()
-Plug 'ervandew/supertab'
 Plug 'MattesGroeger/vim-bookmarks'
-Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
 Plug 'Shougo/echodoc.vim'
+Plug 'SirVer/ultisnips'
+Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
+Plug 'ervandew/supertab'
+Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
-Plug 'terryma/vim-expand-region'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'rhysd/clever-f.vim'           " plugin_clever_f
-Plug 'airblade/vim-gitgutter'
+Plug 'justinmk/vim-sneak'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'scrooloose/nerdtree'
+Plug 'skmpz/vim-snippets'
+Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'SirVer/ultisnips'
-Plug 'skmpz/vim-snippets'
-Plug 'godlygeek/tabular'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-" Plug 'justinmk/vim-sneak'
-Plug 'airblade/vim-rooter'
+Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
 Plug 'w0rp/ale'
+Plug 'wellle/targets.vim'
 call plug#end()
+
 "
-" let g:sneak#label = 1
-" let g:sneak#s_next = 1
-" let g:sneak#use_ic_scs = 1
+let g:sneak#label = 1
+let g:sneak#s_next = 1
+let g:sneak#use_ic_scs = 1
+
 let g:bookmark_sign = 'M'
 let g:bookmark_highlight_lines = 0
 highlight BookmarkSign ctermbg=8 ctermfg=160
@@ -69,9 +71,10 @@ let g:ale_lint_on_save = 1
 let g:ale_cpp_clangd_executable = "/usr/local/Cellar/llvm/10.0.1_1/bin/clangd"
 let g:ale_cpp_clangtidy_executable= "/usr/local/Cellar/llvm/10.0.1_1/bin/clang-tidy"
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line,-runtime/references,-whitespace/indent --linelength=110"
+" let g:ale_cpp_cpplint_executable="/home/sk/.local/bin/cpplint"
 let g:ale_cpp_clangtidy_checks = ['*', '-android-cloexec-accept', '-android-cloexec-fopen'. '-hicpp-signed-bitwise', '-clang-diagnostic-pointer-sign', '-fuchsia-default-arguments', '-cppcoreguidelines-owning-memory', '-llvm-header-guard', '-modernize-use-trailing-return-type', '-cppcoreguidelines-pro-bounds-array-to-pointer-decay', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-fuchsia-default-arguments-calls', '-readability-simplify-boolean-expr', '-cert-env33-c', '-hicpp-no-array-decay', '-readability-magic-numbers', '-google-runtime-references', '-fuchsia-trailing-return', '-readability-convert-member-functions-to-static','-fuchsia-overloaded-operator', '-modernize-pass-by-value','-cppcoreguidelines-avoid-magic-numbers','-j8']
 let g:ale_cpp_gcc_options = '-std=c++11 -Wall'
-let g:ale_cpp_cppcheck_executable = '/usr/local/bin/cppcheck'
+let g:ale_cpp_cppcheck_executable = '/bin/cppcheck'
 let g:ale_cpp_cppcheck_options = '--enable=all'
 
 let g:ale_cpp_clangformat_options = '-style=file'
@@ -233,14 +236,10 @@ vnoremap c "_c
 vnoremap C "_C
 nnoremap <leader>j :A<CR>
 nnoremap <leader>f :CocList outline<CR>
-nnoremap <leader>g :lvim <cword> * <bar> :lopen<cr>
 nnoremap <leader>n :call CocAction('diagnosticNext')<CR>
 nnoremap <leader>N :call CocAction('diagnosticPrevious')<CR>
-nnoremap s /
-nnoremap S ?
 nnoremap <leader>o :FZF<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>t :call fzf#vim#tags("'".expand('<cword>'))<cr>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>s /
 nnoremap <leader>S ?
@@ -249,6 +248,7 @@ noremap  <F1> "a
 noremap  <F2> "b
 noremap  <F3> "c
 noremap  <F4> "d
+imap jk <Esc>
 set pastetoggle=<F8>
 
 " search improve
@@ -263,42 +263,8 @@ nno , ;
 vno : ;
 vno ; :
 
-" deoplete
-let g:deoplete#auto_complete_delay         = 0
-let g:deoplete#enable_at_startup           = 1
-let g:deoplete#auto_complete_start_length  = 3
-" let g:deoplete#sources={}
-" let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
-" let g:deoplete#omni#input_patterns={}
-" let g:deoplete#omni#input_patterns.scala=['[^. *\t0-9]\.\w*',': [A-Z]\w', '[\[\t\( ][A-Za-z]\w*']
-" if has("unix")
-"     let s:uname = system("uname -s")
-"     if s:uname == "Linux\n"
-"         let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-"         let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
-"     elseif s:uname == "FreeBSD\n"
-"         let g:deoplete#sources#clang#libclang_path = '/usr/local/llvm50/lib/libclang.so'
-"         let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang/'
-"     elseif s:uname == "Darwin\n"
-"         let g:deoplete#sources#clang#libclang_path = '/usr/local/Cellar/llvm/3.
-"         9.1/lib/libclang.dylib'
-"         let g:deoplete#sources#clang#clang_header  = '/usr/local/Cellar/llvm/3.
-"         9.1/include/clang'
-"     endif
-" endif
-" let g:deoplete#sources#clang#std#cpp       = 'c++11'
-" let g:deoplete#sources#clang#sort_algo     = 'priority'
-" let g:deoplete#sources={}
-" let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
-" let g:deoplete#omni#input_patterns={}
-" let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*\|: [A-Z]\w*'
-" set completeopt-=preview "no scratch window
-
 " supertab
 let g:SuperTabDefaultCompletionType = "<C-n>"
-
-" plugin_clever_f
-let g:clever_f_ignore_case = 1
 
 " go to the end of what copied/pasted and no overwrite
 vnoremap <silent> y y`]
@@ -367,18 +333,12 @@ set nowritebackup
 " Better display for messages
 set cmdheight=2
 
-
 autocmd FileType c noremap <buffer> <c-f> :ALEFix<CR>
-" autocmd FileType c vnoremap <buffer> <c-f> :call RangeUncrustify('c')<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :ALEFix<CR>
-" autocmd FileType cpp vnoremap <buffer> <c-f> :call RangeUncrustify('cpp')<CR>
 
 set splitright
 set splitbelow
 set noswapfile
-
-" restore cursor on exit
-" autocmd VimLeave * set guicursor=n:ver25-iCursor
 
 hi VertSplit ctermbg=none ctermfg=8
 hi TabLineFill ctermbg=none ctermfg=1
@@ -433,9 +393,8 @@ vnoremap <silent> tt :exe "tabn ".g:lasttab<cr>
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -457,8 +416,6 @@ let g:cpp_member_variable_highlight = 1
 let g:cpp_posix_standard = 1
 
 set wildignore+=build/**
-nnoremap <leader>j :vimgrep <cword> **/*.cc **/*.hh \| copen 20<cr>
-nnoremap <leader>k :vimgrep '' **/*.cc **/*.hh \| copen 20<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 
 nnoremap <leader>ps :e **/%:t:r.cc<CR>
 nnoremap <leader>ph :e **/%:t:r.hh<CR>
@@ -476,17 +433,13 @@ imap jj <ESC>A
 au BufRead,BufNewFile *.icc set filetype=cpp
 
 highlight SignColumn ctermbg=NONE
-
-" nnoremap cinp f(ci(
-" nnoremap cinb f<ci<
-" onoremap inp :<c-u>normal! f(vi(<cr>
-" onoremap inb :<c-u>normal! f<vi<<cr>
-" onoremap ip :<c-u>normal! f(vi(<cr>
-
+"
 " Sneak highlight
-" hi Sneak ctermfg=3 ctermbg=0
+hi Sneak ctermfg=3 ctermbg=0
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 
 " disable <leader>swp for AnsiEsc
 let g:no_plugin_maps = 1
-
-" set guicursor=

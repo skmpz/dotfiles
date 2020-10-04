@@ -16,7 +16,7 @@ URxvt*iso14755:             False
 URxvt*transparent:          true
 URxvt*shading:              90
 URxvt*tintColor:            #1C3749
-URxvt*perl-ext-common:      default, font-size
+URxvt*perl-ext-common:      default,font-size
 URxvt*keysym.C-Up:          perl:font-size:increase
 URxvt*keysym.C-Down:        perl:font-size:decrease
 URxvt*keysym.C-S-Up:        perl:font-size:incglobal

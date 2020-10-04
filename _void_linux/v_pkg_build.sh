@@ -126,6 +126,7 @@ function show_usage {
     echo -en "[${WHITE}opts${NC}] "
     echo -e "${BLUE}-p|--packages   packages  [required]${NC}"
     echo -e "       ${BLUE}-b|--build               [optional]${NC}"
+    echo -e "       ${BLUE}-t|--test                [optional]${NC}"
     echo -e "       ${BLUE}-c|--commit              [optional]${NC}"
     _line
     exit 1
@@ -140,6 +141,8 @@ do
     case $i in
         -p|--packages) PKGS="$2"; shift 2 ;;
         -b|--build) BUILD="YES"; shift 1 ;;
+        -t|--test) TEST="YES"; shift 1 ;;
+        -c|--commit) COMMIT="YES"; shift 1 ;;
         *) ;;
     esac
 done
@@ -147,6 +150,8 @@ done
 # check arguments
 if [ "$PKGS" == "" ] || [ -z "$PKGS" ]; then show_usage; fi
 if [ "$BUILD" == "" ]; then BUILD="NO"; fi
+if [ "$TEST" == "" ]; then TEST="NO"; fi
+if [ "$BUILD" == "YES" ] && [ "$TEST" == "YES" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
 # -------------------------- script ----------------------------
@@ -241,26 +246,43 @@ for PKG in $PKGS; do
     _print "ARCH_ARMV6L_MUSL: $ARCH_ARMV6L_MUSL"
     _print "ARCH_AARCH64_MUSL: $ARCH_AARCH64_MUSL"
 
-    if [ "$BUILD" == "YES" ]; then
+    if [ "$BUILD" == "YES" ] || [ "$TEST" == "YES" ]; then
+
         _line
-        _start "Initializing"
+        _start "Initializing x86_64"
+        _cmd "./xbps-src clean"
 
         # first run, create bootstrap directories
         if [ ! -d "masterdir" ]; then
             _cmd "./xbps-src binary-bootstrap"
-        fi
-        if [ ! -d "masterdir-x86" ]; then
-            _cmd "./xbps-src -m masterdir-x86 binary-bootstrap i686"
-        fi
-        if [ ! -d "masterdir-x86_64-musl" ]; then
-            _cmd "./xbps-src -m masterdir-x86_64-musl binary-bootstrap x86_64-musl"
+        else
+            _cmd "./xbps-src bootstrap-update"
         fi
 
-        # clean and update
-        _cmd "./xbps-src clean"
-        _cmd "./xbps-src bootstrap-update"
-        _cmd "./xbps-src -m masterdir-x86 bootstrap-update i686"
-        _cmd "./xbps-src -m masterdir-x86_64-musl bootstrap-update x86_64-musl"
+        _done
+    fi
+
+    if [ "$BUILD" == "YES" ]; then
+        _line
+        ./xbps-src pkg -f $PKG
+    fi
+
+    if [ "$TEST" == "YES" ]; then
+
+        _start "Initializing other architectures"
+
+        if [ ! -d "masterdir-x86" ]; then
+            _cmd "./xbps-src -m masterdir-x86 binary-bootstrap i686"
+        else
+            _cmd "./xbps-src -m masterdir-x86 bootstrap-update i686"
+        fi
+
+        if [ ! -d "masterdir-x86_64-musl" ]; then
+            _cmd "./xbps-src -m masterdir-x86_64-musl binary-bootstrap x86_64-musl"
+        else
+            _cmd "./xbps-src -m masterdir-x86_64-musl bootstrap-update x86_64-musl"
+        fi
+
         _done
 
         if [ "$ARCH_X86_64" == "YES" ]; then
@@ -300,27 +322,45 @@ for PKG in $PKGS; do
     fi
 done
 
-# if [ $COMMIT == "YES" ]; then
-#     _line
-#     _start "Linting"
-#     if [ "$REVISION" != "1" ]; then
-#         _fail "revision $REVISION"
-#     fi
-#     if [ "$MAINTAINER" != "skmpz <dem.procopiou@gmail.com>" ]; then
-#         _fail "maintainer $MAINTAINER"
-#     fi
-#     _cmd "xlint srcpkgs/$PKG/template"
-#     _done
+if [ "$COMMIT" == "YES" ]; then
+    _line
+    _start "Info check"
+    if [ "$REVISION" != "1" ]; then
+        _fail "revision $REVISION"
+    fi
+    if [ "$MAINTAINER" != "skmpz <dem.procopiou@gmail.com>" ]; then
+        _fail "maintainer $MAINTAINER"
+    fi
+    _done
 
-#     _start "Commiting"
-#     _cmd "git checkout -b $PKG-$VERSION"
-#     _cmd "git commit -am \"$PKG: update to $VERSION.\""
-#     _cmd "git push -u origin $PKG-$VERSION"
-#     _cmd "git checkout master"
-#     _cmd "git pull --rebase upstream master"
-#     _cmd "./xbps-src clean"
-#     _done $VERSION
-# fi
+    _start "Linting"
+    _cmd "xlint srcpkgs/$PKG/template"
+    _done
+
+    _line
+
+    echo "git checkout -b $PKG-$VERSION"
+    echo "git commit -am \"$PKG: update to $VERSION.\""
+
+    REVSHLIB=$(xrevshlib "$PKG");
+    if [ "$REVSHLIB" != "" ]; then
+        _line
+        echo "xrevbump needed!"
+        for line in "$REVSHLIB"; do
+            echo "xrevbump \"revbump for $PKG\" $line"
+        done
+    fi
+
+    _line
+
+    echo "git push -u origin $PKG-$VERSION"
+    _line
+    echo "xi $PKG"
+    _line
+    echo "git checkout master"
+    echo "git pull --rebase upstream master"
+    echo "./xbps-src clean"
+fi
 # -------------------------- script ----------------------------
 
 # --------------------------- end ------------------------------
