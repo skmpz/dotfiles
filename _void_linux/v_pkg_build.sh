@@ -329,7 +329,7 @@ if [ "$COMMIT" == "YES" ]; then
         _fail "revision $REVISION"
     fi
     if [ "$MAINTAINER" != "skmpz <dem.procopiou@gmail.com>" ]; then
-        _fail "maintainer $MAINTAINER"
+        echo -en "[${PURPLE}${MAINTAINER}${NC}]"
     fi
     _done
 
@@ -342,16 +342,15 @@ if [ "$COMMIT" == "YES" ]; then
     echo "git checkout -b $PKG-$VERSION"
     echo "git commit -am \"$PKG: update to $VERSION.\""
 
-    REVSHLIB=$(xrevshlib "$PKG");
-    if [ "$REVSHLIB" != "" ]; then
-        _line
-        echo "xrevbump needed!"
-        for line in "$REVSHLIB"; do
-            echo "xrevbump \"revbump for $PKG\" $line"
-        done
-    fi
-
-    _line
+    # REVSHLIB=$(xrevshlib "$PKG");
+    # if [ "$REVSHLIB" != "" ]; then
+    #     _line
+    #     echo "xrevbump needed!"
+    #     for line in "$REVSHLIB"; do
+    #         echo "xrevbump \"revbump for $PKG\" $line"
+    #     done
+    # fi
+    # _line
 
     echo "git push -u origin $PKG-$VERSION"
     _line

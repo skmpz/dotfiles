@@ -1,6 +1,7 @@
 xset r rate 250 80
 setxkbmap -option grp:win_space_toggle us,el
 xrdb -merge ~/.Xresources
+setxkbmap -option ctrl:ralt_rctrl
 setxkbmap -option caps:escape
 feh --bg-scale ~/dotfiles/wallpapers/bg.jpg
 cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
