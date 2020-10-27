@@ -5,7 +5,7 @@ function show_usage {
     echo "[usage] ./$(basename $0) [opts]"
     echo "-----------------------------------------------"
     echo -n "[opts] "
-    echo "laptop/home/vm    install mode    [required]"
+    echo "laptop/home    install mode    [required]"
     echo "-----------------------------------------------"
     exit 1
 }
@@ -19,15 +19,15 @@ do
     case $i in
         home) mode="HOME"; shift 1 ;;
         laptop) mode="LAPTOP"; shift 1 ;;
-        nuc) mode="NUC"; shift 1 ;;
         *) ;;
     esac
 done
 
 # check arguments
-if [ "$mode" != "HOME" ] && [ "$mode" != "NUC" ] && [ "$mode" != "LAPTOP" ]; then show_usage; fi
+if [ "$mode" != "HOME" ] && [ "$mode" != "LAPTOP" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
+# install base apps
 echo "Installing system.."
 sudo xbps-install -Sy \
 ImageMagick \
@@ -107,9 +107,11 @@ xorg \
 xterm \
 xtools
 
+# install additional stuff
 echo "Installing additional software"
 pip install --upgrade conan
 
+# setup configuration
 echo "Setting up config files.."
 cd $HOME
 sudo chown sk:sk -R . > /dev/null 2>> $LOGFILE
@@ -149,29 +151,28 @@ ln -sf $HOME/dotfiles/polybar/launch.sh $HOME/.config/polybar/
 ln -sf $HOME/dotfiles/polybar/modules.ini $HOME/.config/polybar/
 ln -sf $HOME/dotfiles/_void_linux/v_pkg_build.sh $HOME/
 ln -sf $HOME/dotfiles/_void_linux/v_check_pkgs.sh $HOME/
+
+# setup device specific stuff
 if [ "$mode" == "HOME" ]; then
-    ln -sf $HOME/dotfiles/home/xinitrc $HOME/.xinitrc
-    ln -sf $HOME/dotfiles/home/Xresources.local $HOME/.Xresources.local
-    ln -sf $HOME/dotfiles/home/config.local $HOME/.config/i3/config.local
-    ln -sf $HOME/dotfiles/home/bashrc $HOME/.bashrc
+    :
 elif [ "$mode" == "LAPTOP" ]; then
+    sudo xbps-install -Sy nvidia
     ln -sf $HOME/dotfiles/_void_linux/laptop/x/xinitrc $HOME/.xinitrc
     ln -sf $HOME/dotfiles/_void_linux/laptop/x/Xresources.local $HOME/.Xresources.local
     ln -sf $HOME/dotfiles/_void_linux/laptop/i3/config.local $HOME/.config/i3/config.local
     ln -sf $HOME/dotfiles/_void_linux/laptop/bash/bashrc $HOME/.bashrc
     ln -sf $HOME/dotfiles/_void_linux/laptop/polybar/config.ini $HOME/.config/polybar/
-elif [ "$mode" == "NUC" ]; then
-    ln -sf $HOME/dotfiles/_void_linux/nuc/x/xinitrc $HOME/.xinitrc
-    ln -sf $HOME/dotfiles/_void_linux/nuc/x/Xresources.local $HOME/.Xresources.local
-    ln -sf $HOME/dotfiles/_void_linux/nuc/i3/config.local $HOME/.config/i3/config.local
-    ln -sf $HOME/dotfiles/_void_linux/nuc/bash/bashrc $HOME/.bashrc
-    ln -sf $HOME/dotfiles/_void_linux/nuc/polybar/config.ini $HOME/.config/polybar/
 fi
+
+# setup vim
 nvim +PlugInstall +qall
 nvim +UpdateRemotePlugins +qall
 nvim +"CocInstall coc-clangd" +qall
+
+# setup home dir
 sudo chown sk:sk -R $HOME
 
+# setup services
 sudo rm -rf /var/service/dhcpcd/
 sudo ln -sf /etc/sv/dbus/ /var/service/
 sudo ln -sf /etc/sv/bluetoothd/ /var/service/
@@ -179,5 +180,5 @@ sudo ln -sf /etc/sv/NetworkManager/ /var/service/
 sudo ln -sf /etc/sv/chronyd/ /var/service/
 sudo ln -sf /usr/share/zoneinfo/Asia/Dubai /etc/localtime
 
-sudo usermod -a -G bluetooth sk
-sudo usermod -a -G network sk
+# add user to groups
+sudo usermod -a -G bluetooth,network sk
