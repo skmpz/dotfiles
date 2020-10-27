@@ -80,6 +80,11 @@ function _sudo {
 # cmd wrapper
 function _cmd {
     eval "$@" >> $LOGFILE 2>&1
+    _check_ok $?
+}
+
+function _cmd_no_ok {
+    eval "$@" >> $LOGFILE 2>&1
     _check_no_ok $?
 }
 
@@ -250,13 +255,15 @@ for PKG in $PKGS; do
 
         _line
         _start "Initializing x86_64"
-        _cmd "./xbps-src clean"
+        _cmd_no_ok "./xbps-src clean"
+        _cmd_no_ok "./xbps-src -m masterdir-x86 clean"
+        _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
 
         # first run, create bootstrap directories
         if [ ! -d "masterdir" ]; then
-            _cmd "./xbps-src binary-bootstrap"
+            _cmd_no_ok "./xbps-src binary-bootstrap"
         else
-            _cmd "./xbps-src bootstrap-update"
+            _cmd_no_ok "./xbps-src bootstrap-update"
         fi
 
         _done
@@ -272,52 +279,59 @@ for PKG in $PKGS; do
         _start "Initializing other architectures"
 
         if [ ! -d "masterdir-x86" ]; then
-            _cmd "./xbps-src -m masterdir-x86 binary-bootstrap i686"
+            _cmd_no_ok "./xbps-src -m masterdir-x86 binary-bootstrap i686"
         else
-            _cmd "./xbps-src -m masterdir-x86 bootstrap-update i686"
+            _cmd_no_ok "./xbps-src -m masterdir-x86 bootstrap-update i686"
         fi
 
         if [ ! -d "masterdir-x86_64-musl" ]; then
-            _cmd "./xbps-src -m masterdir-x86_64-musl binary-bootstrap x86_64-musl"
+            _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl binary-bootstrap x86_64-musl"
         else
-            _cmd "./xbps-src -m masterdir-x86_64-musl bootstrap-update x86_64-musl"
+            _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl bootstrap-update x86_64-musl"
         fi
 
         _done
 
         if [ "$ARCH_X86_64" == "YES" ]; then
             _start "Compiling for x86_64 (native)"
-            _cmd_no_exit "./xbps-src pkg -f $PKG"
+            _cmd_no_ok "./xbps-src clean"
+            _cmd "./xbps-src pkg -f $PKG"
         fi
 
         if [ "$ARCH_I686" == "YES" ]; then
             _start "Compiling for i686 (native)"
-            _cmd_no_exit "./xbps-src pkg -m masterdir-x86 -f $PKG"
+            _cmd_no_ok "./xbps-src -m masterdir-x86 clean"
+            _cmd "./xbps-src pkg -m masterdir-x86 -f $PKG"
         fi
 
         if [ "$ARCH_AARCH64" == "YES" ]; then
             _start "Compiling for aarch64 (cross-x86_86)"
-            _cmd_no_exit "./xbps-src pkg -a aarch64 -f $PKG"
+            _cmd_no_ok "./xbps-src clean"
+            _cmd "./xbps-src pkg -a aarch64 -f $PKG"
         fi
 
         if [ "$ARCH_ARMV7L" == "YES" ]; then
             _start "Compiling for armv7l (cross-x86_86)"
-            _cmd_no_exit "./xbps-src pkg -a armv7l -f $PKG"
+            _cmd_no_ok "./xbps-src clean"
+            _cmd "./xbps-src pkg -a armv7l -f $PKG"
         fi
 
         if [ "$ARCH_X86_64_MUSL" == "YES" ]; then
             _start "Compiling for x86_64-musl (native)"
-            _cmd_no_exit "./xbps-src -m masterdir-x86_64-musl pkg -f $PKG"
+            _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
+            _cmd "./xbps-src -m masterdir-x86_64-musl pkg -f $PKG"
         fi
 
         if [ "$ARCH_AARCH64_MUSL" == "YES" ]; then
             _start "Compiling for aarch64-musl (cross-x86_86-musl)"
-            _cmd_no_exit "./xbps-src -m masterdir-x86_64-musl -a aarch64-musl pkg -f $PKG"
+            _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
+            _cmd "./xbps-src -m masterdir-x86_64-musl -a aarch64-musl pkg -f $PKG"
         fi
 
         if [ "$ARCH_ARMV6L_MUSL" == "YES" ]; then
             _start "Compiling for armv6l-musl (cross-x86_86-musl)"
-            _cmd_no_exit "./xbps-src -m masterdir-x86_64-musl -a armv6l-musl pkg -f $PKG"
+            _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
+            _cmd "./xbps-src -m masterdir-x86_64-musl -a armv6l-musl pkg -f $PKG"
         fi
     fi
 done
