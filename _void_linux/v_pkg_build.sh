@@ -305,13 +305,13 @@ for PKG in $PKGS; do
         fi
 
         if [ "$ARCH_AARCH64" == "YES" ]; then
-            _start "Compiling for aarch64 (cross-x86_86)"
+            _start "Compiling for aarch64 (cross on x86_64)"
             _cmd_no_ok "./xbps-src clean"
             _cmd "./xbps-src pkg -a aarch64 -f $PKG"
         fi
 
         if [ "$ARCH_ARMV7L" == "YES" ]; then
-            _start "Compiling for armv7l (cross-x86_86)"
+            _start "Compiling for armv7l (cross on x86_64)"
             _cmd_no_ok "./xbps-src clean"
             _cmd "./xbps-src pkg -a armv7l -f $PKG"
         fi
@@ -323,13 +323,13 @@ for PKG in $PKGS; do
         fi
 
         if [ "$ARCH_AARCH64_MUSL" == "YES" ]; then
-            _start "Compiling for aarch64-musl (cross-x86_86-musl)"
+            _start "Compiling for aarch64-musl (cross on x86_64-musl)"
             _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
             _cmd "./xbps-src -m masterdir-x86_64-musl -a aarch64-musl pkg -f $PKG"
         fi
 
         if [ "$ARCH_ARMV6L_MUSL" == "YES" ]; then
-            _start "Compiling for armv6l-musl (cross-x86_86-musl)"
+            _start "Compiling for armv6l-musl (cross on x86_64-musl)"
             _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
             _cmd "./xbps-src -m masterdir-x86_64-musl -a armv6l-musl pkg -f $PKG"
         fi
@@ -349,22 +349,11 @@ if [ "$COMMIT" == "YES" ]; then
 
     _start "Linting"
     _cmd "xlint srcpkgs/$PKG/template"
-    _done
 
     _line
 
     echo "git checkout -b $PKG-$VERSION"
     echo "git commit -am \"$PKG: update to $VERSION.\""
-
-    # REVSHLIB=$(xrevshlib "$PKG");
-    # if [ "$REVSHLIB" != "" ]; then
-    #     _line
-    #     echo "xrevbump needed!"
-    #     for line in "$REVSHLIB"; do
-    #         echo "xrevbump \"revbump for $PKG\" $line"
-    #     done
-    # fi
-    # _line
 
     echo "git push -u origin $PKG-$VERSION"
     _line

@@ -18,6 +18,21 @@ NC="\033[0m"        RED="\033[0;31m"   GREEN="\033[0;32m"
 YELLOW="\033[0;33m" WHITE="\033[0;97m" BLUE="\033[0;34m"
 PURPLE="\033[0;35m" CYAN="\033[0;36m"  GREY="\033[0;90m"
 
+# check function (with ok output)
+function _check_ok {
+    if [ $1 == 0 ]; then
+        echo -en "[${!s_ok_color}OK${NC}]"
+        if [ ! -z "$2" ]; then echo -e "[${!s_info_color}${2}${NC}]"; else echo ""; fi
+    else
+        echo -e "[${!s_fail_color}FAIL${NC}]"; exit 1
+    fi
+}
+
+# check function (without ok output)
+function _check_no_ok {
+    if [ $1 == 0 ]; then return; else echo -e "[${!s_fail_color}FAIL${NC}]"; exit 1; fi
+}
+
 # section start
 function _start {
     str_len=${#1}
@@ -28,11 +43,76 @@ function _start {
     echo "------- $1" >> $LOGFILE
 }
 
+# no check ok
+function _done {
+    echo -en "[${!s_ok_color}OK${NC}]"
+    if [ ! -z "$1" ]; then echo -e "[${PURPLE}${1}${NC}]"; else echo ""; fi
+}
+
+# no check fail
+function _fail {
+    echo -en "[${!s_fail_color}FAIL${NC}]"
+    if [ ! -z "$1" ]; then echo -e "[${PURPLE}${1}${NC}]"; else echo ""; fi
+    exit 1
+}
+
 # hr line
 function _line {
     v=$(printf "%-${s_line_cols}s" "-")
     echo -e "${!s_line_color}${v// /-} ${NC}"
 }
+
+# print
+function _print {
+    echo -e "${!s_main_color}${1}${NC}"
+}
+
+# sudo perm
+function _sudo {
+    if [[ $EUID -ne 0 ]]; then
+        _line
+        echo -e "[${RED}Error${NC}] ${!s_main_color}Sudo permissions required to run this script${NC}"
+        _line
+        exit 1
+    fi
+}
+
+# cmd wrapper
+function _cmd {
+    eval "$@" >> $LOGFILE 2>&1
+    _check_ok $?
+}
+
+function _cmd_no_ok {
+    eval "$@" >> $LOGFILE 2>&1
+    _check_no_ok $?
+}
+
+function _cmd_no_exit {
+    eval "$@" >> $LOGFILE 2>&1
+    if [ $? == 0 ]; then echo -e "[${!s_ok_color}OK${NC}]"; else echo -e "[${!s_fail_color}FAIL${NC}]"; fi
+}
+
+# cmd with return wrapper
+function _cmd_r {
+    ret=$(eval "$@" 2> $LOGFILE)
+    _check_no_ok $?
+}
+
+function _cmd_i {
+    eval "$@" >> $LOGFILE 2>&1
+}
+
+# return not
+function _rn {
+    if [ "$ret" == "$@" ]; then _fail; fi
+}
+
+# return equal
+function _re {
+    if [ "$ret" != "$@" ]; then _fail; fi
+}
+# ----------------------- helper funcs -------------------------
 
 # cmd with return wrapper
 function _check_update {
@@ -56,16 +136,15 @@ if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
 _line
 # ------------------------ initialize --------------------------
 
-echo -e "${WHITE}Updating repo${NC}"
+_start "Updating packages"
 cd ~/void-packages/
-./xbps-src bootstrap-update > /dev/null 2>&1
+_cmd_no_ok "./xbps-src bootstrap-update"
 branch=$(git branch | grep \* | awk '{print $2}');
 if [ "$branch" != "master" ]; then
-    git checkout master  > /dev/null 2>&1
+    _cmd_no_ok "git checkout master"
 fi
-git pull --rebase upstream master > /dev/null 2>&1
-git push -f origin master > /dev/null 2>&1
-
+_cmd_no_ok "git pull --rebase upstream master"
+_done
 _line
 echo -e "${WHITE}Maintained packages${NC}"
 _line
