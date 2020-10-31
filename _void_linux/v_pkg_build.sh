@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ------------------------- settings ---------------------------
-s_log_cols=50           # log length
+s_log_cols=60           # log length
 s_line_cols=80          # hr line length
 s_sudo_perm="NO"        # sudo perm needed
 s_line_color="BLUE"     # hr line color

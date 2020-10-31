@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ------------------------- settings ---------------------------
-s_log_cols=50           # log length
+s_log_cols=60           # log length
 s_line_cols=80          # hr line length
 s_sudo_perm="NO"        # sudo perm needed
 s_line_color="BLUE"     # hr line color
@@ -90,7 +90,7 @@ function _check_update {
     if [ "$ret" != "" ]; then
         new_version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
         old_version=$(cat $HOME/void-packages/srcpkgs/$@/template | grep 'version=' | cut -f2 -d'=')
-        _start "Update found for $f"
+        _start "Update found for ${WHITE}${f}${NC}"
         echo -e "[${WHITE}${old_version} -> ${new_version}${NC}]"
     fi
 }
@@ -106,23 +106,25 @@ if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
 _line
 # ------------------------ initialize --------------------------
 
-# _start "Updating packages"
+_start "Updating packages"
 cd ~/void-packages/
-# _cmd_no_ok "./xbps-src bootstrap-update"
-# branch=$(git branch | grep \* | awk '{print $2}');
-# if [ "$branch" != "master" ]; then
-#     _cmd_no_ok "git checkout master"
-# fi
-# _cmd_no_ok "git pull --rebase upstream master"
-# _done
+_cmd_no_ok "./xbps-src bootstrap-update"
+branch=$(git branch | grep \* | awk '{print $2}');
+if [ "$branch" != "master" ]; then
+    _cmd_no_ok "git checkout master"
+fi
+_cmd_no_ok "git pull --rebase upstream master"
+_done
 _line
 
 echo -e "${WHITE}Maintained packages${NC}"
 _line
 for f in $(ls srcpkgs); do
-    MAINTAINER=$(cat srcpkgs/$f/template | grep maintainer)
-    if [[ $MAINTAINER == *"procopio"* ]]; then
-        echo -e "${WHITE}$f${NC}"
+    if [[ ! -L "srcpkgs/$f" ]]; then
+        MAINTAINER=$(cat srcpkgs/$f/template | grep maintainer | cut -f2 -d'=' | tr -d '"')
+        if [[ $MAINTAINER == "skmpz <dem.procopiou@gmail.com>" ]]; then
+            echo -e "${YELLOW}${MAINTAINER}${NC} - ${WHITE}$f${NC}"
+        fi
     fi
 done
 _line
@@ -130,9 +132,11 @@ _line
 echo -e "${WHITE}Outdated maintained packages${NC}"
 _line
 for f in $(ls srcpkgs); do
-    MAINTAINER=$(cat srcpkgs/$f/template | grep maintainer)
-    if [[ $MAINTAINER == *"procopio"* ]]; then
-        _check_update "$f"
+    if [[ ! -L "srcpkgs/$f" ]]; then
+        MAINTAINER=$(cat srcpkgs/$f/template | grep maintainer)
+        if [[ $MAINTAINER == *"procopio"* ]]; then
+            _check_update "$f"
+        fi
     fi
 done
 _line
