@@ -78,50 +78,19 @@ function _sudo {
 }
 
 # cmd wrapper
-function _cmd {
-    eval "$@" >> $LOGFILE 2>&1
-    _check_ok $?
-}
-
 function _cmd_no_ok {
     eval "$@" >> $LOGFILE 2>&1
     _check_no_ok $?
-}
-
-function _cmd_no_exit {
-    eval "$@" >> $LOGFILE 2>&1
-    if [ $? == 0 ]; then echo -e "[${!s_ok_color}OK${NC}]"; else echo -e "[${!s_fail_color}FAIL${NC}]"; fi
-}
-
-# cmd with return wrapper
-function _cmd_r {
-    ret=$(eval "$@" 2> $LOGFILE)
-    _check_no_ok $?
-}
-
-function _cmd_i {
-    eval "$@" >> $LOGFILE 2>&1
-}
-
-# return not
-function _rn {
-    if [ "$ret" == "$@" ]; then _fail; fi
-}
-
-# return equal
-function _re {
-    if [ "$ret" != "$@" ]; then _fail; fi
 }
 # ----------------------- helper funcs -------------------------
 
 # cmd with return wrapper
 function _check_update {
-    ret=$(eval "$@" 2> $LOGFILE)
-    if [ "$ret" == "" ]; then
-        echo -e "[${!s_ok_color}OK${NC}]"
-    else
+    ret=$(eval "./xbps-src update-check $@" 2> $LOGFILE)
+    if [ "$ret" != "" ]; then
         version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
-        echo -e "[${PURPLE}UPDATE${NC}][${PURPLE}${version}${NC}]"
+        _start "Update found for $f"
+        echo -e "[${PURPLE}${version}${NC}]"
     fi
 }
 
@@ -146,23 +115,23 @@ fi
 _cmd_no_ok "git pull --rebase upstream master"
 _done
 _line
+
 echo -e "${WHITE}Maintained packages${NC}"
 _line
 for f in $(ls srcpkgs); do
     MAINTAINER=$(cat srcpkgs/$f/template | grep maintainer)
     if [[ $MAINTAINER == *"procopio"* ]]; then
-        _start "Checking $f"
-        _check_update "./xbps-src update-check $f"
+        _check_update "$f"
     fi
 done
 _line
+
 echo -e "${WHITE}Used orphan packages${NC}"
 _line
 for f in $(xbps-query -l | awk '{print $2}' | rev | cut -f2- -d- | rev); do
-    MAINTAINER=$(cat srcpkgs/$f/template | grep maintainer)
+    MAINTAINER=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer)
     if [[ $MAINTAINER == *"orphan"* ]]; then
-        _start "Checking $f"
-        _check_update "./xbps-src update-check $f"
+        _check_update " $f"
     fi
 done
 _line

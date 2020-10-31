@@ -29,7 +29,7 @@ alias glog='git log --pretty=oneline'
 alias f='caja .'
 alias nvs='nv -S ~/.sess'
 alias up='sudo xbps-install -Su'
-alias clean='sudo rm -rf /var/cache/xbps/*'
+alias clean='sudo xbps-remove -yoO; sudo vkpurge rm all; sudo rm -rf /var/cache/xbps/*'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
 
 # git aware prompt

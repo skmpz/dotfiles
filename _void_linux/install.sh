@@ -62,7 +62,6 @@ firefox \
 font-adobe-source-code-pro \
 font-awesome \
 font-inconsolata-otf \
-foremost \
 gcc \
 gdb \
 gedit \
@@ -100,7 +99,6 @@ upower \
 vim \
 void-repo-nonfree \
 wget \
-wireshark-qt \
 xclip \
 xcursor-themes \
 xorg \
@@ -127,6 +125,7 @@ rm -rf $HOME/.config/nvim/
 rm -rf $HOME/.config/polybar/
 rm -rf $HOME/.local/share/fonts
 rm -rf $HOME/.urxvt/
+rm -rf $HOME/.ssh/
 rm -rf $HOME/screen/
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
@@ -157,6 +156,7 @@ if [ "$mode" == "HOME" ]; then
     :
 elif [ "$mode" == "LAPTOP" ]; then
     sudo xbps-install -Sy nvidia
+    ln -sf $HOME/Dropbox/ssh/ $HOME/.ssh/
     ln -sf $HOME/dotfiles/_void_linux/laptop/x/xinitrc $HOME/.xinitrc
     ln -sf $HOME/dotfiles/_void_linux/laptop/x/Xresources.local $HOME/.Xresources.local
     ln -sf $HOME/dotfiles/_void_linux/laptop/i3/config.local $HOME/.config/i3/config.local
