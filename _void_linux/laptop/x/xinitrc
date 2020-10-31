@@ -11,3 +11,4 @@ blueman-applet &
 nm-applet &
 dropbox start &
 exec i3
+#exec mate-session

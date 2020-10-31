@@ -88,9 +88,10 @@ function _cmd_no_ok {
 function _check_update {
     ret=$(eval "./xbps-src update-check $@" 2> $LOGFILE)
     if [ "$ret" != "" ]; then
-        version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
+        new_version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
+        old_version=$(cat $HOME/void-packages/srcpkgs/$@/template | grep 'version=' | cut -f2 -d'=')
         _start "Update found for $f"
-        echo -e "[${PURPLE}${version}${NC}]"
+        echo -e "[${WHITE}${old_version} -> ${new_version}${NC}]"
     fi
 }
 
@@ -105,18 +106,28 @@ if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
 _line
 # ------------------------ initialize --------------------------
 
-_start "Updating packages"
+# _start "Updating packages"
 cd ~/void-packages/
-_cmd_no_ok "./xbps-src bootstrap-update"
-branch=$(git branch | grep \* | awk '{print $2}');
-if [ "$branch" != "master" ]; then
-    _cmd_no_ok "git checkout master"
-fi
-_cmd_no_ok "git pull --rebase upstream master"
-_done
+# _cmd_no_ok "./xbps-src bootstrap-update"
+# branch=$(git branch | grep \* | awk '{print $2}');
+# if [ "$branch" != "master" ]; then
+#     _cmd_no_ok "git checkout master"
+# fi
+# _cmd_no_ok "git pull --rebase upstream master"
+# _done
 _line
 
 echo -e "${WHITE}Maintained packages${NC}"
+_line
+for f in $(ls srcpkgs); do
+    MAINTAINER=$(cat srcpkgs/$f/template | grep maintainer)
+    if [[ $MAINTAINER == *"procopio"* ]]; then
+        echo -e "${WHITE}$f${NC}"
+    fi
+done
+_line
+
+echo -e "${WHITE}Outdated maintained packages${NC}"
 _line
 for f in $(ls srcpkgs); do
     MAINTAINER=$(cat srcpkgs/$f/template | grep maintainer)
@@ -126,12 +137,12 @@ for f in $(ls srcpkgs); do
 done
 _line
 
-echo -e "${WHITE}Used orphan packages${NC}"
+echo -e "${WHITE}Outdated used orphan packages${NC}"
 _line
 for f in $(xbps-query -l | awk '{print $2}' | rev | cut -f2- -d- | rev); do
     MAINTAINER=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer)
     if [[ $MAINTAINER == *"orphan"* ]]; then
-        _check_update " $f"
+        _check_update "$f"
     fi
 done
 _line

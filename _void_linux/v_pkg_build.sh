@@ -187,8 +187,8 @@ for PKG in $PKGS; do
     ARCH_ARMV7L="YES"
 
     ARCH_X86_64_MUSL="YES"
-    ARCH_ARMV6L_MUSL="YES"
     ARCH_AARCH64_MUSL="YES"
+    ARCH_ARMV6L_MUSL="YES"
 
     if [ "$ARCHS" != "" ]; then
 
@@ -354,14 +354,13 @@ if [ "$COMMIT" == "YES" ]; then
 
     echo "git checkout -b $PKG-$VERSION"
     echo "git commit -am \"$PKG: update to $VERSION.\""
-
     echo "git push -u origin $PKG-$VERSION"
-    _line
-    echo "xi $PKG"
-    _line
     echo "git checkout master"
     echo "git pull --rebase upstream master"
     echo "./xbps-src clean"
+    _line
+    echo "xi $PKG"
+    _line
 fi
 # -------------------------- script ----------------------------
 
