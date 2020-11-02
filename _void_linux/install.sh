@@ -57,6 +57,7 @@ cmake \
 cppcheck \
 curl \
 dejavu-fonts-ttf \
+dhclient \
 dropbox \
 engrampa \
 evince \
@@ -77,6 +78,7 @@ make \
 mate-terminal \
 mpv \
 neovim \
+net-tools \
 network-manager-applet \
 nmap \
 nodejs \
@@ -84,6 +86,7 @@ nomacs \
 noto-fonts-emoji \
 noto-fonts-ttf \
 openjdk8 \
+openvpn \
 p7zip \
 pkg-config \
 polybar \
