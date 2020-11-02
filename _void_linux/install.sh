@@ -27,6 +27,9 @@ done
 if [ "$mode" != "HOME" ] && [ "$mode" != "LAPTOP" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
+# user
+user=$(echo $USER)
+
 # install base apps
 echo "Installing system.."
 sudo xbps-install -Sy \
@@ -62,6 +65,7 @@ firefox \
 font-adobe-source-code-pro \
 font-awesome \
 font-inconsolata-otf \
+fzf \
 gcc \
 gdb \
 gedit \
@@ -112,7 +116,7 @@ pip install --upgrade conan
 # setup configuration
 echo "Setting up config files.."
 cd $HOME
-sudo chown sk:sk -R . > /dev/null 2>> $LOGFILE
+sudo chown $user:$user -R .
 rm -rf $HOME/.bash/
 rm -rf $HOME/.bashrc
 rm -rf $HOME/.gtkrc-2.0
@@ -125,8 +129,8 @@ rm -rf $HOME/.config/nvim/
 rm -rf $HOME/.config/polybar/
 rm -rf $HOME/.local/share/fonts
 rm -rf $HOME/.urxvt/
-rm -rf $HOME/.ssh/
-rm -rf $HOME/screen/
+rm -rf $HOME/screens/
+rm -rf $HOME/tools/
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/polybar/
@@ -134,7 +138,8 @@ mkdir -p $HOME/.config/nvim/
 mkdir -p $HOME/.config/gtk-3.0/
 mkdir -p $HOME/.local/share/fonts/
 mkdir -p $HOME/.urxvt/ext/
-mkdir -p $HOME/screen/
+mkdir -p $HOME/screens/
+mkdir -p $HOME/tools/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
@@ -156,7 +161,6 @@ if [ "$mode" == "HOME" ]; then
     :
 elif [ "$mode" == "LAPTOP" ]; then
     sudo xbps-install -Sy nvidia
-    ln -sf $HOME/Dropbox/ssh/ $HOME/.ssh/
     ln -sf $HOME/dotfiles/_void_linux/laptop/x/xinitrc $HOME/.xinitrc
     ln -sf $HOME/dotfiles/_void_linux/laptop/x/Xresources.local $HOME/.Xresources.local
     ln -sf $HOME/dotfiles/_void_linux/laptop/i3/config.local $HOME/.config/i3/config.local
@@ -164,13 +168,16 @@ elif [ "$mode" == "LAPTOP" ]; then
     ln -sf $HOME/dotfiles/_void_linux/laptop/polybar/config.ini $HOME/.config/polybar/
 fi
 
+# setup fuzzypkg
+git clone https://github.com/skmpz/fuzzypkg $HOME/tools/fuzzypkg
+
 # setup vim
 nvim +PlugInstall +qall
 nvim +UpdateRemotePlugins +qall
 nvim +"CocInstall coc-clangd" +qall
 
 # setup home dir
-sudo chown sk:sk -R $HOME
+sudo chown $user:$user -R $HOME
 
 # setup services
 sudo rm -rf /var/service/dhcpcd/
@@ -181,4 +188,4 @@ sudo ln -sf /etc/sv/chronyd/ /var/service/
 sudo ln -sf /usr/share/zoneinfo/Asia/Dubai /etc/localtime
 
 # add user to groups
-sudo usermod -a -G bluetooth,network sk
+sudo usermod -a -G bluetooth,network $user

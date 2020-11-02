@@ -31,6 +31,7 @@ alias nvs='nv -S ~/.sess'
 alias up='sudo xbps-install -Su'
 alias clean='sudo xbps-remove -yoO; sudo vkpurge rm all; sudo rm -rf /var/cache/xbps/*'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
+alias xh='$HOME/tools/fuzzypkg/fuzzypkg'
 
 # git aware prompt
 PS1='[\u@\h \W]\$ '
