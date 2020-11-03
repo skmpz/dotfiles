@@ -106,7 +106,7 @@ echo -e "${!s_info_color}Started: $(date -d@$((start_time)) -u +%H:%M:%S)${NC}"
 
 # ------------------------ main script -------------------------
 
-# grab git mail
+# grab git user/mail
 git_user=$(git config -l | grep name | cut -f2 -d=)
 git_mail=$(git config -l | grep email | cut -f2 -d=)
 
