@@ -5,9 +5,9 @@ s_log_cols=50           # log length
 s_line_cols=80          # hr line length
 s_sudo_perm="NO"        # sudo perm needed
 s_line_color="BLUE"     # hr line color
-s_main_color="YELLOW"   # main action color
-s_plus_color="WHITE"    # sign color
-s_sec_color="WHITE"     # section color
+s_main_color="WHITE"   # main action color
+s_plus_color="YELLOW"    # sign color
+s_sec_color="GREEN"     # section color
 s_ok_color="GREEN"      # ok color
 s_info_color="PURPLE"   # info color
 s_fail_color="RED"      # fail color
@@ -84,6 +84,10 @@ function _cmd_out {
     _check_no_ok $?
 }
 
+function _note {
+    echo -e "${GREY}${1}${NC}"
+}
+
 function _section {
 _line
 echo -e "${!s_main_color}[${!s_plus_color}+${!s_main_color}] ${!s_sec_color}$@"
@@ -110,13 +114,49 @@ echo -e "${!s_info_color}Started: $(date -d@$((start_time)) -u +%H:%M:%S)${NC}"
 git_user=$(git config -l | grep name | cut -f2 -d=)
 git_mail=$(git config -l | grep email | cut -f2 -d=)
 
+function _links {
+    # repology
+    _note "--> Repology: https://repology.org/project/$1/versions"
+
+    # arch
+    if [[ $(curl -s -o /dev/null -w "%{http_code}" https://github.com/archlinux/svntogit-packages/commits/packages/$1/trunk) == "200" ]]; then
+        _note "--> Arch: https://github.com/archlinux/svntogit-packages/commits/packages/$1/trunk"
+    elif [[ $(curl -s -o /dev/null -w "%{http_code}" https://github.com/archlinux/svntogit-community/commits/packages/$1/trunk) == "200" ]]; then
+        _note "--> Arch: https://github.com/archlinux/svntogit-community/commits/packages/$1/trunk"
+    fi
+
+    # alpine
+    if [[ $(curl -s -o /dev/null -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/main/x86_64/$1) == "200" ]]; then
+        _note "--> Alpine: https://pkgs.alpinelinux.org/package/edge/main/x86_64/$1"
+    elif [[ $(curl -s -o /dev/null -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/community/x86_64/$1) == "200" ]]; then
+        _note "--> Alpine: https://pkgs.alpinelinux.org/package/edge/community/x86_64/$1"
+    fi
+
+    # fedora
+    if [[ $(curl -s -o /dev/null -w "%{http_code}" https://src.fedoraproject.org/rpms/$1/commits/master) == "200" ]]; then
+        _note "--> Fedora: https://src.fedoraproject.org/rpms/$1/commits/master"
+    fi
+}
+
 function _check_update {
-    _cmd_out "./xbps-src update-check $@"
+    _start "Checking $1"
+    _cmd_out "./xbps-src update-check $1"
     if [ "$ret" != "" ]; then
-        _start "Update found for $@"
+        # _start "Update found for $1"
         new_version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
-        old_version=$(cat $HOME/void-packages/srcpkgs/$@/template | grep 'version=' | cut -f2 -d'=')
+        old_version=$(cat $HOME/void-packages/srcpkgs/$1/template | grep 'version=' | cut -f2 -d'=')
         echo -e "[${WHITE}${old_version} -> ${new_version}${NC}]"
+        _line
+        _links $1
+        _line
+    else
+        if [ "$2" == "own" ]; then
+            # _start "Up-to-date
+            _done
+            _line
+            _links $1
+            _line
+        fi
     fi
 }
 
@@ -139,7 +179,7 @@ for f in $(ls srcpkgs); do
     if [ ! -L "srcpkgs/$f" ]; then
         MAINTAINER=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer | cut -f2 -d'"')
         if [ "$MAINTAINER" == "$git_user <$git_mail>" ]; then
-            _check_update "$f"
+            _check_update "$f" "own"
         fi
     fi
 done
