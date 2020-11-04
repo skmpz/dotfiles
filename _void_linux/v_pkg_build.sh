@@ -96,18 +96,6 @@ function _section {
 
 # ----------------------- helper funcs -------------------------
 
-# ------------------------ initialize --------------------------
-SCRIPT=$(basename $0)        # get script name
-LOGFILE="$PWD/.$SCRIPT.log"  # set logfile
-echo "" > $LOGFILE           # empty logfile
-start_time=`date +%s`        # start timer
-if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
-_line
-echo -e "${!s_info_color}Script: $SCRIPT${NC}"
-echo -e "${!s_info_color}Logfile: $LOGFILE${NC}"
-echo -e "${!s_info_color}Started: $(date -d@$((start_time)) -u +%H:%M:%S)${NC}"
-# ------------------------ initialize --------------------------
-
 # ------------------------- arguments --------------------------
 # print usage and exit
 function show_usage {
@@ -143,6 +131,18 @@ if [ "$BUILD" == "" ]; then BUILD="NO"; fi
 if [ "$CHECK" == "" ]; then CHECK="NO"; fi
 if [ "$BUILD" == "YES" ] && [ "$CHECK" == "YES" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
+
+# ------------------------ initialize --------------------------
+SCRIPT=$(basename $0)        # get script name
+LOGFILE="$PWD/.$SCRIPT.log"  # set logfile
+echo "" > $LOGFILE           # empty logfile
+start_time=`date +%s`        # start timer
+if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
+_line
+echo -e "${!s_info_color}Script: $SCRIPT${NC}"
+echo -e "${!s_info_color}Logfile: $LOGFILE${NC}"
+echo -e "${!s_info_color}Started: $(date -d@$((start_time)) -u +%H:%M:%S)${NC}"
+# ------------------------ initialize --------------------------
 
 # -------------------------- script ----------------------------
 
@@ -290,37 +290,37 @@ if [ "$CHECK" == "YES" ]; then
     if [ "$ARCH_I686" == "YES" ]; then
         _start "Building for i686 (i686)"
         _cmd_no_ok "./xbps-src -m masterdir-x86 clean"
-        _cmd_ok "./xbps-src pkg -m masterdir-x86 -f $PKG"
+        _cmd_ok "./xbps-src -j$(nproc) pkg -m masterdir-x86 -f $PKG"
     fi
 
     if [ "$ARCH_AARCH64" == "YES" ]; then
         _start "Building for aarch64 (x86_64)"
         _cmd_no_ok "./xbps-src clean"
-        _cmd_ok "./xbps-src pkg -a aarch64 -f $PKG"
+        _cmd_ok "./xbps-src -j$(nproc) pkg -a aarch64 -f $PKG"
     fi
 
     if [ "$ARCH_ARMV7L" == "YES" ]; then
         _start "Building for armv7l (x86_64)"
         _cmd_no_ok "./xbps-src clean"
-        _cmd_ok "./xbps-src pkg -a armv7l -f $PKG"
+        _cmd_ok "./xbps-src -j$(nproc) pkg -a armv7l -f $PKG"
     fi
 
     if [ "$ARCH_X86_64_MUSL" == "YES" ]; then
         _start "Building for x86_64-musl (x86_64-musl)"
         _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
-        _cmd_ok "./xbps-src -m masterdir-x86_64-musl pkg -f $PKG"
+        _cmd_ok "./xbps-src -m masterdir-x86_64-musl -j$(nproc) pkg -f $PKG"
     fi
 
     if [ "$ARCH_AARCH64_MUSL" == "YES" ]; then
         _start "Building for aarch64-musl (x86_64-musl)"
         _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
-        _cmd_ok "./xbps-src -m masterdir-x86_64-musl -a aarch64-musl pkg -f $PKG"
+        _cmd_ok "./xbps-src -m masterdir-x86_64-musl -a aarch64-musl -j$(nproc) pkg -f $PKG"
     fi
 
     if [ "$ARCH_ARMV6L_MUSL" == "YES" ]; then
         _start "Building for armv6l-musl (x86_64-musl)"
         _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl clean"
-        _cmd_ok "./xbps-src -m masterdir-x86_64-musl -a armv6l-musl pkg -f $PKG"
+        _cmd_ok "./xbps-src -m masterdir-x86_64-musl -a armv6l-musl -j$(nproc) pkg -f $PKG"
     fi
 
     _start "Linting"
