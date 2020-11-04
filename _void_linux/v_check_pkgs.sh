@@ -96,6 +96,30 @@ _line
 
 # ----------------------- helper funcs -------------------------
 
+# ------------------------- arguments --------------------------
+# print usage and exit
+function show_usage {
+    echo -e "[${RED}usage${NC}] ${!s_main_color}./$(basename $0) [opts]${NC}"
+    _line
+    echo -en "[${WHITE}opts${NC}] "
+    echo -e "${BLUE}-r|--report <report_file>  html report   [optional]${NC}"
+    _line
+    exit 1
+}
+
+# parse arguments
+for i in "$@"
+do
+    case $i in
+        -r|--report) REPORT_ON="YES"; REPORT_FILE="$2"; shift 2 ;;
+        *) ;;
+    esac
+done
+
+# check arguments
+if [ "$REPORT_ON" == "YES" ] && [ -z "$REPORT_FILE" ]; then show_usage; fi
+# ------------------------- arguments --------------------------
+
 # ------------------------ initialize --------------------------
 SCRIPT=$(basename $0)        # get script name
 LOGFILE="$PWD/.$SCRIPT.log"  # set logfile
@@ -105,6 +129,23 @@ if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
 _line
 echo -e "${!s_info_color}Script: $SCRIPT${NC}"
 echo -e "${!s_info_color}Logfile: $LOGFILE${NC}"
+
+if [ "$REPORT_ON" == "YES" ]; then echo -e "${!s_info_color}Report file: $REPORT_FILE${NC}"; fi
+cat <<EOT > $REPORT_FILE
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+table { font-family: arial, sans-serif; font-size: 13px; border-collapse: collapse; width: 1500px; }
+td, th { border: 1px solid #34495E; text-align: center; padding: 8px; }
+a { color: #34495E; text-decoration: none }
+        </style>
+    </head>
+    <body>
+    <h2>Packages report $(date -u "+%Y-%m-%d %H:%M:%S")</h2>
+    <hr>
+EOT
+
 echo -e "${!s_info_color}Started: $(date -d@$((start_time)) -u +%H:%M:%S)${NC}"
 # ------------------------ initialize --------------------------
 
@@ -114,49 +155,108 @@ echo -e "${!s_info_color}Started: $(date -d@$((start_time)) -u +%H:%M:%S)${NC}"
 git_user=$(git config -l | grep name | cut -f2 -d=)
 git_mail=$(git config -l | grep email | cut -f2 -d=)
 
-function _links {
-    # repology
-    _note "--> Repology: https://repology.org/project/$1/versions"
+function _report {
+    new_version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
+    old_version=$(cat $HOME/void-packages/srcpkgs/$1/template | grep 'version=' | cut -f2 -d'=')
+    maintainer=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer= | cut -f2 -d'"')
+    homepage=$(cat $HOME/void-packages/srcpkgs/$1/template | grep 'homepage=' | cut -f2 -d'"')
 
-    # arch
-    if [[ $(curl -s -o /dev/null -w "%{http_code}" https://github.com/archlinux/svntogit-packages/commits/packages/$1/trunk) == "200" ]]; then
-        _note "--> Arch: https://github.com/archlinux/svntogit-packages/commits/packages/$1/trunk"
-    elif [[ $(curl -s -o /dev/null -w "%{http_code}" https://github.com/archlinux/svntogit-community/commits/packages/$1/trunk) == "200" ]]; then
-        _note "--> Arch: https://github.com/archlinux/svntogit-community/commits/packages/$1/trunk"
+    if [ -z "$new_version" ]; then 
+        new_version="$old_version"
+        _done
+    else
+        echo -e "[${WHITE}${old_version} -> ${new_version}${NC}]"
     fi
 
-    # alpine
-    if [[ $(curl -s -o /dev/null -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/main/x86_64/$1) == "200" ]]; then
-        _note "--> Alpine: https://pkgs.alpinelinux.org/package/edge/main/x86_64/$1"
-    elif [[ $(curl -s -o /dev/null -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/community/x86_64/$1) == "200" ]]; then
-        _note "--> Alpine: https://pkgs.alpinelinux.org/package/edge/community/x86_64/$1"
-    fi
+    if [ "$REPORT_ON" == "YES" ]; then
 
-    # fedora
-    if [[ $(curl -s -o /dev/null -w "%{http_code}" https://src.fedoraproject.org/rpms/$1/commits/master) == "200" ]]; then
-        _note "--> Fedora: https://src.fedoraproject.org/rpms/$1/commits/master"
+        repology="https://repology.org/project/$1/versions"
+        pr_url="https://github.com/void-linux/void-packages/pulls?q=$1"
+        arch_url="null"
+        arch_git_url="null"
+        arch_info="null"
+        arch_version="null"
+        alpine_url="null"
+        alpine_info="null"
+        alpine_version="null"
+        fedora_url="null"
+
+        # arch
+        if [[ $(curl -s -o .tmp.out -w "%{http_code}" \
+            https://github.com/archlinux/svntogit-packages/commits/packages/$1/trunk) == "200" ]]; then
+            arch_url="https://github.com/archlinux/svntogit-packages/commits/packages/$1/trunk"
+            arch_info=$(date -d "$(cat .tmp.out | grep -i "Commits on" | head -1 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
+            arch_git_url="https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD"
+            arch_git_data=$(curl -s "$arch_git_url")
+            tmp1=$(echo "$arch_git_data" | grep pkgver= | cut -f2 -d'=')
+            tmp2=$(echo "$arch_git_data" | grep pkgrel= | cut -f2 -d'=')
+            arch_version=$(echo "$tmp1-$tmp2");
+        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" \
+            https://github.com/archlinux/svntogit-community/commits/packages/$1/trunk) == "200" ]]; then
+            arch_url="https://github.com/archlinux/svntogit-community/commits/packages/$1/trunk"
+            arch_info=$(date -d "$(cat .tmp.out | grep -i "Commits on" | head -1 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
+            arch_git_url="https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$1/trunk/PKGBUILD"
+            arch_git_data=$(curl -s "$arch_git_url")
+            tmp1=$(echo "$arch_git_data" | grep pkgver= | cut -f2 -d'=')
+            tmp2=$(echo "$arch_git_data" | grep pkgrel= | cut -f2 -d'=')
+            arch_version=$(echo "$tmp1-$tmp2");
+        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://aur.archlinux.org/cgit/aur.git/log/?h=$1) == "200" ]]; then
+            arch_url="https://aur.archlinux.org/cgit/aur.git/log/?h=$1"
+            arch_info=$(cat .tmp.out | grep -A1 "Commit message" | tail -1 | awk -F "title='" '{print $2}' | cut -f1 -d' ')
+            arch_git_url="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$1"
+            arch_git_data=$(curl -s $arch_git_url)
+            tmp1=$(echo "$arch_git_data" | grep pkgver= | cut -f2 -d'=')
+            tmp2=$(echo "$arch_git_data" | grep pkgrel= | cut -f2 -d'=')
+            arch_version=$(echo "$tmp1-$tmp2 (AUR)");
+        fi
+
+        # alpine
+        if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/main/x86_64/$1) == "200" ]]; then
+            alpine_url="https://pkgs.alpinelinux.org/package/edge/main/x86_64/$1"
+            alpine_info=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_version=$(cat .tmp.out | grep -A 3 "Version" | grep Flag | cut -f2 -d'>' | cut -f1 -d'<')
+        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/community/x86_64/$1) == "200" ]]; then
+            alpine_url="https://pkgs.alpinelinux.org/package/edge/community/x86_64/$1"
+            alpine_info=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_version=$(cat .tmp.out | grep -A 3 "Version" | grep Flag | cut -f2 -d'>' | cut -f1 -d'<')
+        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$1) == "200" ]]; then
+            alpine_url="https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$1"
+            alpine_info=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_version=$(cat .tmp.out | grep -A 3 "Version" | grep Flag | cut -f2 -d'>' | cut -f1 -d'<')
+        fi
+
+        # fedora
+        if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://src.fedoraproject.org/rpms/$1/commits/master) == "200" ]]; then
+            fedora_url="https://src.fedoraproject.org/rpms/$1/commits/master"
+        fi
+
+        if [ "$new_version" == "$old_version" ]; then
+            echo "<tr style=\"background-color: #D6EAF8\">" >> $REPORT_FILE
+        else
+            echo "<tr style=\"background-color: #F2D7D5\">" >> $REPORT_FILE
+        fi
+
+        echo "<td style=\"text-align: left\">"$1"</td>" >> $REPORT_FILE
+        echo "<td>"$old_version"</td>" >> $REPORT_FILE
+        echo "<td>"$new_version"</td>" >> $REPORT_FILE
+        echo "<td><a href="$arch_git_url" target="_blank">$arch_version</td>" >> $REPORT_FILE
+        echo "<td><a href="$arch_url" target="_blank">$arch_info</td>" >> $REPORT_FILE
+        echo "<td><a href="$alpine_url" target="_blank">$alpine_version</td>" >> $REPORT_FILE
+        echo "<td><a href="$alpine_url" target="_blank">$alpine_info</td>" >> $REPORT_FILE
+        echo "<td><a href="$fedora_url" target="_blank">link</td>" >> $REPORT_FILE
+        echo "<td><a href="$fedora_url" target="_blank">link</td>" >> $REPORT_FILE
+        echo "<td><a href="$pr_url" target="_blank">pr_check</td>" >> $REPORT_FILE
+        echo "<td><a href="$homepage" target="_blank">homepage</td>" >> $REPORT_FILE
+        echo "<td><a href="$repology" target="_blank">repology</td>" >> $REPORT_FILE
+        echo "</tr>" >> $REPORT_FILE
     fi
 }
 
 function _check_update {
-    _start "Checking $1"
     _cmd_out "./xbps-src update-check $1"
-    if [ "$ret" != "" ]; then
-        # _start "Update found for $1"
-        new_version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
-        old_version=$(cat $HOME/void-packages/srcpkgs/$1/template | grep 'version=' | cut -f2 -d'=')
-        echo -e "[${WHITE}${old_version} -> ${new_version}${NC}]"
-        _line
-        _links $1
-        _line
-    else
-        if [ "$2" == "own" ]; then
-            # _start "Up-to-date
-            _done
-            _line
-            _links $1
-            _line
-        fi
+    if [ "$ret" != "" ] || [ "$2" == "own" ]; then
+        _start "Checking $1"
+        _report "$1"
     fi
 }
 
@@ -175,6 +275,26 @@ _cmd_ok "git pull --rebase upstream master"
 
 # show outdated maintained packages
 _section "Outdated maintained packages"
+
+if [ "$REPORT_ON" == "YES" ]; then
+    echo "<h3>Maintained packages</h3>" >> $REPORT_FILE
+    echo "<table>" >> $REPORT_FILE
+    echo "<tr>" >> $REPORT_FILE
+    echo "<th width=\"11%\" style=\"text-align: left\">Package</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Old version</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">New version</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Arch version</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Arch updated</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Alpine version</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Alpine updated</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Fedora version</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Fedora updated</th>" >> $REPORT_FILE
+    echo "<th width=\"5%\">PR</th>" >> $REPORT_FILE
+    echo "<th width=\"7%\">Homepage</th>" >> $REPORT_FILE
+    echo "<th width=\"7%\">Repology</th>" >> $REPORT_FILE
+    echo "</tr>" >> $REPORT_FILE
+fi
+
 for f in $(ls srcpkgs); do
     if [ ! -L "srcpkgs/$f" ]; then
         MAINTAINER=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer | cut -f2 -d'"')
@@ -183,6 +303,26 @@ for f in $(ls srcpkgs); do
         fi
     fi
 done
+
+if [ "$REPORT_ON" == "YES" ]; then
+    echo "</table><br />" >> $REPORT_FILE
+    echo "<h3>Outdated orphaned packages</h3>" >> $REPORT_FILE
+    echo "<table>" >> $REPORT_FILE
+    echo "<tr>" >> $REPORT_FILE
+    echo "<th width=\"11%\" style=\"text-align: left\">Package</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Old version</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">New version</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Arch version</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Arch updated</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Alpine version</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Alpine updated</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Fedora version</th>" >> $REPORT_FILE
+    echo "<th width=\"9%\">Fedora updated</th>" >> $REPORT_FILE
+    echo "<th width=\"5%\">PR</th>" >> $REPORT_FILE
+    echo "<th width=\"7%\">Homepage</th>" >> $REPORT_FILE
+    echo "<th width=\"7%\">Repology</th>" >> $REPORT_FILE
+    echo "</tr>" >> $REPORT_FILE
+fi
 
 # show outdated used orphaned packages
 _section "Outdated used orphaned packages"
@@ -193,6 +333,11 @@ for f in $(xbps-query -l | awk '{print $2}' | rev | cut -f2- -d- | rev); do
     fi
 done
 
+if [ "$REPORT_ON" == "YES" ]; then
+    echo "</table>"
+    echo "</body>" >> $REPORT_FILE
+    echo "</html>" >> $REPORT_FILE
+fi
 # ------------------------ main script -------------------------
 
 # print run info
