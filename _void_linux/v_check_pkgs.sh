@@ -139,7 +139,7 @@ if [ "$REPORT_ON" == "YES" ]; then
 <html>
     <head>
         <style>
-table { font-family: arial, sans-serif; font-size: 13px; border-collapse: collapse; width: 1500px; }
+table { font-family: arial, sans-serif; font-size: 13px; border-collapse: collapse; width: 1200px; }
 td, th { border: 1px solid #34495E; text-align: center; padding: 8px; }
 a { color: #34495E; text-decoration: none }
         </style>
@@ -250,52 +250,57 @@ function _report {
             fedora_git_data=$(curl -s $fedora_git_url)
             fedora_version=$(echo "$fedora_git_data" | grep "Version:" | tr -s ' ' | cut -f2 -d' ')
             fedora_revision=$(echo "$fedora_git_data" | grep "Release:" | tr -s ' ' | cut -f2 -d' ' | cut -f1 -d'%')
+
+            if [[ $fedora_version == *"%{branch}"* ]]; then
+                fedora_branch=$(echo "$fedora_git_data" | grep "global branch" | tr -s ' ' | cut -f3 -d' ')
+                fedora_version=$(echo "$fedora_version" | sed "s/%{branch}/$fedora_branch/")
+            fi
         fi
 
         if [ "$new_version" == "$old_version" ]; then
-            echo "<tr style=\"background-color: #D6EAF8\">" >> $REPORT_FILE
+            echo "<tr style=\"background-color: #F2F8FF\">" >> $REPORT_FILE
         else
-            echo "<tr style=\"background-color: #F9EBEA\">" >> $REPORT_FILE
+            echo "<tr style=\"background-color: #FFF3F2\">" >> $REPORT_FILE
         fi
 
-        echo "<td style=\"text-align: left\">"$1"</td>" >> $REPORT_FILE
+        echo "<td style=\"text-align: left\"><a href=\"https://github.com/void-linux/void-packages/blob/master/srcpkgs/$1/template\" target=\"_blank\">"$1"</td>" >> $REPORT_FILE
         echo "<td>"$old_version"</td>" >> $REPORT_FILE
         echo "<td>"$new_version"</td>" >> $REPORT_FILE
 
         if [ "$arch_version" == "null" ]; then
-            echo "<td>---</td>" >> $REPORT_FILE
-            echo "<td>---</td>" >> $REPORT_FILE
+            echo "<td width="7%">---</td>" >> $REPORT_FILE
+            echo "<td width="9%">---</td>" >> $REPORT_FILE
         elif [ "$arch_version" == "$new_version" ]; then
-            echo "<td><a href="$arch_git_url" target=\"_blank\" style=\"color: #0E6655\">$arch_version-$arch_revision</td>" >> $REPORT_FILE
-            echo "<td><a href="$arch_url" target=\"_blank\" style=\"color: #0E6655\">$arch_info</td>" >> $REPORT_FILE
+            echo "<td width="7%"><a href="$arch_git_url" target=\"_blank\" style=\"color: #0E6655\">$arch_version</td>" >> $REPORT_FILE
+            echo "<td width="9%"><a href="$arch_url" target=\"_blank\" style=\"color: #0E6655\">$arch_info</td>" >> $REPORT_FILE
         else
-            echo "<td><a href="$arch_git_url" target=\"_blank\" style=\"color: #7B241C\">$arch_version-$arch_revision</td>" >> $REPORT_FILE
-            echo "<td><a href="$arch_url" target=\"_blank\" style=\"color: #7B241C\">$arch_info</td>" >> $REPORT_FILE
+            echo "<td width="7%"><a href="$arch_git_url" target=\"_blank\" style=\"color: #7B241C\">$arch_version</td>" >> $REPORT_FILE
+            echo "<td width="9%"><a href="$arch_url" target=\"_blank\" style=\"color: #7B241C\">$arch_info</td>" >> $REPORT_FILE
         fi
 
         if [ "$alpine_version" == "null" ]; then
-            echo "<td>---</td>" >> $REPORT_FILE
-            echo "<td>---</td>" >> $REPORT_FILE
+            echo "<td width="7%">---</td>" >> $REPORT_FILE
+            echo "<td width="9%">---</td>" >> $REPORT_FILE
         elif [ "$alpine_version" == "$new_version" ]; then
-            echo "<td><a href="$alpine_git_url" target="_blank" style=\"color: #0E6655\">$alpine_version-$alpine_revision</td>" >> $REPORT_FILE
-            echo "<td><a href="$alpine_url" target="_blank" style=\"color: #0E6655\">$alpine_info</td>" >> $REPORT_FILE
+            echo "<td width="7%"><a href="$alpine_git_url" target="_blank" style=\"color: #0E6655\">$alpine_version</td>" >> $REPORT_FILE
+            echo "<td width="9%"><a href="$alpine_url" target="_blank" style=\"color: #0E6655\">$alpine_info</td>" >> $REPORT_FILE
         else
-            echo "<td><a href="$alpine_git_url" target="_blank" style=\"color: #7B241C\">$alpine_version-$alpine_revision</td>" >> $REPORT_FILE
-            echo "<td><a href="$alpine_url" target="_blank" style=\"color: #7B241C\">$alpine_info</td>" >> $REPORT_FILE
+            echo "<td width="7%"><a href="$alpine_git_url" target="_blank" style=\"color: #7B241C\">$alpine_version</td>" >> $REPORT_FILE
+            echo "<td width="9%"><a href="$alpine_url" target="_blank" style=\"color: #7B241C\">$alpine_info</td>" >> $REPORT_FILE
         fi
 
         if [ "$fedora_version" == "null" ]; then
-            echo "<td>---</td>" >> $REPORT_FILE
-            echo "<td>---</td>" >> $REPORT_FILE
+            echo "<td width="7%">---</td>" >> $REPORT_FILE
+            echo "<td width="9%">---</td>" >> $REPORT_FILE
         elif [ "$fedora_version" == "$new_version" ]; then
-            echo "<td><a href="$fedora_git_url" target="_blank" style=\"color: #0E6655\">$fedora_version-$fedora_revision</td>" >> $REPORT_FILE
-            echo "<td><a href="$fedora_url" target="_blank" style=\"color: #0E6655\">$fedora_info</td>" >> $REPORT_FILE
+            echo "<td width="7%"><a href="$fedora_git_url" target="_blank" style=\"color: #0E6655\">$fedora_version</td>" >> $REPORT_FILE
+            echo "<td width="9%"><a href="$fedora_url" target="_blank" style=\"color: #0E6655\">$fedora_info</td>" >> $REPORT_FILE
         else
-            echo "<td><a href="$fedora_git_url" target="_blank" style=\"color: #7B241C\">$fedora_version-$fedora_revision</td>" >> $REPORT_FILE
-            echo "<td><a href="$fedora_url" target="_blank" style=\"color: #7B241C\">$fedora_info</td>" >> $REPORT_FILE
+            echo "<td width="7%"><a href="$fedora_git_url" target="_blank" style=\"color: #7B241C\">$fedora_version</td>" >> $REPORT_FILE
+            echo "<td width="9%"><a href="$fedora_url" target="_blank" style=\"color: #7B241C\">$fedora_info</td>" >> $REPORT_FILE
         fi
 
-        echo "<td><a href="$pr_url" target="_blank">pr_check</td>" >> $REPORT_FILE
+        echo "<td><a href="$pr_url" target="_blank">check</td>" >> $REPORT_FILE
         echo "<td><a href="$homepage" target="_blank">homepage</td>" >> $REPORT_FILE
         echo "<td><a href="$repology" target="_blank">repology</td>" >> $REPORT_FILE
         echo "</tr>" >> $REPORT_FILE
@@ -330,18 +335,15 @@ if [ "$REPORT_ON" == "YES" ]; then
     echo "<h3>Maintained packages</h3>" >> $REPORT_FILE
     echo "<table>" >> $REPORT_FILE
     echo "<tr>" >> $REPORT_FILE
-    echo "<th width=\"11%\" style=\"text-align: left\">Package</th>" >> $REPORT_FILE
-    echo "<th width=\"8%\">Void version</th>" >> $REPORT_FILE
-    echo "<th width=\"8%\">New version</th>" >> $REPORT_FILE
-    echo "<th width=\"8%\">Arch version</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Arch updated</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Alpine version</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Alpine updated</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Fedora version</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Fedora updated</th>" >> $REPORT_FILE
-    echo "<th width=\"5%\">PR</th>" >> $REPORT_FILE
-    echo "<th width=\"7%\">Homepage</th>" >> $REPORT_FILE
-    echo "<th width=\"7%\">Repology</th>" >> $REPORT_FILE
+    echo "<th width=\"15%\" style=\"text-align: left\">Package</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Void</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">New</th>" >> $REPORT_FILE
+    echo "<th width=\"16%\" colspan=\"2\">Arch</th>" >> $REPORT_FILE
+    echo "<th width=\"16%\" colspan=\"2\">Alpine</th>" >> $REPORT_FILE
+    echo "<th width=\"16%\" colspan=\"2\">Fedora</th>" >> $REPORT_FILE
+    echo "<th width=\"7%\">PR</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Homepage</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Repology</th>" >> $REPORT_FILE
     echo "</tr>" >> $REPORT_FILE
 fi
 
@@ -359,18 +361,15 @@ if [ "$REPORT_ON" == "YES" ]; then
     echo "<h3>Outdated orphaned packages</h3>" >> $REPORT_FILE
     echo "<table>" >> $REPORT_FILE
     echo "<tr>" >> $REPORT_FILE
-    echo "<th width=\"11%\" style=\"text-align: left\">Package</th>" >> $REPORT_FILE
-    echo "<th width=\"8%\">Void version</th>" >> $REPORT_FILE
-    echo "<th width=\"8%\">New version</th>" >> $REPORT_FILE
-    echo "<th width=\"8%\">Arch version</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Arch updated</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Alpine version</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Alpine updated</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Fedora version</th>" >> $REPORT_FILE
-    echo "<th width=\"9%\">Fedora updated</th>" >> $REPORT_FILE
-    echo "<th width=\"5%\">PR</th>" >> $REPORT_FILE
-    echo "<th width=\"7%\">Homepage</th>" >> $REPORT_FILE
-    echo "<th width=\"7%\">Repology</th>" >> $REPORT_FILE
+    echo "<th width=\"15%\" style=\"text-align: left\">Package</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Void</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">New</th>" >> $REPORT_FILE
+    echo "<th width=\"16%\" colspan=\"2\">Arch</th>" >> $REPORT_FILE
+    echo "<th width=\"16%\" colspan=\"2\">Alpine</th>" >> $REPORT_FILE
+    echo "<th width=\"16%\" colspan=\"2\">Fedora</th>" >> $REPORT_FILE
+    echo "<th width=\"7%\">PR</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Homepage</th>" >> $REPORT_FILE
+    echo "<th width=\"8%\">Repology</th>" >> $REPORT_FILE
     echo "</tr>" >> $REPORT_FILE
 fi
 
