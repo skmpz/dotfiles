@@ -158,6 +158,7 @@ echo -e "${!s_info_color}Started: $(date -d@$((start_time)) -u +%H:%M:%S)${NC}"
 # grab git user/mail
 git_user=$(git config -l | grep name | cut -f2 -d=)
 git_mail=$(git config -l | grep email | cut -f2 -d=)
+today=$(date +%Y-%m-%d)
 
 function _report {
     new_version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
@@ -178,17 +179,17 @@ function _report {
         pr_url="https://github.com/void-linux/void-packages/pulls?q=$1"
         arch_url="null"
         arch_git_url="null"
-        arch_info="null"
+        arch_updated="null"
         arch_version="null"
         arch_revision="null"
         alpine_url="null"
         alpine_git_url="null"
-        alpine_info="null"
+        alpine_updated="null"
         alpine_version="null"
         alpine_revision="null"
         fedora_url="null"
         fedora_git_url="null"
-        fedora_info="null"
+        fedora_updated="null"
         fedora_version="null"
         fedora_revision="null"
 
@@ -196,7 +197,7 @@ function _report {
         if [[ $(curl -s -o .tmp.out -w "%{http_code}" \
             https://github.com/archlinux/svntogit-packages/commits/packages/$1/trunk) == "200" ]]; then
             arch_url="https://github.com/archlinux/svntogit-packages/commits/packages/$1/trunk"
-            arch_info=$(date -d "$(cat .tmp.out | grep -i "Commits on" | head -1 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
+            arch_updated=$(date -d "$(cat .tmp.out | grep -i "Commits on" | head -1 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
             arch_git_url="https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD"
             arch_git_data=$(curl -s "$arch_git_url")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
@@ -204,14 +205,14 @@ function _report {
         elif [[ $(curl -s -o .tmp.out -w "%{http_code}" \
             https://github.com/archlinux/svntogit-community/commits/packages/$1/trunk) == "200" ]]; then
             arch_url="https://github.com/archlinux/svntogit-community/commits/packages/$1/trunk"
-            arch_info=$(date -d "$(cat .tmp.out | grep -i "Commits on" | head -1 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
+            arch_updated=$(date -d "$(cat .tmp.out | grep -i "Commits on" | head -1 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
             arch_git_url="https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$1/trunk/PKGBUILD"
             arch_git_data=$(curl -s "$arch_git_url")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
         elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://aur.archlinux.org/cgit/aur.git/log/?h=$1) == "200" ]]; then
             arch_url="https://aur.archlinux.org/cgit/aur.git/log/?h=$1"
-            arch_info=$(cat .tmp.out | grep -A1 "Commit message" | tail -1 | awk -F "title='" '{print $2}' | cut -f1 -d' ')
+            arch_updated=$(cat .tmp.out | grep -A1 "Commit message" | tail -1 | awk -F "title='" '{print $2}' | cut -f1 -d' ')
             arch_git_url="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$1"
             arch_git_data=$(curl -s $arch_git_url)
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
@@ -221,21 +222,21 @@ function _report {
         # alpine
         if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/main/x86_64/$1) == "200" ]]; then
             alpine_url="https://pkgs.alpinelinux.org/package/edge/main/x86_64/$1"
-            alpine_info=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
             alpine_git_url="https://git.alpinelinux.org/aports/plain/main/$1/APKBUILD"
             alpine_git_data=$(curl -s $alpine_git_url)
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             alpine_revision=$(echo "$alpine_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
         elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/community/x86_64/$1) == "200" ]]; then
             alpine_url="https://pkgs.alpinelinux.org/package/edge/community/x86_64/$1"
-            alpine_info=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
             alpine_git_url="https://git.alpinelinux.org/aports/plain/community/$1/APKBUILD"
             alpine_git_data=$(curl -s $alpine_git_url)
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             alpine_revision=$(echo "$alpine_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
         elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$1) == "200" ]]; then
             alpine_url="https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$1"
-            alpine_info=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
             alpine_git_url="https://git.alpinelinux.org/aports/plain/testing/$1/APKBUILD"
             alpine_git_data=$(curl -s $alpine_git_url)
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
@@ -245,14 +246,14 @@ function _report {
         # fedora
         if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://src.fedoraproject.org/rpms/$1/commits/master) == "200" ]]; then
             fedora_url="https://src.fedoraproject.org/rpms/$1/commits/master"
-            fedora_info=$(cat .tmp.out | grep -A 20 "my-2" |  grep title | head -1 | awk -F 'title="' '{print $2}' | cut -f1 -d' ');
+            fedora_updated=$(cat .tmp.out | grep -A 20 "my-2" |  grep title | head -1 | awk -F 'title="' '{print $2}' | cut -f1 -d' ');
             fedora_git_url="https://src.fedoraproject.org/rpms/$1/raw/master/f/$1.spec"
             fedora_git_data=$(curl -s $fedora_git_url)
-            fedora_version=$(echo "$fedora_git_data" | grep "Version:" | tr -s ' ' | cut -f2 -d' ')
-            fedora_revision=$(echo "$fedora_git_data" | grep "Release:" | tr -s ' ' | cut -f2 -d' ' | cut -f1 -d'%')
+            fedora_version=$(echo "$fedora_git_data" | grep "Version:" | head -1 | sed 's/\t/ /g' | tr -s ' ' | cut -f2 -d' ')
+            fedora_revision=$(echo "$fedora_git_data" | grep "Release:" | head -1 | sed 's/\t/ /g' | tr -s ' ' | cut -f2 -d' ' | cut -f1 -d'%')
 
             if [[ $fedora_version == *"%{branch}"* ]]; then
-                fedora_branch=$(echo "$fedora_git_data" | grep "global branch" | tr -s ' ' | cut -f3 -d' ')
+                fedora_branch=$(echo "$fedora_git_data" | grep "global branch" | head -1 | tr -s ' ' | sed 's/\t/ /g' | cut -f3 -d' ')
                 fedora_version=$(echo "$fedora_version" | sed "s/%{branch}/$fedora_branch/")
             fi
         fi
@@ -272,10 +273,18 @@ function _report {
             echo "<td width="9%">---</td>" >> $REPORT_FILE
         elif [ "$arch_version" == "$new_version" ]; then
             echo "<td width="7%"><a href="$arch_git_url" target=\"_blank\" style=\"color: #0E6655\">$arch_version</td>" >> $REPORT_FILE
-            echo "<td width="9%"><a href="$arch_url" target=\"_blank\" style=\"color: #0E6655\">$arch_info</td>" >> $REPORT_FILE
+            if [ "$arch_updated" == "$today" ]; then
+                echo "<td width="9%"><a href="$arch_url" target=\"_blank\" style=\"color: #0E6655\"><strong>$arch_updated<strong></td>" >> $REPORT_FILE
+            else
+                echo "<td width="9%"><a href="$arch_url" target=\"_blank\" style=\"color: #0E6655\">$arch_updated</td>" >> $REPORT_FILE
+            fi
         else
             echo "<td width="7%"><a href="$arch_git_url" target=\"_blank\" style=\"color: #7B241C\">$arch_version</td>" >> $REPORT_FILE
-            echo "<td width="9%"><a href="$arch_url" target=\"_blank\" style=\"color: #7B241C\">$arch_info</td>" >> $REPORT_FILE
+            if [ "$arch_updated" == "$today" ]; then
+                echo "<td width="9%"><a href="$arch_url" target=\"_blank\" style=\"color: #7B241C\"><strong>$arch_updated<strong></td>" >> $REPORT_FILE
+            else
+                echo "<td width="9%"><a href="$arch_url" target=\"_blank\" style=\"color: #7B241C\">$arch_updated</td>" >> $REPORT_FILE
+            fi
         fi
 
         if [ "$alpine_version" == "null" ]; then
@@ -283,10 +292,18 @@ function _report {
             echo "<td width="9%">---</td>" >> $REPORT_FILE
         elif [ "$alpine_version" == "$new_version" ]; then
             echo "<td width="7%"><a href="$alpine_git_url" target="_blank" style=\"color: #0E6655\">$alpine_version</td>" >> $REPORT_FILE
-            echo "<td width="9%"><a href="$alpine_url" target="_blank" style=\"color: #0E6655\">$alpine_info</td>" >> $REPORT_FILE
+            if [ "$alpine_updated" == "$today" ]; then
+                echo "<td width="9%"><a href="$alpine_url" target=\"_blank\" style=\"color: #0E6655\"><strong>$alpine_updated<strong></td>" >> $REPORT_FILE
+            else
+                echo "<td width="9%"><a href="$alpine_url" target=\"_blank\" style=\"color: #0E6655\">$alpine_updated</td>" >> $REPORT_FILE
+            fi
         else
             echo "<td width="7%"><a href="$alpine_git_url" target="_blank" style=\"color: #7B241C\">$alpine_version</td>" >> $REPORT_FILE
-            echo "<td width="9%"><a href="$alpine_url" target="_blank" style=\"color: #7B241C\">$alpine_info</td>" >> $REPORT_FILE
+            if [ "$alpine_updated" == "$today" ]; then
+                echo "<td width="9%"><a href="$alpine_url" target=\"_blank\" style=\"color: #7B241C\"><strong>$alpine_updated<strong></td>" >> $REPORT_FILE
+            else
+                echo "<td width="9%"><a href="$alpine_url" target=\"_blank\" style=\"color: #7B241C\">$alpine_updated</td>" >> $REPORT_FILE
+            fi
         fi
 
         if [ "$fedora_version" == "null" ]; then
@@ -294,10 +311,18 @@ function _report {
             echo "<td width="9%">---</td>" >> $REPORT_FILE
         elif [ "$fedora_version" == "$new_version" ]; then
             echo "<td width="7%"><a href="$fedora_git_url" target="_blank" style=\"color: #0E6655\">$fedora_version</td>" >> $REPORT_FILE
-            echo "<td width="9%"><a href="$fedora_url" target="_blank" style=\"color: #0E6655\">$fedora_info</td>" >> $REPORT_FILE
+            if [ "$fedora_updated" == "$today" ]; then
+                echo "<td width="9%"><a href="$fedora_url" target=\"_blank\" style=\"color: #0E6655\"><strong>$fedora_updated<strong></td>" >> $REPORT_FILE
+            else
+                echo "<td width="9%"><a href="$fedora_url" target=\"_blank\" style=\"color: #0E6655\">$fedora_updated</td>" >> $REPORT_FILE
+            fi
         else
             echo "<td width="7%"><a href="$fedora_git_url" target="_blank" style=\"color: #7B241C\">$fedora_version</td>" >> $REPORT_FILE
-            echo "<td width="9%"><a href="$fedora_url" target="_blank" style=\"color: #7B241C\">$fedora_info</td>" >> $REPORT_FILE
+            if [ "$fedora_updated" == "$today" ]; then
+                echo "<td width="9%"><a href="$fedora_url" target=\"_blank\" style=\"color: #7B241C\"><strong>$fedora_updated<strong></td>" >> $REPORT_FILE
+            else
+                echo "<td width="9%"><a href="$fedora_url" target=\"_blank\" style=\"color: #7B241C\">$fedora_updated</td>" >> $REPORT_FILE
+            fi
         fi
 
         echo "<td><a href="$pr_url" target="_blank">check</td>" >> $REPORT_FILE
