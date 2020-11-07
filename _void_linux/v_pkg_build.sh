@@ -1,100 +1,44 @@
 #!/bin/bash
 
+# -------------------------- colors ----------------------------
+nc="\033[0m"        red="\033[0;31m"   green="\033[0;32m"
+yellow="\033[0;33m" white="\033[0;97m" blue="\033[0;34m"
+purple="\033[0;35m" cyan="\033[0;36m"  grey="\033[0;90m"
+# ------------------------- /colors ----------------------------
+
 # ------------------------- settings ---------------------------
-s_log_cols=50           # log length
-s_line_cols=80          # hr line length
-s_sudo_perm="NO"        # sudo perm needed
-s_line_color="BLUE"     # hr line color
-s_main_color="YELLOW"   # main action color
-s_plus_color="WHITE"    # sign color
-s_sec_color="WHITE"     # section color
-s_ok_color="GREEN"      # ok color
-s_info_color="PURPLE"   # info color
-s_fail_color="RED"      # fail color
-# ------------------------- settings ---------------------------
+s_log_cols=50
+s_line_cols=80
+s_sudo_perm="NO"
+# ------------------------ /settings ---------------------------
 
-# ----------------------- helper funcs -------------------------
-NC="\033[0m"        RED="\033[0;31m"   GREEN="\033[0;32m"
-YELLOW="\033[0;33m" WHITE="\033[0;97m" BLUE="\033[0;34m"
-PURPLE="\033[0;35m" CYAN="\033[0;36m"  GREY="\033[0;90m"
+# ---------------------------- init ----------------------------
+function _sudo_check { if [[ $EUID -ne 0 ]]; then _fail "sudo needed"; exit 1; fi; }
+script=$(basename $0)
+logfile="$PWD/.${script}.log"; echo "" > $logfile
+start_time=`date +%s`
+if [ "$s_sudo_perm" == "yes" ]; then _sudo_check; fi
+# --------------------------- /init ----------------------------
 
-function _check_ok {
-    if [ $1 == 0 ]; then
-        echo -en "[${!s_ok_color}OK${NC}]"
-        if [ ! -z "$2" ]; then echo -e "[${!s_info_color}${2}${NC}]"; else echo ""; fi
-    else
-        echo -e "[${!s_fail_color}FAIL${NC}]"; exit 1
-    fi
-}
-
-function _check_no_ok {
-    if [ $1 == 0 ]; then return; else echo -e "[${!s_fail_color}FAIL${NC}]"; exit 1; fi
-}
-
+# ------------------------ helper funcs ------------------------
+function _note { echo -e "${green}${1}${nc}"; }
+function _print { echo -en "${white}${1}${nc}"; }
+function _print_nl { echo -e "${white}${1}${nc}"; }
+function _ok { echo -e "${white}[${green}OK${white}]${nc} ${purple}${1}${nc}"; }
+function _info { echo -e "${white}[${purple}${1}${white}]${nc}"; }
+function _fail { echo -e "${white}[${red}FAIL${white}] ${purple}${1}${nc}"; }
+function _check_ok { if [ ${1} == 0 ]; then _ok "${2}"; else _fail "${2}"; exit 1; fi }
+function _check_no_ok { if [ ${1} != 0 ]; then _fail "${2}"; exit 1; fi; }
+function _line { v=$(printf "%-${s_line_cols}s" "-"); echo -e "${blue}${v// /-} ${NC}"; }
+function _cmd_ok { eval "$1" >> $logfile 2>&1; _check_ok "${?}" "${2}" ; }
+function _cmd_no_ok { eval "$1" >> $logfile 2>&1; _check_no_ok "${?}" "${2}"; }
+function _cmd_out { ret=$(eval "$1" 2>> $logfile); _check_no_ok "${?}" "${2}"; }
+function _section { _line; echo -e "${white}[${yellow}+${white}] ${yellow}${1}"; _line; }
 function _start {
-    str_len=${#1}
-    str_len=$((s_log_cols-str_len))
-    echo -en "${!s_main_color}[${!s_plus_color}-${!s_main_color}] $1 "
-    v=$(printf "%-${str_len}s" ".")
-    echo -en "${v// /.} ${NC}"
-    echo "------- $1" >> $LOGFILE
+    str_len=${#1}; str_len=$((s_log_cols-str_len)); echo -en "${white}[${yellow}-${white}] $1 "
+    v=$(printf "%-${str_len}s" "."); echo -en "${v// /.} ${nc}"; echo "------- $1" >> $logfile;
 }
-
-function _done {
-    echo -en "[${!s_ok_color}OK${NC}]"
-    if [ ! -z "$1" ]; then echo -e "[${PURPLE}${1}${NC}]"; else echo ""; fi
-}
-
-function _fail {
-    echo -en "[${!s_fail_color}FAIL${NC}]"
-    if [ ! -z "$1" ]; then echo -e "[${PURPLE}${1}${NC}]"; else echo ""; fi
-    exit 1
-}
-
-function _line {
-    v=$(printf "%-${s_line_cols}s" "-")
-    echo -e "${!s_line_color}${v// /-} ${NC}"
-}
-
-function _print {
-    echo -en "${!s_main_color}${1}${NC}"
-}
-
-function _print_nl {
-    echo -e "${!s_main_color}${1}${NC}"
-}
-
-function _sudo {
-    if [[ $EUID -ne 0 ]]; then
-        _line
-        echo -e "[${RED}Error${NC}] ${!s_main_color}Sudo permissions required to run this script${NC}"
-        _line
-        exit 1
-    fi
-}
-
-function _cmd_ok {
-    eval "$@" >> $LOGFILE 2>&1
-    _check_ok $?
-}
-
-function _cmd_no_ok {
-    eval "$@" >> $LOGFILE 2>&1
-    _check_no_ok $?
-}
-
-function _cmd_out {
-    ret=$(eval "$@" 2>> $LOGFILE)
-    _check_no_ok $?
-}
-
-function _section {
-    _line
-    echo -e "${!s_main_color}[${!s_plus_color}+${!s_main_color}] ${!s_sec_color}$@"
-    _line
-}
-
-# ----------------------- helper funcs -------------------------
+# ----------------------- /helper funcs ------------------------
 
 # ------------------------- arguments --------------------------
 # print usage and exit
