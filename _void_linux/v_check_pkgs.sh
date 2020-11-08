@@ -220,16 +220,12 @@ function _report {
         fedora_version="null"
         fedora_revision="null"
 
-        function _url_exists {
-            asd=$(curl -s -o .tmp -w "%{http_code}" "${1}")
-            echo "$asd"
+        function _url_valid {
+            ret=$(curl -s -o .tmp -w "%{http_code}" "${1}")
             if [ "$ret" == "200" ]; then return 0; else return 1; fi
         }
-        # arch
-        # if [[ $(curl -s -o .tmp -w "%{http_code}" \
-        #     $arch_gh_url/svntogit-packages/commits/packages/$arch_pkg_name/trunk) == "200" ]]; then
 
-        if _url_exists "$arch_gh_url/svntogit-packages/commits/packages/$arch_pkg_name/trunk"; then
+        if _url_valid "$url_arch_gh/svntogit-packages/commits/packages/$arch_pkg_name/trunk"; then
             echo "EXISTS"
             arch_url="$url_arch_gh/svntogit-packages/commits/packages/$arch_pkg_name/trunk"
             arch_updated=$(date -d "$(cat .tmp | grep -i "Commits on" | head -1 \
@@ -238,8 +234,8 @@ function _report {
             arch_git_data=$(curl -s "$arch_git_url")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
-        elif [[ $(curl -s -o .tmp -w "%{http_code}" \
-            $arch_gh_url/svntogit-community/commits/packages/$arch_pkg_name/trunk) == "200" ]]; then
+
+        elif _url_valid "$url_arch_gh/svntogit-community/commits/packages/$arch_pkg_name/trunk"; then
 
             arch_url="$url_arch_gh/svntogit-community/commits/packages/$arch_pkg_name/trunk"
             arch_updated=$(date -d "$(cat .tmp | grep -i "Commits on" | head -1 \
@@ -248,7 +244,8 @@ function _report {
             arch_git_data=$(curl -s "$arch_git_url")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
-        elif [[ $(curl -s -o .tmp -w "%{http_code}" $url_arch_aur/log/?h=$arch_pkg_name) == "200" ]]; then
+
+        elif _url_valid "$url_arch_aur/log/?h=$arch_pkg_name"; then
             arch_url="https://aur.archlinux.org/cgit/aur.git/log/?h=$arch_pkg_name"
             arch_updated=$(cat .tmp | grep -A1 "Commit message" | tail -1 \
                 | awk -F "title='" '{print $2}' | cut -f1 -d' ')
