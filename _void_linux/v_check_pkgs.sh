@@ -499,8 +499,9 @@ else
 fi
 # ------------------------ main script -------------------------
 
-# print run info
+# -------------------------- runtime ---------------------------
 _line
 end_time=`date +%s`
-echo -e "${YELLOW}Runtime: $(date -d@$((end_time-start_time)) -u +%H:%M:%S)"
+_note "Runtime $(date -d@$((end_time-start_time)) -u +%H:%M:%S)"
 _line
+# ------------------------- /runtime --------------------------- 
