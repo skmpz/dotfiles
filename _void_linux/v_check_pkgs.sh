@@ -45,8 +45,8 @@ function _start {
 function show_usage {
     _line; echo -e "${white}[${red}usage${white}] ./$(basename $0) [opts]${nc}"; _line
     echo -en "${white}[${blue}opts${white}]${nc} "
-    echo -e "${blue}-p|--package <package>     package       [required]${NC}"
-    echo -e "       ${blue}-r|--report <report_file>  html report   [optional]${NC}"
+    echo -e "${blue}-p|--package <package>     package       [required]${nc}"
+    echo -e "       ${blue}-r|--report <report_file>  html report   [optional]${nc}"
     _line
     exit 1
 }
