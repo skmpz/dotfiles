@@ -33,6 +33,7 @@ function _line { v=$(printf "%-${s_line_cols}s" "-"); echo -e "${blue}${v// /-} 
 function _cmd_ok { eval "$1" >> $logfile 2>&1; _check_ok "${?}" "${2}" ; }
 function _cmd_no_ok { eval "$1" >> $logfile 2>&1; _check_no_ok "${?}" "${2}"; }
 function _cmd_out { ret=$(eval "$1" 2>> $logfile); _check_no_ok "${?}" "${2}"; }
+function _cmd_no_chk { eval "$1" >> $logfile 2>&1; }
 function _section { _line; echo -e "${white}[${yellow}+${white}] ${yellow}${1}"; _line; }
 function _start {
     str_len=${#1}; str_len=$((s_log_cols-str_len)); echo -en "${white}[${yellow}-${white}] $1 "
