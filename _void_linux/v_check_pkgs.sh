@@ -204,7 +204,7 @@ function _report {
         url_arch_aur="https://aur.archlinux.org/cgit/aur.git"
 
         repology="https://repology.org/project/$pkg_name/versions"
-        pr_url="https://github.com/void-linux/void-pcckages/pulls?q=$pkg_name"
+        pr_url="https://github.com/void-linux/void-packages/pulls?q=$pkg_name"
         arch_url="null"
         arch_git_url="null"
         arch_updated="null"
@@ -226,7 +226,6 @@ function _report {
         }
 
         if _url_valid "$url_arch_gh/svntogit-packages/commits/packages/$arch_pkg_name/trunk"; then
-            echo "EXISTS"
             arch_url="$url_arch_gh/svntogit-packages/commits/packages/$arch_pkg_name/trunk"
             arch_updated=$(date -d "$(cat .tmp | grep -i "Commits on" | head -1 \
                 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
