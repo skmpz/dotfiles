@@ -31,7 +31,7 @@ function _check_ok { if [ ${1} == 0 ]; then _ok "${2}"; else _fail "${2}"; exit 
 function _check_no_ok { if [ ${1} != 0 ]; then _fail "${2}"; exit 1; fi; }
 function _line { v=$(printf "%-${s_line_cols}s" "-"); echo -e "${blue}${v// /-} ${NC}"; }
 function _cmd_ok { eval "$1" >> $logfile 2>&1; _check_ok "${?}" "${2}" ; }
-function _cmd_no_ok { eval "$1" >> $logfile 2>&1; _check_no_ok "${?}" "${2}"; }
+function _cmd { eval "$1" >> $logfile 2>&1; _check_no_ok "${?}" "${2}"; }
 function _cmd_out { ret=$(eval "$1" 2>> $logfile); _check_no_ok "${?}" "${2}"; }
 function _cmd_no_chk { eval "$1" >> $logfile 2>&1; }
 function _section { _line; echo -e "${white}[${yellow}+${white}] ${yellow}${1}"; _line; }
@@ -78,66 +78,37 @@ _note "Started: $(date -d@$((start_time)) -u +%H:%M:%S)"
 
 # --------------------------- html ----------------------------
 
-function _html_init {
+function _html_start {
     cat <<EOT > $report_file
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-            table {
-                font-family: arial, sans-serif;
-                font-size: 13px;
-                border-collapse: collapse;
-                width: 1200px;
-            }
-            td, th {
-                border: 1px solid #34495E;
-                text-align: center;
-                padding: 8px;
-            }
-            a {
-            color: #34495E;
-            text-decoration: none
-        }
-        </style>
-    </head>
-    <body>
+    <!DOCTYPE html><html><head><style>
+            table { font-family: arial, sans-serif; font-size: 13px;
+                    border-collapse: collapse; width: 1200px; }
+            td, th { border: 1px solid #34495E; text-align: center; padding: 8px; }
+            a { color: #34495E; text-decoration: none }
+        </style> </head> <body>
 EOT
 }
 
-function _html_h2 {
-    echo "<h2>${1}</h2>" >> $report_file
-}
-function _html_hr {
-    echo "<hr>" >> $report_file
-}
-
-function _html_tr {
-    echo "<tr ${1}>" >> $report_file
-}
-
-function _html_td {
-    echo "<td ${1}>" >> $report_file
-}
-
-function _html_td_c {
-    echo "</td>" >> $report_file
-}
-
-function _html_a {
-    echo "<a href=${2} target=\"_blank\" ${3}>${1}</a>" >> $report_file
-}
-
-function _html_text {
-    echo "${1}" >> $report_file
-}
-# function _html_tr_ok {
-# }
+function _html_end { echo "</body></html>" >> $report_file; }
+function _html_hr { echo "<hr>" >> $report_file; }
+function _html_h2 { echo "<h2>${1}</h2>" >> $report_file; }
+function _html_h3 { echo "<h3>${1}</h3>" >> $report_file; }
+function _html_th { echo "<th ${1}>" >> $report_file; }
+function _html_th_c { echo "</th>" >> $report_file; }
+function _html_tr { echo "<tr ${1}>" >> $report_file; }
+function _html_tr_c { echo "</tr>" >> $report_file; }
+function _html_td { echo "<td ${1}>" >> $report_file; }
+function _html_td_c { echo "</td>" >> $report_file; }
+function _html_a { echo "<a href=${2} target=\"_blank\" ${3}>${1}</a>" >> $report_file; }
+function _html_text { echo "${1}" >> $report_file; }
+function _html_table { echo "<table>" >> $report_file; }
+function _html_table_c { echo "</table>" >> $report_file; }
+function _html_br { echo "<br />" >> $report_file; }
 # -------------------------- /html ----------------------------
 
 # -------------------------- script ----------------------------
-if [ "$report_on" == "yes" ]; then 
-    _html_init
+if [ "$report_on" == "yes" ]; then
+    _html_start
     _html_h2 "Packages report $(date '+%Y-%m-%d %H:%M:%S')"
     _html_hr
 fi
@@ -145,8 +116,11 @@ fi
 # grab git user/mail
 git_user=$(git config -l | grep name | cut -f2 -d=)
 git_mail=$(git config -l | grep email | cut -f2 -d=)
+
+# dates
 today=$(date +%Y-%m-%d)
 yesterday=$(date +%Y-%m-%d -d yesterday)
+
 
 function _report {
     new_version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
@@ -155,50 +129,12 @@ function _report {
     homepage=$(cat $HOME/void-packages/srcpkgs/$1/template | grep 'homepage=' | cut -f2 -d'"')
     pkg_name="$1"
 
-    arch_pkg_name=$pkg_name
-    alpine_pkg_name=$pkg_name
-    fedora_pkg_name=$pkg_name
-
-    if [ "$pkg_name" == "virtualbox-ose" ]; then
-        arch_pkg_name="virtualbox"
-        alpine_pkg_name="virtualbox"
-        fedora_pkg_name="virtualbox"
-    fi
-
-    if [ "$pkg_name" == "gst-plugins-base1" ]; then
-        arch_pkg_name="gst-plugins-base"
-        alpine_pkg_name="gst-plugins-base"
-        fedora_pkg_name="gstreamer1-plugins-base"
-    fi
-
-    if [ "$pkg_name" == "gstreamer1" ]; then
-        arch_pkg_name="gstreamer"
-        alpine_pkg_name="gstreamer"
-        fedora_pkg_name="gstreamer1-plugins-base"
-    fi
-
-    if [ "$pkg_name" == "xev" ]; then
-        arch_pkg_name="xorg-xev"
-    fi
-
-    if [ "$pkg_name" == "xf86-input-libinput" ]; then
-        fedora_pkg_name="xorg-x11-drv-libinput"
-    fi
-
-    if [ "$pkg_name" == "libraw" ]; then
-        fedora_pkg_name="LibRaw"
-    fi
-
-    if [ -z "$new_version" ]; then 
-        new_version="$old_version"
-        _ok
-    else
-        # echo -e "[${WHITE}${old_version} -> ${new_version}${NC}]"
-        _info "${old_version} -> ${new_version}"
-    fi
+    if [ -z "$new_version" ]; then new_version="$old_version"; _ok
+    else _info "${old_version} -> ${new_version}"; fi
 
     if [ "$report_on" == "yes" ]; then
 
+        # urls
         url_void_pkg="https://github.com/void-linux/void-packages/"
         url_arch_raw="https://raw.githubusercontent.com/archlinux"
         url_arch_gh="https://github.com/archlinux"
@@ -226,64 +162,64 @@ function _report {
             if [ "$ret" == "200" ]; then return 0; else return 1; fi
         }
 
-        if _url_valid "$url_arch_gh/svntogit-packages/commits/packages/$arch_pkg_name/trunk"; then
-            arch_url="$url_arch_gh/svntogit-packages/commits/packages/$arch_pkg_name/trunk"
+        if _url_valid "$url_arch_gh/svntogit-packages/commits/packages/$pkg_name/trunk"; then
+            arch_url="$url_arch_gh/svntogit-packages/commits/packages/$pkg_name/trunk"
             arch_updated=$(date -d "$(cat .tmp | grep -i "Commits on" | head -1 \
                 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
-            arch_git_url="$url_arch_raw/svntogit-packages/packages/$arch_pkg_name/trunk/PKGBUILD"
+            arch_git_url="$url_arch_raw/svntogit-packages/packages/$pkg_name/trunk/PKGBUILD"
             arch_git_data=$(curl -s "$arch_git_url")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
 
-        elif _url_valid "$url_arch_gh/svntogit-community/commits/packages/$arch_pkg_name/trunk"; then
+        elif _url_valid "$url_arch_gh/svntogit-community/commits/packages/$pkg_name/trunk"; then
 
-            arch_url="$url_arch_gh/svntogit-community/commits/packages/$arch_pkg_name/trunk"
+            arch_url="$url_arch_gh/svntogit-community/commits/packages/$pkg_name/trunk"
             arch_updated=$(date -d "$(cat .tmp | grep -i "Commits on" | head -1 \
                 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
-            arch_git_url="$url_arch_raw/svntogit-community/packages/$arch_pkg_name/trunk/PKGBUILD"
+            arch_git_url="$url_arch_raw/svntogit-community/packages/$pkg_name/trunk/PKGBUILD"
             arch_git_data=$(curl -s "$arch_git_url")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
 
-        elif _url_valid "$url_arch_aur/log/?h=$arch_pkg_name"; then
-            arch_url="https://aur.archlinux.org/cgit/aur.git/log/?h=$arch_pkg_name"
+        elif _url_valid "$url_arch_aur/log/?h=$pkg_name"; then
+            arch_url="https://aur.archlinux.org/cgit/aur.git/log/?h=$pkg_name"
             arch_updated=$(cat .tmp | grep -A1 "Commit message" | tail -1 \
                 | awk -F "title='" '{print $2}' | cut -f1 -d' ')
-            arch_git_url="$url_arch_aur/plain/PKGBUILD?h=$arch_pkg_name"
+            arch_git_url="$url_arch_aur/plain/PKGBUILD?h=$pkg_name"
             arch_git_data=$(curl -s $arch_git_url)
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | tr -d '"' | cut -f2 -d'=')
             arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | tr -d '"' | cut -f2 -d'=')
         fi
 
         # alpine
-        if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/main/x86_64/$alpine_pkg_name) == "200" ]]; then
-            alpine_url="https://pkgs.alpinelinux.org/package/edge/main/x86_64/$alpine_pkg_name"
+        if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/main/x86_64/$pkg_name) == "200" ]]; then
+            alpine_url="https://pkgs.alpinelinux.org/package/edge/main/x86_64/$pkg_name"
             alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
-            alpine_git_url="https://git.alpinelinux.org/aports/plain/main/$alpine_pkg_name/APKBUILD"
+            alpine_git_url="https://git.alpinelinux.org/aports/plain/main/$pkg_name/APKBUILD"
             alpine_git_data=$(curl -s $alpine_git_url)
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             alpine_revision=$(echo "$alpine_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
-        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/community/x86_64/$alpine_pkg_name) == "200" ]]; then
-            alpine_url="https://pkgs.alpinelinux.org/package/edge/community/x86_64/$alpine_pkg_name"
+        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/community/x86_64/$pkg_name) == "200" ]]; then
+            alpine_url="https://pkgs.alpinelinux.org/package/edge/community/x86_64/$pkg_name"
             alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
-            alpine_git_url="https://git.alpinelinux.org/aports/plain/community/$alpine_pkg_name/APKBUILD"
+            alpine_git_url="https://git.alpinelinux.org/aports/plain/community/$pkg_name/APKBUILD"
             alpine_git_data=$(curl -s $alpine_git_url)
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             alpine_revision=$(echo "$alpine_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
-        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$alpine_pkg_name) == "200" ]]; then
-            alpine_url="https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$alpine_pkg_name"
+        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$pkg_name) == "200" ]]; then
+            alpine_url="https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$pkg_name"
             alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
-            alpine_git_url="https://git.alpinelinux.org/aports/plain/testing/$alpine_pkg_name/APKBUILD"
+            alpine_git_url="https://git.alpinelinux.org/aports/plain/testing/$pkg_name/APKBUILD"
             alpine_git_data=$(curl -s $alpine_git_url)
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
             alpine_revision=$(echo "$alpine_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
         fi
 
         # fedora
-        if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://src.fedoraproject.org/rpms/$fedora_pkg_name/commits/master) == "200" ]]; then
-            fedora_url="https://src.fedoraproject.org/rpms/$fedora_pkg_name/commits/master"
+        if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://src.fedoraproject.org/rpms/$pkg_name/commits/master) == "200" ]]; then
+            fedora_url="https://src.fedoraproject.org/rpms/$pkg_name/commits/master"
             fedora_updated=$(cat .tmp.out | grep -A 20 "my-2" |  grep title | head -1 | awk -F 'title="' '{print $2}' | cut -f1 -d' ');
-            fedora_git_url="https://src.fedoraproject.org/rpms/$fedora_pkg_name/raw/master/f/$fedora_pkg_name.spec"
+            fedora_git_url="https://src.fedoraproject.org/rpms/$pkg_name/raw/master/f/$pkg_name.spec"
             fedora_git_data=$(curl -s $fedora_git_url)
             fedora_version=$(echo "$fedora_git_data" | grep "Version:" | head -1 | sed 's/\t/ /g' | tr -s ' ' | cut -f2 -d' ')
             fedora_revision=$(echo "$fedora_git_data" | grep "Release:" | head -1 | sed 's/\t/ /g' | tr -s ' ' | cut -f2 -d' ' | cut -f1 -d'%')
@@ -399,104 +335,106 @@ cd $HOME/void-packages/
 
 # sync with latest
 _section "Syncing"
+
 _start "Switching to master"
 branch=$(git branch | grep \* | awk '{print $2}');
 if [ "$branch" != "$1" ]; then
-    _cmd_ok "git checkout master"
+    _cmd "git checkout master"
 fi
+_ok
+
 _start "Updating packages"
-_cmd_ok "git pull --rebase upstream master"
+_cmd "git pull --rebase upstream master"
+_ok
 
 if [ "$pkg" != "all" ]; then
 
     _section "Targeted package check"
 
     if [ "$report_on" == "yes" ]; then
-        echo "<h3>Report on $pkg</h3>" >> $report_file
-        echo "<table>" >> $report_file
-        echo "<tr>" >> $report_file
-        echo "<th width=\"15%\" style=\"text-align: left\">Package</th>" >> $report_file
-        echo "<th width=\"8%\">Void</th>" >> $report_file
-        echo "<th width=\"8%\">New</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Arch</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Alpine</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Fedora</th>" >> $report_file
-        echo "<th width=\"7%\">PR</th>" >> $report_file
-        echo "<th width=\"8%\">Homepage</th>" >> $report_file
-        echo "<th width=\"8%\">Repology</th>" >> $report_file
-        echo "</tr>" >> $report_file
+        _html_h3 "Report on ${pkg}"
+        _html_table
+        _html_tr
+        _html_th "width=\"15%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Void"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "New"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Arch"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Alpine"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Fedora"; _html_th_c
+        _html_th "width=\"7%\""; _html_text "PR"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Homepage"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Repology"; _html_th_c
+        _html_tr_c
     fi
 
     _check_update "$pkg" "own"
 
-    if [ "$report_on" == "yes" ]; then
-        echo "</table>" >> $report_file
-        echo "</body>" >> $report_file
-        echo "</html>" >> $report_file
-    fi
 else
 
     # show outdated maintained packages
     _section "Outdated maintained packages"
 
     if [ "$report_on" == "yes" ]; then
-        echo "<h3>Maintained packages</h3>" >> $report_file
-        echo "<table>" >> $report_file
-        echo "<tr>" >> $report_file
-        echo "<th width=\"15%\" style=\"text-align: left\">Package</th>" >> $report_file
-        echo "<th width=\"8%\">Void</th>" >> $report_file
-        echo "<th width=\"8%\">New</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Arch</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Alpine</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Fedora</th>" >> $report_file
-        echo "<th width=\"7%\">PR</th>" >> $report_file
-        echo "<th width=\"8%\">Homepage</th>" >> $report_file
-        echo "<th width=\"8%\">Repology</th>" >> $report_file
-        echo "</tr>" >> $report_file
+        _html_h3 "Maintained packages"
+        _html_table
+        _html_tr
+        _html_th "width=\"15%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Void"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "New"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Arch"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Alpine"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Fedora"; _html_th_c
+        _html_th "width=\"7%\""; _html_text "PR"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Homepage"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Repology"; _html_th_c
+        _html_tr_c
     fi
 
     for f in $(ls srcpkgs); do
         if [ ! -L "srcpkgs/$f" ]; then
-            MAINTAINER=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer | cut -f2 -d'"')
-            if [ "$MAINTAINER" == "$git_user <$git_mail>" ]; then
+            maintainer=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer | cut -f2 -d'"')
+            if [ "$maintainer" == "$git_user <$git_mail>" ]; then
                 _check_update "$f" "own"
             fi
         fi
     done
 
+    _section "Outdated orphaned packages"
+
     if [ "$report_on" == "yes" ]; then
-        echo "</table><br />" >> $report_file
-        echo "<h3>Outdated orphaned packages</h3>" >> $report_file
-        echo "<table>" >> $report_file
-        echo "<tr>" >> $report_file
-        echo "<th width=\"15%\" style=\"text-align: left\">Package</th>" >> $report_file
-        echo "<th width=\"8%\">Void</th>" >> $report_file
-        echo "<th width=\"8%\">New</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Arch</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Alpine</th>" >> $report_file
-        echo "<th width=\"16%\" colspan=\"2\">Fedora</th>" >> $report_file
-        echo "<th width=\"7%\">PR</th>" >> $report_file
-        echo "<th width=\"8%\">Homepage</th>" >> $report_file
-        echo "<th width=\"8%\">Repology</th>" >> $report_file
-        echo "</tr>" >> $report_file
+        _html_h3 "Outdated orphan packages"; _html_br
+        _html_table
+        _html_tr
+        _html_th "width=\"15%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Void"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "New"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Arch"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Alpine"; _html_th_c
+        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Fedora"; _html_th_c
+        _html_th "width=\"7%\""; _html_text "PR"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Homepage"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Repology"; _html_th_c
+        _html_tr_c
     fi
 
-    # show outdated used orphaned packages
-    _section "Outdated used orphaned packages"
-    for f in $(xbps-query -l | awk '{print $2}' | rev | cut -f2- -d- | rev); do
-        if [ ! -L "srcpkgs/$f" ]; then
-            MAINTAINER=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer | cut -f2 -d'"')
-            if [ "$MAINTAINER" == "Orphaned <orphan@voidlinux.org>" ]; then
-                _check_update "$f"
-            fi
+    _start "Fetching latest file"
+    url_void_checker="https://a-hel-fi.m.voidlinux.org/void-updates/void-updates.txt"
+    _cmd "wget ${url_void_checker} -O .v"
+    _cmd "cat .v | sed -n '/orphan@void/,/^$/p' | awk '{print \$1}' | sort -u | tail +6 > .v_"
+    _ok
+
+    for p in $(cat .v_); do
+        if [ ! -L "srcpkgs/$p" ]; then
+            _check_update "$p"
         fi
     done
 
-    if [ "$report_on" == "yes" ]; then
-        echo "</table>" >> $report_file
-        echo "</body>" >> $report_file
-        echo "</html>" >> $report_file
-    fi
+    rm -rf .v .v_
+fi
+
+if [ "$report_on" == "yes" ]; then
+    _html_table_c
+    _html_end
 fi
 # ------------------------ main script -------------------------
 
@@ -505,4 +443,4 @@ _line
 end_time=`date +%s`
 _note "Runtime $(date -d@$((end_time-start_time)) -u +%H:%M:%S)"
 _line
-# ------------------------- /runtime --------------------------- 
+# ------------------------- /runtime ---------------------------
