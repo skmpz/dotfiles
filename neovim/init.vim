@@ -10,7 +10,6 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'Shougo/echodoc.vim'
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
-Plug 'airblade/vim-rooter'
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
@@ -33,7 +32,6 @@ Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 call plug#end()
 
-"
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 let g:sneak#use_ic_scs = 1
