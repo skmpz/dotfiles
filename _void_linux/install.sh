@@ -34,7 +34,6 @@ user=$(echo $USER)
 echo "Installing system.."
 sudo xbps-install -Sy \
 ImageMagick \
-NetworkManager \
 alsa-oss \
 alsa-utils \
 arc-icon-theme \
@@ -74,12 +73,12 @@ gparted \
 i3-gaps \
 i3lock \
 i3status \
+iwd \
 make \
 mate-terminal \
 mpv \
 neovim \
 net-tools \
-network-manager-applet \
 nmap \
 nodejs \
 nomacs \
@@ -183,10 +182,11 @@ nvim +"CocInstall coc-clangd" +qall
 sudo chown $user:$user -R $HOME
 
 # setup services
-sudo rm -rf /var/service/dhcpcd/
+# sudo rm -rf /var/service/dhcpcd/
 sudo ln -sf /etc/sv/dbus/ /var/service/
 sudo ln -sf /etc/sv/bluetoothd/ /var/service/
-sudo ln -sf /etc/sv/NetworkManager/ /var/service/
+sudo ln -sf /etc/sv/iwd/ /var/service/
+# sudo ln -sf /etc/sv/NetworkManager/ /var/service/
 sudo ln -sf /etc/sv/chronyd/ /var/service/
 sudo ln -sf /usr/share/zoneinfo/Asia/Dubai /etc/localtime
 
