@@ -42,7 +42,6 @@ autoconf \
 automake \
 bash-completion \
 bc \
-binwalk \
 blueman \
 bluez-alsa \
 caja \
@@ -99,6 +98,7 @@ rofi \
 rsync \
 rxvt-unicode \
 scrot \
+synergy \
 ttf-ubuntu-font-family \
 unzip \
 upower \

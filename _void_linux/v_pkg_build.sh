@@ -76,17 +76,13 @@ if [ "$CHECK" == "" ]; then CHECK="NO"; fi
 if [ "$BUILD" == "YES" ] && [ "$CHECK" == "YES" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
-# ------------------------ initialize --------------------------
-SCRIPT=$(basename $0)        # get script name
-LOGFILE="$PWD/.$SCRIPT.log"  # set logfile
-echo "" > $LOGFILE           # empty logfile
-start_time=`date +%s`        # start timer
-if [ "$s_sudo_perm" == "YES" ]; then _sudo; fi
-_line
-echo -e "${!s_info_color}Script: $SCRIPT${NC}"
-echo -e "${!s_info_color}Logfile: $LOGFILE${NC}"
-echo -e "${!s_info_color}Started: $(date -d@$((start_time)) -u +%H:%M:%S)${NC}"
-# ------------------------ initialize --------------------------
+# --------------------------- info -----------------------------
+_line;
+_note "Script: ${script}";
+_note "Logfile: ${logfile}";
+if [ "${report_on}" == "yes" ]; then _note "Report: ${report_file}"; fi
+_note "Started: $(date -d@$((start_time)) -u +%H:%M:%S)"
+# -------------------------- /info -----------------------------
 
 # -------------------------- script ----------------------------
 
@@ -198,7 +194,7 @@ if [ "$BUILD" == "YES" ] || [ "$CHECK" == "YES" ]; then
         _cmd_no_ok "./xbps-src bootstrap-update"
     fi
 
-    _done
+    _ok
 fi
 
 if [ "$BUILD" == "YES" ]; then
@@ -214,7 +210,7 @@ if [ "$CHECK" == "YES" ]; then
     else
         _cmd_no_ok "./xbps-src -m masterdir-x86 bootstrap-update i686"
     fi
-    _done
+    _ok
 
     _start "Initializing x86_64-musl"
     if [ ! -d "masterdir-x86_64-musl" ]; then
@@ -222,7 +218,7 @@ if [ "$CHECK" == "YES" ]; then
     else
         _cmd_no_ok "./xbps-src -m masterdir-x86_64-musl bootstrap-update x86_64-musl"
     fi
-    _done
+    _ok
 
     _section "Build test and lint"
     if [ "$ARCH_X86_64" == "YES" ]; then
@@ -279,14 +275,14 @@ if [ "$GIT_CHECK" == "YES" ]; then
     if [ "$VERSION_DIFF" == "2" ] && [ "$REVISION" != "1" ]; then
         _fail "version/revision"
     else
-        _done
+        _ok
     fi
 
     _start "Checking maintainer"
     if [ "$MAINTAINER" != "$git_user <$git_mail>" ]; then
-        _done "not adopted"
+        _ok "not adopted"
     else
-        _done
+        _ok
     fi
 
     _section "Committing"

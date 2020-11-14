@@ -8,7 +8,6 @@ cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i
 xrandr --output eDP1 --primary
 xrandr --output DP1 --above eDP1 --auto
 blueman-applet &
-nm-applet &
 dropbox start &
 exec i3
 #exec mate-session

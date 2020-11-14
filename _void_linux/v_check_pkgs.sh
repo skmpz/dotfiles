@@ -399,9 +399,11 @@ else
         fi
     done
 
-    _section "Outdated orphaned packages"
+    _section "Outdated installed orphaned packages"
 
     if [ "$report_on" == "yes" ]; then
+        _html_table_c
+        _html_br
         _html_h3 "Outdated orphan packages"; _html_br
         _html_table
         _html_tr
@@ -417,15 +419,12 @@ else
         _html_tr_c
     fi
 
-    _start "Fetching latest file"
-    url_void_checker="https://a-hel-fi.m.voidlinux.org/void-updates/void-updates.txt"
-    _cmd "wget ${url_void_checker} -O .v"
-    _cmd "cat .v | sed -n '/orphan@void/,/^$/p' | awk '{print \$1}' | sort -u | tail +6 > .v_"
-    _ok
-
-    for p in $(cat .v_); do
-        if [ ! -L "srcpkgs/$p" ]; then
-            _check_update "$p"
+    for f in $(xbps-query -l | awk '{print $2}' | rev | cut -f2- -d- | rev); do
+        if [ ! -L "srcpkgs/$f" ]; then
+            MAINTAINER=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer)
+            if [[ $MAINTAINER == *"orphan"* ]]; then
+                _check_update "$f"
+            fi
         fi
     done
 
