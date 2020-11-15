@@ -99,7 +99,7 @@ function _html_tr { echo "<tr ${1}>" >> $report_file; }
 function _html_tr_c { echo "</tr>" >> $report_file; }
 function _html_td { echo "<td ${1}>" >> $report_file; }
 function _html_td_c { echo "</td>" >> $report_file; }
-function _html_a { echo "<a href=${2} target=\"_blank\" ${3}>${1}</a>" >> $report_file; }
+function _html_a { echo "<a href=${2} title=\"${3}\" target=\"_blank\" ${4}>${1}</a>" >> $report_file; }
 function _html_text { echo "${1}" >> $report_file; }
 function _html_table { echo "<table>" >> $report_file; }
 function _html_table_c { echo "</table>" >> $report_file; }
@@ -121,11 +121,14 @@ git_mail=$(git config -l | grep email | cut -f2 -d=)
 today=$(date +%Y-%m-%d)
 yesterday=$(date +%Y-%m-%d -d yesterday)
 
+function _url_valid {
+    ret=$(curl -s -o .tmp -w "%{http_code}" "${1}")
+    if [ "$ret" == "200" ]; then return 0; else return 1; fi
+}
 
 function _report {
     new_version=$(echo "$ret" | tail -1 | rev | cut -d'-' -f1 | rev)
     old_version=$(cat $HOME/void-packages/srcpkgs/$1/template | grep 'version=' | cut -f2 -d'=')
-    maintainer=$(cat srcpkgs/$f/template 2> /dev/null | grep maintainer= | cut -f2 -d'"')
     homepage=$(cat $HOME/void-packages/srcpkgs/$1/template | grep 'homepage=' | cut -f2 -d'"')
     pkg_name="$1"
 
@@ -135,94 +138,101 @@ function _report {
     if [ "$report_on" == "yes" ]; then
 
         # urls
-        url_void_pkg="https://github.com/void-linux/void-packages/"
-        url_arch_raw="https://raw.githubusercontent.com/archlinux"
-        url_arch_gh="https://github.com/archlinux"
-        url_arch_aur="https://aur.archlinux.org/cgit/aur.git"
-
+        void_pkg_url="https://github.com/void-linux/void-packages"
+        arch_raw_url="https://raw.githubusercontent.com/archlinux"
+        arch_gh_url="https://github.com/archlinux"
+        arch_aur_url="https://aur.archlinux.org/cgit/aur.git"
+        alpine_pkg_url="https://pkgs.alpinelinux.org/package/edge"
+        alpine_raw_url="https://git.alpinelinux.org/aports/plain"
+        fedora_pkg_url="https://src.fedoraproject.org/rpms/"
         repology="https://repology.org/project/$pkg_name/versions"
         pr_url="https://github.com/void-linux/void-packages/pulls?q=$pkg_name"
-        arch_url="null"
-        arch_git_url="null"
-        arch_updated="null"
-        arch_revision="null"
-        alpine_url="null"
-        alpine_git_url="null"
-        alpine_updated="null"
-        alpine_version="null"
-        alpine_revision="null"
-        fedora_url="null"
-        fedora_git_url="null"
-        fedora_updated="null"
-        fedora_version="null"
-        fedora_revision="null"
 
-        function _url_valid {
-            ret=$(curl -s -o .tmp -w "%{http_code}" "${1}")
-            if [ "$ret" == "200" ]; then return 0; else return 1; fi
-        }
+        arch_hit_url="---"
+        alpine_hit_url="---"
+        fedora_hit_url="---"
 
-        if _url_valid "$url_arch_gh/svntogit-packages/commits/packages/$pkg_name/trunk"; then
-            arch_url="$url_arch_gh/svntogit-packages/commits/packages/$pkg_name/trunk"
+        unset arch_version alpine_version fedora_version
+
+        arch_pkg_name=$pkg_name
+        alpine_pkg_name=$pkg_name
+        fedora_pkg_name=$pkg_name
+
+        declare -A arch_alt_names=( \
+            ["xev"]="xorg-xev" \
+            ["gstreamer1"]="gstreamer"
+        )
+
+        declare -A alpine_alt_names=( \
+            ["gstreamer1"]="gstreamer"
+        )
+
+        declare -A fedora_alt_names=( \
+            ["aaaa"]="aaaaaa"
+        )
+
+        for p in "${!arch_alt_names[@]}"; do
+            if [ "$arch_pkg_name" == "$p" ]; then arch_pkg_name="${arch_alt_names[$p]}"; fi
+        done
+
+        for p in "${!alpine_alt_names[@]}"; do
+            if [ "$alpine_pkg_name" == "$p" ]; then alpine_pkg_name="${alpine_alt_names[$p]}"; fi
+        done
+
+        for p in "${!fedora_alt_names[@]}"; do
+            if [ "$fedora_pkg_name" == "$p" ]; then fedora_pkg_name="${fedora_alt_names[$p]}"; fi
+        done
+
+        if _url_valid "$arch_gh_url/svntogit-packages/commits/packages/$arch_pkg_name/trunk"; then
+            arch_hit_url="$arch_gh_url/svntogit-packages/commits/packages/$arch_pkg_name/trunk"
             arch_updated=$(date -d "$(cat .tmp | grep -i "Commits on" | head -1 \
                 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
-            arch_git_url="$url_arch_raw/svntogit-packages/packages/$pkg_name/trunk/PKGBUILD"
-            arch_git_data=$(curl -s "$arch_git_url")
+            arch_git_data=$(curl -s "$arch_raw_url/svntogit-packages/packages/$arch_pkg_name/trunk/PKGBUILD")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
-            arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
 
-        elif _url_valid "$url_arch_gh/svntogit-community/commits/packages/$pkg_name/trunk"; then
-
-            arch_url="$url_arch_gh/svntogit-community/commits/packages/$pkg_name/trunk"
+        elif _url_valid "$arch_gh_url/svntogit-community/commits/packages/$arch_pkg_name/trunk"; then
+            arch_hit_url="$arch_gh_url/svntogit-community/commits/packages/$arch_pkg_name/trunk"
             arch_updated=$(date -d "$(cat .tmp | grep -i "Commits on" | head -1 \
                 | awk -F " on " '{print $2}' | cut -f1 -d'<' | tr -d ",")" +%Y-%m-%d)
-            arch_git_url="$url_arch_raw/svntogit-community/packages/$pkg_name/trunk/PKGBUILD"
-            arch_git_data=$(curl -s "$arch_git_url")
+            arch_git_data=$(curl -s "$arch_raw_url/svntogit-community/packages/$arch_pkg_name/trunk/PKGBUILD")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
-            arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
 
-        elif _url_valid "$url_arch_aur/log/?h=$pkg_name"; then
-            arch_url="https://aur.archlinux.org/cgit/aur.git/log/?h=$pkg_name"
+        elif _url_valid "$arch_aur_url/log/?h=$arch_pkg_name"; then
+            arch_hit_url="https://aur.archlinux.org/cgit/aur.git/log/?h=$arch_pkg_name"
             arch_updated=$(cat .tmp | grep -A1 "Commit message" | tail -1 \
                 | awk -F "title='" '{print $2}' | cut -f1 -d' ')
-            arch_git_url="$url_arch_aur/plain/PKGBUILD?h=$pkg_name"
-            arch_git_data=$(curl -s $arch_git_url)
+            arch_git_data=$(curl -s "$arch_aur_url/plain/PKGBUILD?h=$arch_pkg_name")
             arch_version=$(echo "$arch_git_data" | grep pkgver= | head -1 | tr -d '"' | cut -f2 -d'=')
-            arch_revision=$(echo "$arch_git_data" | grep pkgrel= | head -1 | tr -d '"' | cut -f2 -d'=')
         fi
 
         # alpine
-        if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/main/x86_64/$pkg_name) == "200" ]]; then
-            alpine_url="https://pkgs.alpinelinux.org/package/edge/main/x86_64/$pkg_name"
-            alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
-            alpine_git_url="https://git.alpinelinux.org/aports/plain/main/$pkg_name/APKBUILD"
-            alpine_git_data=$(curl -s $alpine_git_url)
+        if _url_valid "$alpine_pkg_url/main/x86_64/$alpine_pkg_name"; then
+            alpine_hit_url="$alpine_pkg_url/main/x86_64/$alpine_pkg_name"
+            alpine_updated=$(cat .tmp | grep -A 1 "Build time" | tail -1 \
+                | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_git_data=$(curl -s "$alpine_raw_url/main/$alpine_pkg_name/APKBUILD")
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
-            alpine_revision=$(echo "$alpine_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
-        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/community/x86_64/$pkg_name) == "200" ]]; then
-            alpine_url="https://pkgs.alpinelinux.org/package/edge/community/x86_64/$pkg_name"
-            alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
-            alpine_git_url="https://git.alpinelinux.org/aports/plain/community/$pkg_name/APKBUILD"
-            alpine_git_data=$(curl -s $alpine_git_url)
+        elif _url_valid "$alpine_pkg_url/community/x86_64/$alpine_pkg_name"; then
+            alpine_hit_url="https://pkgs.alpinelinux.org/package/edge/community/x86_64/$alpine_pkg_name"
+            alpine_updated=$(cat .tmp | grep -A 1 "Build time" | tail -1 \
+                | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_git_data=$(curl -s "$alpine_raw_url/community/$alpine_pkg_name/APKBUILD")
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
-            alpine_revision=$(echo "$alpine_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
-        elif [[ $(curl -s -o .tmp.out -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$pkg_name) == "200" ]]; then
-            alpine_url="https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$pkg_name"
-            alpine_updated=$(cat .tmp.out | grep -A 1 "Build time" | tail -1 | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
-            alpine_git_url="https://git.alpinelinux.org/aports/plain/testing/$pkg_name/APKBUILD"
-            alpine_git_data=$(curl -s $alpine_git_url)
+        elif [[ $(curl -s -o .tmp -w "%{http_code}" https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$alpine_pkg_name) == "200" ]]; then
+            alpine_hit_url="https://pkgs.alpinelinux.org/package/edge/testing/x86_64/$alpine_pkg_name"
+            alpine_updated=$(cat .tmp | grep -A 1 "Build time" | tail -1 \
+                | awk -F '<td>' '{print $2}' | cut -f1 -d' ')
+            alpine_git_data=$(curl -s "$alpine_raw_url/testing/$alpine_pkg_name/APKBUILD")
             alpine_version=$(echo "$alpine_git_data" | grep pkgver= | head -1 | cut -f2 -d'=')
-            alpine_revision=$(echo "$alpine_git_data" | grep pkgrel= | head -1 | cut -f2 -d'=')
         fi
 
         # fedora
-        if [[ $(curl -s -o .tmp.out -w "%{http_code}" https://src.fedoraproject.org/rpms/$pkg_name/commits/master) == "200" ]]; then
-            fedora_url="https://src.fedoraproject.org/rpms/$pkg_name/commits/master"
-            fedora_updated=$(cat .tmp.out | grep -A 20 "my-2" |  grep title | head -1 | awk -F 'title="' '{print $2}' | cut -f1 -d' ');
-            fedora_git_url="https://src.fedoraproject.org/rpms/$pkg_name/raw/master/f/$pkg_name.spec"
-            fedora_git_data=$(curl -s $fedora_git_url)
+        if _url_valid "$fedora_pkg_url/$fedora_pkg_name/commits/master"; then
+            fedora_hit_url="https://src.fedoraproject.org/rpms/$fedora_pkg_name/commits/master"
+            fedora_updated=$(cat .tmp | grep -A 20 "my-2" |  grep title | head -1 \
+                | awk -F 'title="' '{print $2}' | cut -f1 -d' ');
+            fedora_git_data=$(curl -s "$fedora_pkg_url/$fedora_pkg_name/raw/master/f/$fedora_pkg_name.spec")
             fedora_version=$(echo "$fedora_git_data" | grep "Version:" | head -1 | sed 's/\t/ /g' | tr -s ' ' | cut -f2 -d' ')
-            fedora_revision=$(echo "$fedora_git_data" | grep "Release:" | head -1 | sed 's/\t/ /g' | tr -s ' ' | cut -f2 -d' ' | cut -f1 -d'%')
 
             if [[ $fedora_version == *"%{branch}"* ]]; then
                 fedora_branch=$(echo "$fedora_git_data" | grep "global branch" | head -1 | tr -s ' ' | sed 's/\t/ /g' | cut -f3 -d' ')
@@ -239,80 +249,78 @@ function _report {
 
         # package column
         _html_td "style=\"text-align: left\"";
-        _html_a "$pkg_name" "${url_void_pkg}/blob/master/srcpkgs/${pkg_name}/template"
+        _html_a "$pkg_name" "${void_pkg_url}/blob/master/srcpkgs/${pkg_name}/template"
         _html_td_c
 
         # version columns
         _html_td; _html_text "$old_version"; _html_td_c
         _html_td; _html_text "$new_version"; _html_td_c
 
+        today="2020-08-09"
         if [ -z "$arch_version" ]; then
-            _html_td "width=\"7%\""; _html_text "---"; _html_td_c
-            _html_td "width=\"9%\""; _html_text "---"; _html_td_c
+            _html_td "width=\"8%\""; _html_text "---"; _html_td_c
         elif [ "$arch_version" == "$new_version" ]; then
-            _html_td "width=\"7%\"";
-            _html_a "${arch_version}" "${arch_git_url}" "style=\"color: #0E6655\""
-            _html_td_c
             if [ "$arch_updated" == "$today" ] || [ "$arch_updated" == "$yesterday" ]; then
-                _html_td "width=\"9%\" style=\"background-color: #0E6655\"";
-                _html_a "$arch_updated" "$arch_url" "style=\"color: #FFFFFF\""
-                _html_td_c
+                _html_td "width=\"8%\" style=\"background-color: #0E6655\"";
+                _html_a "${arch_version}" "${arch_hit_url}" "${arch_updated}" "style=\"color: #FFFFFF\""
             else
-                _html_td "width=\"9%\"";
-                _html_a "$arch_updated" "$arch_url" "style=\"color: #0E6655\""
-                _html_td_c
+                _html_td "width=\"8%\"";
+                _html_a "${arch_version}" "${arch_hit_url}" "${arch_updated}" "style=\"color: #0E6655\""
             fi
+            _html_td_c
         else
-            _html_td "width=\"7%\"";
-            _html_a "${arch_version}" "${arch_git_url}" "style=\"color: #7B241C\""
-            _html_td_c
             if [ "$arch_updated" == "$today" ] || [ "$arch_updated" == "$yesterday" ]; then
-                _html_td "width=\"9%\" style=\"background-color: #7B241C\"";
-                _html_a "$arch_updated" "$arch_url" "style=\"color: #FFFFFF\""
-                _html_td_c
+                _html_td "width=\"8%\" style=\"background-color: #7B241C\"";
+                _html_a "${arch_version}" "${arch_hit_url}" "${arch_updated}" "style=\"color: #FFFFFF\""
             else
-                _html_td "width=\"9%\"";
-                _html_a "$arch_updated" "$arch_url" "style=\"color: #7B241C\""
-                _html_td_c
+                _html_td "width=\"8%\"";
+                _html_a "${arch_version}" "${arch_hit_url}" "${arch_updated}" "style=\"color: #7B241C\""
             fi
+            _html_td_c
         fi
 
-        if [ "$alpine_version" == "null" ]; then
-            echo "<td width="7%">---</td>" >> $report_file
-            echo "<td width="9%">---</td>" >> $report_file
+        if [ -z "$alpine_version" ]; then
+            _html_td "width=\"8%\""; _html_text "---"; _html_td_c
         elif [ "$alpine_version" == "$new_version" ]; then
-            echo "<td width="7%"><a href="$alpine_git_url" target="_blank" style=\"color: #0E6655\">$alpine_version</td>" >> $report_file
             if [ "$alpine_updated" == "$today" ] || [ "$alpine_updated" == "$yesterday" ]; then
-                echo "<td width="9%" style=\"background-color: #0E6655;\"><a href="$alpine_url" target=\"_blank\" style=\"color: #FFFFFF\"><strong>$alpine_updated<strong></td>" >> $report_file
+                _html_td "width=\"8%\" style=\"background-color: #0E6655\"";
+                _html_a "${alpine_version}" "${alpine_hit_url}" "${alpine_updated}" "style=\"color: #FFFFFF\""
             else
-                echo "<td width="9%"><a href="$alpine_url" target=\"_blank\" style=\"color: #0E6655\">$alpine_updated</td>" >> $report_file
+                _html_td "width=\"8%\"";
+                _html_a "${alpine_version}" "${alpine_hit_url}" "${alpine_updated}" "style=\"color: #0E6655\""
             fi
+            _html_td_c
         else
-            echo "<td width="7%"><a href="$alpine_git_url" target="_blank" style=\"color: #7B241C\">$alpine_version</td>" >> $report_file
             if [ "$alpine_updated" == "$today" ] || [ "$alpine_updated" == "$yesterday" ]; then
-                echo "<td width="9%" style=\"background-color: #7B241C;\"><a href="$alpine_url" target=\"_blank\" style=\"color: #FFFFFF\"><strong>$alpine_updated<strong></td>" >> $report_file
+                _html_td "width=\"8%\" style=\"background-color: #7B241C\"";
+                _html_a "${alpine_version}" "${alpine_hit_url}" "${alpine_updated}" "style=\"color: #FFFFFF\""
             else
-                echo "<td width="9%"><a href="$alpine_url" target=\"_blank\" style=\"color: #7B241C\">$alpine_updated</td>" >> $report_file
+                _html_td "width=\"8%\"";
+                _html_a "${alpine_version}" "${alpine_hit_url}" "${alpine_updated}" "style=\"color: #7B241C\""
             fi
+            _html_td_c
         fi
 
-        if [ "$fedora_version" == "null" ]; then
-            echo "<td width="7%">---</td>" >> $report_file
-            echo "<td width="9%">---</td>" >> $report_file
+        if [ -z "$fedora_version" ]; then
+            _html_td "width=\"8%\""; _html_text "---"; _html_td_c
         elif [ "$fedora_version" == "$new_version" ]; then
-            echo "<td width="7%"><a href="$fedora_git_url" target="_blank" style=\"color: #0E6655\">$fedora_version</td>" >> $report_file
             if [ "$fedora_updated" == "$today" ] || [ "$fedora_updated" == "$yesterday" ]; then
-                echo "<td width="9%" style=\"background-color: #0E6655;\"><a href="$fedora_url" target=\"_blank\" style=\"color: #FFFFFF\"><strong>$fedora_updated<strong></td>" >> $report_file
+                _html_td "width=\"8%\" style=\"background-color: #0E6655\"";
+                _html_a "${fedora_version}" "${fedora_hit_url}" "${fedora_updated}" "style=\"color: #FFFFFF\""
             else
-                echo "<td width="9%"><a href="$fedora_url" target=\"_blank\" style=\"color: #0E6655\">$fedora_updated</td>" >> $report_file
+                _html_td "width=\"8%\"";
+                _html_a "${fedora_version}" "${fedora_hit_url}" "${fedora_updated}" "style=\"color: #0E6655\""
             fi
+            _html_td_c
         else
-            echo "<td width="7%"><a href="$fedora_git_url" target="_blank" style=\"color: #7B241C\">$fedora_version</td>" >> $report_file
             if [ "$fedora_updated" == "$today" ] || [ "$fedora_updated" == "$yesterday" ]; then
-                echo "<td width="9%" style=\"background-color: #7B241C;\"><a href="$fedora_url" target=\"_blank\" style=\"color: #FFFFFF\"><strong>$fedora_updated<strong></td>" >> $report_file
+                _html_td "width=\"8%\" style=\"background-color: #7B241C\"";
+                _html_a "${fedora_version}" "${fedora_hit_url}" "${fedora_updated}" "style=\"color: #FFFFFF\""
             else
-                echo "<td width="9%"><a href="$fedora_url" target=\"_blank\" style=\"color: #7B241C\">$fedora_updated</td>" >> $report_file
+                _html_td "width=\"8%\"";
+                _html_a "${fedora_version}" "${fedora_hit_url}" "${fedora_updated}" "style=\"color: #7B241C\""
             fi
+            _html_td_c
         fi
 
         echo "<td><a href="$pr_url" target="_blank">check</td>" >> $report_file
@@ -355,13 +363,13 @@ if [ "$pkg" != "all" ]; then
         _html_h3 "Report on ${pkg}"
         _html_table
         _html_tr
-        _html_th "width=\"15%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
+        _html_th "width=\"34%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Void"; _html_th_c
         _html_th "width=\"8%\""; _html_text "New"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Arch"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Alpine"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Fedora"; _html_th_c
-        _html_th "width=\"7%\""; _html_text "PR"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Arch"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Alpine"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Fedora"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "PR"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Homepage"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Repology"; _html_th_c
         _html_tr_c
@@ -378,13 +386,13 @@ else
         _html_h3 "Maintained packages"
         _html_table
         _html_tr
-        _html_th "width=\"15%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
+        _html_th "width=\"34%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Void"; _html_th_c
         _html_th "width=\"8%\""; _html_text "New"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Arch"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Alpine"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Fedora"; _html_th_c
-        _html_th "width=\"7%\""; _html_text "PR"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Arch"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Alpine"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Fedora"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "PR"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Homepage"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Repology"; _html_th_c
         _html_tr_c
@@ -407,13 +415,13 @@ else
         _html_h3 "Outdated orphan packages"; _html_br
         _html_table
         _html_tr
-        _html_th "width=\"15%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
+        _html_th "width=\"34%\" style=\"text-align: left\""; _html_text "Package"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Void"; _html_th_c
         _html_th "width=\"8%\""; _html_text "New"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Arch"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Alpine"; _html_th_c
-        _html_th "width=\"16%\" colspan=\"2\""; _html_text "Fedora"; _html_th_c
-        _html_th "width=\"7%\""; _html_text "PR"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Arch"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Alpine"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "Fedora"; _html_th_c
+        _html_th "width=\"8%\""; _html_text "PR"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Homepage"; _html_th_c
         _html_th "width=\"8%\""; _html_text "Repology"; _html_th_c
         _html_tr_c
