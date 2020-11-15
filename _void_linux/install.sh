@@ -104,6 +104,7 @@ unzip \
 upower \
 vim \
 void-repo-nonfree \
+weechat \
 wget \
 xclip \
 xcursor-themes \
