@@ -160,15 +160,17 @@ function _report {
 
         declare -A arch_alt_names=( \
             ["xev"]="xorg-xev" \
-            ["gstreamer1"]="gstreamer"
+            ["gstreamer1"]="gstreamer" \
+            ["gst-plugins-base1"]="gst-plugins-base"
         )
 
         declare -A alpine_alt_names=( \
-            ["gstreamer1"]="gstreamer"
+            ["gstreamer1"]="gstreamer" \
+            ["gst-plugins-base1"]="gst-plugins-base"
         )
 
         declare -A fedora_alt_names=( \
-            ["aaaa"]="aaaaaa"
+            ["gst-plugins-base1"]="gstreamer-plugins-base"
         )
 
         for p in "${!arch_alt_names[@]}"; do
@@ -256,7 +258,6 @@ function _report {
         _html_td; _html_text "$old_version"; _html_td_c
         _html_td; _html_text "$new_version"; _html_td_c
 
-        today="2020-08-09"
         if [ -z "$arch_version" ]; then
             _html_td "width=\"8%\""; _html_text "---"; _html_td_c
         elif [ "$arch_version" == "$new_version" ]; then
