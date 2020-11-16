@@ -161,7 +161,11 @@ ln -sf $HOME/dotfiles/_void_linux/v_check_pkgs.sh $HOME/
 
 # setup device specific stuff
 if [ "$mode" == "HOME" ]; then
-    :
+    ln -sf $HOME/dotfiles/_void_linux/laptop/x/xinitrc $HOME/.xinitrc
+    ln -sf $HOME/dotfiles/_void_linux/laptop/x/Xresources.local $HOME/.Xresources.local
+    ln -sf $HOME/dotfiles/_void_linux/laptop/i3/config.local $HOME/.config/i3/config.local
+    ln -sf $HOME/dotfiles/_void_linux/laptop/bash/bashrc $HOME/.bashrc
+    ln -sf $HOME/dotfiles/_void_linux/laptop/polybar/config.ini $HOME/.config/polybar/
 elif [ "$mode" == "LAPTOP" ]; then
     sudo xbps-install -Sy nvidia
     ln -sf $HOME/dotfiles/_void_linux/laptop/x/xinitrc $HOME/.xinitrc
