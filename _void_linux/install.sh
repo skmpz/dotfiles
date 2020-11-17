@@ -110,7 +110,8 @@ xclip \
 xcursor-themes \
 xorg \
 xterm \
-xtools
+xtools \
+xz
 
 # install additional stuff
 echo "Installing additional software"

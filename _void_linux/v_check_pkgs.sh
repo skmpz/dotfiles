@@ -161,16 +161,21 @@ function _report {
         declare -A arch_alt_names=( \
             ["xev"]="xorg-xev" \
             ["gstreamer1"]="gstreamer" \
-            ["gst-plugins-base1"]="gst-plugins-base"
+            ["gst-plugins-base1"]="gst-plugins-base" \
+            ["gst-plugins-bad1"]="gst-plugins-bad" \
+            ["gnupg2"]="gnupg"
         )
 
         declare -A alpine_alt_names=( \
             ["gstreamer1"]="gstreamer" \
-            ["gst-plugins-base1"]="gst-plugins-base"
+            ["gst-plugins-base1"]="gst-plugins-base" \
+            ["gst-plugins-bad1"]="gst-plugins-bad" \
+            ["gnupg2"]="gnupg"
         )
 
         declare -A fedora_alt_names=( \
-            ["gst-plugins-base1"]="gstreamer-plugins-base"
+            ["gst-plugins-base1"]="gstreamer-plugins-base" \
+            ["gst-plugins-bad1"]="gstreamer1-plugins-bad-free"
         )
 
         for p in "${!arch_alt_names[@]}"; do
