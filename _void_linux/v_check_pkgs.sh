@@ -175,7 +175,9 @@ function _report {
 
         declare -A fedora_alt_names=( \
             ["gst-plugins-base1"]="gstreamer-plugins-base" \
-            ["gst-plugins-bad1"]="gstreamer1-plugins-bad-free"
+            ["gst-plugins-bad1"]="gstreamer1-plugins-bad-free" \
+            ["gdk-pixbuf"]="gdk-pixbuf2" \
+            ["xf86-input-libinput"]="xorg-x11-drv-libinput"
         )
 
         for p in "${!arch_alt_names[@]}"; do
