@@ -1,0 +1,7 @@
+xset r rate 250 80
+setxkbmap -option grp:win_space_toggle us,el
+setxkbmap -option caps:escape
+feh --bg-scale ~/dotfiles/freebsd/bg.jpg
+xrdb ~/.Xresources
+cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
+/usr/local/bin/i3

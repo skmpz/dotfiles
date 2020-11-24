@@ -1,0 +1,106 @@
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+GRAY='\033[0;37m'
+NC='\033[0m'
+
+function check {
+    if [ $1 == 0 ]; then
+        echo -e "[${GREEN}OK${NC}]"
+    else
+        echo -e "[${RED}FAIL${NC}]"
+    fi
+}
+
+function wh {
+    SEARCH_PORT=$(whereis $1 | tr " " "\n" | grep "/usr/ports")
+    cd $SEARCH_PORT
+}
+
+function up {
+    sudo ls > /dev/null
+    echo -en "[${BLUE}-${NC}] ${BLUE}Portsnap fetch.............${NC}"
+    sudo portsnap fetch > /dev/null 2> /dev/null
+    check $?
+    echo -en "[${BLUE}-${NC}] ${BLUE}Portsnap update............${NC}"
+    sudo portsnap update > /dev/null 2> /dev/null
+    check $?
+    PKGS=$(sudo portmaster -L)
+    # OUTDATED=$(sudo portmaster -L | grep "New version" | grep -v "No packages" | awk 'BEGIN { FS = "available: " } { print $2 }')
+    # OUTDATED=$(echo "$PKGS" | grep "New version" | grep -v "No packages" | awk 'BEGIN { FS = "available: " } { print $2 }')
+    # OLD_VER=$(echo "$PKGS" | awk '{print $2}')
+    # echo $OLD_VER
+    OUTDATED=$(echo "$PKGS" | grep "New version" | wc -l | awk '{print $1}')
+    # echo $OUTDATED
+    if [ $OUTDATED != "0" ]; then
+        echo -e "${BLUE}----------------------------------------------------${NC}"
+        while read -r line
+        do
+            if [[ $line =~ "New version" ]]; then
+                OLD=$(echo "$prev" | awk '{print $2}')
+                NEW=$(echo "$line" | awk '{print $5}')
+                echo -e "${GRAY}$OLD ${BLUE}-> ${GRAY}$NEW${NC}"
+            fi
+            prev=$line
+        done <<< "$PKGS"
+        echo -e "${BLUE}----------------------------------------------------${NC}"
+        echo -e "             ${YELLOW}$OUTDATED outdated packets found${NC}"
+        echo -e "${BLUE}----------------------------------------------------${NC}"
+    else
+        echo -e "[${BLUE}-${NC}] ${BLUE}Packages up-to-date........${NC}[${GREEN}OK${NC}]"
+    fi
+    # echo "-----------------------------------"
+    # if [ -z "$OUTDATED" ]; then
+    #     echo "Ports up-to-date"
+    # else
+    #     echo "$OUTDATED"
+    #     echo "-----------------------------------"
+    #     echo "$(echo "$OUTDATED" | wc -l) outdated packages"
+    # fi
+    # echo "-----------------------------------"
+}
+
+function clsys {
+    sudo ls > /dev/null
+    echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning trash.............${NC}"
+    sudo rm -rf /usr/home/sk/.local/share/Trash*
+    sudo rm -rf /data/.Trash*
+    check $?
+    echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning distfiles.........${NC}"
+    sudo rm -rf /usr/ports/distfiles/*
+    check $?
+    echo -en "[${BLUE}-${NC}] ${BLUE}Cleaning work dirs.........${NC}"
+    sudo find /usr/ports/ -name work -type d -exec rm -rf {} +
+    check $?
+}
+
+function bak {
+    date=$(date +"%d-%m-%y-%H-%M-%S")
+    filename=$(echo "backup-$date")
+    echo $filename
+    tar czvf /data/$filename /data/reports/ /data/screenshots/ /data/notes /data/books
+}
+
+alias nv='nvim'
+alias bck='rsync -e ssh -avzh /data/ contabo:/root/data --delete --exclude .Trash* --exclude downloads/ --exclude lost+found/ --exclude movies/ --exclude series/ --exclude series_cur/ --exclude shows/ --progress'
+alias bck_media='rsync -e ssh -avzh /data/series/ contabo:/root/series/ --delete --progress'
+alias pkg='sudo pkg'
+alias upd='sudo portmaster -dya --no-confirm'
+alias d='cd /data/downloads'
+alias reboot='sudo shutdown -r now'
+alias gch='git checkout'
+alias gst='git status'
+alias gco='git commit -am'
+alias gdf='git diff'
+alias gpush='git push'
+
+[[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
+    source /usr/local/share/bash-completion/bash_completion.sh
+
+PS1='[\u@\h \W]\$ '
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
+export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+PATH=$PATH:$HOME/bin
+export LD_LIBRARY_PATH=/usr/local/lib/gcc7/

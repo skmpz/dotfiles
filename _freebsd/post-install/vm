@@ -1,0 +1,1 @@
+sudo sysctl hw.usb.ehci.no_hs=1

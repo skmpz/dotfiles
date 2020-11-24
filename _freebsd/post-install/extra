@@ -1,0 +1,4 @@
+mkdir -p /usr/local/etc/pkg/repos
+echo 'FreeBSD: { url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest" }' > /usr/local/etc/pkg/repos/FreeBSD.conf
+
+-> uncomment FETCH_TIMEOUT in /usr/local/etc/pkg.conf and set to 200

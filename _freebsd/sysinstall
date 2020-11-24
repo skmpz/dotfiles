@@ -1,0 +1,21 @@
+root -> install base system
+root -> mkdir -p /usr/local/etc/pkg/repos
+root -> echo 'FreeBSD: { url: "pkg+http://pkg.eu.FreeBSD.org/${ABI}/latest" }' > /usr/local/etc/pkg/repos/FreeBSD.conf
+root -> pkg install git sudo bash (should initialize pkg here as well)
+root -> uncomment FETCH_TIMEOUT in /usr/local/etc/pkg.conf and set to 200
+root -> visudo and uncomment wheel
+user -> chsh -s /usr/local/bin/bash
+user -> cd && git clone https://github.com/skmpz/dotfiles
+user -> cd dotfiles/freebsd
+user -> ./install.sh
+
+/etc/login.conf
+default:\
+	:umask=022: \
+	:charset=UTF-8:\
+	:lang=en_US.UTF-8:
+
+sudo cap_mkdb /etc/login.conf
+
+install nvidia
+add user to operator and vboxusers

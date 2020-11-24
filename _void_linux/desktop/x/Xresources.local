@@ -1,0 +1,2 @@
+URxvt*font: xft:Inconsolata:style=Medium:size=11:antialias=true:hinting=true, xft:waffle:size=12
+rofi.font:                  Avenir Book 13

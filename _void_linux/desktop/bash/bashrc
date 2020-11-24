@@ -1,0 +1,44 @@
+#
+# ~/.bashrc
+#
+
+# bash completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# if not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# aliases
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias nv='nvim'
+alias d='cd $HOME/Downloads'
+alias gch='git checkout'
+alias gst='git status'
+alias gco='git commit -am'
+alias gdf='git diff'
+alias gpush='git push'
+alias gpull='git pull'
+alias glog='git log --pretty=oneline'
+alias f='caja .'
+alias nvs='nv -S ~/.sess'
+alias up='nvim +PlugUpdate +qall; sudo xbps-install -Su'
+alias clean='sudo xbps-remove -yoO; \
+    sudo vkpurge rm all; \
+    sudo rm -rf /var/cache/xbps/* $HOME/.local/share/Trash/files/* $HOME/.local/share/Trash/info/*'
+alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
+
+# git aware prompt
+PS1='[\u@\h \W]\$ '
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
+export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+
+# add conan to path
+PATH=$PATH:$HOME/.local/bin/
