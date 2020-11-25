@@ -15,7 +15,8 @@ bindsym --release button2 kill
 
 # open caja with alt+x or side mouse button
 bindsym $mod+x exec "caja"
-bindsym --whole-window button8 exec "mate-terminal"
+bindsym --whole-window button8 exec i3-msg 'workspace next_on_output'
+bindsym $mod+space exec i3-msg 'workspace next_on_output'
 bindsym --whole-window button9 exec "caja"
 
 # alt-enter -> open terminal

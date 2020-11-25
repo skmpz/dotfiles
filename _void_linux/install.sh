@@ -168,6 +168,7 @@ ln -sf $path/i3/config.local $HOME/.config/i3/config.local
 ln -sf $path/bash/bashrc $HOME/.bashrc
 ln -sf $path/polybar/config.ini $HOME/.config/polybar/
 ln -sf $path/polybar/modules.ini $HOME/.config/polybar/
+ln -sf $path/polybar/launch.sh $HOME/.config/polybar/
 ln -sf $path/gtk/gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -sf $path/gtk/settings.ini $HOME/.config/gtk-3.0/settings.ini
 
