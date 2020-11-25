@@ -7,13 +7,13 @@
 -> swap
 ------------------------------------------------------
 [install]
--> [wifi] wpa_passphrase <AP> <PW> | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf
--> [wifi] sudo wpa_supplicant -B -i <iface> -c /etc/wpa_supplicant/wpa_supplicant.conf
--> sudo xbps-install -Syu
--> sudo xpbs-install -y git
--> git clone https://github.com/skmpz/dotfiles
--> cd ~/dotfiles/_void_linux/
--> ./install.sh
+[wifi] wpa_passphrase <AP> <PW> | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf
+[wifi] sudo wpa_supplicant -B -i <iface> -c /etc/wpa_supplicant/wpa_supplicant.conf
+sudo xbps-install -Syu
+sudo xbps-install -y git
+git clone https://github.com/skmpz/dotfiles
+cd ~/dotfiles/_void_linux/
+./install.sh
 ------------------------------------------------------
 [home]
 grub failure
