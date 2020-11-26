@@ -15,12 +15,12 @@ bindsym --release button2 kill
 
 # open caja with alt+x or side mouse button
 bindsym $mod+x exec "caja"
-bindsym --whole-window button8 exec i3-msg 'workspace next_on_output'
-bindsym $mod+space exec i3-msg 'workspace next_on_output'
+# bindsym --whole-window button8 exec i3-msg 'workspace next_on_output'
+# bindsym $mod+space exec i3-msg 'workspace next_on_output'
 bindsym --whole-window button9 exec "caja"
 
 # alt-enter -> open terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec alacritty
 
 # alt-d -> start rofi
 bindsym $mod+d exec rofi -show run
@@ -78,7 +78,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating

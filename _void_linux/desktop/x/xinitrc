@@ -10,5 +10,5 @@ xrandr --output DP-4 --primary
 xrandr --output DP-0 --left-of DP-4 --auto
 blueman-applet &
 dropbox start &
+picom --config $HOME/dotfiles/picom.conf &
 exec i3
-#exec mate-session
