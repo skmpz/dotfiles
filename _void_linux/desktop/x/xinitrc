@@ -11,4 +11,5 @@ xrandr --output DP-0 --left-of DP-4 --auto
 blueman-applet &
 dropbox start &
 picom --config $HOME/dotfiles/picom/picom.conf &
+imwheel -b 45
 exec i3

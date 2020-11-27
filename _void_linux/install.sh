@@ -71,6 +71,7 @@ hexchat \
 i3-gaps \
 i3lock \
 i3status \
+imwheel \
 iwd \
 lm_sensors \
 make \
@@ -124,6 +125,7 @@ rm -rf $HOME/.bash/
 rm -rf $HOME/.bashrc
 rm -rf $HOME/.gtkrc-2.0
 rm -rf $HOME/.xinitrc
+rm -rf $HOME/.imwheelrc
 rm -rf $HOME/.Xresources
 rm -rf $HOME/.Xresources.local
 rm -rf $HOME/.config/i3/
@@ -153,6 +155,7 @@ ln -sf $HOME/dotfiles/x/Xresources $HOME/.Xresources
 ln -sf $HOME/dotfiles/i3/config.base $HOME/.config/i3/config.base
 ln -sf $HOME/dotfiles/bash/inputrc $HOME/.inputrc
 ln -sf $HOME/dotfiles/polybar/launch.sh $HOME/.config/polybar/
+ln -sf $HOME/dotfiles/imwheel/imwheelrc $HOME/.imwheelrc
 
 # setup device specific stuff
 if [ "$target" == "desktop" ]; then
