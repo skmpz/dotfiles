@@ -33,6 +33,7 @@ user=$(echo $USER)
 # install base apps
 echo "Installing system.."
 sudo xbps-install -Sy \
+alacritty \
 alsa-oss \
 alsa-utils \
 arc-icon-theme \

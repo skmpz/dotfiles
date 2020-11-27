@@ -3,16 +3,16 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  #TERM: alacritty
+  TERM: rxvt-unicode-256color
 
-#window:
+window:
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -33,9 +33,9 @@
   #
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  #padding:
-  #  x: 0
-  #  y: 0
+    padding:
+        x: 2
+        y: 0
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -166,7 +166,6 @@ colors:
     primary:
         background: '#040F19'
         # foreground: '#c5c8c6'
-
     # Bright and dim foreground colors
     #
     # The dimmed foreground color is calculated automatically if it is not present.
@@ -221,15 +220,26 @@ colors:
   #    foreground: CellBackground
 
   # Normal colors
-  #normal:
-  #  black:   '#1d1f21'
-  #  red:     '#cc6666'
-  #  green:   '#b5bd68'
-  #  yellow:  '#f0c674'
-  #  blue:    '#81a2be'
-  #  magenta: '#b294bb'
-  #  cyan:    '#8abeb7'
-  #  white:   '#c5c8c6'
+    normal:
+        black:   '#0d0d0d'
+        red:     '#FF301B'
+        green:   '#A0E521'
+        yellow:  '#FFC620'
+        blue:    '#81a2be'
+        magenta: '#b294bb'
+        cyan:    '#21DEEF'
+        white:   '#EBEBEB'
+
+        # Bright colors
+    bright:
+        black:   '#6D7070'
+        red:     '#FF4352'
+        green:   '#B8E466'
+        yellow:  '#FFD750'
+        blue:    '#1BA6FA'
+        magenta: '#A578EA'
+        cyan:    '#73FBF1'
+        white:   '#FEFEF8'
 
   # Bright colors
   #bright:
