@@ -130,12 +130,14 @@ rm -rf $HOME/.config/i3/
 rm -rf $HOME/.config/gtk-3.0/
 rm -rf $HOME/.config/nvim/
 rm -rf $HOME/.config/polybar/
+rm -rf $HOME/.config/alacritty/
 rm -rf $HOME/.local/share/fonts
 rm -rf $HOME/.urxvt/
 rm -rf $HOME/screens/
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/i3/
 mkdir -p $HOME/.config/polybar/
+mkdir -p $HOME/.config/alacritty/
 mkdir -p $HOME/.config/nvim/
 mkdir -p $HOME/.config/gtk-3.0/
 mkdir -p $HOME/.local/share/fonts/
@@ -171,6 +173,7 @@ ln -sf $path/polybar/modules.ini $HOME/.config/polybar/
 ln -sf $path/polybar/launch.sh $HOME/.config/polybar/
 ln -sf $path/gtk/gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -sf $path/gtk/settings.ini $HOME/.config/gtk-3.0/
+ln -sf $path/alacritty/alacritty.yml $HOME/.config/alacritty/
 
 # setup vim
 nvim +PlugInstall +qall
