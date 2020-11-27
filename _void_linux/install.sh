@@ -88,6 +88,7 @@ noto-fonts-ttf \
 openjdk8 \
 openvpn \
 p7zip \
+picom \
 pkg-config \
 polybar \
 pulseaudio \
