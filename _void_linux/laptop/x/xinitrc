@@ -9,5 +9,7 @@ xrandr --output eDP1 --primary
 xrandr --output DP1 --above eDP1 --auto
 blueman-applet &
 dropbox start &
+picom --config $HOME/dotfiles/picom/picom.conf &
+imwheel -b 45
 exec i3
 #exec mate-session

@@ -21,7 +21,7 @@ bindsym $mod+w kill
 bindsym --whole-window button9 exec "caja"
 
 # alt-enter -> open terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec alacritty
 
 # alt-d -> start rofi
 bindsym $mod+d exec rofi -show run
