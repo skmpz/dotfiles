@@ -17,8 +17,8 @@ i3-msg 'workspace 1; resize grow width 10 px or 10 ppt;'
 sleep 2
 
 # workspace 3
-i3-msg 'workspace 3; exec hexchat'
-sleep 5
+# i3-msg 'workspace 3; exec hexchat'
+# sleep 5
 
 # workspace 3
 i3-msg 'workspace 2; exec urxvt'
