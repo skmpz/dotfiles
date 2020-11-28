@@ -1,5 +1,5 @@
 #font
-font pango:Ubuntu 7
+font pango:Ubuntu 10
 
 # alt-p -> startup script
 bindsym $mod+p exec "$HOME/dotfiles/_void_linux/desktop/startup.sh"
