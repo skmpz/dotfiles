@@ -108,6 +108,7 @@ void-repo-nonfree \
 wget \
 xclip \
 xcursor-themes \
+xcursor-vanilla-dmz \
 xorg \
 xterm \
 xtools \
