@@ -1,5 +1,5 @@
 #include "/home/sk/.Xresources.local"
-Xcursor.theme:              whiteglass
+Xcursor.theme:              Vanilla-DMZ
 Xcursor.size:               12
 URxvt*geometry:             115x40
 URxvt*cursorColor:          #36a9dc
@@ -8,7 +8,7 @@ URxvt*borderless:           1
 URxvt*scrollBar:            false
 URxvt*saveLines:            20000
 URxvt*background:           #1C3749
-URxvt*foreground:           #36a9dc
+URxvt*foreground:           #D4D8D5
 URxvt*scrollTtyOutput:      false
 URxvt*scrollWithBuffer:     true
 URxvt*scrollTtyKeypress:    true
@@ -26,22 +26,22 @@ URxvt*keysym.C-S-Up:        perl:font-size:incglobal
 URxvt*keysym.C-S-Down:      perl:font-size:decglobal
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
-/* *color0:                    #2E3436 */
-/* *color1:                    #a40000 */
-/* *color2:                    #4E9A06 */
-/* *color3:                    #C4A000 */
-/* *color4:                    #3465A4 */
-/* *color5:                    #75507B */
-/* *color6:                    #289c93 */
-/* *color7:                    #babdb9 */
-/* *color8:                    #555753 */
-/* *color9:                    #EF2929 */
-/* *color10:                   #8AE234 */
-/* *color11:                   #d9a400 */
-/* *color12:                   #729FCF */
-/* *color13:                   #AD7FA8 */
-/* *color14:                   #b08500 */
-/* *color15:                   #EEEEEC */
+*color0:                    #2E3436
+*color1:                    #a40000
+*color2:                    #4E9A06
+*color3:                    #C4A000
+*color4:                    #3465A4
+*color5:                    #75507B
+*color6:                    #289c93
+*color7:                    #babdb9
+*color8:                    #555753
+*color9:                    #EF2929
+*color10:                   #8AE234
+*color11:                   #d9a400
+*color12:                   #729FCF
+*color13:                   #AD7FA8
+*color14:                   #b08500
+*color15:                   #EEEEEC
 rofi.width:                 20
 rofi.lines:                 5
 rofi.opacity:               50
