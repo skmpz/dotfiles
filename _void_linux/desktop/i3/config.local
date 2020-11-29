@@ -13,5 +13,5 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 
 #assign workspaces to outputs
 workspace $w1 output DP-0
-workspace $w2 output DP-4
-workspace $w3 output DP-0
+workspace $w2 output DP-0
+workspace $w3 output DP-4

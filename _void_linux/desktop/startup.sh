@@ -16,16 +16,16 @@ sleep 1
 i3-msg 'workspace 1; resize grow width 10 px or 10 ppt;'
 sleep 1
 
-# workspace 3
-i3-msg 'workspace 3; exec firefox'
+# workspace 2
+i3-msg 'workspace 2; exec firefox'
 sleep 3
-i3-msg 'workspace 3; exec boostnote'
+i3-msg 'workspace 2; exec boostnote'
 sleep 3
 
-# workspace 2
-i3-msg 'workspace 2; exec urxvt'
+# workspace 3
+i3-msg 'workspace 3; exec urxvt'
 sleep 1
-i3-msg 'workspace 2; exec urxvt'
+i3-msg 'workspace 3; exec urxvt'
 sleep 1
 
 # workspace 4
@@ -36,4 +36,4 @@ sleep 1
 
 # set current to main
 i3-msg 'workspace 1'
-i3-msg 'workspace 2'
+i3-msg 'workspace 3'
