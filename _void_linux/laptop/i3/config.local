@@ -5,6 +5,7 @@ font pango:Ubuntu 9
 bindsym $mod+p exec "$HOME/dotfiles/_void_linux/laptop/startup.sh"
 
 for_window [class="(?i)evince"] floating enable, border normal 2, resize set 900 1000, move position center
+for_window [class="(?i)calibre"] floating enable, border normal 2, resize set 900 1000, move position center
 
 # xf86 sound controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
