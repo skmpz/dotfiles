@@ -331,8 +331,8 @@ set nowritebackup
 " Better display for messages
 set cmdheight=2
 
-autocmd FileType c noremap <buffer> <c-f> :ALEFix<CR>
-autocmd FileType cpp noremap <buffer> <c-f> :ALEFix<CR>
+autocmd FileType c noremap <buffer> <c-f> :ALEFix<CR>:e<CR>
+autocmd FileType cpp noremap <buffer> <c-f> :ALEFix<CR>:e<CR>
 
 set splitright
 set splitbelow
