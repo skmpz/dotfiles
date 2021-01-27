@@ -32,7 +32,7 @@ alias up='sudo xbps-install -Su'
 alias clean='rm -rf $HOME/.local/share/Trash/*; \
     sudo xbps-remove -yoO; \
     sudo vkpurge rm all; \
-    sudo rm -rf /var/cache/xbps/* $HOME/.local/share/Trash/files/* $HOME/.local/share/Trash/info/*'
+    sudo rm -rf /var/cache/xbps/*'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
 
 # git aware prompt
