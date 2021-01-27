@@ -29,7 +29,8 @@ alias glog='git log --pretty=oneline'
 alias f='caja .'
 alias nvs='nv -S ~/.sess'
 alias up='sudo xbps-install -Su'
-alias clean='sudo xbps-remove -yoO; \
+alias clean='rm -rf $HOME/.local/share/Trash/*; \
+    sudo xbps-remove -yoO; \
     sudo vkpurge rm all; \
     sudo rm -rf /var/cache/xbps/* $HOME/.local/share/Trash/files/* $HOME/.local/share/Trash/info/*'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
