@@ -22,6 +22,14 @@ sleep 3
 i3-msg 'workspace 2; exec boostnote'
 sleep 3
 
+# workspace 5
+i3-msg 'workspace 5; exec hexchat'
+sleep 3
+
+# workspace 6
+i3-msg 'workspace 6; exec teams-for-linux'
+sleep 3
+
 # workspace 3
 i3-msg 'workspace 3; exec urxvt'
 sleep 1
