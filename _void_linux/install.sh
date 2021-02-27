@@ -44,6 +44,7 @@ bc \
 blueman \
 bluez-alsa \
 caja \
+caja-dropbox \
 caja-open-terminal \
 calibre \
 chromium \
@@ -101,6 +102,7 @@ rsync \
 rxvt-unicode \
 scrot \
 ttf-ubuntu-font-family \
+unrar \
 unzip \
 upower \
 vim \
