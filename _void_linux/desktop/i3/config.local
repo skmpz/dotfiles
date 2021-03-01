@@ -8,9 +8,9 @@ for_window [class="(?i)evince"] floating enable, border normal 2, resize set 164
 for_window [class="(?i)calibre"] floating enable, border normal 2, resize set 1640 1840, move position center
 
 # xf86 sound controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
+bindsym XF86AudioMute exec pactl set-sink-mute 1 toggle
 
 #assign workspaces to outputs
 workspace $w1 output DP-0
