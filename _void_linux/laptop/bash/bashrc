@@ -33,6 +33,7 @@ alias clean='sudo xbps-remove -yoO; \
     sudo vkpurge rm all; \
     sudo rm -rf /var/cache/xbps/* $HOME/.local/share/Trash/files/* $HOME/.local/share/Trash/info/*'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
+alias w='TERM=xterm ssh work'
 
 # git aware prompt
 PS1='[\u@\h \W]\$ '
