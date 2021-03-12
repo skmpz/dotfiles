@@ -102,6 +102,7 @@ rsync \
 rxvt-unicode \
 scrot \
 ttf-ubuntu-font-family \
+unrar \
 unzip \
 upower \
 vim \
