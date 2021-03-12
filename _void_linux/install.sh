@@ -44,6 +44,7 @@ bc \
 blueman \
 bluez-alsa \
 caja \
+caja-dropbox \
 caja-open-terminal \
 calibre \
 chromium \
