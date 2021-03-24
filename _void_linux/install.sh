@@ -33,6 +33,7 @@ user=$(echo $USER)
 
 # install base apps
 echo "Installing system.."
+sudo xbps-install -Sy void-repo-nonfree
 sudo xbps-install -Sy \
 alsa-oss \
 alsa-utils \
@@ -105,7 +106,6 @@ unrar \
 unzip \
 upower \
 vim \
-void-repo-nonfree \
 wget \
 xclip \
 xcursor-themes \
