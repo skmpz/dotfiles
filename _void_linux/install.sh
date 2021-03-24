@@ -18,13 +18,14 @@ for i in "$@"
 do
     case $i in
         desktop) target="desktop"; shift 1 ;;
-        laptop) target="laptop"; shift 1 ;;
+        laptop)  target="laptop"; shift 1 ;;
+        vm)      target="vm"; shift 1;;
         *) ;;
     esac
 done
 
 # check arguments
-if [ "$target" != "desktop" ] && [ "$target" != "laptop" ]; then show_usage; fi
+if [ "$target" != "desktop" ] && [ "$target" != "laptop" ] && [ "$target" != "vm" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
 # user
@@ -166,6 +167,8 @@ if [ "$target" == "desktop" ]; then
 elif [ "$target" == "laptop" ]; then
     path="$HOME/dotfiles/_void_linux/laptop"
     sudo xbps-install -Sy nvidia
+elif [ "$target" == "vm" ]; then
+    path="$HOME/dotfiles/_void_linux/vm"
 fi
 
 # set configs
