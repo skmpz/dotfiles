@@ -1,0 +1,15 @@
+xset r rate 220 80 # fast keyboard
+xset s 3600 # 1 hour screen timeout
+setxkbmap -option grp:win_space_toggle us,el
+xrdb -merge ~/.Xresources
+setxkbmap -option ctrl:ralt_rctrl
+setxkbmap -option caps:escape
+feh --bg-scale ~/dotfiles/wallpapers/bg.jpg
+cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
+xrandr --output DP-4 --primary
+xrandr --output DP-0 --left-of DP-4 --auto
+blueman-applet &
+dropbox start &
+picom --config $HOME/dotfiles/picom/picom.conf &
+imwheel -b 45
+exec i3
