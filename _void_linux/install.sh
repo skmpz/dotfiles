@@ -95,7 +95,6 @@ polybar \
 pulseaudio \
 python \
 python3 \
-# python3-neovim \
 python3-pip \
 rofi \
 rsync \
