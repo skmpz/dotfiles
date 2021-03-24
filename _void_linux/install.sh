@@ -114,7 +114,7 @@ xorg \
 xterm \
 xtools \
 xz \
-zip
+zip || exit 1
 
 # install additional stuff
 echo "Installing additional software"
