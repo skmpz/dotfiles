@@ -94,7 +94,7 @@ pkg-config \
 polybar \
 pulseaudio \
 python \
-python-neovim \
+# python-neovim \
 python3 \
 python3-neovim \
 python3-pip \
