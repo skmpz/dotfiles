@@ -98,6 +98,7 @@ python \
 python3 \
 python3-neovim \
 python3-pip \
+qemu \
 rofi \
 rsync \
 rxvt-unicode \
@@ -197,4 +198,4 @@ sudo ln -sf /etc/sv/chronyd/ /var/service/
 sudo ln -sf /usr/share/zoneinfo/Asia/Dubai /etc/localtime
 
 # add user to groups
-sudo usermod -a -G bluetooth,network $user
+sudo usermod -a -G bluetooth,network,kvm $user

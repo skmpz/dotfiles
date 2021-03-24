@@ -35,6 +35,7 @@ alias clean='rm -rf $HOME/.local/share/Trash/*; \
     sudo rm -rf /var/cache/xbps/*'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
 alias w='TERM=xterm ssh work'
+alias vmsync='rsync -avh /home/sk/void-packages/ vm:/home/sk/void-packages/ --delete'
 
 # git aware prompt
 PS1='[\u@\h \W]\$ '
