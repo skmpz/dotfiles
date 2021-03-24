@@ -5,7 +5,7 @@ function show_usage {
     echo "[usage] ./$(basename $0) [opts]"
     echo "-----------------------------------------------"
     echo -n "[opts] "
-    echo "laptop/desktop    install target    [required]"
+    echo "laptop/desktop/vm   install target   [required]"
     echo "-----------------------------------------------"
     exit 1
 }
