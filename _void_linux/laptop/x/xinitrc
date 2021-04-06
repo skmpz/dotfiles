@@ -3,12 +3,12 @@ setxkbmap -option grp:win_space_toggle us,el
 xrdb -merge ~/.Xresources
 setxkbmap -option ctrl:ralt_rctrl
 setxkbmap -option caps:escape
-feh --bg-scale ~/dotfiles/wallpapers/bg.jpg
 cat $HOME/.config/i3/config.base $HOME/.config/i3/config.local > $HOME/.config/i3/config
 xrandr --output eDP-1 --primary
 xrandr --output DP-1 --above eDP-1 --auto
+feh --bg-scale ~/dotfiles/wallpapers/bg.jpg
 blueman-applet &
 dropbox start &
 picom --config $HOME/dotfiles/picom/picom.conf &
+imwheel -b 45
 exec i3
-#exec mate-session
