@@ -35,6 +35,7 @@ user=$(echo $USER)
 echo "Installing system.."
 sudo xbps-install -Sy void-repo-nonfree
 sudo xbps-install -Sy \
+acpilight \
 alsa-oss \
 alsa-utils \
 arc-icon-theme \

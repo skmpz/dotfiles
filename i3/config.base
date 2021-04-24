@@ -20,6 +20,9 @@ bindsym $mod+e exec i3-msg 'workspace next_on_output'
 bindsym $mod+w kill
 bindsym --whole-window button9 exec "caja"
 
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
 # alt-enter -> open terminal
 bindsym $mod+Return exec urxvt
 
