@@ -35,6 +35,7 @@ alias clean='rm -rf $HOME/.local/share/Trash/*; \
     sudo rm -rf /var/cache/xbps/*'
 alias x='pkill caja; feh --bg-scale ~/dotfiles/wallpapers/bg.jpg'
 alias w='TERM=xterm ssh work'
+alias vmstart='qemu-system-x86_64 -enable-kvm -drive file=/data/void_mate.img -m 8g -vga virtio -smp 8 -net user,hostfwd=tcp::5555-:22 -net nic'
 alias vmsync='rsync -avh /home/sk/void-packages/ vm:/home/sk/void-packages/ --delete'
 
 # git aware prompt
