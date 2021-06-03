@@ -15,10 +15,10 @@ Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'justinmk/vim-sneak'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'skmpz/vim-snippets'
 Plug 'terryma/vim-expand-region'
@@ -26,22 +26,14 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/xoria256.vim'     " plugin_xoria256
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 call plug#end()
 
-let g:sneak#label = 1
-let g:sneak#s_next = 1
-let g:sneak#use_ic_scs = 1
-
 let g:bookmark_sign = 'M'
 let g:bookmark_highlight_lines = 0
 highlight BookmarkSign ctermbg=8 ctermfg=160
-
-" enable echodoc
-let g:echodoc_enable_at_startup = 1
 
 autocmd FileType c setlocal omnifunc=LanguageClient#complete
 
@@ -239,8 +231,6 @@ nnoremap <leader>N :call CocAction('diagnosticPrevious')<CR>
 nnoremap <leader>o :FZF<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>w :w<CR>
-nnoremap <leader>s /
-nnoremap <leader>S ?
 nnoremap <leader>, :mks! ~/.sess<cr>
 noremap  <F1> "a
 noremap  <F2> "b
@@ -333,6 +323,7 @@ set cmdheight=2
 
 autocmd FileType c noremap <buffer> <c-f> :ALEFix<CR>:e<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :ALEFix<CR>:e<CR>
+autocmd FileType rust noremap <buffer> <c-f> :RustFmt<CR>:w<CR>:e<CR>
 
 set splitright
 set splitbelow
@@ -424,6 +415,7 @@ nnoremap <leader>pvt :vsp **/%:t:r_test.cc<CR>
 nnoremap <leader>pxs :sp **/%:t:r.cc<CR>
 nnoremap <leader>pxh :sp **/%:t:r.hh<CR>
 nnoremap <leader>pxt :sp **/%:t:r_test.cc<CR>
+nnoremap 0 0w
 imap jj <ESC>A
 "
 " Set the filetype based on the file's extension, overriding any
@@ -431,13 +423,9 @@ imap jj <ESC>A
 au BufRead,BufNewFile *.icc set filetype=cpp
 
 highlight SignColumn ctermbg=NONE
-"
-" Sneak highlight
-hi Sneak ctermfg=3 ctermbg=0
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
+
+nnoremap s /
+nnoremap S ?
 
 " disable <leader>swp for AnsiEsc
 let g:no_plugin_maps = 1

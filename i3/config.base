@@ -165,7 +165,7 @@ client.background       #ffffff
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-for_window [class="(?i)Chromium" window_role="pop-up"] floating enable, border normal 2, move position center
+for_window [class="(?i)Google-chrome" window_role="pop-up"] floating enable, border normal 2, move position center
 for_window [class="(?i)gedit"] floating enable, border normal 2, move position center
 for_window [class="(?i)caja"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [class="(?i)mate-terminal"] floating enable, border normal 2, move position center

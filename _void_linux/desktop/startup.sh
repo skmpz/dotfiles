@@ -3,7 +3,7 @@
 # workspace 1
 i3-msg 'workspace 1; exec walc'
 sleep 3
-i3-msg 'workspace 1; exec chromium'
+i3-msg 'workspace 1; exec google-chrome-stable'
 sleep 3
 i3-msg 'workspace 1; focus left'
 sleep 1
