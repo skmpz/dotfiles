@@ -19,13 +19,14 @@ do
     case $i in
         desktop) target="desktop"; shift 1 ;;
         laptop)  target="laptop"; shift 1 ;;
+        rpi)     target="rpi"; shift 1 ;;
         vm)      target="vm"; shift 1;;
         *) ;;
     esac
 done
 
 # check arguments
-if [ "$target" != "desktop" ] && [ "$target" != "laptop" ] && [ "$target" != "vm" ]; then show_usage; fi
+if [ "$target" != "desktop" ] && [ "$target" != "laptop" ] && [ "$target" != "vm" ] && [ "$target" != "rpi" ]; then show_usage; fi
 # ------------------------- arguments --------------------------
 
 # user
@@ -170,6 +171,8 @@ elif [ "$target" == "laptop" ]; then
     sudo xbps-install -Sy nvidia
 elif [ "$target" == "vm" ]; then
     path="$HOME/dotfiles/_void_linux/vm"
+elif [ "$target" == "rpi" ]; then
+    path="$HOME/dotfiles/_void_linux/rpi"
 fi
 
 # set configs
