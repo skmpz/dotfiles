@@ -257,6 +257,8 @@ hi TabLineFill ctermbg=none ctermfg=1
 hi TabLine ctermfg=0 ctermbg=7
 hi TabLineSel ctermfg=1 ctermbg=0
 highlight SignColumn ctermbg=NONE
+hi Pmenu ctermfg=0 ctermbg=33
+hi PmenuSel ctermfg=33 ctermbg=0
 
 "==============================================================================
 " PLUGINS CONFIG
