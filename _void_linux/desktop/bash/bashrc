@@ -30,6 +30,7 @@ alias f='caja .'
 alias nvs='nv -S ~/.sess'
 alias up='sudo xbps-install -Su'
 alias check='sudo xbps-pkgdb -a'
+alias make='make -j$(nproc)'
 alias clean='rm -rf $HOME/.local/share/Trash/*; \
     sudo xbps-remove -yoO; \
     sudo vkpurge rm all; \
