@@ -51,7 +51,6 @@ caja \
 caja-dropbox \
 caja-open-terminal \
 calibre \
-chromium \
 chrony \
 clang \
 clang-tools-extra \
@@ -156,6 +155,7 @@ git clone https://github.com/skmpz/git-aware-prompt $HOME/.bash/git-aware-prompt
 cp $HOME/dotfiles/urxvt/font-size $HOME/.urxvt/ext/
 cp -r $HOME/dotfiles/fonts/* $HOME/.local/share/fonts/
 ln -sf $HOME/dotfiles/neovim/init.vim $HOME/.config/nvim/init.vim
+ln -sf $HOME/dotfiles/neovim/coc-settings.json $HOME/.config/nvim/coc-settings.json
 ln -sf $HOME/dotfiles/x/Xresources $HOME/.Xresources
 ln -sf $HOME/dotfiles/i3/config.base $HOME/.config/i3/config.base
 ln -sf $HOME/dotfiles/bash/inputrc $HOME/.inputrc
@@ -190,6 +190,7 @@ ln -sf $path/gtk/settings.ini $HOME/.config/gtk-3.0/
 nvim +PlugInstall +qall
 nvim +UpdateRemotePlugins +qall
 nvim +"CocInstall coc-clangd" +qall
+nvim +"CocInstall coc-rls" +qall
 
 # setup home dir
 sudo chown $user:$user -R $HOME
