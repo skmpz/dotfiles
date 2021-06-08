@@ -10,6 +10,7 @@ Plug 'junegunn/fzf.vim'                         " plugin_fzf
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " plugin_coc
 Plug 'octol/vim-cpp-enhanced-highlight'         " plugin_cppenhancedhighlight
 Plug 'powerman/vim-plugin-AnsiEsc'              " plugin_ansiesc
+Plug 'preservim/nerdtree'                       " plugin_nerdtree
 Plug 'rhysd/clever-f.vim'                       " plugin_cleverf
 Plug 'rust-lang/rust.vim'                       " no_config
 Plug 'skmpz/vim-snippets'                       " plugin_snippets
@@ -275,12 +276,24 @@ hi TabLineSel ctermfg=45 ctermbg=16
 "------------------------------
 let g:SuperTabDefaultCompletionType = "<C-n>"
 
+"------------------------------
 " plugin_vimbookmark
+"------------------------------
+" config and colors
+let g:bookmark_no_default_key_mappings = 1
 let g:bookmark_sign = '•'
 let g:bookmark_highlight_lines = 0
 highlight BookmarkSign ctermbg=none ctermfg=12
 
+" mappings
+nmap <C-M> <Plug>BookmarkToggle
+nmap <C-N> <Plug>BookmarkNext
+nmap <C-P> <Plug>BookmarkPrev
+nmap <C-C> <Plug>BookmarkClearAll
+
+"------------------------------
 " plugin_fzf
+"------------------------------
 nnoremap <leader>o :FZF<CR>
 noremap <leader>k :Rg <c-r>=expand("<cword>")<CR><CR>
 
@@ -424,3 +437,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:clever_f_ignore_case = 1
 let g:clever_f_timeout_ms = 2000
 let g:clever_f_highlight_timeout_ms = 2000
+
+"------------------------------
+" plugin_nerdtree
+"------------------------------
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
