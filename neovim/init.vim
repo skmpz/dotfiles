@@ -260,6 +260,9 @@ hi TabLineSel ctermfg=1 ctermbg=0
 highlight SignColumn ctermbg=NONE
 hi Pmenu ctermfg=0 ctermbg=33
 hi PmenuSel ctermfg=33 ctermbg=0
+hi TabLineFill ctermfg=16 ctermbg=16
+hi TabLine ctermfg=7 ctermbg=16
+hi TabLineSel ctermfg=27 ctermbg=16
 
 "==============================================================================
 " PLUGINS CONFIG
@@ -271,9 +274,9 @@ hi PmenuSel ctermfg=33 ctermbg=0
 let g:SuperTabDefaultCompletionType = "<C-n>"
 
 " plugin_vimbookmark
-let g:bookmark_sign = 'M'
+let g:bookmark_sign = '•'
 let g:bookmark_highlight_lines = 0
-highlight BookmarkSign ctermbg=12 ctermfg=15
+highlight BookmarkSign ctermbg=none ctermfg=12
 
 " plugin_fzf
 nnoremap <leader>o :FZF<CR>
