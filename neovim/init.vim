@@ -14,7 +14,8 @@ Plug 'terryma/vim-expand-region' " plugin_expandregion
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline' " plugin_airline
+Plug 'vim-airline/vim-airline-themes' " plugin_airline
 Plug 'vim-scripts/xoria256.vim'
 Plug 'w0rp/ale' " plugin_ale
 Plug 'wellle/targets.vim'
@@ -145,7 +146,7 @@ set updatetime=300
 set signcolumn=yes
 
 " Better display for messages
-set cmdheight=2
+set cmdheight=1
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -332,10 +333,11 @@ function! s:show_documentation()
 endfunction
 
 " colors
-hi CocErrorSign ctermbg=none ctermfg=1
 hi CocFloating ctermbg=16
 hi CocErrorHighlight ctermbg=none ctermfg=1
-" hi CocErrorFloat ctermbg=none
+hi CocErrorSign ctermbg=none ctermfg=1
+hi CocWarningHighlight ctermbg=none ctermfg=172
+hi CocWarningSign ctermbg=none ctermfg=172
 
 "------------------------------
 " plugin_vimcommentary
@@ -377,6 +379,12 @@ let g:ale_fixers = {
             \ 'c': ['clang-format'],
             \ 'rust': ['rustfmt']
             \ }
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
+hi ALEWarning ctermbg=none ctermfg=172
+hi ALEWarningSign ctermbg=none ctermfg=172
+hi ALEError ctermbg=none ctermfg=1
+hi ALEErrorSign ctermbg=none ctermfg=1
 
 let g:ale_cpp_cppcheck_options = '--enable=all'
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line,-runtime/references,-whitespace/indent --linelength=110"
@@ -386,3 +394,8 @@ noremap <leader>j :CocFix<CR>
 autocmd FileType c noremap <buffer> <c-f> :ALEFix<CR>:e<CR>
 autocmd FileType cpp noremap <buffer> <c-f> :ALEFix<CR>:e<CR>
 autocmd FileType rust noremap <buffer> <c-f> :RustFmt<CR>:w<CR>:e<CR>
+
+"------------------------------
+" plugin_airline
+"------------------------------
+let g:airline_theme='serene'
