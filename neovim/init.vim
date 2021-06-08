@@ -1,23 +1,22 @@
-
 " vim-plug
 call plug#begin()
-Plug 'MattesGroeger/vim-bookmarks' " plugin_vimbookmark
-Plug 'airblade/vim-gitgutter' " plugin_gitgutter
-Plug 'ervandew/supertab' " plugin_supertab
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'MattesGroeger/vim-bookmarks'              " plugin_vimbookmark
+Plug 'airblade/vim-gitgutter'                   " plugin_gitgutter
+Plug 'ervandew/supertab'                        " plugin_supertab
+Plug 'junegunn/fzf'                             " plugin_fzf
+Plug 'junegunn/fzf.vim'                         " plugin_fzf
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " plugin_coc
-Plug 'octol/vim-cpp-enhanced-highlight' " plugin_cppenhancedhighlight
-Plug 'powerman/vim-plugin-AnsiEsc' " plugin_ansiesc
+Plug 'octol/vim-cpp-enhanced-highlight'         " plugin_cppenhancedhighlight
+Plug 'powerman/vim-plugin-AnsiEsc'              " plugin_ansiesc
+Plug 'terryma/vim-expand-region'                " plugin_expandregion
+Plug 'vim-airline/vim-airline'                  " plugin_airline
+Plug 'vim-airline/vim-airline-themes'           " plugin_airline
+Plug 'w0rp/ale'                                 " plugin_ale
 Plug 'rust-lang/rust.vim'
-Plug 'terryma/vim-expand-region' " plugin_expandregion
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline' " plugin_airline
-Plug 'vim-airline/vim-airline-themes' " plugin_airline
-Plug 'vim-scripts/xoria256.vim'
-Plug 'w0rp/ale' " plugin_ale
+Plug 'vim-scripts/xoria256.vim'                 " plugin_xoria256
 Plug 'wellle/targets.vim'
 call plug#end()
 
@@ -237,7 +236,6 @@ nnoremap <leader>pxs :sp **/%:t:r.cc<CR>
 nnoremap <leader>pxh :sp **/%:t:r.hh<CR>
 nnoremap <leader>pxt :sp **/%:t:r_test.cc<CR>
 
-
 " splits
 set splitright
 set splitbelow
@@ -257,12 +255,12 @@ hi VertSplit ctermbg=none ctermfg=8
 hi TabLineFill ctermbg=none ctermfg=1
 hi TabLine ctermfg=0 ctermbg=7
 hi TabLineSel ctermfg=1 ctermbg=0
-highlight SignColumn ctermbg=NONE
+hi SignColumn ctermbg=NONE
 hi Pmenu ctermfg=0 ctermbg=33
 hi PmenuSel ctermfg=33 ctermbg=0
 hi TabLineFill ctermfg=16 ctermbg=16
 hi TabLine ctermfg=7 ctermbg=16
-hi TabLineSel ctermfg=27 ctermbg=16
+hi TabLineSel ctermfg=45 ctermbg=16
 
 "==============================================================================
 " PLUGINS CONFIG
@@ -299,6 +297,7 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
+" signs and colors
 let g:airline_left_alt_sep = '»'
 let g:airline_right_alt_sep = '«'
 let g:airline_symbols.paste = 'PASTE'
@@ -322,9 +321,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
+" use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -372,16 +370,20 @@ vmap <C-v> <Plug>(expand_region_shrink)
 "------------------------------
 " plugin_ale
 "------------------------------
+" linters
 let g:ale_linters = {
             \ 'cpp': ['cppcheck', 'cpplint'],
             \ 'c': ['clangtidy', 'gcc']
             \ }
 
+" fixers
 let g:ale_fixers = {
             \ 'cpp': ['clang-format'],
             \ 'c': ['clang-format'],
             \ 'rust': ['rustfmt']
             \ }
+
+" signs and colors
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
 hi ALEWarning ctermbg=none ctermfg=172
@@ -389,6 +391,7 @@ hi ALEWarningSign ctermbg=none ctermfg=172
 hi ALEError ctermbg=none ctermfg=1
 hi ALEErrorSign ctermbg=none ctermfg=1
 
+" options
 let g:ale_cpp_cppcheck_options = '--enable=all'
 let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line,-runtime/references,-whitespace/indent --linelength=110"
 
@@ -402,3 +405,5 @@ autocmd FileType rust noremap <buffer> <c-f> :RustFmt<CR>:w<CR>:e<CR>
 " plugin_airline
 "------------------------------
 let g:airline_theme='serene'
+
+noremap <leader>k :Rg <c-r>=expand("<cword>")<CR><CR>
