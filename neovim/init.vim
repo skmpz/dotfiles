@@ -19,6 +19,8 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/xoria256.vim'                 " plugin_xoria256
 Plug 'wellle/targets.vim'
 Plug 'airblade/vim-rooter'
+Plug 'SirVer/ultisnips'                         " plugin_snippets
+Plug 'skmpz/vim-snippets'                       " plugin_snippets
 call plug#end()
 
 "==============================================================================
@@ -407,3 +409,10 @@ autocmd FileType rust noremap <buffer> <c-f> :RustFmt<CR>:w<CR>:e<CR>
 " plugin_airline
 "------------------------------
 let g:airline_theme='serene'
+
+"------------------------------
+" plugin_snippets
+"------------------------------
+let g:UltiSnipsExpandTrigger="`"
+let g:UltiSnipsJumpForwardTrigger="`"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
