@@ -18,6 +18,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/xoria256.vim'                 " plugin_xoria256
 Plug 'wellle/targets.vim'
+Plug 'airblade/vim-rooter'
 call plug#end()
 
 "==============================================================================
@@ -278,6 +279,7 @@ highlight BookmarkSign ctermbg=none ctermfg=12
 
 " plugin_fzf
 nnoremap <leader>o :FZF<CR>
+noremap <leader>k :Rg <c-r>=expand("<cword>")<CR><CR>
 
 "------------------------------
 " plugin_gitgutter
@@ -405,5 +407,3 @@ autocmd FileType rust noremap <buffer> <c-f> :RustFmt<CR>:w<CR>:e<CR>
 " plugin_airline
 "------------------------------
 let g:airline_theme='serene'
-
-noremap <leader>k :Rg <c-r>=expand("<cword>")<CR><CR>
