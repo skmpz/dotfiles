@@ -10,6 +10,7 @@ Plug 'junegunn/fzf.vim'                         " plugin_fzf
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " plugin_coc
 Plug 'octol/vim-cpp-enhanced-highlight'         " plugin_cppenhancedhighlight
 Plug 'powerman/vim-plugin-AnsiEsc'              " plugin_ansiesc
+Plug 'rhysd/clever-f.vim'                       " plugin_cleverf
 Plug 'rust-lang/rust.vim'                       " no_config
 Plug 'skmpz/vim-snippets'                       " plugin_snippets
 Plug 'terryma/vim-expand-region'                " plugin_expandregion
@@ -416,3 +417,10 @@ let g:airline_theme='serene'
 let g:UltiSnipsExpandTrigger="`"
 let g:UltiSnipsJumpForwardTrigger="`"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"------------------------------
+" plugin_cleverf
+"------------------------------
+let g:clever_f_ignore_case = 1
+let g:clever_f_timeout_ms = 2000
+let g:clever_f_highlight_timeout_ms = 2000
