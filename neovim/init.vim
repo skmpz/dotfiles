@@ -16,7 +16,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-scripts/xoria256.vim'
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale' " plugin_ale
 Plug 'wellle/targets.vim'
 call plug#end()
 
@@ -313,6 +313,23 @@ let g:airline_symbols.maxlinenr = ''
 nnoremap <leader>f :CocList outline<CR>
 nnoremap <leader>n :call CocAction('diagnosticNext')<CR>
 nnoremap <leader>N :call CocAction('diagnosticPrevious')<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 " colors
 hi CocErrorSign ctermbg=none ctermfg=1
@@ -347,3 +364,25 @@ let g:cpp_posix_standard = 1
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
+"------------------------------
+" plugin_ale
+"------------------------------
+let g:ale_linters = {
+            \ 'cpp': ['cppcheck', 'cpplint'],
+            \ 'c': ['clangtidy', 'gcc']
+            \ }
+
+let g:ale_fixers = {
+            \ 'cpp': ['clang-format'],
+            \ 'c': ['clang-format'],
+            \ 'rust': ['rustfmt']
+            \ }
+
+let g:ale_cpp_cppcheck_options = '--enable=all'
+let g:ale_cpp_cpplint_options= "--filter=-legal/copyright,-build/c++11,-build/include_subdir,-build/include_order,-readability/braces,-whitespace/newline,-whitespace/blank_line,-runtime/references,-whitespace/indent --linelength=110"
+
+" mappings
+noremap <leader>j :CocFix<CR>
+autocmd FileType c noremap <buffer> <c-f> :ALEFix<CR>:e<CR>
+autocmd FileType cpp noremap <buffer> <c-f> :ALEFix<CR>:e<CR>
+autocmd FileType rust noremap <buffer> <c-f> :RustFmt<CR>:w<CR>:e<CR>
