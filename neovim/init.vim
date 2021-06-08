@@ -1,26 +1,26 @@
 " vim-plug
 call plug#begin()
 Plug 'MattesGroeger/vim-bookmarks'              " plugin_vimbookmark
+Plug 'SirVer/ultisnips'                         " plugin_snippets
 Plug 'airblade/vim-gitgutter'                   " plugin_gitgutter
+Plug 'airblade/vim-rooter'                      " no_config
 Plug 'ervandew/supertab'                        " plugin_supertab
 Plug 'junegunn/fzf'                             " plugin_fzf
 Plug 'junegunn/fzf.vim'                         " plugin_fzf
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " plugin_coc
 Plug 'octol/vim-cpp-enhanced-highlight'         " plugin_cppenhancedhighlight
 Plug 'powerman/vim-plugin-AnsiEsc'              " plugin_ansiesc
+Plug 'rust-lang/rust.vim'                       " no_config
+Plug 'skmpz/vim-snippets'                       " plugin_snippets
 Plug 'terryma/vim-expand-region'                " plugin_expandregion
+Plug 'tpope/vim-commentary'                     " no_config
+Plug 'tpope/vim-fugitive'                       " no_config
+Plug 'tpope/vim-surround'                       " no_config
 Plug 'vim-airline/vim-airline'                  " plugin_airline
 Plug 'vim-airline/vim-airline-themes'           " plugin_airline
-Plug 'w0rp/ale'                                 " plugin_ale
-Plug 'rust-lang/rust.vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
 Plug 'vim-scripts/xoria256.vim'                 " plugin_xoria256
-Plug 'wellle/targets.vim'
-Plug 'airblade/vim-rooter'
-Plug 'SirVer/ultisnips'                         " plugin_snippets
-Plug 'skmpz/vim-snippets'                       " plugin_snippets
+Plug 'w0rp/ale'                                 " plugin_ale
+Plug 'wellle/targets.vim'                       " no_config
 call plug#end()
 
 "==============================================================================
@@ -155,29 +155,29 @@ set shortmess+=c
 
 " tab numbers
 function! Tabline()
-  let s = ''
-  for i in range(tabpagenr('$'))
-    let tab = i + 1
-    let winnr = tabpagewinnr(tab)
-    let buflist = tabpagebuflist(tab)
-    let bufnr = buflist[winnr - 1]
-    let bufname = bufname(bufnr)
-    let bufmodified = getbufvar(bufnr, "&mod")
-    let s .= '%' . tab . 'T'
-    let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-    let s .= ' ' . tab .' '
-    let s .= (bufname != '' ? fnamemodify(bufname, ':t') . ' ' : '[No Name] ')
+    let s = ''
+    for i in range(tabpagenr('$'))
+        let tab = i + 1
+        let winnr = tabpagewinnr(tab)
+        let buflist = tabpagebuflist(tab)
+        let bufnr = buflist[winnr - 1]
+        let bufname = bufname(bufnr)
+        let bufmodified = getbufvar(bufnr, "&mod")
+        let s .= '%' . tab . 'T'
+        let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+        let s .= ' ' . tab .' '
+        let s .= (bufname != '' ? fnamemodify(bufname, ':t') . ' ' : '[No Name] ')
 
-    if bufmodified
-      let s .= '[+] '
+        if bufmodified
+            let s .= '[+] '
+        endif
+    endfor
+
+    let s .= '%#TabLineFill#'
+    if (exists("g:tablineclosebutton"))
+        let s .= '%=%999XX'
     endif
-  endfor
-
-  let s .= '%#TabLineFill#'
-  if (exists("g:tablineclosebutton"))
-    let s .= '%=%999XX'
-  endif
-  return s
+    return s
 endfunction
 set tabline=%!Tabline()
 
@@ -328,13 +328,13 @@ nmap <silent> gr <Plug>(coc-references)
 " use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
 endfunction
 
 " colors
