@@ -2,9 +2,9 @@
 
 # workspace 1
 i3-msg 'workspace 1; exec walc'
-sleep 3
+sleep 5
 i3-msg 'workspace 1; exec google-chrome-stable'
-sleep 3
+sleep 5
 i3-msg 'workspace 1; focus left'
 sleep 1
 i3-msg 'workspace 1; split v'
@@ -18,17 +18,17 @@ sleep 1
 
 # workspace 2
 i3-msg 'workspace 2; exec firefox'
-sleep 3
-i3-msg 'workspace 2; exec boostnote'
-sleep 3
+sleep 5
+i3-msg 'workspace 2; exec joplin'
+sleep 5
 
 # workspace 5
 i3-msg 'workspace 5; exec hexchat'
-sleep 3
+sleep 5
 
 # workspace 6
 i3-msg 'workspace 6; exec teams-for-linux'
-sleep 3
+sleep 5
 
 # workspace 3
 i3-msg 'workspace 3; exec urxvt'
