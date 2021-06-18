@@ -441,5 +441,5 @@ let g:clever_f_highlight_timeout_ms = 2000
 "------------------------------
 " plugin_nerdtree
 "------------------------------
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-e> :NERDTreeFind<CR>
+nnoremap <C-e> :NERDTreeToggle<CR>
+nnoremap <C-y> :NERDTreeFind<CR>
