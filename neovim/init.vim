@@ -231,14 +231,14 @@ vnoremap <silent> tt :exe "tabn ".g:lasttab<cr>
 set wildignore+=build/**
 
 " cpp source/header/tests files open
-nnoremap <leader>ps :e **/%:t:r.cc<CR>
-nnoremap <leader>ph :e **/%:t:r.hh<CR>
+nnoremap <leader>ps :e **/%:r.cc<CR>
+nnoremap <leader>ph :e **/%:r.hh<CR>
 nnoremap <leader>pt :e **/%:t:r_test.cc<CR>
-nnoremap <leader>pvs :vsp **/%:t:r.cc<CR>
-nnoremap <leader>pvh :vsp **/%:t:r.hh<CR>
+nnoremap <leader>pvs :vsp **/%:r.cc<CR>
+nnoremap <leader>pvh :vsp **/%:r.hh<CR>
 nnoremap <leader>pvt :vsp **/%:t:r_test.cc<CR>
-nnoremap <leader>pxs :sp **/%:t:r.cc<CR>
-nnoremap <leader>pxh :sp **/%:t:r.hh<CR>
+nnoremap <leader>pxs :sp **/%:r.cc<CR>
+nnoremap <leader>pxh :sp **/%:r.hh<CR>
 nnoremap <leader>pxt :sp **/%:t:r_test.cc<CR>
 
 " splits
