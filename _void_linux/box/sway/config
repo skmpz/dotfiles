@@ -1,0 +1,24 @@
+bindsym $mod+p exec "$HOME/dotfiles/_void_linux/box/startup.sh"
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Arc-Dark'
+    gsettings set $gnome-schema icon-theme 'Arc'
+    gsettings set $gnome-schema cursor-theme 'Vanilla-DMZ'
+    gsettings set $gnome-schema font-name 'Avenir Book 11'
+    gsettings set $gnome-schema scaling-factor 1
+    gsettings set $gnome-schema text-scaling-factor 1.1
+}
+
+input 1133:16500:Logitech_G305 {
+    scroll_factor 3.0
+}
+
+output DP-1 pos 1680 0 transform 270
+output DP-2 pos 3840 600
+output DP-3 pos 7680 0 transform 270
+
+workspace $w1 output DP-1
+workspace $w2 output DP-3
+workspace $w3 output DP-2
+workspace $w4 output DP-2

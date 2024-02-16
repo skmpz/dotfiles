@@ -1,0 +1,50 @@
+# ~/.bashrc
+
+# bash completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# if not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# aliases
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias nv='nvim'
+alias d='cd $HOME/Downloads'
+alias gch='git checkout'
+alias gst='git status'
+alias gco='git commit -am'
+alias gdf='git diff'
+alias gpush='git push'
+alias gpull='git pull'
+alias glog='git log --pretty=oneline'
+alias f='caja .'
+alias nvs='nv -S ~/.sess'
+alias ssh='TERM=rxvt-unicode-256color ssh'
+alias up='sudo xbps-install -Su'
+alias chk='sudo xbps-pkgdb -a'
+alias clean='rm -rf $HOME/.local/share/Trash/*; \
+    rm -rf /data/.Trash-1000/*; \
+    sudo xbps-remove -yoO; \
+    sudo vkpurge rm all; \
+    sudo rm -rf /var/cache/xbps/*'
+alias plexsync='rsync -avh /data/Dropbox/ plexserv:/data/ --progress --delete; ssh plexserv sudo chmod 777 -R /data/'
+alias vmsync='rsync -avh $HOME/void-packages/ vm:~/void-packages/'
+alias ytget='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
+
+# git aware prompt
+PS1='[\u@\h \W]\$ '
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
+export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;35m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtylw\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+
+# path
+PATH=$HOME/xtools/:$PATH:$HOME/.local/bin/:$HOME/utils/:$HOME/.cargo/bin/:~/.local/share/coursier/bin/
+source "$HOME/.cargo/env"
+. "$HOME/.cargo/env"

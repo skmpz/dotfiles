@@ -1,0 +1,16 @@
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+application/pdf=org.pwmt.zathura.desktop
+image/png=org.nomacs.ImageLounge.desktop
+image/jpeg=org.nomacs.ImageLounge.desktop
+application/zip=engrampa.desktop
+
+[Added Associations]
+application/pdf=org.pwmt.zathura.desktop;
+image/png=imv-folder.desktop;org.nomacs.ImageLounge.desktop;
+image/jpeg=imv-folder.desktop;org.nomacs.ImageLounge.desktop;
+application/zip=engrampa.desktop
