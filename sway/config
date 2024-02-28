@@ -184,7 +184,7 @@ bar {
 }
 
 exec dbus-update-activation-environment DISPLAY
-#exec dropbox start
+exec dropbox start
 exec nm-applet --indicator
 exec blueman-applet
 exec brightnessctl s 40%
