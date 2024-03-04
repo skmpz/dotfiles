@@ -16,12 +16,13 @@ do
         box)   target="box";   shift 1 ;;
         zen)   target="zen";   shift 1 ;;
         envie) target="envie"; shift 1 ;;
+        siri)  target="siri";  shift 1 ;;
         *) ;;
     esac
 done
 
 # check arguments
-if [ "$target" != "box" ] && [ "$target" != "zen" ] && [ "$target" != "envie" ]; then show_usage; fi
+if [ "$target" != "box" ] && [ "$target" != "zen" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
 
 # user
 user=$(echo $USER)
@@ -38,6 +39,7 @@ arc-icon-theme \
 arc-theme \
 bash-completion \
 bc \
+bind-utils \
 blueman \
 bluez \
 brightnessctl \
@@ -57,7 +59,6 @@ dropbox \
 dunst \
 elogind \
 engrampa \
-evince \
 ffmpeg \
 firefox \
 font-adobe-source-code-pro \
@@ -105,13 +106,13 @@ sof-tools \
 sway \
 swayidle \
 swaylock \
+tree \
 tmux \
 ttf-ubuntu-font-family \
 unzip \
 upower \
 vulkan-loader \
 wdisplays \
-weechat \
 wget \
 wl-clipboard \
 wofi \
@@ -120,6 +121,7 @@ xdg-utils \
 xorg-fonts \
 xtools \
 yt-dlp \
+zathura-pdf-mupdf \
 zip || exit 1
 
 # setup configuration
@@ -143,8 +145,11 @@ rm -rf $HOME/.tmux.conf
 
 # machine specific
 if [ "$target" == "box" ]; then
-    path="$HOME/dotfiles/_void_linux/box"
     # sudo xbps-install -Sy nvidia
+    path="$HOME/dotfiles/_void_linux/box"
+    sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
+elif  [ "$target" == "siri" ]; then
+    path="$HOME/dotfiles/_void_linux/siri"
     sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
 elif [ "$target" == "zen" ]; then
     path="$HOME/dotfiles/_void_linux/zen"
@@ -218,12 +223,6 @@ printf "[icon theme]\nInherits=Vanilla-DMZ\n" > $HOME/.icons/default/index.theme
 
 # rust
 rustup-init -y
-
-# scala
-curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > cs
-chmod +x cs
-echo "N" | ./cs setup
-rm -rf cs
 
 # kill wpa_supplicant
 sudo pkill wpa_supplicant

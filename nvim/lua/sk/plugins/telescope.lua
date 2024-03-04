@@ -12,7 +12,7 @@ return {
 
         telescope.setup({
             defaults = {
-                path_display = { "truncate " },
+                path_display = { "shorten" },
                 mappings = {
                     i = {
                         -- move to prev result

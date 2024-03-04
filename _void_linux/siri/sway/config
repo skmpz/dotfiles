@@ -1,4 +1,4 @@
-bindsym $mod+p exec "$HOME/dotfiles/_void_linux/zen/startup.sh"
+bindsym $mod+p exec "$HOME/dotfiles/_void_linux/siri/startup.sh"
 
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
@@ -15,13 +15,13 @@ input 1133:16500:Logitech_G305 {
 }
 
 # 4k external
-output eDP-1 pos 4910 2650
-output DP-2 pos 3980 490
-output DP-4 pos 1820 0 transform 270
+output eDP-2 pos 4620 2650
+output DP-6 pos 3980 490
+output DP-7 pos 1820 0 transform 270
 output HDMI-A-1 pos 7820 0 transform 90
 
-workspace $w1 output DP-4
+workspace $w1 output DP-7
 workspace $w2 output HDMI-A-1
-workspace $w3 output DP-2
-workspace $w4 output DP-2
-workspace $w9 output eDP-1
+workspace $w3 output DP-6
+workspace $w4 output DP-6
+workspace $w9 output eDP-2

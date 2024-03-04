@@ -18,13 +18,19 @@ return {
         -- configure nvim-tree
         nvimtree.setup({
             view = {
-                width = 30,
+                preserve_window_proportions = false,
+                centralize_selection = true,
             },
             renderer = {
                 indent_markers = {
                     enable = true,
                 },
             },
+            actions = {
+                open_file = {
+                    resize_window = false,
+                },
+            }
         })
 
         -- toggle file explorer
