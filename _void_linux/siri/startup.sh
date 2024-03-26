@@ -13,7 +13,7 @@ swaymsg 'workspace 1; split v'
 sleep 1
 swaymsg 'workspace 1; exec google-chrome-stable'
 sleep 8
-swaymsg 'workspace 1; resize grow height 80 px or 80 ppt;'
+swaymsg 'workspace 2; resize set height 3500px'
 sleep 1
 swaymsg 'workspace 1; focus up;'
 sleep 1
@@ -29,7 +29,7 @@ swaymsg 'workspace 2; split v'
 sleep 1
 swaymsg 'workspace 2; exec joplin --enable-features=UseOzonePlatform --ozone-platform=wayland'
 sleep 8
-swaymsg 'workspace 2; resize grow height 80 px or 80 ppt;'
+swaymsg 'workspace 2; resize set height 3500px'
 sleep 1
 swaymsg 'workspace 2; focus up;'
 sleep 1
