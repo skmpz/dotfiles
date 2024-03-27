@@ -13,7 +13,7 @@ swaymsg 'workspace 1; split v'
 sleep 1
 swaymsg 'workspace 1; exec google-chrome-stable'
 sleep 8
-swaymsg 'workspace 2; resize set height 3500px'
+swaymsg 'workspace 1; resize set height 3500px'
 sleep 1
 swaymsg 'workspace 1; focus up;'
 sleep 1
