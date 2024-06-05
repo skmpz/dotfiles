@@ -117,6 +117,8 @@ wget \
 wl-clipboard \
 wofi \
 xcursor-vanilla-dmz \
+xdg-desktop-portal \
+xdg-desktop-portal-wlr \
 xdg-utils \
 xorg-fonts \
 xtools \
