@@ -48,3 +48,5 @@ export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;35m\]\u@\h\[\033[00m\]
 PATH=$HOME/xtools/:$PATH:$HOME/.local/bin/:$HOME/utils/:$HOME/.cargo/bin/:~/.local/share/coursier/bin/
 source "$HOME/.cargo/env"
 . "$HOME/.cargo/env"
+
+export TERM=alacritty

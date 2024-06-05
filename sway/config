@@ -167,6 +167,7 @@ client.background       #ffffff
 for_window [class="(?i)caja"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [class="(?i)blueman"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [class="Leafpad"] floating enable, border normal 2, move position center,title_format " %title"
+for_window [class="vlc"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [class="calibre"] floating enable, border normal 2, resize set 1600 1000, move position center
 for_window [app_id="google-chrome-stable"] floating enable, border normal 2, move position center
 for_window [app_id="caja"] floating enable, border normal 2, move position center,title_format " %title"
