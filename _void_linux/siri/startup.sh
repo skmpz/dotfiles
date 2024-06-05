@@ -37,6 +37,11 @@ swaymsg 'workspace 2; split h'
 sleep 1
 swaymsg 'workspace 2; exec alacritty'
 sleep 1
+swaymsg 'workspace 8; exec alacritty'
+sleep 1
+swaymsg 'workspace 8; split v'
+sleep 1
+swaymsg 'workspace 8; exec alacritty -o font.size=14 --hold -e weechat'
 
 # workspace 3
 swaymsg 'workspace 3; exec alacritty'
@@ -56,4 +61,7 @@ sleep 3
 
 # set current to main
 swaymsg 'workspace 1'
+sleep 1
+swaymsg 'workspace 2'
+sleep 1
 swaymsg 'workspace 3'
