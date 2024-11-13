@@ -12,7 +12,7 @@ return {
 
         telescope.setup({
             defaults = {
-                path_display = { "shorten" },
+                path_display = { "smart" },
                 mappings = {
                     i = {
                         -- move to prev result
