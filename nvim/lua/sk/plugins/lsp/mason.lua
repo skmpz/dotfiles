@@ -24,17 +24,8 @@ return {
         mason_lspconfig.setup({
             -- list of servers for mason to install
             ensure_installed = {
-                "clangd",
-                "cssls",
-                "emmet_ls",
-                "graphql",
-                "html",
                 "lua_ls",
-                "prismals",
-                "pyright",
                 "rust_analyzer",
-                "svelte",
-                "tailwindcss",
             },
             -- auto-install configured servers (with lspconfig)
             automatic_installation = true, -- not the same as ensure_installed
