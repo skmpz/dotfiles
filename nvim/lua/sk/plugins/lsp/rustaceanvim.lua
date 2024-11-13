@@ -15,5 +15,10 @@ return {
                 adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
             }
         }
+
+        local keymap = vim.keymap -- for conciseness
+        keymap.set("n", "<leader>rt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger step into" })
+        keymap.set("n", "<leader>rr", "<cmd>lua vim.cmd('RustLsp runnables')<CR>", { desc = "Debugger step into" })
+
     end,
 }
