@@ -19,6 +19,7 @@ return {
         local keymap = vim.keymap -- for conciseness
         keymap.set("n", "<leader>rt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger step into" })
         keymap.set("n", "<leader>rr", "<cmd>lua vim.cmd('RustLsp runnables')<CR>", { desc = "Debugger step into" })
+        keymap.set("n", "<leader>rd", "<cmd>lua vim.cmd('RustLsp debuggables')<CR>", { desc = "Debugger step into" })
 
     end,
 }

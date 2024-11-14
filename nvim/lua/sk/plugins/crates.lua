@@ -1,6 +1,6 @@
 return {
     'saecki/crates.nvim',
-    tag = 'v0.4.0',
+    tag = 'stable',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
         require('crates').setup()
