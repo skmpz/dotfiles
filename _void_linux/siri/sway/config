@@ -20,8 +20,8 @@ input 1149:32982:Kensington_SlimBlade_Pro(2.4GHz_Receiver)_Kensington_SlimBlade_
 }
 
 # 4k external
-output eDP-2 pos 4620 2650
-output DP-6 pos 3980 490
+output eDP-2 pos 4620 2550
+output DP-6 pos 3980 390
 output DP-7 pos 1820 0 transform 270
 output HDMI-A-1 pos 7820 0 transform 90
 
