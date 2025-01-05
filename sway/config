@@ -178,7 +178,6 @@ for_window [app_id="evince"] floating enable, border normal 2, move position cen
 for_window [app_id="imv"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [app_id="mpv"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [app_id="pavucontrol"] floating enable, border normal 2, move position center,title_format " %title"
-for_window [app_id="Firefox"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [app_id="org.https://nomacs.nomacs"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [app_id="org.pwmt.zathura"] floating enable, border normal 2, resize set 1640 1840, move position center,title_format " %title"
 
@@ -217,7 +216,7 @@ input 1390:284:Getech_HUGE_TrackBall {
 
 input 1149:32982:Kensington_SlimBlade_Pro(2.4GHz_Receiver)_Kensington_SlimBlade_Pro_Trackball(2.4GHz_Receiver) {
     pointer_accel 0.1
-    scroll_factor 3.0
+    scroll_factor 2.0
 }
 
 input 1133:16500:Logitech_G305 {
