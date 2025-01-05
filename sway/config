@@ -216,7 +216,7 @@ input 1390:284:Getech_HUGE_TrackBall {
 }
 
 input 1149:32982:Kensington_SlimBlade_Pro(2.4GHz_Receiver)_Kensington_SlimBlade_Pro_Trackball(2.4GHz_Receiver) {
-    pointer_accel 1.0
+    pointer_accel 0.1
     scroll_factor 3.0
 }
 
