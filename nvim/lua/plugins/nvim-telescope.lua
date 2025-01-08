@@ -19,9 +19,9 @@ return {
                 path_display = { "smart" },
                 mappings = {
                     i = {
-                        ['<C-k>'] = require('telescope.actions').move_selection_previous, -- move to prev result
-                        ['<C-j>'] = require('telescope.actions').move_selection_next, -- move to next result
-                        ['<C-l>'] = require('telescope.actions').select_default, -- open file
+                        ['<C-k>'] = require('telescope.actions').move_selection_previous,
+                        ['<C-j>'] = require('telescope.actions').move_selection_next,
+                        ['<C-l>'] = require('telescope.actions').select_default,
                     },
                 },
             },
@@ -44,32 +44,21 @@ return {
             },
         }
 
-        -- Enable Telescope extensions if they are installed
         pcall(require('telescope').load_extension, 'fzf')
         pcall(require('telescope').load_extension, 'ui-select')
 
-        -- See `:help telescope.builtin`
         local builtin = require 'telescope.builtin'
-        -- find files in current directory (recursive)
+
         vim.keymap.set("n", "<leader>o", "<cmd>Telescope find_files<cr>")
-
-        -- grep word in current directory (recursive)
         vim.keymap.set("n", "<leader>sg", "<cmd>Telescope live_grep<cr>")
-
-        -- find word under cursor in current directory (recursive)
         vim.keymap.set("n", "<leader>sw", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
-
-        -- Slightly advanced example of overriding default behavior and theme
         vim.keymap.set('n', '<leader>/', function()
-            -- You can pass additional configuration to Telescope to change the theme, layout, etc.
             builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
                 winblend = 10,
                 previewer = false,
             })
         end, { desc = '[/] Fuzzily search in current buffer' })
 
-        -- It's also possible to pass additional configuration options.
-        --  See `:help telescope.builtin.live_grep()` for information about particular keys
         vim.keymap.set('n', '<leader>s/', function()
             builtin.live_grep {
                 grep_open_files = true,
