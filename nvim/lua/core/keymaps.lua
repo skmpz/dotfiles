@@ -42,10 +42,10 @@ vim.keymap.set('', '<left>', '3<C-W><', { noremap = true })
 vim.keymap.set('', '<right>', '3<C-W>>', { noremap = true })
 
 -- " navigation between splits
-vim.keymap.set('', '<C-S-J>', '<C-W><C-J>', { noremap = true })
-vim.keymap.set('', '<C-S-K>', '<C-W><C-K>', { noremap = true })
-vim.keymap.set('', '<C-S-L>', '<C-W><C-L>', { noremap = true })
-vim.keymap.set('', '<C-S-H>', '<C-W><C-H>', { noremap = true })
+vim.keymap.set('', '<C-J>', '<C-W><C-J>', { noremap = true })
+vim.keymap.set('', '<C-K>', '<C-W><C-K>', { noremap = true })
+vim.keymap.set('', '<C-L>', '<C-W><C-L>', { noremap = true })
+vim.keymap.set('', '<C-H>', '<C-W><C-H>', { noremap = true })
 vim.keymap.set('', '<C-Down>', '<C-W><C-J>', { noremap = true })
 vim.keymap.set('', '<C-Up>', '<C-W><C-K>', { noremap = true })
 vim.keymap.set('', '<C-Left>', '<C-W><C-H>', { noremap = true })
@@ -68,13 +68,6 @@ vim.keymap.set('v', 'p', 'p`]', { noremap = true, silent = true })
 vim.keymap.set('n', 'p', 'p`]', { noremap = true, silent = true })
 vim.keymap.set('x', 'p', 'pgvy`]', { noremap = true, silent = true })
 
--- toggle inlay hints
-function ToggleInlayHint()
-    if vim.lsp.inlay_hint.is_enabled() then
-        vim.lsp.inlay_hint.enable(false)
-    else
-        vim.lsp.inlay_hint.enable(true)
-    end
-end
-
-vim.keymap.set("n", "<Leader>ih", ToggleInlayHint, { desc = "Toggle Inlay Hints" })
+-- diagnostics navigation
+vim.keymap.set("n", "<leader>p", vim.diagnostic.goto_prev, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>n", vim.diagnostic.goto_next, { noremap = true, silent = true })

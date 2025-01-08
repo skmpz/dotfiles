@@ -27,6 +27,9 @@ vim.o.undofile = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
+-- copy indent from current line on next one
+vim.o.autoindent = true
+
 -- case insensitive search
 vim.o.ignorecase = true
 vim.o.smartcase = true
