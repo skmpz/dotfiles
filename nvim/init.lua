@@ -12,6 +12,25 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+    spec = {
+        require 'plugins.colorscheme',
+        require 'plugins.comment',
+        require 'plugins.crates',
+        require 'plugins.dressing',
+        require 'plugins.gitsigns',
+        require 'plugins.harpoon',
+        require 'plugins.leap',
+        require 'plugins.lsp',
+        require 'plugins.lualine',
+        require 'plugins.nvim-autopairs',
+        require 'plugins.nvim-cmp',
+        require 'plugins.nvim-metals',
+        require 'plugins.nvim-tabline',
+        require 'plugins.nvim-telescope',
+        require 'plugins.nvim-tree',
+        require 'plugins.nvim-treesitter',
+        require 'plugins.rustaceanvim'
+    },
     install = {
         colorscheme = { "nightfly" },
     },
@@ -22,21 +41,4 @@ require('lazy').setup({
     change_detection = {
         notify = false,
     },
-    require 'plugins.colorscheme',
-    require 'plugins.comment',
-    require 'plugins.crates',
-    require 'plugins.dressing',
-    require 'plugins.gitsigns',
-    require 'plugins.harpoon',
-    require 'plugins.leap',
-    require 'plugins.lsp',
-    require 'plugins.lualine',
-    require 'plugins.nvim-autopairs',
-    require 'plugins.nvim-cmp',
-    require 'plugins.nvim-metals',
-    require 'plugins.nvim-tabline',
-    require 'plugins.nvim-telescope',
-    require 'plugins.nvim-tree',
-    require 'plugins.nvim-treesitter',
-    require 'plugins.rustaceanvim',
 })
