@@ -11,7 +11,8 @@ if echo "$connected_outputs" | grep -q "U2720Q"; then
     swaymsg workspace 2 output HDMI-A-1
     swaymsg workspace 3 output HDMI-A-1
     swaymsg workspace 4 output HDMI-A-1
-    swaymsg workspace 5 output eDP-2
+    swaymsg workspace 5 output HDMI-A-1
+    swaymsg workspace 9 output eDP-2
 else
     # 3-screen setup
     output DP-6 pos 3980 390
