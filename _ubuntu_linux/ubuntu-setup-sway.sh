@@ -74,7 +74,6 @@ nmap \
 nodejs \
 nomacs \
 fonts-noto \
-ntp \
 pavucontrol \
 pipewire \
 pkg-config \
