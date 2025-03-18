@@ -10,18 +10,24 @@ exec_always {
     gsettings set $gnome-schema text-scaling-factor 1.1
 }
 
-input 1133:16500:Logitech_G305 {
-    scroll_factor 3.0
-}
+output eDP-2 pos 4620 2550
 
-# 4k external
-output eDP-1 pos 4910 2650
-output DP-2 pos 3980 490
-output DP-4 pos 1820 0 transform 270
-output HDMI-A-1 pos 7820 0 transform 90
+exec_always /home/sk/dotfiles/_void_linux/zen/sway/layout_select.sh
 
-workspace $w1 output DP-4
-workspace $w2 output HDMI-A-1
-workspace $w3 output DP-2
-workspace $w4 output DP-2
-workspace $w9 output eDP-1
+# 3-screen 4k setup
+# output DP-6 pos 3980 390
+# output DP-7 pos 1820 0 transform 270
+# output HDMI-A-1 pos 7820 0 transform 90
+# workspace $w1 output DP-7
+# workspace $w2 output HDMI-A-1
+# workspace $w3 output DP-6
+# workspace $w4 output DP-6
+# workspace $w9 output eDP-2
+
+# 1-screen 4k setup
+# output HDMI-A-1 pos 4005 390
+# workspace $w1 output HDMI-A-1
+# workspace $w2 output HDMI-A-1
+# workspace $w3 output HDMI-A-1
+# workspace $w4 output HDMI-A-1
+# workspace $w9 output eDP-2

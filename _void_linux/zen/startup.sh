@@ -2,58 +2,66 @@
 
 middle_display=$(swaymsg -t get_outputs -p | grep FVVS5H3 | cut -f2 -d' ')
 
-if [ "$middle_display" == "DP-4" ]; then
+if [ "$middle_display" == "DP-7" ]; then
     swaymsg 'workspace 1; workspace 7;'
 fi
 
 # workspace 1
 swaymsg 'workspace 1; exec alacritty'
-sleep 2
+sleep 1
 swaymsg 'workspace 1; split v'
-sleep 2
+sleep 1
 swaymsg 'workspace 1; exec google-chrome-stable'
-sleep 10
-swaymsg 'workspace 1; resize grow height 80 px or 80 ppt;'
-sleep 2
+sleep 8
+swaymsg 'workspace 1; resize set height 3500px'
+sleep 1
 swaymsg 'workspace 1; focus up;'
-sleep 2
+sleep 1
 swaymsg 'workspace 1; split h'
-sleep 2
+sleep 1
 swaymsg 'workspace 1; exec alacritty'
-sleep 2
+sleep 1
 
 # workspace 2
 swaymsg 'workspace 2; exec alacritty'
-sleep 2
+sleep 1
 swaymsg 'workspace 2; split v'
-sleep 2
-swaymsg 'workspace 2; exec joplin'
-sleep 10
-swaymsg 'workspace 2; resize grow height 80 px or 80 ppt;'
-sleep 2
+sleep 1
+swaymsg 'workspace 2; exec joplin --enable-features=UseOzonePlatform --ozone-platform=wayland'
+sleep 8
+swaymsg 'workspace 2; resize set height 3500px'
+sleep 1
 swaymsg 'workspace 2; focus up;'
-sleep 2
+sleep 1
 swaymsg 'workspace 2; split h'
-sleep 2
+sleep 1
 swaymsg 'workspace 2; exec alacritty'
-sleep 2
+sleep 1
+swaymsg 'workspace 8; exec alacritty'
+sleep 1
+swaymsg 'workspace 8; split v'
+sleep 1
+swaymsg 'workspace 8; exec alacritty -o font.size=14 --hold -e weechat'
 
 # workspace 3
 swaymsg 'workspace 3; exec alacritty'
-sleep 2
+sleep 1
 swaymsg 'workspace 3; exec alacritty'
-sleep 2
+sleep 1
 
 # # workspace 4
 swaymsg 'workspace 4; exec alacritty'
-sleep 2
+sleep 1
 swaymsg 'workspace 4; exec alacritty'
-sleep 2
+sleep 1
 
 # # workspace 9
 swaymsg 'workspace 9; exec keepassxc'
-sleep 2
+sleep 3
 
 # set current to main
 swaymsg 'workspace 1'
+sleep 1
+swaymsg 'workspace 2'
+sleep 1
 swaymsg 'workspace 3'
