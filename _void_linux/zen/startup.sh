@@ -2,7 +2,7 @@
 
 middle_display=$(swaymsg -t get_outputs -p | grep FVVS5H3 | cut -f2 -d' ')
 
-if [ "$middle_display" == "DP-7" ]; then
+if [ "$middle_display" == "DP-4" ]; then
     swaymsg 'workspace 1; workspace 7;'
 fi
 
