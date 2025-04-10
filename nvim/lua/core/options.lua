@@ -50,9 +50,6 @@ vim.o.listchars = 'tab:>-,trail:~,extends:>,precedes:<'
 -- disable swapfile
 vim.o.swapfile = false
 
--- faster scrolling
-vim.o.lazyredraw = true
-
 -- Set colorscheme
 vim.o.termguicolors = true
 vim.g.onedark_terminal_italics = 2

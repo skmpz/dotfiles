@@ -22,6 +22,7 @@ require('lazy').setup({
         require 'plugins.leap',
         require 'plugins.lsp',
         require 'plugins.lualine',
+        require 'plugins.noice',
         require 'plugins.nvim-autopairs',
         require 'plugins.nvim-cmp',
         require 'plugins.nvim-metals',
