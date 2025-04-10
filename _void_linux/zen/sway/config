@@ -13,21 +13,3 @@ exec_always {
 output eDP-2 pos 4620 2550
 
 exec_always /home/sk/dotfiles/_void_linux/zen/sway/layout_select.sh
-
-# 3-screen 4k setup
-# output DP-6 pos 3980 390
-# output DP-7 pos 1820 0 transform 270
-# output HDMI-A-1 pos 7820 0 transform 90
-# workspace $w1 output DP-7
-# workspace $w2 output HDMI-A-1
-# workspace $w3 output DP-6
-# workspace $w4 output DP-6
-# workspace $w9 output eDP-2
-
-# 1-screen 4k setup
-# output HDMI-A-1 pos 4005 390
-# workspace $w1 output HDMI-A-1
-# workspace $w2 output HDMI-A-1
-# workspace $w3 output HDMI-A-1
-# workspace $w4 output HDMI-A-1
-# workspace $w9 output eDP-2

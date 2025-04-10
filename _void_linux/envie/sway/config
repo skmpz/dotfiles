@@ -1,4 +1,4 @@
-bindsym $mod+p exec "$HOME/dotfiles/_void_linux/zen/startup.sh"
+bindsym $mod+p exec "$HOME/dotfiles/_void_linux/envie/startup.sh"
 
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
@@ -10,18 +10,5 @@ exec_always {
     gsettings set $gnome-schema text-scaling-factor 1.1
 }
 
-input 1133:16500:Logitech_G305 {
-    scroll_factor 3.0
-}
-
-# 4k external
-output eDP-1 pos 4920 2950
-output DP-3 pos 3980 790
-output DP-4 pos 1820 0 transform 270
-output HDMI-A-1 pos 7820 0 transform 90
-
-workspace $w1 output DP-4
-workspace $w2 output HDMI-A-1
-workspace $w3 output DP-3
-workspace $w4 output DP-3
-workspace $w9 output eDP-1
+bindsym --no-warn $mod+Return exec ~/dotfiles/_void_linux/envie/alacritty/alacritty-start.sh
+exec_always /home/sk/dotfiles/_void_linux/envie/sway/layout_select.sh
