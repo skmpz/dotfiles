@@ -24,15 +24,38 @@ return {
                         ['<C-l>'] = require('telescope.actions').select_default,
                     },
                 },
+                file_ignore_patterns = {
+                    -- Files
+                    "%.a",
+                    "%.class",
+                    "%.jpeg",
+                    "%.jpg",
+                    "%.log",
+                    "%.mkv",
+                    "%.mp4",
+                    "%.o",
+                    "%.out",
+                    "%.pdf",
+                    "%.png",
+                    "%.semanticdb",
+                    "%.tasty",
+                    "%.zip",
+                    -- Directories
+                    ".cache",
+                    ".git/",
+                    ".metals/",
+                    ".bloop/",
+                    ".github/",
+                    ".node_modules/",
+                    "target/",
+                },
             },
             pickers = {
                 find_files = {
-                    file_ignore_patterns = { 'node_modules' },
                     hidden = true,
                 },
             },
             live_grep = {
-                file_ignore_patterns = { 'node_modules', '.git', '.venv' },
                 additional_args = function(_)
                     return { '--hidden' }
                 end,
