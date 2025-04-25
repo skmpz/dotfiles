@@ -226,3 +226,7 @@ input 1133:16500:Logitech_G305 {
 input 1133:45091:MX_Master_3 {
     scroll_factor 1
 }
+
+input 1133:45091:Logitech_Wireless_Mouse_MX_Master_3 {
+    scroll_factor 3.0
+}
