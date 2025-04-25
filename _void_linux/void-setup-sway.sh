@@ -67,6 +67,7 @@ font-ibm-plex-otf \
 font-inconsolata-otf \
 gcc \
 grim \
+gparted \
 gvfs \
 intel-video-accel \
 jq \

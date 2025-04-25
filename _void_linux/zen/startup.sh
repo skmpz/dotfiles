@@ -12,7 +12,7 @@ else
     # 3-screen setup
     middle_display=$(swaymsg -t get_outputs -p | grep 6PB0P44 | cut -f2 -d' ')
     left_display=$(swaymsg -t get_outputs -p | grep DP9Q9V3 | cut -f2 -d' ')
-    right_display="HDMI-A-1"
+    right_display=$(swaymsg -t get_outputs -p | grep DP9P9V3 | cut -f2 -d' ')
     laptop_display="eDP-1"
 
     # reset
