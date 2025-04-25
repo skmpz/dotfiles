@@ -193,13 +193,13 @@ exec brightnessctl s 40%
 exec pipewire
 exec pipewire-pulse
 exec wireplumber
-exec swayidle -w \
-         timeout 1200 'swaylock -f -i $HOME/dotfiles/wallpapers/locked_anon.jpg -s center -c 000000' \
-         timeout 1260 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"' \
-         timeout 30 'if pgrep swaylock; then swaymsg "output * dpms off"; fi' \
-         resume 'if pgrep swaylock; then swaymsg "output * dpms on"; fi' \
-         before-sleep 'swaylock -f -i $HOME/dotfiles/wallpapers/locked_anon.jpg -s center -c 000000'
+# exec swayidle -w \
+#          timeout 1200 'swaylock -f -i $HOME/dotfiles/wallpapers/locked_anon.jpg -s center -c 000000' \
+#          timeout 1260 'swaymsg "output * dpms off"' \
+#          resume 'swaymsg "output * dpms on"' \
+#          timeout 30 'if pgrep swaylock; then swaymsg "output * dpms off"; fi' \
+#          resume 'if pgrep swaylock; then swaymsg "output * dpms on"; fi' \
+#          before-sleep 'swaylock -f -i $HOME/dotfiles/wallpapers/locked_anon.jpg -s center -c 000000'
 
 input type:keyboard {
     repeat_delay 220
