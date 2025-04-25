@@ -9,7 +9,7 @@ if [ $monitor_count == "2" ]; then
 
     # 1-screen setup (home)
     middle_display=$(swaymsg -t get_outputs -p | grep Output | grep -v eDP | cut -f2 -d' ')
-    laptop_display="eDP-1"
+    laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
 
     # reset
     swaymsg 'workspace 1; workspace 5'
@@ -50,7 +50,7 @@ else
     middle_display=$(swaymsg -t get_outputs -p | grep 6PB0P44 | cut -f2 -d' ')
     left_display=$(swaymsg -t get_outputs -p | grep DP9Q9V3 | cut -f2 -d' ')
     right_display=$(swaymsg -t get_outputs -p | grep DP9P9V3 | cut -f2 -d' ')
-    laptop_display="eDP-1"
+    laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
 
     # reset
     swaymsg 'workspace 1; workspace 5'
