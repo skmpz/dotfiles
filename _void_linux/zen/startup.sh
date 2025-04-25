@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # fix audio
-~/dotfiles/sway/fixaudio.sh
+# ~/dotfiles/sway/fixaudio.sh
 
 monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
 
