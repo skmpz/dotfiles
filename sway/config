@@ -186,7 +186,7 @@ bar {
 }
 
 exec dbus-update-activation-environment DISPLAY
-exec dropbox start
+exec_always --no-startup-id bash -c "dropbox stop; sleep 10; dropbox start -i"
 exec nm-applet --indicator
 exec blueman-applet
 exec brightnessctl s 40%
