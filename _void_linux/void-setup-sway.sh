@@ -87,6 +87,7 @@ noto-fonts-emoji \
 noto-fonts-ttf \
 ntp \
 openssl-devel \
+openvpn \
 pavucontrol \
 pipewire \
 pkg-config \
