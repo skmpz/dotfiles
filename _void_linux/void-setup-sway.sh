@@ -124,6 +124,7 @@ xdg-desktop-portal-wlr \
 xdg-utils \
 xorg-fonts \
 xtools \
+xz \
 yt-dlp \
 zathura-pdf-mupdf \
 zip || exit 1
