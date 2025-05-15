@@ -1,5 +1,20 @@
 #!/bin/bash
 
+supports_4k() {
+  local monitor="$1"
+  swaymsg -t get_outputs | jq -e \
+    --arg MON "$monitor" \
+    '.[] | select(.name == $MON) | .modes[] | select(.width == 3840 and .height == 2160)' > /dev/null
+
+  if [[ $? -eq 0 ]]; then
+    echo "$monitor supports 4K."
+    return 0
+  else
+    echo "$monitor does NOT support 4K."
+    return 1
+  fi
+}
+
 monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
 
 if [ $monitor_count == "2" ]; then
@@ -7,7 +22,11 @@ if [ $monitor_count == "2" ]; then
     middle_display=$(swaymsg -t get_outputs -p | grep Output | grep -v eDP | cut -f2 -d' ')
     laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
     swaymsg output ${laptop_display} pos 4952 2550
-    swaymsg output ${middle_display} pos 4005 390
+    if supports_4k ${middle_display}; then
+        swaymsg output ${middle_display} pos 4005 390
+    else
+        swaymsg output ${middle_display} pos 4640 1470
+    fi
     swaymsg workspace 1 output ${middle_display}
     swaymsg workspace 2 output ${middle_display}
     swaymsg workspace 3 output ${middle_display}
