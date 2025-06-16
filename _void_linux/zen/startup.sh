@@ -5,7 +5,7 @@
 
 monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
 
-if [ $monitor_count == "2" ]; then
+if [ $monitor_count == "1" ] || [ $monitor_count == "2" ]; then
 
     # 1-screen setup (home)
     middle_display=$(swaymsg -t get_outputs -p | grep Output | grep -v eDP | cut -f2 -d' ')
