@@ -5,7 +5,7 @@
 
 monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
 
-if [ $monitor_count == "2" ]; then
+if [ $monitor_count == "1" ] || [ $monitor_count == "2" ]; then
 
     # reset
     swaymsg 'workspace 1; workspace 5'
