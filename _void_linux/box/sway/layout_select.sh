@@ -24,6 +24,7 @@ else
     swaymsg output ${right_display} pos 7680 0 transform 270
     swaymsg workspace 1 output ${left_display}
     swaymsg workspace 2 output ${right_display}
+    swaymsg workspace 8 output ${right_display}
     swaymsg workspace 3 output ${middle_display}
     swaymsg workspace 4 output ${middle_display}
 fi
