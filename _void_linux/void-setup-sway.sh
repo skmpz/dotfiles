@@ -31,7 +31,6 @@ user=$(echo $USER)
 echo "Installing system.."
 sudo xbps-install -Sy void-repo-nonfree
 sudo xbps-install -Sy \
-ImageMagick \
 NetworkManager \
 Waybar \
 alacritty \
@@ -59,7 +58,6 @@ dropbox \
 dunst \
 elogind \
 engrampa \
-ffmpeg \
 firefox \
 font-adobe-source-code-pro \
 font-awesome5 \
@@ -70,7 +68,6 @@ grim \
 gparted \
 gvfs \
 intel-video-accel \
-jq \
 keepassxc \
 leafpad \
 libspa-bluetooth \
