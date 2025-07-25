@@ -27,21 +27,37 @@ swaymsg 'workspace 2; exec alacritty'
 sleep 1
 swaymsg 'workspace 2; split v'
 sleep 1
+swaymsg 'workspace 2; exec keepassxc'
+sleep 1
 swaymsg 'workspace 2; exec joplin --enable-features=UseOzonePlatform --ozone-platform=wayland'
 sleep 8
-swaymsg 'workspace 2; resize set height 3500px'
+swaymsg 'workspace 2; focus up;'
+sleep 1
+swaymsg 'workspace 2; focus up;'
+sleep 1
+swaymsg 'workspace 2; resize shrink height 1000px'
+sleep 1
+swaymsg 'workspace 2; focus down;'
+sleep 1
+swaymsg 'workspace 2; focus down;'
+sleep 1
+swaymsg 'workspace 2; resize grow height 1400px'
+sleep 1
+swaymsg 'workspace 2; focus up;'
 sleep 1
 swaymsg 'workspace 2; focus up;'
 sleep 1
 swaymsg 'workspace 2; split h'
 sleep 1
 swaymsg 'workspace 2; exec alacritty'
-sleep 1
+
+# workspace 8
 swaymsg 'workspace 8; exec alacritty'
 sleep 1
 swaymsg 'workspace 8; split v'
 sleep 1
-swaymsg 'workspace 8; exec alacritty -o font.size=14 --hold -e weechat'
+swaymsg 'workspace 8; exec alacritty -o font.size=12 --hold -e ssh cvoid -t "export TERM=rxvt; tmux a"'
+sleep 1
 
 # workspace 3
 swaymsg 'workspace 3; exec alacritty'
