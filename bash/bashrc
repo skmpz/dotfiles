@@ -37,6 +37,7 @@ alias clean='rm -rf $HOME/.local/share/Trash/*; \
 alias plexsync='rsync -avh /data/Dropbox/ plexserv:/data/ --exclude .dropbox.cache --progress --delete; ssh plexserv sudo chmod 777 -R /data/'
 alias vmsync='rsync -avh $HOME/void-packages/ vm:~/void-packages/'
 alias ytget='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
+alias sclean='rm -rf .metals/ .bloop/ .bsp/; find . -name target | xargs rm -rf'
 
 # git aware prompt
 PS1='[\u@\h \W]\$ '

@@ -86,6 +86,7 @@ nomacs \
 noto-fonts-emoji \
 noto-fonts-ttf \
 ntp \
+openjdk21 \
 openssl-devel \
 openvpn \
 pavucontrol \
