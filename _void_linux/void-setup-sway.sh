@@ -92,7 +92,6 @@ pkg-config \
 polkit \
 pulseaudio-utils \
 python3 \
-python3-neovim \
 qt5-wayland \
 ripgrep \
 rsync \
