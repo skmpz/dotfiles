@@ -77,3 +77,5 @@ sleep 1
 swaymsg 'workspace 2'
 sleep 1
 swaymsg 'workspace 3'
+sleep 1
+swaymsg 'workspace 4'
