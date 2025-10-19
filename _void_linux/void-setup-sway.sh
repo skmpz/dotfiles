@@ -45,7 +45,6 @@ brightnessctl \
 caja \
 caja-dropbox \
 caja-open-terminal \
-calibre \
 chrony \
 cmake \
 clang \
@@ -73,7 +72,6 @@ leafpad \
 libspa-bluetooth \
 mate-terminal \
 mesa-dri \
-mpv \
 neovim \
 nerd-fonts \
 network-manager-applet \
@@ -122,7 +120,6 @@ xdg-utils \
 xorg-fonts \
 xtools \
 xz \
-yt-dlp \
 zathura-pdf-mupdf \
 zip || exit 1
 
