@@ -22,7 +22,7 @@ bindsym $mod+x exec "caja"
 bindsym --whole-window button9 exec "caja"
 
 # toggle between 2 last used workspaces
-bindsym $mod+grave workspace back_and_forth
+bindsym $mod+grave exec ~/dotfiles/sway/toggle_workspaces.sh
 
 # adjust volume/brightness
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
