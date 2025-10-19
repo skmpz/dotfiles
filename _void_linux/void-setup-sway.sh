@@ -107,7 +107,6 @@ tree \
 tmux \
 ttf-ubuntu-font-family \
 unzip \
-upower \
 vulkan-loader \
 wdisplays \
 wget \
