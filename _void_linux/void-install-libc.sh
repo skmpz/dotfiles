@@ -106,7 +106,7 @@ echo "---------------------------------------------------------------"
 echo -n "${encryption_pass}" | cryptsetup luksFormat --type luks1 ${disk}p2
 echo -n "${encryption_pass}" | cryptsetup luksOpen ${disk}p2 void_enc
 vgcreate void_enc /dev/mapper/void_enc
-lvcreate --name root -L 20G void_enc
+lvcreate --name root -L 30G void_enc
 lvcreate --name swap -L 4G void_enc
 lvcreate --name home -l 100%FREE void_enc
 
