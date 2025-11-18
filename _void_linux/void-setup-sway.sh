@@ -15,6 +15,7 @@ do
     case $i in
         box)   target="box";   shift 1 ;;
         zen)   target="zen";   shift 1 ;;
+        pad)   target="pad";   shift 1 ;;
         envie) target="envie"; shift 1 ;;
         siri)  target="siri";  shift 1 ;;
         *) ;;
@@ -22,7 +23,7 @@ do
 done
 
 # check arguments
-if [ "$target" != "box" ] && [ "$target" != "zen" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
+if [ "$target" != "box" ] && [ "$target" != "zen" ] && [ "$target" != "pad" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
 
 # user
 user=$(echo $USER)
@@ -149,8 +150,8 @@ if [ "$target" == "box" ]; then
 elif  [ "$target" == "siri" ]; then
     path="$HOME/dotfiles/_void_linux/siri"
     sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
-elif [ "$target" == "zen" ]; then
-    path="$HOME/dotfiles/_void_linux/zen"
+elif [ "$target" == "zen" ] || [ "$target" == "pad" ]; then
+    path="$HOME/dotfiles/_void_linux/pad"
     sudo xbps-install -Sy tlp mesa-vulkan-intel intel-video-accel
     sudo ln -sf /etc/sv/tlp/ /var/service/
 elif [ "$target" == "envie" ]; then
