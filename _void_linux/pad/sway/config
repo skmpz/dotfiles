@@ -10,4 +10,5 @@ exec_always {
     gsettings set $gnome-schema text-scaling-factor 1.1
 }
 
+bindsym --no-warn $mod+Return exec ~/dotfiles/_void_linux/pad/alacritty/alacritty-start.sh
 exec_always /home/sk/dotfiles/_void_linux/pad/sway/layout_select.sh

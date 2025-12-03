@@ -68,6 +68,7 @@ grim \
 gparted \
 gvfs \
 intel-video-accel \
+jq \
 keepassxc \
 leafpad \
 libspa-bluetooth \
