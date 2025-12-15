@@ -6,7 +6,7 @@ background = "#010712"
 foreground = "#d4d8d5"
 
 [font]
-size = 8
+size = 10
 
 [font.normal]
 family = "Noto Sans Mono"
