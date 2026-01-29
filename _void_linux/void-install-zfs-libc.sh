@@ -175,59 +175,6 @@ echo "update device symlinks"
 echo "---------------------------------------------------------------"
 udevadm trigger
 
-exit 0
-
-
-
-
-
-
-# start installation
-echo "---------------------------------------------------------------"
-echo "wiping disk (${disk})"
-echo "---------------------------------------------------------------"
-dd if=/dev/zero of=${disk} bs=1M || true
-
-echo "---------------------------------------------------------------"
-echo "creating partitions"
-echo "---------------------------------------------------------------"
-[ -d /sys/firmware/efi ] && uefi=1
-if [ $uefi -eq 1 ]; then
-    sfdisk $disk <<EOF
-    label: gpt
-    ,512M,U,*
-    ,,L
-EOF
-fi
-
-echo "---------------------------------------------------------------"
-echo "setup disk encryption"
-echo "---------------------------------------------------------------"
-echo -n "${encryption_pass}" | cryptsetup luksFormat --type luks1 ${disk}p2
-echo -n "${encryption_pass}" | cryptsetup luksOpen ${disk}p2 void_enc
-vgcreate void_enc /dev/mapper/void_enc
-lvcreate --name root -L 30G void_enc
-lvcreate --name swap -L 4G void_enc
-lvcreate --name home -l 100%FREE void_enc
-
-echo "---------------------------------------------------------------"
-echo "creating filesystems"
-echo "---------------------------------------------------------------"
-mkfs.vfat ${disk}p1
-mkfs.ext4 -L root /dev/void_enc/root
-mkfs.ext4 -L root /dev/void_enc/home
-mkswap /dev/void_enc/swap
-
-echo "---------------------------------------------------------------"
-echo "mounting filesystems"
-echo "---------------------------------------------------------------"
-mount /dev/void_enc/root /mnt
-for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
-mkdir -p /mnt/home
-mkdir -p /mnt/boot/efi
-mount /dev/void_enc/home /mnt/home
-mount ${disk}p1 /mnt/boot/efi/
-
 echo "---------------------------------------------------------------"
 echo "setting repo keys"
 echo "---------------------------------------------------------------"
@@ -237,21 +184,27 @@ cp -a /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
 echo "---------------------------------------------------------------"
 echo "installing base"
 echo "---------------------------------------------------------------"
-xbps-install -Sy -R https://repo-default.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
+XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-default.voidlinux.org/current -r /mnt base-system
 
-blkid=$(blkid -o value -s UUID ${disk}p2)
+echo "---------------------------------------------------------------"
+echo "copy files to the new installation"
+echo "---------------------------------------------------------------"
+cp /etc/hostid /mnt/etc
+mkdir /mnt/etc/zfs
+cp /etc/zfs/zroot.key /mnt/etc/zfs
+
 echo "---------------------------------------------------------------"
 echo "finalizing setup"
 echo "---------------------------------------------------------------"
-cat << EOF | chroot /mnt
-chown root:root /
-chmod 755 /
+
+cat << EOF | xchroot /mnt
 (echo ${root_pass}; echo ${root_pass}) | passwd
 echo ${hostname} > /etc/hostname
+
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "en_US.UTF-8 UTF-8" >> /etc/default/libc-locales
 xbps-reconfigure -f glibc-locales
-ln -sf /etc/sv/dhcpcd /var/service/
+
 useradd ${user_name}
 usermod -a -G wheel,floppy,audio,video,cdrom,optical,storage,network,bluetooth,kvm ${user_name}
 (echo ${user_pass}; echo ${user_pass}) | passwd ${user_name}
@@ -260,34 +213,41 @@ echo "${user_name} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 echo "KEYMAP=us" >> /etc/rc.conf
 echo "TIMEZONE=Asia/Nicosia" >> /etc/rc.conf
+ln -sf /usr/share/zoneinfo/Asia/Nicosia /etc/localtime
 
-echo "tmpfs               /tmp       tmpfs   defaults,nosuid,nodev 0  0" > /etc/fstab
-echo "/dev/void_enc/root  /          ext4    defaults              0  0" >> /etc/fstab
-echo "/dev/void_enc/home  /home      ext4    defaults              0  0" >> /etc/fstab
-echo "/dev/void_enc/swap  swap       swap    defaults              0  0" >> /etc/fstab
-echo "${disk}p1      /boot/efi  vfat    defaults              0  0" >> /etc/fstab
+echo "nofsck=\"yes\"" > /etc/dracut.conf.d/zol.conf
+echo "add_dracutmodules+=\" zfs \"" > /etc/dracut.conf.d/zol.conf"
+echo "omit_dracutmodules+=\" btrfs \"" > /etc/dracut.conf.d/zol.conf"
+echo "install_items+=\" /etc/zfs/zroot.key \"" > /etc/dracut.conf.d/zol.conf"
 
-echo "GRUB_ENABLE_CRYPTODISK=y" > /etc/default/grub
-echo "GRUB_DEFAULT=0" >> /etc/default/grub
-echo "GRUB_TIMEOUT=5" >> /etc/default/grub
-echo "GRUB_DISTRIBUTOR=\"Void\"" >> /etc/default/grub
-echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=4 slub_debug=P page_poison=1 rd.lvm.vg=void_enc rd.luks.uuid=${blkid}\"" >> /etc/default/grub
+xbps-install -Sy zfs curl efibootmgr
 
-dd bs=1 count=64 if=/dev/urandom of=/boot/volume.key
-echo -n "${encryption_pass}" | cryptsetup luksAddKey ${disk}p2 /boot/volume.key
-chmod 000 /boot/volume.key
-chmod -R g-rwx,o-rwx /boot
+zfs set org.zfsbootmenu:commandline="quiet" zroot/ROOT
+zfs set org.zfsbootmenu:keysource="zroot/ROOT/${ID}" zroot
 
-echo "void_enc   ${disk}p2   /boot/volume.key   luks" >> /etc/crypttab
+mkfs.vfat -F32 "$BOOT_DEVICE"
 
-echo "install_items+=\" /boot/volume.key /etc/crypttab \"" > /etc/dracut.conf.d/10-crypt.conf
+$( blkid | grep "$BOOT_DEVICE" | cut -d ' ' -f 2 ) /boot/efi vfat defaults 0 0 >> /etc/fstab
+mkdir -p /boot/efi
+mount /boot/efi
 
-grub-install ${disk}
+mkdir -p /boot/efi/EFI/ZBM
+curl -o /boot/efi/EFI/ZBM/VMLINUZ.EFI -L https://get.zfsbootmenu.org/efi
+cp /boot/efi/EFI/ZBM/VMLINUZ.EFI /boot/efi/EFI/ZBM/VMLINUZ-BACKUP.EFI
 
-xbps-reconfigure -fa
+efibootmgr -c -d "$BOOT_DISK" -p "$BOOT_PART" \
+  -L "ZFSBootMenu (Backup)" \
+  -l '\EFI\ZBM\VMLINUZ-BACKUP.EFI'
+
+efibootmgr -c -d "$BOOT_DISK" -p "$BOOT_PART" \
+  -L "ZFSBootMenu" \
+  -l '\EFI\ZBM\VMLINUZ.EFI'
+
 EOF
 
-umount -R /mnt
+umount -n -R /mnt
+zpool export zroot
+
 echo "---------------------------------------------------------------"
 echo "finished - reboot now"
 echo "---------------------------------------------------------------"
