@@ -184,7 +184,7 @@ cp -a /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
 echo "---------------------------------------------------------------"
 echo "installing base"
 echo "---------------------------------------------------------------"
-XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-default.voidlinux.org/current -r /mnt base-system
+XBPS_ARCH=x86_64 xbps-install -Sy -R https://ftp.cc.uoc.gr/mirrors/linux/voidlinux/current -r /mnt base-system
 
 echo "---------------------------------------------------------------"
 echo "copy files to the new installation"
