@@ -59,18 +59,18 @@ select opt in $options; do
     fi
 done
 echo "disk set to ${disk}"
-#
-# # encryption
-# echo "---------------------------------------------------------------"
-# echo "encryption"
-# echo "---------------------------------------------------------------"
-# echo -n "pass: "; read -s encryption_pass_first; echo
-# echo -n "confirm: "; read -s encryption_pass; echo
-# if [ "$encryption_pass_first" != "$encryption_pass" ]; then
-#     echo "passwords dont match"
-#     exit 1
-# fi
-# echo "encryption pass set"
+
+# encryption
+echo "---------------------------------------------------------------"
+echo "encryption"
+echo "---------------------------------------------------------------"
+echo -n "pass: "; read -s encryption_pass_first; echo
+echo -n "confirm: "; read -s encryption_pass; echo
+if [ "$encryption_pass_first" != "$encryption_pass" ]; then
+    echo "passwords dont match"
+    exit 1
+fi
+echo "encryption pass set"
 
 # confirm configs
 echo "---------------------------------------------------------------"
@@ -85,7 +85,100 @@ echo "encryption pass: ${encryption_pass}"
 echo "---------------------------------------------------------------"
 read -p "press enter to confirm or CTRL-C to stop and start over"
 
-exit 1
+# source /etc/os-release
+echo "---------------------------------------------------------------"
+echo "source /etc/os-release"
+echo "---------------------------------------------------------------"
+source /etc/os-release
+export ID
+
+# generate /etc/hostid
+echo "---------------------------------------------------------------"
+echo "generate /etc/hostid"
+echo "---------------------------------------------------------------"
+zgenhostid -f 0x00bab10c
+
+# define disk variables
+echo "---------------------------------------------------------------"
+echo "define disk variables"
+echo "---------------------------------------------------------------"
+export BOOT_DISK="${disk}"
+export BOOT_PART="1"
+export BOOT_DEVICE="${BOOT_DISK}p${BOOT_PART}"
+export POOL_DISK="${disk}"
+export POOL_PART="2"
+export POOL_DEVICE="${POOL_DISK}p${POOL_PART}"
+echo "BOOT_DISK $BOOT_DISK"
+echo "BOOT_PART $BOOT_PART"
+echo "BOOT_DEVICE $BOOT_DEVICE"
+echo "POOL_DISK $POOL_DISK"
+echo "POOL_PART $POOL_PART"
+echo "POOL_DEVICE $POOL_DEVICE"
+
+# wipe partitions
+echo "---------------------------------------------------------------"
+echo "wipe partitions"
+echo "---------------------------------------------------------------"
+zpool labelclear -f "$POOL_DISK"
+wipefs -a "$POOL_DISK"
+wipefs -a "$BOOT_DISK"
+sgdisk --zap-all "$POOL_DISK"
+sgdisk --zap-all "$BOOT_DISK"
+
+# create partitions
+echo "---------------------------------------------------------------"
+echo "create partitions"
+echo "---------------------------------------------------------------"
+sgdisk -n "${BOOT_PART}:1m:+512m" -t "${BOOT_PART}:ef00" "$BOOT_DISK"
+sgdisk -n "${POOL_PART}:0:-10m" -t "${POOL_PART}:bf00" "$POOL_DISK"
+
+# create zpool
+echo "---------------------------------------------------------------"
+echo "create zpool"
+echo "---------------------------------------------------------------"
+echo "${encryption_pass}" > /etc/zfs/zroot.key
+chmod 000 /etc/zfs/zroot.key
+zpool create -f -o ashift=12 \
+ -O compression=lz4 \
+ -O acltype=posixacl \
+ -O xattr=sa \
+ -O relatime=on \
+ -O encryption=aes-256-gcm \
+ -O keylocation=file:///etc/zfs/zroot.key \
+ -O keyformat=passphrase \
+ -o autotrim=on \
+ -m none zroot "$POOL_DEVICE"
+
+# create initial filesystems
+echo "---------------------------------------------------------------"
+echo "create initial filesystems"
+echo "---------------------------------------------------------------"
+zfs create -o mountpoint=none zroot/ROOT
+zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/${ID}
+zfs create -o mountpoint=/home zroot/home
+zpool set bootfs=zroot/ROOT/${ID} zroot
+
+# export and reimport
+echo "---------------------------------------------------------------"
+echo "export and reimport"
+echo "---------------------------------------------------------------"
+zpool export zroot
+zpool import -N -R /mnt zroot
+zfs load-key -L prompt zroot
+zfs mount zroot/ROOT/${ID}
+zfs mount zroot/home
+
+# update device symlinks
+echo "---------------------------------------------------------------"
+echo "update device symlinks"
+echo "---------------------------------------------------------------"
+udevadm trigger
+
+exit 0
+
+
+
+
 
 
 # start installation
