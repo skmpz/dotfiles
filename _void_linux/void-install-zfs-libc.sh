@@ -119,7 +119,7 @@ echo "POOL_DEVICE $POOL_DEVICE"
 echo "---------------------------------------------------------------"
 echo "wipe partitions"
 echo "---------------------------------------------------------------"
-zpool labelclear -f "$POOL_DISK"
+zpool labelclear -f "$POOL_DISK" || true
 wipefs -a "$POOL_DISK"
 wipefs -a "$BOOT_DISK"
 sgdisk --zap-all "$POOL_DISK"
