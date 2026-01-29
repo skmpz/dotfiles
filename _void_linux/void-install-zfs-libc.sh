@@ -208,6 +208,8 @@ echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "en_US.UTF-8 UTF-8" >> /etc/default/libc-locales
 xbps-reconfigure -f glibc-locales
 
+ln -sf /etc/sv/dhcpcd /var/service/
+
 useradd ${user_name}
 usermod -a -G wheel,floppy,audio,video,cdrom,optical,storage,network,kvm ${user_name}
 (echo ${user_pass}; echo ${user_pass}) | passwd ${user_name}
