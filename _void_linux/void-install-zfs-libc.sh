@@ -197,6 +197,7 @@ echo "---------------------------------------------------------------"
 echo "finalizing setup"
 echo "---------------------------------------------------------------"
 
+uuid=$( blkid | grep "$BOOT_DEVICE" | cut -d ' ' -f 2 )
 cat << EOF | xchroot /mnt
 (echo ${root_pass}; echo ${root_pass}) | passwd
 echo ${hostname} > /etc/hostname
@@ -206,7 +207,7 @@ echo "en_US.UTF-8 UTF-8" >> /etc/default/libc-locales
 xbps-reconfigure -f glibc-locales
 
 useradd ${user_name}
-usermod -a -G wheel,floppy,audio,video,cdrom,optical,storage,network,bluetooth,kvm ${user_name}
+usermod -a -G wheel,floppy,audio,video,cdrom,optical,storage,network,kvm ${user_name}
 (echo ${user_pass}; echo ${user_pass}) | passwd ${user_name}
 
 echo "${user_name} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -227,7 +228,7 @@ zfs set org.zfsbootmenu:keysource="zroot/ROOT/${ID}" zroot
 
 mkfs.vfat -F32 "$BOOT_DEVICE"
 
-$( blkid | grep "$BOOT_DEVICE" | cut -d ' ' -f 2 ) /boot/efi vfat defaults 0 0 >> /etc/fstab
+echo "$uuid /boot/efi vfat defaults 0 0" >> /etc/fstab
 mkdir -p /boot/efi
 mount /boot/efi
 
