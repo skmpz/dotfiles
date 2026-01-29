@@ -11,7 +11,6 @@ set -e
 
 # confirm efi support
 dmesg | grep -qi efivars && echo "found" || (echo "not found"; exit 1)
-exit 0
 
 # root password
 echo "---------------------------------------------------------------"
