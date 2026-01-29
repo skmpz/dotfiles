@@ -184,7 +184,7 @@ cp -a /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
 echo "---------------------------------------------------------------"
 echo "installing base"
 echo "---------------------------------------------------------------"
-# XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-default.voidlinux.org/current -r /mnt base-system
+XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-default.voidlinux.org/current -r /mnt base-system
 
 echo "---------------------------------------------------------------"
 echo "copy files to the new installation"
@@ -238,14 +238,8 @@ mkdir -p /boot/efi/EFI/ZBM
 curl -o /boot/efi/EFI/ZBM/VMLINUZ.EFI -L https://get.zfsbootmenu.org/efi
 cp /boot/efi/EFI/ZBM/VMLINUZ.EFI /boot/efi/EFI/ZBM/VMLINUZ-BACKUP.EFI
 
-efibootmgr -c -d "$BOOT_DISK" -p "$BOOT_PART" \
-  -L "ZFSBootMenu (Backup)" \
-  -l '\EFI\ZBM\VMLINUZ-BACKUP.EFI'
-
-efibootmgr -c -d "$BOOT_DISK" -p "$BOOT_PART" \
-  -L "ZFSBootMenu" \
-  -l '\EFI\ZBM\VMLINUZ.EFI'
-
+efibootmgr -c -d "$BOOT_DISK" -p "$BOOT_PART" -L "ZFSBootMenu (Backup)" -l '\EFI\ZBM\VMLINUZ-BACKUP.EFI'
+efibootmgr -c -d "$BOOT_DISK" -p "$BOOT_PART" -L "ZFSBootMenu" -l '\EFI\ZBM\VMLINUZ.EFI'
 EOF
 
 umount -n -R /mnt
