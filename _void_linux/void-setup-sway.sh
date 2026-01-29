@@ -50,7 +50,6 @@ cronie \
 curl \
 dbus-elogind \
 dejavu-fonts-ttf \
-dropbox \
 dunst \
 elogind \
 firefox \
