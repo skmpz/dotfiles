@@ -163,10 +163,9 @@ echo "---------------------------------------------------------------"
 echo "export and reimport"
 echo "---------------------------------------------------------------"
 zpool export zroot
-echo "1"
 zpool import -N -R /mnt zroot
-echo "2"
-zfs load-key -L prompt zroot
+# zfs load-key -L prompt zroot
+zfs load-key -L file:///etc/zfs/zroot.key zroot
 zfs mount zroot/ROOT/${ID}
 zfs mount zroot/home
 
