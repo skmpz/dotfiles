@@ -199,6 +199,8 @@ echo "---------------------------------------------------------------"
 
 uuid=$( blkid | grep "$BOOT_DEVICE" | cut -d ' ' -f 2 )
 cat << EOF | xchroot /mnt
+chown root:root /
+chmod 755 /
 (echo ${root_pass}; echo ${root_pass}) | passwd
 echo ${hostname} > /etc/hostname
 
@@ -217,9 +219,9 @@ echo "TIMEZONE=Asia/Nicosia" >> /etc/rc.conf
 ln -sf /usr/share/zoneinfo/Asia/Nicosia /etc/localtime
 
 echo "nofsck=\"yes\"" > /etc/dracut.conf.d/zol.conf
-echo "add_dracutmodules+=\" zfs \"" > /etc/dracut.conf.d/zol.conf"
-echo "omit_dracutmodules+=\" btrfs \"" > /etc/dracut.conf.d/zol.conf"
-echo "install_items+=\" /etc/zfs/zroot.key \"" > /etc/dracut.conf.d/zol.conf"
+echo "add_dracutmodules+=\" zfs \"" >> /etc/dracut.conf.d/zol.conf
+echo "omit_dracutmodules+=\" btrfs \"" >> /etc/dracut.conf.d/zol.conf
+echo "install_items+=\" /etc/zfs/zroot.key \"" >> /etc/dracut.conf.d/zol.conf
 
 xbps-install -Sy zfs curl efibootmgr
 
