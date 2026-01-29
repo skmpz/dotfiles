@@ -44,21 +44,21 @@ echo "---------------------------------------------------------------"
 read -p "hostname: " hostname
 echo "hostname set"
 
-# # disk
-# echo "---------------------------------------------------------------"
-# echo "disk setup"
-# echo "---------------------------------------------------------------"
-# options=$(lsblk | awk '/disk/ { print $1 "->" $4 }')
-# PS3='sel: '
-# select opt in $options; do
-#     if [ ! -z $opt ]; then
-#         disk="/dev/$(echo ${opt} | awk -F'-' '{print $1}')"
-#         break
-#     else
-#         printf 'invalid\n'
-#     fi
-# done
-# echo "disk set to ${disk}"
+# disk
+echo "---------------------------------------------------------------"
+echo "disk setup"
+echo "---------------------------------------------------------------"
+options=$(lsblk | awk '/disk/ { print $1 "->" $4 }')
+PS3='sel: '
+select opt in $options; do
+    if [ ! -z $opt ]; then
+        disk="/dev/$(echo ${opt} | awk -F'-' '{print $1}')"
+        break
+    else
+        printf 'invalid\n'
+    fi
+done
+echo "disk set to ${disk}"
 #
 # # encryption
 # echo "---------------------------------------------------------------"
