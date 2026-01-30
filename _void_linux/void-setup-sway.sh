@@ -14,7 +14,6 @@ for i in "$@"
 do
     case $i in
         box)   target="box";   shift 1 ;;
-        zen)   target="zen";   shift 1 ;;
         pad)   target="pad";   shift 1 ;;
         envie) target="envie"; shift 1 ;;
         siri)  target="siri";  shift 1 ;;
@@ -24,7 +23,7 @@ do
 done
 
 # check arguments
-if [ "$target" != "box" ] && [ "$target" != "zen" ] && [ "$target" != "infi" ] && [ "$target" != "pad" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
+if [ "$target" != "box" ] && [ "$target" != "infi" ] && [ "$target" != "pad" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
 
 # user
 user=$(echo $USER)
@@ -132,16 +131,15 @@ rm -rf $HOME/.tmux.conf
 
 # machine specific
 if [ "$target" == "box" ]; then
-    # sudo xbps-install -Sy nvidia
     path="$HOME/dotfiles/_void_linux/box"
     sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
 elif  [ "$target" == "siri" ]; then
     path="$HOME/dotfiles/_void_linux/siri"
-    sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
+    sudo xbps-install -Sy tlp mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
 elif  [ "$target" == "infi" ]; then
     path="$HOME/dotfiles/_void_linux/infi"
-    sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
-elif [ "$target" == "zen" ] || [ "$target" == "pad" ]; then
+    sudo xbps-install -Sy tlp mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
+elif [ "$target" == "pad" ]; then
     path="$HOME/dotfiles/_void_linux/pad"
     sudo xbps-install -Sy tlp mesa-vulkan-intel intel-video-accel
     sudo ln -sf /etc/sv/tlp/ /var/service/
@@ -175,7 +173,7 @@ ln -sf $HOME/dotfiles/dunst/ $HOME/.config/
 if test -L $HOME/.config/alacritty; then unlink $HOME/.config/alacritty
 elif test -d $HOME/.config/alacritty; then rm -rf $HOME/.config/alacritty
 fi
-ln -sf $path/alacritty/ $HOME/.config/
+ln -sf $HOME/dotfiles/alacritty/ $HOME/.config/
 
 # waybar
 if test -L $HOME/.config/waybar; then unlink $HOME/.config/waybar
