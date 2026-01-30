@@ -10,6 +10,8 @@ if [ "$resolution" = "1920x1080" ]; then
     alacritty --config-file ~/dotfiles/alacritty/alacritty1920x1080.toml
 elif [ "$resolution" = "2560x1600" ]; then
     alacritty --config-file ~/dotfiles/alacritty/alacritty2560x1600.toml
+elif [ "$resolution" = "3840x2160" ]; then
+    alacritty --config-file ~/dotfiles/alacritty/alacritty3840x2160.toml
 else
     alacritty --config-file ~/dotfiles/_void_linux/pad/alacritty/alacritty-smaller.toml
 fi

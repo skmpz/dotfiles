@@ -5,9 +5,6 @@ cursor = "#36a9dc"
 background = "#010712"
 foreground = "#d4d8d5"
 
-[font]
-size = 12
-
 [font.normal]
 family = "Noto Sans Mono"
 style = "Regular"
