@@ -1,0 +1,35 @@
+[colors.cursor]
+cursor = "#36a9dc"
+
+[colors.primary]
+background = "#010712"
+foreground = "#d4d8d5"
+
+[font]
+size = 14
+
+[font.normal]
+family = "Noto Sans Mono"
+style = "Regular"
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t="
+
+[window]
+opacity = 0.9
+
+[window.padding]
+x = 2
+y = 2
+
+[env]
+term = "xterm-256color"
+
+[[hints.enabled]]
+command = "xdg-open"
+hyperlinks = true
+mouse.enabled = true
+mouse.mods = "Shift"
+post_processing = true
+persist = false
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩‘]+"

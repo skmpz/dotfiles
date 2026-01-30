@@ -61,6 +61,7 @@ font-inconsolata-otf \
 gcc \
 grim \
 gparted \
+jq \
 keepassxc \
 leafpad \
 libspa-bluetooth \

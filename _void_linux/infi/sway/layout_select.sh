@@ -6,8 +6,8 @@ if [ $monitor_count == "2" ]; then
     # 1-screen setup
     middle_display=$(swaymsg -t get_outputs -p | grep Output | grep -v eDP | cut -f2 -d' ')
     laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
-    swaymsg output ${laptop_display} pos 4952 2550
-    swaymsg output ${middle_display} pos 4005 390
+    swaymsg output ${laptop_display} pos 4950 2550 scale 1
+    swaymsg output ${middle_display} pos 5280 1470
     swaymsg workspace 1 output ${middle_display}
     swaymsg workspace 2 output ${middle_display}
     swaymsg workspace 3 output ${middle_display}

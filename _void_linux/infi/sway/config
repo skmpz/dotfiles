@@ -1,4 +1,4 @@
-bindsym $mod+p exec "$HOME/dotfiles/_void_linux/siri/startup.sh"
+bindsym $mod+p exec "$HOME/dotfiles/_void_linux/infi/startup.sh"
 
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
@@ -10,4 +10,5 @@ exec_always {
     gsettings set $gnome-schema text-scaling-factor 1.1
 }
 
-exec_always /home/sk/dotfiles/_void_linux/siri/sway/layout_select.sh
+bindsym --no-warn $mod+Return exec ~/dotfiles/alacritty/alacritty-start.sh
+exec_always /home/sk/dotfiles/_void_linux/infi/sway/layout_select.sh
