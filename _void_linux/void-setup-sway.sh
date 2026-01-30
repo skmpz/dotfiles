@@ -18,12 +18,13 @@ do
         pad)   target="pad";   shift 1 ;;
         envie) target="envie"; shift 1 ;;
         siri)  target="siri";  shift 1 ;;
+        infi)  target="infi";  shift 1 ;;
         *) ;;
     esac
 done
 
 # check arguments
-if [ "$target" != "box" ] && [ "$target" != "zen" ] && [ "$target" != "pad" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
+if [ "$target" != "box" ] && [ "$target" != "zen" ] && [ "$target" != "infi" ] && [ "$target" != "pad" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
 
 # user
 user=$(echo $USER)
@@ -135,6 +136,9 @@ if [ "$target" == "box" ]; then
     sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
 elif  [ "$target" == "siri" ]; then
     path="$HOME/dotfiles/_void_linux/siri"
+    sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
+elif  [ "$target" == "infi" ]; then
+    path="$HOME/dotfiles/_void_linux/infi"
     sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
 elif [ "$target" == "zen" ] || [ "$target" == "pad" ]; then
     path="$HOME/dotfiles/_void_linux/pad"

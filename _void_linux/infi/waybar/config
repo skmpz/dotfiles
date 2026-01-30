@@ -1,0 +1,153 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    // "height": 66, // Waybar height (to be removed for auto height)
+    // Archived modules
+    // "custom/gpu", "bluetooth",  "custom/weather", "temperature", "sway/window"
+    // Choose the order of the modules
+    "modules-left": [ "tray", "disk", "cpu", "memory", "temperature", "custom/uptime", "network", "custom/kernel"],
+    "modules-center": ["sway/workspaces"],
+    "modules-right": [ "idle_inhibitor", "sway/language", "backlight", "pulseaudio", "battery","clock"],
+
+    // Modules configuration
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "<span color=\"#D8DEE9\">1</span>",
+            "2": "<span color=\"#D8DEE9\">2</span>",
+            "3": "<span color=\"#D8DEE9\">3</span>",
+            "4": "<span color=\"#D8DEE9\">4</span>",
+            "5": "<span color=\"#D8DEE9\">5</span>",
+            "6": "<span color=\"#D8DEE9\">6</span>",
+            "7": "<span color=\"#D8DEE9\">7</span>",
+            "8": "<span color=\"#D8DEE9\">8</span>",
+            "9": "<span color=\"#D8DEE9\">9</span>",
+            // temp hack
+            "high-priority-named": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/window": {
+        "format": "{}",
+        "max-length": 50, 
+        "tooltip": false
+    },
+    "sway/language": {
+        "format": " {}",
+        "max-length": 5,
+        "min-length": 5,
+        "tooltip": false
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+        "tooltip": "true"
+    },
+    "tray": {
+        "spacing": 5,
+    },
+    "clock": {
+        "format": " {:%F  |  %T}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "today-format": "<b>{}</b>",
+        "on-click": "gnome-calendar"
+    },
+    "cpu": {
+        "interval": "1",
+        "format": " {load}",
+        //"max-length": 13,
+        //"min-length": 13,
+        "tooltip": false
+    },
+    "memory": {
+        "interval": "1",
+        "format": " {percentage}%",
+        //"max-length": 13,
+        //"min-length": 13,
+        "tooltip": false
+    },
+    "disk": {
+        "interval": "60",
+        "path": "/home/sk/",
+        "format": " {percentage_used}%",
+        "tooltip": false
+    },
+    "temperature": {
+        //"thermal-zone": 1,
+        "interval": "4",
+        "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+        "critical-threshold": 74,
+        "format-critical": "  {temperatureC}°C",
+        "format": "{icon}  {temperatureC}°C",
+        "format-icons": ["", "", ""],
+        "max-length": 7,
+        "min-length": 7
+    },
+    "network": {
+        "format-wifi": " {ipaddr}",
+        "format-ethernet": " {ipaddr}",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": " disconnected",
+        "family": "ipv4",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "scroll-step": 3, // %, can be a float
+        "format": "{icon} {volume}%",
+        "format-bluetooth": " {volume}% {icon}",
+        "format-bluetooth-muted": " M  ",
+        "format-muted": "  M",
+        "format-icons": {
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click": "pavucontrol",
+        "tooltip": false
+    },
+    "custom/weather": {
+        "exec": "curl 'https://wttr.in/?format=1'",
+        "interval": 3600
+    },
+    "battery": {
+        "format": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "format-charging": "{icon} {capacity}% ",
+        "interval": 60,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "tooltip": false
+    },
+    "backlight": {
+        "interval": 3600,
+        "format": " {percent}%"
+    },
+    "custom/uptime": {
+      "exec": "uptime | awk '{print $3 \" \" $4}' | sed 's/,.*//'",
+      "format": "  {}",
+      "interval": 60,
+      "tooltip": false
+    },
+    "custom/kernel": {
+      "exec": "uname -r",
+      "format": "  {}",
+      "interval": 3600,
+      "tooltip": false
+    },
+}
