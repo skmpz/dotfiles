@@ -133,12 +133,15 @@ rm -rf $HOME/.tmux.conf
 if [ "$target" == "box" ]; then
     path="$HOME/dotfiles/_void_linux/box"
     sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
+    sudo ln -sf /etc/sv/tlp/ /var/service/
 elif  [ "$target" == "siri" ]; then
     path="$HOME/dotfiles/_void_linux/siri"
     sudo xbps-install -Sy tlp mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
+    sudo ln -sf /etc/sv/tlp/ /var/service/
 elif  [ "$target" == "infi" ]; then
     path="$HOME/dotfiles/_void_linux/infi"
     sudo xbps-install -Sy tlp mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
+    sudo ln -sf /etc/sv/tlp/ /var/service/
 elif [ "$target" == "pad" ]; then
     path="$HOME/dotfiles/_void_linux/pad"
     sudo xbps-install -Sy tlp mesa-vulkan-intel intel-video-accel

@@ -2,7 +2,10 @@
 
 monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
 
-if [ $monitor_count == "2" ]; then
+if [ $monitor_count == "1" ]; then
+    laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
+    swaymsg output ${laptop_display} scale 1
+elif [ $monitor_count == "2" ]; then
     # 1-screen setup
     middle_display=$(swaymsg -t get_outputs -p | grep Output | grep -v eDP | cut -f2 -d' ')
     laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
