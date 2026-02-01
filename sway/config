@@ -187,6 +187,7 @@ bar {
 
 exec dbus-update-activation-environment DISPLAY
 exec_always --no-startup-id bash -c "dropbox stop; sleep 10; dropbox start -i"
+exec_always --no-startup-id syncthing --no-browser
 exec nm-applet --indicator
 exec blueman-applet
 exec brightnessctl s 40%
@@ -233,3 +234,17 @@ input 1133:45091:MX_Master_3 {
 input 1133:45091:Logitech_Wireless_Mouse_MX_Master_3 {
     scroll_factor 3.0
 }
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Arc-Dark'
+    gsettings set $gnome-schema icon-theme 'Arc'
+    gsettings set $gnome-schema cursor-theme 'Vanilla-DMZ'
+    gsettings set $gnome-schema font-name 'Avenir Book 11'
+    gsettings set $gnome-schema scaling-factor 1
+    gsettings set $gnome-schema text-scaling-factor 1.1
+}
+
+bindsym $mod+p exec ~/dotfiles/sway/startup.sh
+bindsym --no-warn $mod+Return exec ~/dotfiles/alacritty/alacritty-start.sh
+exec_always /home/sk/dotfiles/sway/layout_select.sh
