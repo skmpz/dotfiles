@@ -14,7 +14,12 @@ elif [ $monitor_count == "2" ]; then
     laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
     laptop_res=$(swaymsg -t get_outputs -r | jq -r --arg OUT "$laptop_display" '.[] | select(.name == $OUT) | "\(.current_mode.width)x\(.current_mode.height)" ')
     swaymsg output ${laptop_display} pos 4950 2550 scale 1
-    swaymsg output ${middle_display} pos 5280 1470
+    if [ "$middle_res" == "3840x2160" ]; then
+        echo "here"
+        swaymsg output ${middle_display} pos 4324 390
+    elif [ "$middle_res" == "1920x1080" ]; then
+        swaymsg output ${middle_display} pos 5280 1470
+    fi
     swaymsg workspace 1 output ${middle_display}
     swaymsg workspace 2 output ${middle_display}
     swaymsg workspace 3 output ${middle_display}
