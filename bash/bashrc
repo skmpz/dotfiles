@@ -29,6 +29,7 @@ alias nvs='nv -S ~/.sess'
 alias ssh='TERM=rxvt-unicode-256color ssh'
 alias up='sudo xbps-install -Su'
 alias chk='sudo xbps-pkgdb -a'
+alias nvimclean="rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim"
 alias clean='rm -rf $HOME/.local/share/Trash/*; \
     rm -rf /data/.Trash-1000/*; \
     sudo xbps-remove -yoO; \
