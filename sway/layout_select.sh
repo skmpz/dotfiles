@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
-monitor_count="$1"
+monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
+# monitor_count="$1"
 
 if [ $monitor_count == "1" ]; then
     # no extra screen (laptop)
