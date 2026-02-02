@@ -8,9 +8,12 @@ swaymsg 'workspace 4; workspace 8'
 
 monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
 
+wait_for_app() {
+    swaymsg -t subscribe '["window"]' | jq -e --unbuffered 'select(.change=="new" and .container.app_id=="'"$1"'")' >/dev/null
+}
 
 if [ $monitor_count == "1" ] || [ $monitor_count == "2" ]; then
-    swaymsg 'workspace 1; exec joplin --enable-features=UseOzonePlatform --ozone-platform=wayland' && sleep 8
+    swaymsg 'workspace 1; exec joplin --enable-features=UseOzonePlatform --ozone-platform=wayland' && wait_for_app google_chrome
     swaymsg 'workspace 2; exec google-chrome-stable' && sleep 8
     swaymsg 'workspace 3; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
     swaymsg 'workspace 3; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
