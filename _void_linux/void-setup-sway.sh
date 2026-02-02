@@ -193,7 +193,7 @@ ln -sf $HOME/dotfiles/nvim/ $HOME/.config/
 
 # other
 ln -sf $HOME/dotfiles/sway/config $HOME/.config/sway/config
-ln -sf $HOME/gtk/settings.ini $HOME/.config/gtk-3.0/
+ln -sf $HOME/dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/
 
 # file links
 ln -sf $HOME/dotfiles/sway/start.sh $HOME/start.sh
