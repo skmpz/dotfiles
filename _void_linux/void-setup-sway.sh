@@ -132,23 +132,12 @@ rm -rf $HOME/.tmux.conf
 
 # machine specific
 if [ "$target" == "box" ]; then
-    path="$HOME/dotfiles/_void_linux/box"
     sudo xbps-install -Sy mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
     sudo ln -sf /etc/sv/tlp/ /var/service/
-elif  [ "$target" == "siri" ]; then
-    path="$HOME/dotfiles/_void_linux/siri"
+elif [ "$target" == "siri" ] || [ "$target" == "infi" ]; then
     sudo xbps-install -Sy tlp mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
     sudo ln -sf /etc/sv/tlp/ /var/service/
-elif  [ "$target" == "infi" ]; then
-    path="$HOME/dotfiles/_void_linux/infi"
-    sudo xbps-install -Sy tlp mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
-    sudo ln -sf /etc/sv/tlp/ /var/service/
-elif [ "$target" == "pad" ]; then
-    path="$HOME/dotfiles/_void_linux/pad"
-    sudo xbps-install -Sy tlp mesa-vulkan-intel intel-video-accel
-    sudo ln -sf /etc/sv/tlp/ /var/service/
-elif [ "$target" == "envie" ]; then
-    path="$HOME/dotfiles/_void_linux/envie"
+elif [ "$target" == "pad" ] || [ "$target" == "envie" ]; then
     sudo xbps-install -Sy tlp mesa-vulkan-intel intel-video-accel
     sudo ln -sf /etc/sv/tlp/ /var/service/
 fi
@@ -192,16 +181,13 @@ fi
 ln -sf $HOME/dotfiles/nvim/ $HOME/.config/
 
 # other
+ln -sf $HOME/dotfiles/bash/bashrc $HOME/.bashrc
+ln -sf $HOME/dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/settings.ini
+ln -sf $HOME/dotfiles/mime/mimeapps.list $HOME/.config/mimeapps.list
 ln -sf $HOME/dotfiles/sway/config $HOME/.config/sway/config
-ln -sf $HOME/dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/
-
-# file links
 ln -sf $HOME/dotfiles/sway/start.sh $HOME/start.sh
 ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
-ln -sf $HOME/dotfiles/bash/bashrc $HOME/.bashrc
-ln -sf $HOME/dotfiles/mime/mimeapps.list $HOME/.config/mimeapps.list
 ln -sf $HOME/dotfiles/user-dirs/user-dirs.dirs $HOME/.config/user-dirs.dirs
-ln -sf $HOME/dotfiles/sway/config $HOME/.config/sway/config.base
 
 # fonts
 cp -r $HOME/dotfiles/fonts/* $HOME/.local/share/fonts/
