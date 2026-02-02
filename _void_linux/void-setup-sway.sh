@@ -57,6 +57,7 @@ font-adobe-source-code-pro \
 font-awesome5 \
 font-ibm-plex-otf \
 font-inconsolata-otf \
+fuse \
 gcc \
 grim \
 gparted \
