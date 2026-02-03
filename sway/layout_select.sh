@@ -1,7 +1,7 @@
 #!/bin/bash
 
 monitor_count=$(swaymsg -t get_outputs -p | grep Output | wc -l)
-# monitor_count="$1"
+if swaymsg -t get_outputs -p | grep -q 6PB0P44; then setup_loc="1"; else setup_loc="2"; fi
 
 if [ $monitor_count == "1" ]; then
     # no extra screen (laptop)
@@ -26,34 +26,38 @@ elif [ $monitor_count == "2" ]; then
     swaymsg workspace 4 output ${middle_display}
     swaymsg workspace 5 output ${middle_display}
     swaymsg workspace 9 output ${laptop_display}
-elif [ $monitor_count == "3" ]; then
-    # 3-screen setup (laptop)
-    middle_display=$(swaymsg -t get_outputs -p | grep 6PB0P44 | cut -f2 -d' ')
-    left_display=$(swaymsg -t get_outputs -p | grep DP9Q9V3 | cut -f2 -d' ')
-    right_display=$(swaymsg -t get_outputs -p | grep DP9P9V3 | cut -f2 -d' ')
-    laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
-    swaymsg output ${laptop_display} pos 4477 4436
-    swaymsg output ${middle_display} pos 3840 2276
-    swaymsg output ${left_display} pos 1680 1976 transform 270
-    swaymsg output ${right_display} pos 7680 1958 transform 90
-    swaymsg workspace 1 output ${left_display}
-    swaymsg workspace 2 output ${right_display}
-    swaymsg workspace 3 output ${middle_display}
-    swaymsg workspace 4 output ${middle_display}
-    swaymsg workspace 9 output ${laptop_display}
+elif [ $monitor_count == "4" ]; then
+    if [ "$setup_loc" == "1" ]; then
+        # 4-screen setup (laptop)
+        middle_display=$(swaymsg -t get_outputs -p | grep 6PB0P44 | cut -f2 -d' ')
+        left_display=$(swaymsg -t get_outputs -p | grep DP9Q9V3 | cut -f2 -d' ')
+        right_display=$(swaymsg -t get_outputs -p | grep DP9P9V3 | cut -f2 -d' ')
+        laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
+        swaymsg output ${laptop_display} pos 4477 4436
+        swaymsg output ${middle_display} pos 3840 2276
+        swaymsg output ${left_display} pos 1680 1976 transform 270
+        swaymsg output ${right_display} pos 7680 1958 transform 90
+        swaymsg workspace 1 output ${left_display}
+        swaymsg workspace 2 output ${right_display}
+        swaymsg workspace 3 output ${middle_display}
+        swaymsg workspace 4 output ${middle_display}
+        swaymsg workspace 9 output ${laptop_display}
+    else 
+        # 4-screen setup (desktop)
+        down_display=$(swaymsg -t get_outputs -p | grep 3CKKXN3 | cut -f2 -d' ')
+        up_display=$(swaymsg -t get_outputs -p | grep FVVS5H3 | cut -f2 -d' ')
+        left_display=$(swaymsg -t get_outputs -p | grep FN84K9A40G2L | cut -f2 -d' ')
+        right_display=$(swaymsg -t get_outputs -p | grep FN84K993041L | cut -f2 -d' ')
+        swaymsg output ${down_display} pos 3840 2597
+        swaymsg output ${up_display} pos 3840 437
+        swaymsg output ${left_display} pos 1680 977 transform 270
+        swaymsg output ${right_display} pos 7680 977 transform 270
+        swaymsg workspace 1 output ${left_display}
+        swaymsg workspace 2 output ${right_display}
+        swaymsg workspace 8 output ${right_display}
+        swaymsg workspace 3 output ${down_display}
+        swaymsg workspace 4 output ${up_display}
+    fi
 else
-    # 4-screen setup (box)
-    down_display=$(swaymsg -t get_outputs -p | grep 3CKKXN3 | cut -f2 -d' ')
-    up_display=$(swaymsg -t get_outputs -p | grep FVVS5H3 | cut -f2 -d' ')
-    left_display=$(swaymsg -t get_outputs -p | grep FN84K9A40G2L | cut -f2 -d' ')
-    right_display=$(swaymsg -t get_outputs -p | grep FN84K993041L | cut -f2 -d' ')
-    swaymsg output ${down_display} pos 3840 2597
-    swaymsg output ${up_display} pos 3840 437
-    swaymsg output ${left_display} pos 1680 977 transform 270
-    swaymsg output ${right_display} pos 7680 977 transform 270
-    swaymsg workspace 1 output ${left_display}
-    swaymsg workspace 2 output ${right_display}
-    swaymsg workspace 8 output ${right_display}
-    swaymsg workspace 3 output ${down_display}
-    swaymsg workspace 4 output ${up_display}
+    echo "unsupported"
 fi
