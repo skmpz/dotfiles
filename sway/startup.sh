@@ -32,6 +32,7 @@ else
     if [ $monitor_count == "4" ] && [ "$setup_loc" == "1" ]; then
         swaymsg 'workspace 2; exec joplin --enable-features=UseOzonePlatform --ozone-platform=wayland' && sleep 8
         swaymsg 'workspace 2; resize set height 3500px' && sleep 1
+        swaymsg 'workspace 9; exec keepassxc' && sleep 3
     elif [ $monitor_count == "4" ] && [ "$setup_loc" == "2" ]; then
         swaymsg 'workspace 2; exec keepassxc' && sleep 1
         swaymsg 'workspace 2; exec joplin --enable-features=UseOzonePlatform --ozone-platform=wayland' && sleep 8

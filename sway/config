@@ -179,6 +179,7 @@ for_window [app_id="imv"] floating enable, border normal 2, move position center
 for_window [app_id="mpv"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [app_id="pavucontrol"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [app_id="org.https://nomacs.nomacs"] floating enable, border normal 2, move position center,title_format " %title"
+for_window [app_id="org.gnome.gThumb"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [app_id="org.pwmt.zathura"] floating enable, border normal 2, resize set 1640 1840, move position center,title_format " %title"
 
 bar {
