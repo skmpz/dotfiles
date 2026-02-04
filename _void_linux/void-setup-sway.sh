@@ -120,6 +120,7 @@ rm -rf $HOME/.bashrc
 rm -rf $HOME/.gtkrc-2.0
 rm -rf $HOME/.cache/nvim
 rm -rf $HOME/.config/gtk-3.0/
+rm -rf $HOME/.config/gtk-4.0/
 rm -rf $HOME/.config/mimeapps.list
 rm -rf $HOME/.config/user-dirs.dirs
 rm -rf $HOME/.config/sway/
@@ -145,6 +146,7 @@ fi
 # create folders
 mkdir -p $HOME/.bash/
 mkdir -p $HOME/.config/gtk-3.0/
+mkdir -p $HOME/.config/gtk-4.0/
 mkdir -p $HOME/.config/sway/
 mkdir -p $HOME/.local/share/fonts/
 mkdir -p $HOME/.icons/default/
@@ -182,7 +184,8 @@ ln -sf $HOME/dotfiles/nvim/ $HOME/.config/
 
 # other
 ln -sf $HOME/dotfiles/bash/bashrc $HOME/.bashrc
-ln -sf $HOME/dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/settings.ini
+ln -sf $HOME/dotfiles/gtk3/settings.ini $HOME/.config/gtk-3.0/settings.ini
+ln -sf $HOME/dotfiles/gtk4/settings.ini $HOME/.config/gtk-4.0/settings.ini
 ln -sf $HOME/dotfiles/mime/mimeapps.list $HOME/.config/mimeapps.list
 ln -sf $HOME/dotfiles/sway/config $HOME/.config/sway/config
 ln -sf $HOME/dotfiles/sway/start.sh $HOME/start.sh
