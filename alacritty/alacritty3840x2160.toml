@@ -1,4 +1,4 @@
 general.import = [ "~/dotfiles/alacritty/alacritty.toml" ]
 
 [font]
-size = 15
+size = 14

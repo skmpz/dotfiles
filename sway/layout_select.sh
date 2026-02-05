@@ -32,7 +32,7 @@ elif [ $monitor_count == "4" ] && [ "$setup_loc" == "1" ]; then
     left_display=$(swaymsg -t get_outputs -p | grep DP9Q9V3 | cut -f2 -d' ')
     right_display=$(swaymsg -t get_outputs -p | grep DP9P9V3 | cut -f2 -d' ')
     laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
-    swaymsg output ${laptop_display} pos 4477 4436
+    swaymsg output ${laptop_display} pos 4477 4436 scale 1
     swaymsg output ${middle_display} pos 3840 2276
     swaymsg output ${left_display} pos 1680 1976 transform 270
     swaymsg output ${right_display} pos 7680 1958 transform 90
