@@ -33,6 +33,7 @@ echo "Installing system.."
 sudo xbps-install -Sy void-repo-nonfree
 sudo xbps-install -Sy \
 NetworkManager \
+Thunar \
 Waybar \
 alacritty \
 arc-icon-theme \
