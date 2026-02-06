@@ -7,11 +7,11 @@ resolution=$(swaymsg -t get_outputs -r | jq -r --arg OUT "$output" '.[] | select
 echo $resolution
 
 if [ "$resolution" = "1920x1080" ]; then
-    alacritty --config-file ~/dotfiles/alacritty/alacritty1920x1080.toml
+    alacritty "$@" --config-file ~/dotfiles/alacritty/alacritty1920x1080.toml
 elif [ "$resolution" = "2560x1600" ]; then
-    alacritty --config-file ~/dotfiles/alacritty/alacritty2560x1600.toml
+    alacritty "$@" --config-file ~/dotfiles/alacritty/alacritty2560x1600.toml
 elif [ "$resolution" = "2560x1440" ]; then
-    alacritty --config-file ~/dotfiles/alacritty/alacritty2560x1440.toml
+    alacritty "$@" --config-file ~/dotfiles/alacritty/alacritty2560x1440.toml
 elif [ "$resolution" = "3840x2160" ]; then
-    alacritty --config-file ~/dotfiles/alacritty/alacritty3840x2160.toml
+    alacritty "$@" --config-file ~/dotfiles/alacritty/alacritty3840x2160.toml
 fi

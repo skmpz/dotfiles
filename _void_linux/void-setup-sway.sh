@@ -185,12 +185,6 @@ elif test -d $HOME/.config/nvim; then rm -rf $HOME/.config/nvim
 fi
 ln -sf $HOME/dotfiles/nvim/ $HOME/.config/
 
-# thunar
-if test -L $HOME/.config/Thunar/; then unlink $HOME/.config/nvim
-elif test -d $HOME/.config/nvim; then rm -rf $HOME/.config/nvim
-fi
-ln -sf $HOME/dotfiles/nvim/ $HOME/.config/
-
 # other
 ln -sf $HOME/dotfiles/bash/bashrc $HOME/.bashrc
 ln -sf $HOME/dotfiles/gtk2/gtkrc-2.0 ~/gtkrc-2.0
