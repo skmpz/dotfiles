@@ -94,6 +94,7 @@ sof-tools \
 sway \
 swayidle \
 swaylock \
+syncthing \
 tmux \
 ttf-ubuntu-font-family \
 unzip \
