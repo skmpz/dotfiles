@@ -197,7 +197,9 @@ echo "---------------------------------------------------------------"
 echo "finalizing setup"
 echo "---------------------------------------------------------------"
 
-uuid=$( blkid | grep "$BOOT_DEVICE" | cut -d ' ' -f 2 )
+mkfs.vfat -F32 "$BOOT_DEVICE"
+uuid=$(blkid -s UUID -o value "$BOOT_DEVICE")
+
 cat << EOF | xchroot /mnt
 chown root:root /
 chmod 755 /
@@ -230,9 +232,7 @@ xbps-install -Sy zfs curl efibootmgr
 zfs set org.zfsbootmenu:commandline="quiet" zroot/ROOT
 zfs set org.zfsbootmenu:keysource="zroot/ROOT/${ID}" zroot
 
-mkfs.vfat -F32 "$BOOT_DEVICE"
-
-echo "$uuid /boot/efi vfat defaults 0 0" >> /etc/fstab
+echo "UUID=$uuid /boot/efi vfat defaults 0 0" >> /etc/fstab
 mkdir -p /boot/efi
 mount /boot/efi
 
