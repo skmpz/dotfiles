@@ -18,8 +18,8 @@ bindsym --release button2 kill
 bindsym $mod+w kill
 
 # open caja with alt+x and side mouse button
-bindsym $mod+x exec "caja"
-bindsym --whole-window button9 exec "caja"
+bindsym $mod+x exec "Thunar"
+bindsym --whole-window button9 exec "Thunar"
 
 # toggle between 2 last used workspaces
 bindsym $mod+grave workspace back_and_forth
@@ -164,7 +164,7 @@ client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
-for_window [class="(?i)caja"] floating enable, border normal 2, move position center,title_format " %title"
+for_window [app_id="Thunar"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [class="(?i)blueman"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [class="Leafpad"] floating enable, border normal 2, move position center,title_format " %title"
 for_window [class="vlc"] floating enable, border normal 2, move position center,title_format " %title"
