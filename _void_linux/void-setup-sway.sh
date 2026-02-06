@@ -126,6 +126,7 @@ rm -rf $HOME/.config/gtk-4.0/
 rm -rf $HOME/.config/mimeapps.list
 rm -rf $HOME/.config/user-dirs.dirs
 rm -rf $HOME/.config/sway/
+rm -rf $HOME/.config/Thunar/uca.xml
 rm -rf $HOME/.local/share/fonts
 rm -rf $HOME/.local/share/nvim
 rm -rf $HOME/.icons/default/
@@ -184,6 +185,12 @@ elif test -d $HOME/.config/nvim; then rm -rf $HOME/.config/nvim
 fi
 ln -sf $HOME/dotfiles/nvim/ $HOME/.config/
 
+# thunar
+if test -L $HOME/.config/Thunar/; then unlink $HOME/.config/nvim
+elif test -d $HOME/.config/nvim; then rm -rf $HOME/.config/nvim
+fi
+ln -sf $HOME/dotfiles/nvim/ $HOME/.config/
+
 # other
 ln -sf $HOME/dotfiles/bash/bashrc $HOME/.bashrc
 ln -sf $HOME/dotfiles/gtk2/gtkrc-2.0 ~/gtkrc-2.0
@@ -192,6 +199,7 @@ ln -sf $HOME/dotfiles/gtk4/settings.ini $HOME/.config/gtk-4.0/settings.ini
 ln -sf $HOME/dotfiles/mime/mimeapps.list $HOME/.config/mimeapps.list
 ln -sf $HOME/dotfiles/sway/config $HOME/.config/sway/config
 ln -sf $HOME/dotfiles/sway/start.sh $HOME/start.sh
+ln -sf $HOME/dotfiles/thunar/uca.xml $HOME/.config/Thunar/uca.xml
 ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -sf $HOME/dotfiles/user-dirs/user-dirs.dirs $HOME/.config/user-dirs.dirs
 
