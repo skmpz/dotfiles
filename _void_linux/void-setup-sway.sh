@@ -48,6 +48,7 @@ chrony \
 cmake \
 clang \
 cronie \
+cryptsetup \
 curl \
 dbus-elogind \
 dejavu-fonts-ttf \
@@ -66,6 +67,7 @@ jq \
 keepassxc \
 leafpad \
 libspa-bluetooth \
+lvm2 \
 mesa-dri \
 mpv \
 neovim \
