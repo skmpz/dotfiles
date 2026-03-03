@@ -222,8 +222,6 @@ sudo ln -sf /etc/sv/NetworkManager/ /var/service/
 sudo ln -sf /etc/sv/chronyd/ /var/service/
 sudo ln -sf /etc/sv/bluetoothd/ /var/service/
 sudo ln -sf /etc/sv/cronie/ /var/service/
-sudo ln -sf /etc/sv/socklog-unix/ /var/service/
-sudo ln -sf /etc/sv/nanoklogd/ /var/service/
 
 # add user to groups
 sudo usermod -a -G bluetooth,network,kvm,video,input $user
