@@ -12,5 +12,5 @@ application/zip=engrampa.desktop
 [Added Associations]
 application/pdf=org.pwmt.zathura.desktop;
 image/png=imv-folder.desktop;org.nomacs.ImageLounge.desktop;
-image/jpeg=imv-folder.desktop;org.nomacs.ImageLounge.desktop;
+image/jpeg=google-chrome.desktop;imv-folder.desktop;org.nomacs.ImageLounge.desktop;
 application/zip=engrampa.desktop
