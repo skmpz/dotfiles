@@ -190,7 +190,7 @@ ln -sf $HOME/dotfiles/nvim/ $HOME/.config/
 
 # other
 ln -sf $HOME/dotfiles/bash/bashrc $HOME/.bashrc
-ln -sf $HOME/dotfiles/gtk2/gtkrc-2.0 ~/gtkrc-2.0
+ln -sf $HOME/dotfiles/gtk2/gtkrc-2.0 ~/.gtkrc-2.0
 ln -sf $HOME/dotfiles/gtk3/settings.ini $HOME/.config/gtk-3.0/settings.ini
 ln -sf $HOME/dotfiles/gtk4/settings.ini $HOME/.config/gtk-4.0/settings.ini
 ln -sf $HOME/dotfiles/mime/mimeapps.list $HOME/.config/mimeapps.list
