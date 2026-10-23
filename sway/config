@@ -190,6 +190,9 @@ bar {
 exec dbus-update-activation-environment DISPLAY
 exec_always --no-startup-id bash -c "dropbox stop; sleep 10; dropbox start -i"
 exec_always --no-startup-id syncthing --no-browser
+exec_always /usr/libexec/xdg-desktop-portal-gtk &
+exec_always gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec_always gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
 exec nm-applet --indicator
 exec blueman-applet
 exec brightnessctl s 40%

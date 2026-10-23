@@ -8,6 +8,8 @@ application/pdf=org.pwmt.zathura.desktop
 image/png=org.nomacs.ImageLounge.desktop
 image/jpeg=org.nomacs.ImageLounge.desktop
 application/zip=engrampa.desktop
+application/x-extension-burp=install4j_a5ezgf-BurpSuite.desktop
+x-scheme-handler/burp=install4j_a5ezgf-BurpSuite.desktop
 
 [Added Associations]
 application/pdf=org.pwmt.zathura.desktop;

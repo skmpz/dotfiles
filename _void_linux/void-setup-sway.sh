@@ -18,12 +18,13 @@ do
         envie) target="envie"; shift 1 ;;
         siri)  target="siri";  shift 1 ;;
         infi)  target="infi";  shift 1 ;;
+        pulse)  target="pulse";  shift 1 ;;
         *) ;;
     esac
 done
 
 # check arguments
-if [ "$target" != "box" ] && [ "$target" != "infi" ] && [ "$target" != "pad" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
+if [ "$target" != "box" ] && [ "$target" != "pulse"] && [ "$target" != "infi" ] && [ "$target" != "pad" ] && [ "$target" != "envie" ] && [ "$target" != "siri" ]; then show_usage; fi
 
 # user
 user=$(echo $USER)
@@ -144,7 +145,7 @@ if [ "$target" == "box" ]; then
 elif [ "$target" == "siri" ] || [ "$target" == "infi" ]; then
     sudo xbps-install -Sy tlp mesa-vulkan-radeon amdvlk mesa-vaapi mesa-vdpau
     sudo ln -sf /etc/sv/tlp/ /var/service/
-elif [ "$target" == "pad" ] || [ "$target" == "envie" ]; then
+elif [ "$target" == "pad" ] || [ "$target" == "envie" ] || [ "$target" == "pulse" ]; then
     sudo xbps-install -Sy tlp mesa-vulkan-intel intel-video-accel
     sudo ln -sf /etc/sv/tlp/ /var/service/
 fi
