@@ -16,6 +16,7 @@ require('lazy').setup({
         require 'plugins.colorscheme',
         require 'plugins.comment',
         require 'plugins.crates',
+        require 'plugins.diffview',
         require 'plugins.dressing',
         require 'plugins.gitsigns',
         require 'plugins.harpoon',
