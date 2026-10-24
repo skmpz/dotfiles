@@ -18,6 +18,19 @@ if [ $monitor_count == "1" ] || [ $monitor_count == "2" ]; then
     swaymsg 'workspace 4; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
     swaymsg 'workspace 9; exec keepassxc' && sleep 3
     swaymsg 'workspace 1'
+
+elif [ $monitor_count == "3" ]; then
+    swaymsg 'workspace 1; exec joplin --enable-features=UseOzonePlatform --ozone-platform=wayland' && sleep 8
+    swaymsg 'workspace 1; split h' && sleep 1
+    swaymsg 'workspace 1; exec google-chrome-stable' && sleep 8
+    swaymsg 'workspace 2; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
+    swaymsg 'workspace 2; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
+    swaymsg 'workspace 3; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
+    swaymsg 'workspace 3; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
+    swaymsg 'workspace 4; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
+    swaymsg 'workspace 4; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
+    swaymsg 'workspace 9; exec keepassxc' && sleep 3
+    swaymsg 'workspace 1'
 else
     swaymsg 'workspace 1; exec $HOME/dotfiles/alacritty/alacritty-start.sh' && sleep 1
     swaymsg 'workspace 1; split v' && sleep 1

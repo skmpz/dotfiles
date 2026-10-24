@@ -190,6 +190,9 @@ bar {
 exec dbus-update-activation-environment DISPLAY
 exec_always --no-startup-id bash -c "dropbox stop; sleep 10; dropbox start -i"
 exec_always --no-startup-id syncthing --no-browser
+exec_always /usr/libexec/xdg-desktop-portal-gtk &
+exec_always gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec_always gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
 exec nm-applet --indicator
 exec blueman-applet
 exec brightnessctl s 40%
@@ -240,6 +243,7 @@ input 1133:45091:Logitech_Wireless_Mouse_MX_Master_3 {
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Arc-Dark'
+    gsettings set $gnome-schema color-scheme 'prefer-dark'
     gsettings set $gnome-schema icon-theme 'Arc'
     gsettings set $gnome-schema cursor-theme 'Vanilla-DMZ'
     gsettings set $gnome-schema font-name 'Avenir Book 11'
