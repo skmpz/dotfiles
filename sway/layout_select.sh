@@ -40,7 +40,20 @@ elif [ $monitor_count == "2" ]; then
     swaymsg workspace 5 output ${middle_display}
     swaymsg workspace 9 output ${laptop_display}
 elif [ $monitor_count == "3" ] && [ "$setup_loc" == "1" ]; then
-    echo "niaou1;"
+    # 3-screen setup (laptop work)
+    left_display=$(swaymsg -t get_outputs -p | grep DP9Q9V3 | cut -f2 -d' ')
+    up_display=$(swaymsg -t get_outputs -p | grep 6PB0P44 | cut -f2 -d' ')
+    laptop_display=$(swaymsg -t get_outputs -p | grep Output | grep eDP | cut -f2 -d' ')
+    swaymsg output ${left_display} pos 3103 340 transform 270
+    swaymsg output ${up_display} pos 5263 660
+    swaymsg output ${laptop_display} pos 5900 2820
+    swaymsg workspace 1 output ${left_display}
+    swaymsg workspace 2 output ${left_display}
+    swaymsg workspace 3 output ${up_display}
+    swaymsg workspace 4 output ${up_display}
+    swaymsg workspace 5 output ${up_display}
+    swaymsg workspace 9 output ${laptop_display}
+elif [ $monitor_count == "3" ]; then
     # 3-screen setup (laptop home)
     middle_display=$(swaymsg -t get_outputs -p | grep 6PB0P44 | cut -f2 -d' ')
     left_display=$(swaymsg -t get_outputs -p | grep DP9Q9V3 | cut -f2 -d' ')

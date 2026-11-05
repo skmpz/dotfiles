@@ -8,6 +8,8 @@ echo $resolution
 
 if [ "$resolution" = "1920x1080" ]; then
     alacritty "$@" --config-file ~/dotfiles/alacritty/alacritty1920x1080.toml
+elif [ "$resolution" = "1920x1200" ]; then
+    alacritty "$@" --config-file ~/dotfiles/alacritty/alacritty1920x1200.toml
 elif [ "$resolution" = "2560x1600" ]; then
     alacritty "$@" --config-file ~/dotfiles/alacritty/alacritty2560x1600.toml
 elif [ "$resolution" = "2560x1440" ]; then
